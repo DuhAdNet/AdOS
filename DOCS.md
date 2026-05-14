@@ -124,7 +124,36 @@ Sistema de memória persistente do agente com visualização em grafo interativo
 
 **Visualização:** Canvas 2D com nós (círculos) representando tipos de memória e arestas mostrando conexões. Nós centrais (Shared Brain) conectam aos tipos. Cada nó filho é uma memória individual. Zoom, pan, seleção para ver detalhes.
 
-### 2.8 Sessões e Memória
+### 2.8 Configurações
+
+Tela de configurações completa com sidebar de categorias e painel de opções à direita.
+
+**Categorias:**
+
+| Categoria | Conteúdo |
+|-----------|----------|
+| **App** | Notificações, energia (manter tela ativa), atualizações automáticas, idioma |
+| **Agentes** | Agentes de IA gerenciados, modelo padrão, system prompt |
+| **Aparência** | Tema (dark/light), fontes, ícones de ferramentas |
+| **Entrada** | Tecla de envio (Enter/Ctrl+Enter), corretor ortográfico |
+| **Workspace** | Nome, ícone, diretório de trabalho |
+| **Uso** | Limites de tokens, consumo de créditos por provider, histórico de uso |
+| **Permissões** | Regras do agente (o que pode/não pode fazer sem perguntar) |
+| **Tags** | Gerenciar tags de sessão |
+| **API Keys** | Cadastro e teste de chaves por provider |
+| **Preferências do usuário** | Nome, timezone, idioma, estilo de comunicação |
+
+| Regra | Descrição |
+|-------|-----------|
+| **RN-90** | Configurações persistem localmente (SQLite/electron-store) |
+| **RN-91** | Notificações do desktop quando o agente termina uma tarefa |
+| **RN-92** | Opção "manter tela ativa" durante execução de sessão |
+| **RN-93** | Auto-update: verifica atualizações ao abrir o app |
+| **RN-94** | Idioma do app: PT-BR padrão |
+| **RN-95** | Permissões configuráveis: o que o agente faz sem perguntar vs. pede confirmação |
+| **RN-96** | Monitoramento de uso/custos por provider de LLM |
+
+### 2.9 Sessões e Memória
 
 | Regra | Descrição |
 |-------|-----------|
