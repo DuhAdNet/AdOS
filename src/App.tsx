@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Sidebar from './components/Sidebar';
 import Chat from './pages/Chat';
 import Settings from './pages/Settings';
@@ -8,10 +8,17 @@ type Page = 'chat' | 'settings';
 
 export default function App() {
   const [page, setPage] = useState<Page>('chat');
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
   const [sessions, setSessions] = useState<Array<{ id: string; title: string; date: string }>>([
     { id: '1', title: 'Nova Sessão', date: new Date().toISOString() },
   ]);
   const [activeSession, setActiveSession] = useState('1');
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', theme === 'dark');
+  }, [theme]);
+
+  const toggleTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark');
 
   const handleNewSession = () => {
     const id = Date.now().toString();
@@ -21,8 +28,8 @@ export default function App() {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-[#0a0e17] text-white">
-      <TitleBar />
+    <div className="flex flex-col h-screen bg-surface-0 text-primary">
+      <TitleBar theme={theme} onToggleTheme={toggleTheme} />
       <div className="flex flex-1 overflow-hidden">
         <Sidebar
           sessions={sessions}
