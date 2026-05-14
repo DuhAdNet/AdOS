@@ -1,0 +1,4552 @@
+# Criar um workspace
+Source: https://docsg4os.g4business.com/getting-started/create-workspace
+
+Veja o passo a passo para criar um novo workspace no G4 OS e começar com o contexto certo.
+
+## O que acontece ao criar um workspace
+
+Criar um workspace no G4 OS não é só abrir uma pasta com um nome novo.
+
+Esse processo define o contexto inicial que vai orientar as primeiras sessões, as conexões que fazem sentido para aquele ambiente e a forma como o trabalho começa dentro do produto.
+
+Em outras palavras: um bom workspace nasce com contexto suficiente para a IA operar melhor desde o primeiro uso.
+
+## Antes de começar
+
+Antes de criar o novo workspace, vale ter clareza sobre quatro decisões simples:
+
+* qual será o nome desse workspace
+* para qual empresa, área ou frente ele existe
+* quais objetivos você quer priorizar primeiro
+* quais ferramentas realmente valem ser conectadas já no começo
+
+Isso evita criar um workspace genérico demais e ajuda o G4 OS a começar com mais aderência ao que você precisa executar.
+
+## Passo 1: abrir o seletor de workspace e clicar em `Add Workspace`
+
+O primeiro passo é abrir o seletor de workspace que fica logo abaixo da lista de sessões.
+
+Ao clicar no nome do workspace atual, o G4 OS abre a lista de workspaces disponíveis e mostra a opção `Add Workspace` no final do menu. É a partir dali que você inicia a criação de um novo ambiente.
+
+<img alt="Menu de workspace com a opção Add Workspace" />
+
+*Abra o seletor abaixo da lista de sessões e clique em `Add Workspace` para começar a criação de um novo workspace.*
+
+Esse passo é importante porque ele deixa claro que o novo workspace nasce como um contexto separado, e não como só mais uma sessão dentro do mesmo ambiente.
+
+## Passo 2: preencher os dados básicos
+
+Na primeira etapa, você define as informações essenciais do workspace.
+
+Normalmente entram aqui:
+
+* nome do workspace
+* seu nome
+* idioma e região
+* empresa
+* localização local do workspace
+
+<img alt="Criação do workspace e preenchimento dos dados iniciais" />
+
+*Criação do workspace e definição dos dados básicos do ambiente.*
+
+### O que isso define na prática
+
+* como o workspace será identificado dentro do app
+* qual idioma e região servem como base inicial
+* onde esse workspace será criado localmente
+* qual é o primeiro conjunto de contexto que o G4 OS já pode reaproveitar
+
+## Passo 3: escolher perfil e objetivos
+
+Depois dos dados básicos, o G4 OS pede duas decisões que ajudam a moldar a experiência inicial:
+
+* o `perfil de trabalho` que mais se aproxima do seu uso
+* os `objetivos principais` que você quer destravar primeiro
+
+<img alt="Seleção de perfil de trabalho e objetivos principais" />
+
+*Escolha do perfil e das prioridades que vão orientar o começo do workspace.*
+
+### Perfis que podem aparecer
+
+* `Manager`
+* `IC`
+* `Executive`
+* `Researcher`
+* `Freelancer`
+* `Customizado`
+
+### Objetivos que costumam aparecer
+
+* automatizar rotina
+* resolver problemas mais rápido
+* organizar projetos e contexto
+* preparar reuniões e follow-ups
+* escrever melhor e mais rápido
+* pesquisar e sintetizar informações
+
+Essas escolhas não travam o workspace. Elas servem para o G4 OS começar com sugestões, linguagem e estrutura mais próximas da sua realidade.
+
+## Passo 4: conectar as ferramentas iniciais
+
+Na etapa seguinte, você pode conectar as ferramentas mais importantes logo no começo ou deixar isso para depois.
+
+Nesse fluxo de criação, normalmente aparecem conexões como:
+
+* Gmail
+* Google Calendar
+* Google Drive
+* Outlook Email
+* Outlook Calendar
+
+## Passo 5: escolher como quer começar
+
+Depois das conexões iniciais, o G4 OS pede uma decisão sobre o formato do começo:
+
+* `Fazer entrevista guiada`
+* `Explorar por conta própria`
+
+<img alt="Conexão das ferramentas principais e escolha do modo de começo" />
+
+*Conexões iniciais e decisão entre onboarding guiado ou entrada direta no workspace.*
+
+### Quando escolher cada caminho
+
+Escolha `Fazer entrevista guiada` quando você quer refinar melhor contexto, rotina e prioridades antes de começar a operar.
+
+Escolha `Explorar por conta própria` quando você já sabe o que quer configurar e prefere entrar no app mais rápido.
+
+## Passo 6: revisar a primeira sessão criada
+
+Quando o workspace é finalizado, o G4 OS já abre a primeira sessão com um resumo do que foi definido durante a criação.
+
+<img alt="Primeira sessão aberta com o resumo do setup inicial" />
+
+*Primeira sessão do workspace com o contexto inicial preparado pelo onboarding.*
+
+Esse resumo inicial costuma incluir:
+
+* pessoa responsável
+* idioma e região
+* empresa
+* perfil de trabalho
+* objetivos escolhidos
+* forma de começo selecionada
+* fontes conectadas, quando houver
+
+Esse é o melhor momento para validar se o contexto inicial ficou correto. Se algo estiver impreciso, vale ajustar antes de seguir para a primeira tarefa real.
+
+## O que acontece depois da criação
+
+Depois que o workspace nasce, ele passa a concentrar:
+
+* sessões
+* contexto acumulado
+* conexões
+* arquivos e referências
+* automações e rotinas daquele ambiente
+
+Por isso, a criação do workspace define muito mais do que um nome. Ela define a base operacional daquele contexto.
+
+## Como criar um workspace melhor
+
+Algumas escolhas simples melhoram bastante o resultado:
+
+* use um nome claro e específico
+* comece com poucos objetivos, não todos de uma vez
+* conecte só as ferramentas que ajudam no primeiro fluxo que você quer validar
+* revise a primeira sessão antes de abrir novas conversas
+* trate cada workspace como um contexto operacional distinto
+
+## Quando vale criar outro workspace
+
+Geralmente faz sentido criar um novo workspace quando você quer separar:
+
+* empresas diferentes
+* times ou áreas com operação própria
+* frentes de trabalho com contexto muito distinto
+* ambientes que precisam de conexões, regras ou memória separadas
+
+## Veja também
+
+<Columns>
+  <Card title="Ver Quickstart" icon="rocket" href="/getting-started/quickstart">
+    Entenda o onboarding completo do G4 OS e como esse processo se conecta ao primeiro uso.
+  </Card>
+
+  <Card title="Entender workspaces" icon="folder-tree" href="/product/workspaces">
+    Veja como o G4 OS organiza contexto, sessões, fontes e operação dentro de cada workspace.
+  </Card>
+</Columns>
+
+
+# Quickstart
+Source: https://docsg4os.g4business.com/getting-started/quickstart
+
+Veja como o onboarding do G4 OS cria seu workspace, define o contexto inicial e abre o primeiro fluxo de trabalho.
+
+<Card title="Ver guia detalhado de criação do workspace" icon="folder-tree" href="/getting-started/create-workspace">
+  Abra o passo a passo dedicado para criar um novo workspace com nome, perfil, objetivos, conexões e primeira sessão.
+</Card>
+
+## Como o onboarding funciona
+
+O onboarding do G4 OS foi desenhado para tirar o workspace do zero sem cair numa configuração excessivamente técnica logo na primeira tela.
+
+Em poucos passos, ele coleta o contexto mínimo para abrir um workspace mais útil desde o primeiro uso:
+
+* quem você é e como quer organizar esse workspace
+* qual perfil de trabalho mais se aproxima do seu uso
+* quais objetivos iniciais você quer priorizar
+* quais ferramentas vale conectar já no começo
+* se você prefere um início guiado ou entrar direto no app
+
+## Passo 1: Criar o workspace e preencher os dados básicos
+
+O primeiro passo é criar um novo workspace e preencher as informações que ajudam o G4 OS a preparar o contexto inicial.
+
+Normalmente entram aqui:
+
+* nome do workspace
+* seu nome
+* idioma e região
+* empresa
+* localização local do workspace
+
+<img alt="Criação do workspace e preenchimento dos dados iniciais" />
+
+*Criação do workspace e definição dos dados básicos do ambiente.*
+
+### O que isso decide na prática
+
+* como o workspace aparece para você no app
+* idioma e região usados como base inicial
+* onde esse workspace será criado localmente
+* o mínimo de contexto que o G4 OS já pode reaproveitar depois
+
+## Passo 2: Escolher perfil e objetivos
+
+Depois dos dados básicos, o onboarding pede duas decisões importantes:
+
+* o `perfil de trabalho` que mais parece com o seu uso hoje
+* os `objetivos principais` que você quer destravar primeiro
+
+Isso não trava o workspace em um único caminho. Serve para o G4 OS começar com sugestões, tom e organização mais próximos da sua realidade.
+
+<img alt="Seleção de perfil de trabalho e objetivos principais" />
+
+*Escolha do perfil e das prioridades que vão orientar o começo do workspace.*
+
+### Perfis que aparecem no onboarding
+
+* `Manager`
+* `IC`
+* `Executive`
+* `Researcher`
+* `Freelancer`
+* `Customizado`
+
+### Objetivos que o onboarding já usa como ponto de partida
+
+* automatizar rotina
+* resolver problemas mais rápido
+* organizar projetos e contexto
+* preparar reuniões e follow-ups
+* escrever melhor e mais rápido
+* pesquisar e sintetizar informações
+
+## Passo 3: Conectar ferramentas e escolher como começar
+
+Na etapa seguinte, você pode conectar as principais ferramentas logo no primeiro uso ou pular isso para depois, em `Ferramentas > Conexões`.
+
+Nesse fluxo de onboarding, aparecem conexões como:
+
+* Gmail
+* Google Calendar
+* Google Drive
+* Outlook Email
+* Outlook Calendar
+
+Depois disso, você escolhe entre dois caminhos:
+
+* `Fazer entrevista guiada`
+* `Explorar por conta própria`
+
+<img alt="Conexão das ferramentas principais e escolha do modo de começo" />
+
+*Conexões iniciais e decisão entre onboarding guiado ou entrada direta no workspace.*
+
+> `Fazer entrevista guiada` é o melhor caminho quando você quer que o G4 OS refine melhor sua rotina, contexto e próximos passos antes de começar a operar.
+
+## Passo 4: Validar o resumo inicial na primeira sessão
+
+Quando o workspace é criado, o G4 OS já abre a primeira sessão com um resumo do que foi definido no onboarding.
+
+<img alt="Primeira sessão aberta com o resumo do setup inicial" />
+
+*Primeira sessão do workspace com o contexto inicial preparado pelo onboarding.*
+
+Esse resumo inicial costuma incluir:
+
+* pessoa responsável
+* idioma e região
+* empresa
+* perfil de trabalho
+* objetivos escolhidos
+* forma de começo selecionada
+* fontes conectadas, quando houver
+
+Esse é o ponto certo para revisar se o onboarding capturou bem o contexto. Se algo estiver impreciso, você pode corrigir ali e seguir para a primeira tarefa real.
+
+## O melhor jeito de sair do onboarding para a operação
+
+Em vez de tentar configurar tudo de uma vez, o caminho mais sólido costuma ser este:
+
+1. criar o workspace com um nome claro e contexto básico correto
+2. escolher no máximo 2 ou 3 objetivos iniciais
+3. conectar só as ferramentas mais importantes do fluxo que você quer testar primeiro
+4. revisar a sessão inicial de setup
+5. abrir a primeira conversa real em cima de um caso de uso do dia a dia
+
+## O que uma boa implantação costuma ter
+
+<Columns>
+  <Card title="Workspace claro" icon="folder-tree" href="/product/workspaces">
+    Uma estrutura simples, com contexto organizado e fácil de manter.
+  </Card>
+
+  <Card title="Sessoes bem definidas" icon="messages" href="/product/sessions">
+    Cada conversa com um objetivo claro e um histórico útil para continuidade.
+  </Card>
+
+  <Card title="Fontes conectadas com criterio" icon="plug" href="/support/sources">
+    Conecte só o que ajuda a executar melhor no primeiro fluxo que você quer validar.
+  </Card>
+
+  <Card title="Regras de controle" icon="shield-check" href="/product/security">
+    Permissões, limites e segurança definidos desde o início.
+  </Card>
+</Columns>
+
+<Columns>
+  <Card title="Entender workspaces" icon="folder-tree" href="/product/workspaces">
+    Veja como o G4 OS organiza contexto, sessões, fontes e operação dentro de cada workspace.
+  </Card>
+
+  <Card title="Criar um workspace" icon="folder-tree" href="/getting-started/create-workspace">
+    Veja o passo a passo dedicado de criação do workspace e como revisar a primeira sessão.
+  </Card>
+
+  <Card title="Ver fontes e conexões" icon="plug" href="/product/connections">
+    Entenda a diferença entre conexões gerenciadas, MCPs, APIs e agentes gerenciados.
+  </Card>
+</Columns>
+
+
+# Introdução
+Source: https://docsg4os.g4business.com/index
+
+Conheça o G4 OS, o AI Operational System da sua empresa.
+
+## O que é o G4 OS?
+
+O G4 OS é o `AI Operational System` da sua empresa.
+
+Em vez de usar IA em conversas isoladas, o G4 OS coloca a IA dentro da operação real do time. Você conecta as ferramentas, os processos e o contexto que já existem, e passa a executar com mais continuidade, mais contexto e menos retrabalho.
+
+Na prática, ele vira a camada onde trabalho, contexto e execução se encontram. É ali que seu time organiza sessões, conecta ferramentas, opera com agentes e automatiza rotinas sem precisar recomeçar do zero a cada nova conversa.
+
+O objetivo não é só responder perguntas. O objetivo é ajudar sua empresa a `conectar tudo`, `gerenciar tudo` e `executar melhor` a partir de um único lugar.
+
+<Card title="Comece em poucos minutos" icon="rocket" href="/getting-started/quickstart">
+  Veja como criar seu workspace, conectar suas ferramentas e colocar o G4 OS para operar desde o primeiro fluxo.
+</Card>
+
+## Não é só um chat com IA
+
+O G4 OS foi pensado para times que já entenderam que IA sozinha não resolve o problema. O gargalo quase sempre está em outro lugar:
+
+* contexto espalhado entre ferramentas
+* decisões perdidas em conversas soltas
+* tarefas recorrentes que continuam manuais
+* dificuldade de transformar IA em operação consistente
+
+Com o G4 OS, cada sessão pode virar uma frente de trabalho viva, com contexto acumulado, ferramentas conectadas e continuidade real entre o que foi decidido e o que precisa ser executado depois.
+
+## Arquitetura local-first
+
+O G4 OS foi desenhado para manter seus dados perto de você.
+
+Credenciais, histórico de sessões e configuração de fontes ficam criptografados na sua máquina. Quando você conecta ERP, Gmail, Slack ou qualquer outra ferramenta, as chamadas saem diretamente do seu ambiente para o destino final — sem a G4 atuar como proxy intermediário.
+
+<Columns>
+  <Card title="Privacidade e dados" icon="lock" href="/product/privacy-and-data">
+    Veja o fluxo completo da arquitetura, o que fica local e quando a infraestrutura da plataforma participa.
+  </Card>
+
+  <Card title="Segurança e controle" icon="shield-check" href="/product/security">
+    Entenda como o network interceptor, as credenciais e a telemetria funcionam na prática.
+  </Card>
+</Columns>
+
+## O que você consegue fazer com o G4 OS
+
+<Columns>
+  <Card title="Centralizar o contexto do trabalho" icon="layer-group" href="/product/workspaces">
+    Reúna projetos, arquivos, histórico e referências em um único workspace, em vez de operar com contexto espalhado.
+  </Card>
+
+  <Card title="Operar várias frentes ao mesmo tempo" icon="messages" href="/product/sessions">
+    Organize múltiplas sessões em paralelo, cada uma com objetivo, contexto e continuidade próprios.
+  </Card>
+
+  <Card title="Executar com agentes" icon="sparkles" href="/product/agents">
+    Coloque agentes para trabalhar com mais contexto, mais autonomia e mais aderência à forma como seu time opera.
+  </Card>
+
+  <Card title="Conectar o que sua empresa já usa" icon="plug" href="/product/integrations">
+    Traga ferramentas, fontes e sistemas já presentes no fluxo da empresa para dentro da operação com IA.
+  </Card>
+</Columns>
+
+## Feito para times que precisam de velocidade com contexto
+
+O G4 OS foi pensado para transformar IA em operação real no dia a dia. Isso significa menos perda de contexto, menos trabalho duplicado e mais capacidade de manter execução consistente ao longo do tempo.
+
+<Columns>
+  <Card title="Memória operacional" icon="book-open" href="/product/sessions">
+    Mantenha histórico, arquivos, decisões e contexto acessíveis em cada frente de trabalho.
+  </Card>
+
+  <Card title="Segurança e controle" icon="shield-check" href="/product/security">
+    Defina permissões, acessos e regras de uso com mais governança.
+  </Card>
+
+  <Card title="Automação operacional" icon="clock-rotate-left" href="/product/automation">
+    Crie acompanhamentos, execuções recorrentes e rotinas que continuam funcionando além de uma conversa pontual.
+  </Card>
+
+  <Card title="Conexões que ampliam a operação" icon="share-nodes" href="/product/connections">
+    Entenda quais conexões usar para trazer dados, ferramentas e capacidades para dentro do G4 OS.
+  </Card>
+</Columns>
+
+## Como pensar o G4 OS na prática
+
+Se um chatbot responde, o G4 OS opera.
+
+Ele foi desenhado para ser o lugar onde a empresa transforma contexto em execução: um sistema para acompanhar frentes de trabalho, conectar ferramentas, coordenar agentes e sustentar continuidade entre pessoas, decisões e rotinas.
+
+Por isso a melhor forma de adotar o G4 OS não é tentar configurar tudo de uma vez. É começar por um fluxo real do dia a dia, conectar o contexto certo e deixar o sistema provar valor dentro da operação.
+
+## Por onde começar
+
+<Columns>
+  <Card title="Ver o guia inicial" icon="book-open" href="/getting-started/quickstart">
+    Siga o passo a passo para configurar o básico e começar a usar o G4 OS com o seu time.
+  </Card>
+
+  <Card title="Abrir central de suporte" icon="headset" href="/support">
+    Encontre a documentação detalhada das telas e funcionalidades já mapeadas dentro do app.
+  </Card>
+</Columns>
+
+
+# Agentes
+Source: https://docsg4os.g4business.com/product/agents
+
+Entenda como os agentes do G4 OS ajudam seu time a executar com mais autonomia e contexto.
+
+## O que são agentes no G4 OS
+
+Agentes são camadas operacionais de IA que trabalham com contexto, instruções, ferramentas e limites definidos.
+
+Na prática, isso permite sair do uso genérico de chat e evoluir para uma operação em que a IA ajuda a analisar, organizar, decidir e executar com mais consistência.
+
+## O que muda na prática
+
+Em vez de depender apenas de prompts soltos, seu time passa a trabalhar com agentes que:
+
+* entendem o contexto do workspace
+* acessam fontes conectadas quando necessário
+* seguem instruções e regras de uso
+* podem apoiar fluxos recorrentes e automações
+
+## Bons casos de uso
+
+* preparação de reuniões
+* consolidação de contexto e materiais
+* acompanhamento de operações e pendências
+* organização de informações dispersas
+* execução assistida em fluxos internos
+
+## O que diferencia um bom agente
+
+Um bom agente não precisa parecer humano. Ele precisa ter função clara, acesso ao contexto certo e um escopo bem definido de atuação.
+
+<Card title="Explorar integrações" icon="plug" href="/product/integrations">
+  Veja como conectar as ferramentas certas para ampliar o alcance operacional dos agentes.
+</Card>
+
+
+# Automação
+Source: https://docsg4os.g4business.com/product/automation
+
+Transforme rotinas recorrentes em operação assistida por IA com mais consistência.
+
+## Automatize o que já faz sentido
+
+Automação no G4 OS não começa por complexidade. Ela começa por clareza.
+
+O melhor ponto de partida é identificar tarefas recorrentes, com entradas previsíveis e critérios razoavelmente estáveis de execução.
+
+## Bons exemplos de automação
+
+* acompanhamentos periódicos
+* consolidação de atualizações
+* preparação de materiais de rotina
+* monitoramento de sinais, pendências ou mudanças
+* follow-ups operacionais
+
+## O que uma boa automação precisa
+
+* objetivo claro
+* contexto acessível
+* limites definidos
+* critérios simples de sucesso
+
+## Evolua em camadas
+
+Comece com automações pequenas e facilmente verificáveis. À medida que a confiança aumenta, amplie o escopo com mais fontes, regras e frequência operacional.
+
+<Card title="Ver segurança e controle" icon="shield-check" href="/product/security">
+  Defina guardrails, permissões e governança antes de escalar automações no time.
+</Card>
+
+
+# Conexões
+Source: https://docsg4os.g4business.com/product/connections/index
+
+Entenda a diferença entre conexões gerenciadas, MCPs, APIs e agentes gerenciados no G4 OS.
+
+## Como pensar nas conexões no G4 OS
+
+Conexões são o que trazem contexto, ferramentas e capacidade de execução para dentro do seu workspace.
+
+Nem toda conexão funciona do mesmo jeito. Algumas são prontas e gerenciadas pelo produto, outras dependem de configuração técnica, e outras já entregam uma capacidade de agente pronta para uso.
+
+<Columns>
+  <Card title="Conexões Gerenciadas" icon="plug" href="/product/connections/managed-connections">
+    Catálogo pronto do G4 OS para conectar apps comuns com autenticação e runtime administrados pelo produto.
+  </Card>
+
+  <Card title="Agentes Gerenciados" icon="bot" href="/product/connections/managed-agents">
+    Catálogo de agentes prontos com capacidades específicas, como entendimento multimodal e geração de imagens.
+  </Card>
+
+  <Card title="MCPs" icon="server" href="#mcps">
+    Integrações via Model Context Protocol, ideais para ferramentas e fluxos mais customizados.
+  </Card>
+
+  <Card title="APIs" icon="code" href="#apis">
+    Conexões diretas com endpoints e credenciais quando você já sabe exatamente o que quer integrar.
+  </Card>
+</Columns>
+
+## Comparação rápida
+
+| Tipo                 | O que é                                         | Melhor quando                                                       | Onde abrir                             |
+| -------------------- | ----------------------------------------------- | ------------------------------------------------------------------- | -------------------------------------- |
+| Conexões Gerenciadas | Integrações prontas do catálogo do G4 OS        | Você quer plugar apps conhecidos com menos configuração manual      | `Ferramentas > Conexões > Gerenciadas` |
+| Agentes Gerenciados  | Agentes prontos com capacidades específicas     | Você quer execução especializada, multimodalidade ou geração        | `Ferramentas > Conexões > Agentes`     |
+| MCPs                 | Servidores que expõem ferramentas via MCP       | Você precisa de ferramentas mais flexíveis, locais ou remotas       | `Ferramentas > Conexões > MCPs`        |
+| APIs                 | Integrações diretas com endpoints e credenciais | Você já tem uma API definida e quer configurar o acesso diretamente | `Ferramentas > Conexões > APIs`        |
+
+## Conexões Gerenciadas
+
+Conexões gerenciadas são o caminho mais simples para plugar ferramentas populares no G4 OS.
+
+Elas já vêm com a experiência do produto preparada para autenticação, reconexão, diagnóstico e uso em sessão. Na prática, isso reduz bastante a necessidade de configurar MCP, endpoint, escopo ou runtime manualmente.
+
+<Card title="Explorar Conexões Gerenciadas" icon="plug" href="/product/connections/managed-connections">
+  Veja o catálogo atual com cards por integração e um resumo do que é possível fazer em cada uma.
+</Card>
+
+## Agentes Gerenciados
+
+Agentes gerenciados são diferentes de uma conexão comum. Em vez de só conectar um sistema, eles já trazem uma capacidade operacional pronta, como entendimento multimodal, análise de documentos ou geração de imagens.
+
+> **Beta:** agentes gerenciados são uma função beta e podem não estar disponíveis para todos os usuários, contas, workspaces ou builds do G4 OS.
+
+<Card title="Explorar Agentes Gerenciados" icon="bot" href="/product/connections/managed-agents">
+  Veja o catálogo atual de agentes, o que cada um faz melhor e onde eles aparecem no produto.
+</Card>
+
+## MCPs
+
+MCPs são conexões baseadas em Model Context Protocol. Em vez de um catálogo pronto do G4 OS, você conecta um servidor que expõe ferramentas e capacidades para o produto consumir.
+
+Esse é o caminho certo quando você precisa de algo mais customizado, quando a integração já existe em MCP ou quando faz sentido manter a lógica fora do G4 OS.
+
+### Quando faz mais sentido
+
+* quando sua integração já existe como servidor MCP
+* quando você precisa expor ferramentas mais específicas do que uma API pronta
+* quando a autenticação, o runtime ou a lógica da integração precisam ficar fora do produto
+
+## APIs
+
+APIs são conexões diretas com endpoints externos. Aqui o foco é configurar acesso a uma API específica, normalmente com URL, credenciais e parâmetros definidos por você.
+
+É uma abordagem mais técnica e mais flexível do que as conexões gerenciadas, mas com menos abstração do produto.
+
+### Quando faz mais sentido
+
+* quando você já tem uma API interna ou externa bem definida
+* quando não existe conector gerenciado para esse sistema
+* quando você quer um controle mais direto sobre endpoint, auth e payload
+
+## Como escolher sem complicar
+
+* Comece por `Conexões Gerenciadas` quando o sistema já estiver no catálogo do G4 OS.
+* Use `Agentes Gerenciados` quando o valor principal estiver na capacidade do agente, e não só no acesso à fonte.
+* Use `MCPs` quando você precisar plugar ferramentas mais customizadas.
+* Use `APIs` quando já existir uma integração técnica clara por endpoint.
+
+<Columns>
+  <Card title="Ver privacidade e dados" icon="shield" href="/product/privacy-and-data">
+    Entenda como a arquitetura do G4 OS funciona na prática e quando o fluxo é local ou gerenciado.
+  </Card>
+
+  <Card title="Ver suporte de conexões" icon="circle-help" href="/support/sources">
+    Consulte a documentação da aba Conexões dentro de Ferramentas.
+  </Card>
+</Columns>
+
+
+# Agentes Gerenciados
+Source: https://docsg4os.g4business.com/product/connections/managed-agents
+
+Catálogo atual de agentes gerenciados do G4 OS, com explicação curta do que cada agente faz melhor.
+
+## O que são agentes gerenciados
+
+Agentes gerenciados são agentes prontos do catálogo do G4 OS.
+
+Em vez de só conectar uma fonte, eles já entregam uma capacidade operacional específica, como entendimento multimodal, análise de documentos ou geração de imagens.
+
+<Warning>
+  **Beta:** Agentes gerenciados são uma funcionalidade beta e ainda não foram disponibilizados para todos os usuários. Se não aparecer a funcionalidade, aguarde atualizações futuras.
+</Warning>
+
+## Onde aparecem no produto
+
+* `Ferramentas > Conexões > Agentes`
+* `Configurações > Agentes`
+* [Abrir Agentes G4](g4os://sources/g4-agents)
+* [Abrir Configurações de Agentes](g4os://settings/agents)
+
+## Catálogo atual
+
+<Columns>
+  <Card title="Google AI" icon="https://www.gstatic.com/images/branding/product/2x/gemini_48dp.png">
+    Entende texto, URLs, imagens, áudio, vídeo e documentos para análise multimodal e uso geral.
+  </Card>
+
+  <Card title="AWS Nova" icon="https://m.media-amazon.com/images/I/61-mzaOAb4L.png">
+    Analisa documentos e imagens com foco em tarefas estruturadas e apoio operacional. A disponibilidade pode variar por build e conta.
+  </Card>
+
+  <Card title="Nano Banana" icon="https://www.gstatic.com/images/branding/product/2x/gemini_48dp.png">
+    Gera imagens e variações criativas para ativos visuais. A disponibilidade pode variar por build e conta.
+  </Card>
+</Columns>
+
+## Quando faz sentido usar
+
+* quando você quer uma capacidade pronta de agente, e não só acesso a dados
+* quando o caso de uso pede multimodalidade, análise especializada ou geração
+* quando faz sentido usar um catálogo central administrado pelo produto
+
+## O que avaliar antes de usar em produção
+
+* se o agente está disponível no seu build e no seu workspace
+* quais arquivos e fontes ele pode acessar
+* se o fluxo precisa de revisão humana antes da execução final
+
+<Columns>
+  <Card title="Ver visão geral de conexões" icon="plug" href="/product/connections">
+    Volte para a visão comparativa entre gerenciadas, MCPs, APIs e agentes.
+  </Card>
+
+  <Card title="Ver suporte de agentes" icon="circle-help" href="/support/agents">
+    Consulte a documentação da área de Agentes dentro do app.
+  </Card>
+</Columns>
+
+
+# Conexões Gerenciadas
+Source: https://docsg4os.g4business.com/product/connections/managed-connections
+
+Catálogo atual de conexões gerenciadas do G4 OS, com explicação curta do que cada integração permite fazer.
+
+## O que são conexões gerenciadas
+
+Conexões gerenciadas são integrações prontas do catálogo do G4 OS.
+
+Elas reduzem o trabalho manual de configuração, porque o produto já cuida de partes importantes como autenticação, reconexão, status e experiência de uso dentro da sessão.
+
+## Indicador de provedor na sessão
+
+Quando o G4 OS está operando com o provedor gerenciado ativo, o seletor de modelo na área de input exibe o hint **"G4 Managed Provider by AWS"**.
+
+Esse indicador aparece automaticamente em builds públicas do G4 OS sempre que uma conexão gerenciada está sendo usada — sem necessidade de configuração adicional. O objetivo é dar transparência ao usuário sobre qual provedor está processando as requisições da sessão atual.
+
+## Onde aparecem no produto
+
+* `Ferramentas > Conexões > Gerenciadas`
+* Indicador **"G4 Managed Provider by AWS"** no seletor de modelo da área de input (durante sessões ativas)
+* [Abrir Conexões Gerenciadas](g4os://sources/g4-managed)
+
+## Quando vale começar por aqui
+
+* quando você quer conectar ferramentas conhecidas com o menor atrito possível
+* quando o time precisa de uma integração estável sem montar infraestrutura própria
+* quando você quer velocidade para colocar a operação no ar
+
+Hoje, o catálogo padrão do G4 OS reúne `27 conexões gerenciadas`.
+
+## Catálogo atual
+
+### Google
+
+<Columns>
+  <Card title="Gmail" icon="https://ssl.gstatic.com/ui/v1/icons/mail/rfr/gmail.ico">
+    Buscar, ler, responder e enviar e-mails do Gmail.
+  </Card>
+
+  <Card title="Google Calendar" icon="https://calendar.google.com/googlecalendar/images/favicons_2020q4/calendar_31.ico">
+    Consultar agenda, disponibilidade e criar ou atualizar eventos.
+  </Card>
+
+  <Card title="Google Tasks" icon="https://fonts.gstatic.com/s/i/productlogos/tasks/v1/192px.svg">
+    Listar, organizar e atualizar tarefas e listas do Google Tasks.
+  </Card>
+
+  <Card title="Google Drive" icon="https://drive.google.com/favicon.ico">
+    Buscar arquivos, navegar pastas e acessar conteúdo compatível no Drive.
+  </Card>
+
+  <Card title="Google Docs" icon="https://pipedream.com/s.v0/app_1pbh98/logo/orig">
+    Criar, ler e editar documentos do Google Docs.
+  </Card>
+
+  <Card title="Google Chat" icon="https://fonts.gstatic.com/s/i/productlogos/chat_2020q4/v2/192px.svg">
+    Consultar conversas e apoiar fluxos de comunicação dentro do Google Chat.
+  </Card>
+
+  <Card title="Google Sheets" icon="https://fonts.gstatic.com/s/i/productlogos/sheets_2020q4/v9/192px.svg">
+    Ler, atualizar e organizar dados em planilhas do Google Sheets.
+  </Card>
+
+  <Card title="Google Slides" icon="https://fonts.gstatic.com/s/i/productlogos/slides_2020q4/v6/192px.svg">
+    Acessar apresentações e trabalhar com conteúdo no Google Slides.
+  </Card>
+
+  <Card title="Google Analytics" icon="https://pipedream.com/s.v0/app_mJQh5A/logo/orig">
+    Consultar métricas e apoiar análises de tráfego e performance.
+  </Card>
+</Columns>
+
+### Microsoft
+
+<Columns>
+  <Card title="Microsoft Outlook Email" icon="https://res.cdn.office.net/files/fabric-cdn-prod_20230815.001/assets/brand-icons/product/svg/outlook_32x1.svg">
+    Buscar, ler, responder e enviar e-mails do Outlook.
+  </Card>
+
+  <Card title="Microsoft Outlook Calendar" icon="https://res.cdn.office.net/files/fabric-cdn-prod_20230815.001/assets/brand-icons/product/svg/outlook_32x1.svg">
+    Consultar agenda, disponibilidade e gerenciar eventos do Outlook Calendar.
+  </Card>
+
+  <Card title="Microsoft Teams" icon="https://res.cdn.office.net/files/fabric-cdn-prod_20230815.001/assets/brand-icons/product/svg/teams_32x1.svg">
+    Apoiar fluxos de comunicação e colaboração no Microsoft Teams.
+  </Card>
+
+  <Card title="Microsoft 365 Planner" icon="https://pipedream.com/s.v0/app_vNh2Q5/logo/orig">
+    Acompanhar, criar e atualizar planos, buckets e tarefas no Microsoft 365 Planner.
+  </Card>
+
+  <Card title="Microsoft OneDrive" icon="https://res.cdn.office.net/files/fabric-cdn-prod_20241209.001/assets/brand-icons/product/svg/onedrive_48x1.svg">
+    Buscar arquivos e acessar conteúdo armazenado no OneDrive.
+  </Card>
+
+  <Card title="Microsoft SharePoint" icon="https://res.cdn.office.net/files/fabric-cdn-prod_20241209.001/assets/brand-icons/product/svg/sharepoint_48x1.svg">
+    Consultar bibliotecas, documentos e contexto em ambientes SharePoint.
+  </Card>
+</Columns>
+
+### Operação e colaboração
+
+<Columns>
+  <Card title="Asana" icon="https://pipedream.com/s.v0/app_OVWhPX/logo/orig">
+    Acompanhar tarefas, projetos e fluxos operacionais no Asana.
+  </Card>
+
+  <Card title="GitHub" icon="https://github.githubassets.com/favicons/favicon.svg">
+    Consultar repositórios, PRs, issues e contexto de engenharia.
+  </Card>
+
+  <Card title="Linear" icon="https://linear.app/static/favicon.svg">
+    Trabalhar com issues, projetos e rotina operacional no Linear.
+  </Card>
+
+  <Card title="Jira" icon="https://wac-cdn.atlassian.com/assets/img/favicons/atlassian/favicon.png">
+    Acompanhar tickets, status e fluxo de trabalho no Jira.
+  </Card>
+
+  <Card title="Notion" icon="https://pipedream.com/s.v0/app_X7Lhxr/logo/orig">
+    Buscar páginas, bases e documentação operacional no Notion.
+  </Card>
+
+  <Card title="Pipedrive" icon="https://www.pipedrive.com/favicon.ico">
+    Consultar pipeline, negócios e contexto comercial no Pipedrive.
+  </Card>
+
+  <Card title="Slack" icon="https://a.slack-edge.com/80588/marketing/img/meta/slack_hash_128.png">
+    Apoiar comunicação operacional e consulta de contexto no Slack.
+  </Card>
+
+  <Card title="Supabase" icon="https://pipedream.com/s.v0/app_1dBhP3/logo/orig">
+    Trabalhar com dados e operações técnicas em projetos Supabase.
+  </Card>
+
+  <Card title="Trello" icon="https://trello.com/favicon.ico">
+    Acompanhar quadros, cards e organização de trabalho no Trello.
+  </Card>
+
+  <Card title="HubSpot" icon="https://pipedream.com/s.v0/app_OkrhlP/logo/orig">
+    Trabalhar com CRM, contatos, empresas e negócios no HubSpot.
+  </Card>
+
+  <Card title="Salesforce" icon="https://pipedream.com/s.v0/app_OrZhD7/logo/orig">
+    Consultar objetos, registros e apoiar ações comerciais no Salesforce.
+  </Card>
+
+  <Card title="YouTube" icon="https://pipedream.com/s.v0/app_XKvhQ3/logo/orig">
+    Acessar vídeos, playlists, comentários e dados do canal via YouTube.
+  </Card>
+</Columns>
+
+## Como usar esse catálogo
+
+* escolha primeiro as integrações que concentram decisão e execução no seu dia a dia
+* conecte poucas fontes no início, mas com uso real
+* amplie o catálogo conforme os fluxos começarem a depender de contexto externo
+
+<Columns>
+  <Card title="Ver visão geral de conexões" icon="plug" href="/product/connections">
+    Volte para a visão comparativa entre gerenciadas, MCPs, APIs e agentes.
+  </Card>
+
+  <Card title="Ver suporte de conexões" icon="headset" href="/support/sources">
+    Consulte os caminhos da interface e os deep links da aba Conexões.
+  </Card>
+</Columns>
+
+
+# Integrações
+Source: https://docsg4os.g4business.com/product/integrations
+
+Conecte ferramentas e fontes de dados para tornar o G4 OS mais útil no dia a dia.
+
+## Contexto real gera execução melhor
+
+O G4 OS fica mais poderoso quando consegue trabalhar com as fontes que seu time já usa no dia a dia.
+
+Ao conectar ferramentas, você reduz o retrabalho manual e permite que agentes consultem informações relevantes no momento certo.
+
+## O que conectar primeiro
+
+As melhores integrações iniciais costumam ser as que concentram:
+
+* comunicação
+* documentação
+* tarefas e projetos
+* código e operações
+
+## Como priorizar
+
+Comece pelas fontes que respondem a uma pergunta simples: se um agente pudesse consultar apenas um lugar para ajudar melhor hoje, qual seria esse lugar?
+
+## O objetivo não é conectar tudo
+
+Uma boa estratégia de integração é seletiva. Quanto mais clara for a relação entre fonte, contexto e caso de uso, maior o valor gerado.
+
+<Columns>
+  <Card title="Ver conexoes" icon="plug" href="/product/connections">
+    Entenda a diferença entre conexões gerenciadas, agentes gerenciados, MCPs e APIs.
+  </Card>
+
+  <Card title="Ver automacao" icon="clock-rotate-left" href="/product/automation">
+    Entenda como transformar esse contexto conectado em fluxos recorrentes e operacao assistida.
+  </Card>
+</Columns>
+
+
+# Privacidade e dados
+Source: https://docsg4os.g4business.com/product/privacy-and-data
+
+Entenda como os dados circulam no G4 OS, o que fica local e quando a infraestrutura da plataforma participa do fluxo.
+
+## Resumo rápido
+
+O G4 OS foi desenhado com uma arquitetura `local-first`.
+
+No fluxo padrão, ele funciona como um orquestrador local: credenciais, histórico de sessões, configuração de fontes e chamadas para APIs externas ficam na sua máquina. Quando você conecta ERP, Gmail, Slack ou outras ferramentas via APIs próprias ou MCPs locais, a chamada sai da sua máquina para o destino final, sem a G4 atuar como proxy intermediário desse tráfego.
+
+Isso não significa que nada nunca saia do seu ambiente. Significa que o fluxo principal do produto não depende de espelhar seus dados operacionais em servidores da G4 para funcionar.
+
+## Como funciona na prática
+
+### Visão geral: o que sai de onde
+
+O diagrama abaixo mostra o fluxo completo — o que roda na máquina do usuário, o que vai para os LLMs externos, o que chega aos servidores da G4 e como as APIs de terceiros são acessadas pelo sistema.
+
+```mermaid theme={null}
+graph TD
+    subgraph USER_MACHINE["Máquina do Usuário"]
+        UI[Renderer UI\nReact + Jotai]
+        IPC[IPC Bridge\nipc.ts / preload]
+        MAIN[Main Process\nsessions.ts]
+        SM[SessionManager]
+        BACKEND[Agent Backend\nClaudeAgent / PiAgent / CodexAgent]
+        INTERCEPT[Network Interceptor\npreload module]
+        MCP[MCP Server Local\nstdio subprocess]
+        CREDS[credentials.enc\nCriptografado local]
+        LOCAL_DB[session.jsonl\nHistórico local]
+    end
+
+    subgraph EXTERNAL_LLM["LLMs Externos"]
+        ANTHROPIC[api.anthropic.com]
+        OPENAI[OpenAI / Compat]
+        GEMINI[generativelanguage.google]
+        BEDROCK[AWS Bedrock]
+    end
+
+    subgraph G4_SERVERS["Servidores G4 — g4oscloud.com"]
+        TELEMETRY[api/telemetry/ingest\nMetadados hasheados]
+        ENTITLEMENT[api/entitlements/me\nLicença do usuário]
+        BUDGET[api/llm/budget/me\nCota de tokens gerenciados]
+        UPDATE[api/updates/token\nAuto-update]
+    end
+
+    subgraph EXTERNAL_APIS["APIs Externas — ERP, Gmail, Slack..."]
+        ERP[API do ERP]
+        GMAIL[Gmail API]
+        SLACK[Slack API]
+    end
+
+    UI -->|input do usuário| IPC
+    IPC -->|IPC channel| MAIN
+    MAIN --> SM
+    SM --> BACKEND
+    BACKEND -->|fetch global patchado| INTERCEPT
+    INTERCEPT -->|prompt + tools| ANTHROPIC
+    INTERCEPT -->|prompt + tools| GEMINI
+    INTERCEPT -->|prompt + tools| OPENAI
+    INTERCEPT -->|SigV4 signed| BEDROCK
+    ANTHROPIC -->|SSE stream| INTERCEPT
+    INTERCEPT -->|eventos processados| SM
+    SM -->|persiste| LOCAL_DB
+    SM -->|lê credenciais| CREDS
+    BACKEND -->|tool call| MCP
+    MCP -->|Bearer token via env| ERP
+    MCP -->|Bearer token via env| GMAIL
+    MCP -->|Bearer token via env| SLACK
+    MAIN -->|telemetria estruturada hasheada| TELEMETRY
+    MAIN -->|verificar licença| ENTITLEMENT
+    MAIN -->|verificar cota| BUDGET
+    MAIN -->|verificar update| UPDATE
+```
+
+**Ponto central:** chamadas para ERP, Gmail, Slack e similares saem diretamente da máquina do usuário via MCP subprocess — sem passar pelos servidores da G4.
+
+### Fluxo local padrão em texto
+
+```text theme={null}
+Interface do G4 OS
+  -> execução local no seu computador
+    -> provedor de IA escolhido por você
+    -> APIs e sistemas externos conectados por você
+```
+
+### O que isso quer dizer
+
+* o G4 OS roda e orquestra a operação localmente
+* chamadas para APIs externas saem da máquina do usuário nos fluxos locais
+* o conteúdo enviado ao modelo vai para o provedor de IA selecionado, não para a G4
+* a G4 não precisa armazenar o histórico completo do seu workspace para a operação padrão funcionar
+
+## O que normalmente fica local
+
+No fluxo local padrão, estes itens permanecem no ambiente do usuário:
+
+| Tipo de dado                   | Onde fica                         |
+| ------------------------------ | --------------------------------- |
+| Credenciais e tokens           | armazenamento local criptografado |
+| Histórico de sessões           | arquivos locais do workspace      |
+| Configuração de fontes         | arquivos locais do workspace      |
+| Arquivos e contexto do projeto | diretórios e workspaces locais    |
+
+### Como as credenciais circulam em tempo de execução
+
+As credenciais nunca aparecem em logs, nunca ficam em disco durante a execução e nunca são incluídas na telemetria. O fluxo abaixo mostra o ciclo completo desde o armazenamento criptografado até o uso nas requisições.
+
+```mermaid theme={null}
+graph TD
+    subgraph CRED_FLOW["Fluxo de Credenciais em Tempo de Execução"]
+        STORED[credentials.enc\nAES criptografado em disco]
+        MAIN_PROC[Main Process\ncarrega na memória]
+        ENV_VARS[Env Vars do subprocess\nANTHROPIC_API_KEY etc]
+        SDK_PROC[SDK subprocess\nherda env]
+        HTTP_HDR[Header HTTP\nAuthorization: Bearer token]
+        MCP_ENV[MCP Server subprocess\nenv vars]
+        EXT_API[API Externa\nERP / Gmail / Slack]
+    end
+
+    STORED -->|decrypt na memória| MAIN_PROC
+    MAIN_PROC -->|seta antes de spawn| ENV_VARS
+    ENV_VARS -->|subprocess herda| SDK_PROC
+    SDK_PROC -->|requisição HTTP| HTTP_HDR
+    HTTP_HDR -->|TLS| LLM[API do LLM]
+
+    MAIN_PROC -->|seta antes de spawn MCP| MCP_ENV
+    MCP_ENV -->|subprocess herda| MCP_SRV[MCP Server]
+    MCP_SRV -->|requisição HTTP com Bearer| EXT_API
+```
+
+## O que pode sair da sua máquina
+
+Alguns dados precisam sair do seu ambiente para que o produto funcione:
+
+* prompts e contexto enviados ao provedor de IA que você escolheu
+* chamadas para APIs externas conectadas por você
+* metadados técnicos limitados para autenticação, licenciamento, updates e telemetria operacional
+
+## O que a G4 recebe no fluxo do produto
+
+A plataforma pode receber dados técnicos necessários para operar o serviço, como:
+
+* autenticação e entitlement da conta
+* verificação de orçamento quando você usa recursos gerenciados
+* checagem de updates
+* telemetria técnica e estruturada do produto
+
+No caso da telemetria, o produto usa identificadores hasheados para sessão e workspace em vez de IDs brutos, e o objetivo é medir uso técnico do sistema, não o conteúdo do que foi escrito.
+
+### O que a telemetria envia — e o que ela nunca envia
+
+```mermaid theme={null}
+graph TD
+    subgraph TELEMETRY_SENT["O que vai para g4oscloud.com/api/telemetry"]
+        EV[Evento de Telemetria]
+        EV --> F1[name: session_start / turn_completed / tool_used]
+        EV --> F2[session_hash: SHA256 do sessionId]
+        EV --> F3[workspace_hash: SHA256 do workspaceId]
+        EV --> F4[provider_type: anthropic / openai / google]
+        EV --> F5[model_id: claude-opus-4-6 etc]
+        EV --> F6[app_version / platform / flavor]
+        EV --> F7[turn_outcome: success / error]
+        EV --> F8[error_family: auth / rate_limit / provider]
+    end
+
+    subgraph NOT_SENT["O que nunca é enviado"]
+        NS1[Conteúdo das mensagens]
+        NS2[Nomes de arquivos]
+        NS3[Caminhos locais]
+        NS4[IDs raw de sessão]
+        NS5[Credenciais ou tokens]
+        NS6[Dados do ERP / APIs externas]
+    end
+
+    subgraph SENTRY_DETAIL["Sentry — Relatório de Erros"]
+        SE[Stack trace de erro]
+        SE --> SR1[User ID: hash anônimo de hostname+homedir]
+        SE --> SR2[Headers sensíveis → REDACTED automaticamente]
+        SE --> SR3[Breadcrumbs com token/key/secret → REDACTED]
+        SE --> SR4[Source maps: desabilitados]
+    end
+```
+
+A telemetria é **comportamental e estruturada** — registra que uma sessão aconteceu, com qual modelo e com qual resultado. Nunca o conteúdo.
+
+## Resumo: o que a G4 monitora de fato
+
+| Canal           | O que vai                                                                         | O que não vai                                    |
+| --------------- | --------------------------------------------------------------------------------- | ------------------------------------------------ |
+| **Telemetria**  | Tipo de evento (hasheado), modelo usado, resultado (success/error), versão do app | Conteúdo de mensagens, dados do ERP, credenciais |
+| **Sentry**      | Stack trace de erros, versão, plataforma                                          | Headers de auth (redactados), conteúdo de prompt |
+| **Entitlement** | Email de login, licença ativa                                                     | Dados de sessão                                  |
+| **Budget**      | Contagem de tokens consumidos                                                     | Conteúdo dos prompts                             |
+| **Updates**     | Versão instalada                                                                  | Qualquer dado de sessão                          |
+
+## O que a G4 não precisa receber no fluxo local padrão
+
+No fluxo local padrão, a G4 não precisa receber:
+
+* credenciais e chaves das suas integrações
+* histórico completo das suas sessões para operar o app
+* dados retornados por ERP, CRM ou APIs conectadas localmente
+* caminhos locais e estrutura completa dos seus arquivos como base de operação da plataforma
+
+## Quando essa arquitetura muda
+
+Existem situações em que a infraestrutura da plataforma participa mais do fluxo. É importante deixar isso explícito.
+
+### Conexões gerenciadas
+
+`Conexões Gerenciadas` podem usar infraestrutura da plataforma para autenticação, catálogo, status e partes do runtime da integração.
+
+Isso é diferente de uma API ou MCP puramente local. Se o objetivo for maximizar isolamento e previsibilidade do tráfego, prefira integrações locais ou MCPs que rodam no seu próprio ambiente.
+
+### Recursos cloud opcionais
+
+Recursos como `Cloud Sync`, colaboração e outras funções de nuvem mudam o fluxo porque, por definição, sincronizam parte dos dados com a infraestrutura da plataforma.
+
+Esses recursos existem para backup, colaboração e continuidade, não porque o produto precise centralizar todo o seu contexto por padrão.
+
+### Provedores e recursos gerenciados
+
+Quando você usa provedores gerenciados, créditos da plataforma ou agentes gerenciados, parte do controle operacional passa pelos serviços da G4 para autenticação, orçamento, catálogo e roteamento técnico da funcionalidade.
+
+Ainda assim, isso não transforma o G4 OS em um espelho permanente de todo o seu workspace.
+
+## Como pensar segurança na prática
+
+* use suas próprias chaves e integrações quando quiser o maior controle possível
+* prefira APIs próprias e MCPs locais para sistemas sensíveis
+* deixe recursos cloud opcionais desligados quando a política exigir operação mais local
+* revise permissões, fontes e workspaces antes de ampliar automações
+
+## Em uma frase
+
+O G4 OS foi pensado para operar com contexto e execução perto do usuário, não para depender de copiar todo o contexto da empresa para a nuvem da G4.
+
+<Columns>
+  <Card title="Ver segurança e controle" icon="shield-check" href="/product/security">
+    Entenda como o network interceptor, permissões e governança entram na operação com IA.
+  </Card>
+
+  <Card title="Ver conexões" icon="plug" href="/product/connections">
+    Compare conexões gerenciadas, agentes gerenciados, MCPs e APIs.
+  </Card>
+</Columns>
+
+
+# Segurança e controle
+Source: https://docsg4os.g4business.com/product/security
+
+Entenda como o G4 OS ajuda a operar IA com mais governança, limites e confiança.
+
+## IA com governança operacional
+
+Para gerar valor real no time, IA precisa de contexto e autonomia na medida certa, mas também precisa de controle.
+
+O G4 OS foi desenhado para equilibrar velocidade com governança operacional.
+
+## O que isso significa na prática
+
+* controle sobre acessos e permissões
+* regras sobre uso de ferramentas e fontes
+* separação de contexto por workspace e sessão
+* limites claros para fluxos recorrentes e automações
+
+## Network Interceptor: transparência no tráfego com os LLMs
+
+O G4 OS usa um `Network Interceptor` que roda como módulo de preload e intercepta as requisições antes de chegarem ao SDK do LLM. Ele não monitora o conteúdo das mensagens — existe para três funções específicas:
+
+1. **Injetar metadados de UI nas tools** — para mostrar feedback como "Buscando email..." na interface durante execução de tools
+2. **Otimizar o cache de prompts** — ajusta o TTL de `cache_control` para 1 hora, reduzindo custo e latência em sessões longas
+3. **Capturar erros HTTP localmente** — salva erros 4xx/5xx em arquivo local temporário (`~/.g4os/api-error.json`, expira em 5 min) para diagnóstico
+
+```mermaid theme={null}
+graph LR
+    subgraph INTERCEPTOR["Network Interceptor — roda como preload"]
+        PATCH[globalThis.fetch\npatchado na inicialização]
+        REQ_IN[Requisição saindo]
+        RES_IN[Resposta chegando]
+
+        subgraph REQUEST_MODS["Na Saída"]
+            META_INJ[Injeta _intent e _displayName\nnos schemas de tools]
+            CACHE_PATCH[Atualiza cache_control.ttl\nephemeral → 1h]
+        end
+
+        subgraph RESPONSE_MODS["Na Chegada"]
+            META_STRIP[Remove _intent/_displayName\ndo SSE antes do SDK ver]
+            ERR_CAPTURE[Captura erros 4xx/5xx\n→ ~/.g4os/api-error.json]
+        end
+    end
+
+    PATCH --> REQ_IN
+    REQ_IN --> META_INJ
+    REQ_IN --> CACHE_PATCH
+    META_INJ -->|headers + body| LLM_API[API do LLM]
+    LLM_API --> RES_IN
+    RES_IN --> META_STRIP
+    RES_IN --> ERR_CAPTURE
+    META_STRIP --> SDK[Claude Agent SDK]
+    ERR_CAPTURE --> LOCAL_FILE[api-error.json\nexpira em 5 min]
+
+    META_INJ -.->|salvo em disco| TOOL_META[tool-metadata.json\nlocal]
+    META_STRIP -.->|lê do disco| TOOL_META
+```
+
+## Como pensar segurança no início
+
+Não trate segurança como uma camada posterior. Defina desde cedo:
+
+* quais fontes podem ser usadas
+* quem pode acessar cada contexto
+* quais tarefas podem ser automatizadas
+* quando revisão humana continua obrigatória
+
+## Permissões e modos de execução
+
+O G4 OS oferece modos de permissão para controlar o nível de autonomia dos agentes em cada sessão:
+
+| Modo                          | Comportamento                                                                       |
+| ----------------------------- | ----------------------------------------------------------------------------------- |
+| **Explorar**                  | Somente leitura. Agente pesquisa, lê e guia, sem executar ações.                    |
+| **Perguntar antes de editar** | Leituras livres. Agente solicita aprovação antes de qualquer escrita ou ação.       |
+| **Executar**                  | Execução autônoma completa. Indicado para fluxos revisados e rotinas automatizadas. |
+
+## Escale com confiança
+
+Quanto melhor forem os limites e as regras desde o início, mais fácil fica expandir o uso do G4 OS para novas áreas, times e casos de uso.
+
+<Columns>
+  <Card title="Entender privacidade e dados" icon="shield" href="/product/privacy-and-data">
+    Veja a arquitetura completa com diagramas: o que fica local, como as credenciais circulam e o que a telemetria envia.
+  </Card>
+
+  <Card title="Ver permissões detalhadas" icon="sliders" href="/support/permissions">
+    Entenda como configurar modos de permissão, comandos permitidos e bloqueados dentro do app.
+  </Card>
+</Columns>
+
+
+# Sessões
+Source: https://docsg4os.g4business.com/product/sessions
+
+Veja como as sessões no G4 OS ajudam a manter continuidade, contexto e execução.
+
+## Sessões são unidades de trabalho
+
+Cada sessão no G4 OS representa uma frente de trabalho com histórico, contexto e continuidade.
+
+Em vez de reiniciar a cada nova conversa, você pode manter o raciocínio vivo em torno de um projeto, uma rotina, uma decisão ou uma operação recorrente.
+
+## O que uma sessão concentra
+
+* histórico da conversa
+* arquivos e referências relevantes
+* contexto acumulado ao longo do trabalho
+* próximos passos, decisões e acompanhamento
+
+## Quando criar sessões separadas
+
+Crie sessões diferentes quando houver mudança real de contexto, como:
+
+* um novo projeto
+* uma nova área de responsabilidade
+* uma rotina recorrente
+* um tema que precisa de histórico próprio
+
+## Benefício principal
+
+Sessões bem separadas melhoram a qualidade das respostas e reduzem o custo de recontextualizar o trabalho a cada interação.
+
+<Card title="Ver agentes" icon="sparkles" href="/product/agents">
+  Saiba como agentes atuam dentro desse contexto para aumentar velocidade e consistencia.
+</Card>
+
+
+# Input por Voz
+Source: https://docsg4os.g4business.com/product/voice-input
+
+Dite mensagens e transcreva reuniões diretamente no G4 OS usando reconhecimento de voz em tempo real.
+
+<Warning>
+  **Beta:** Input por voz e gravação de reunião são funcionalidades beta e ainda não foram disponibilizadas para todos os usuários. Se não aparecer a funcionalidade, aguarde atualizações futuras.
+</Warning>
+
+## Fale em vez de digitar
+
+O G4 OS permite usar a voz como forma de entrada em qualquer momento da conversa. Em vez de digitar uma instrução longa, você pode falar e o texto aparece automaticamente no campo de input.
+
+A transcrição acontece em tempo real, via Gemini Live, sem necessidade de pausas ou confirmações manuais.
+
+## Onde o input por voz aparece
+
+### Freeform input
+
+No campo de texto padrão das sessões, o ícone de microfone ativa a escuta ao vivo. Enquanto você fala, o texto vai sendo preenchido. Ao terminar, é só enviar normalmente.
+
+Útil para:
+
+* instruções longas que seriam trabalhosas de digitar
+* brainstorming rápido
+* ditar rascunhos e contextos extensos
+
+### Gravar reunião
+
+O G4 OS também permite iniciar a gravação de uma reunião diretamente pela sessão. O áudio é transcrito em tempo real e o resultado fica disponível como contexto para o agente trabalhar.
+
+Útil para:
+
+* capturar decisões e próximos passos sem precisar anotar
+* criar resumos automáticos após a reunião
+* alimentar o contexto de uma sessão com o que foi discutido
+
+## Requisitos
+
+O input por voz requer entitlement específico habilitado na sua conta. Se não aparecer a funcionalidade, aguarde atualizações futuras.
+
+<Card title="Ver sessões" icon="messages" href="/product/sessions">
+  Entenda como o contexto capturado por voz se integra ao histórico de cada sessão.
+</Card>
+
+
+# Workspaces
+Source: https://docsg4os.g4business.com/product/workspaces
+
+Entenda como organizar contexto, projetos e operações no G4 OS.
+
+## O que é um workspace
+
+Um workspace é o espaço onde seu time organiza contexto, arquivos, sessões, fontes conectadas e rotinas operacionais.
+
+No G4 OS, o workspace não é apenas um lugar para armazenar informação. Ele define o ambiente em que pessoas e agentes trabalham com mais consistência.
+
+## O que normalmente vive em um workspace
+
+* projetos e frentes prioritárias
+* arquivos de apoio e referências
+* fontes conectadas
+* sessões organizadas por objetivo
+* automações e acompanhamentos recorrentes
+
+## Como esse contexto nasce
+
+No G4 OS, o workspace já começa a ganhar forma durante o onboarding.
+
+Antes mesmo da primeira conversa, o setup inicial ajuda a definir:
+
+* nome do workspace
+* idioma e região
+* empresa e pessoa responsável
+* perfil de trabalho
+* objetivos iniciais
+* primeiras conexões, quando fizer sentido
+* forma de começo: guiada ou direta
+
+Isso faz diferença porque a primeira sessão já nasce com um contexto mínimo estruturado, em vez de partir de uma tela em branco sem direção.
+
+## Por que isso importa
+
+Sem um workspace claro, cada conversa precisa ser reexplicada. Com uma boa estrutura, o contexto acumula ao longo do tempo e o trabalho flui com menos fricção.
+
+## Boas práticas
+
+* organize por frente de trabalho, não por excesso de categorias
+* mantenha nomes simples e intuitivos
+* separe sessões por assunto ou objetivo
+* conecte apenas as fontes que realmente ajudam a executar melhor
+
+<Card title="Criar um novo workspace" icon="folder-tree" href="/getting-started/create-workspace">
+  Veja o passo a passo detalhado de criação do workspace, desde os dados iniciais até a primeira sessão.
+</Card>
+
+<Card title="Ver onboarding do workspace" icon="rocket" href="/getting-started/quickstart">
+  Veja o passo a passo real de criação do workspace, com perfil, objetivos, conexões e primeira sessão.
+</Card>
+
+<Card title="Continuar para sessões" icon="messages" href="/product/sessions">
+  Entenda como o G4 OS preserva contexto e continuidade dentro de cada fluxo de trabalho.
+</Card>
+
+
+# Agentes
+Source: https://docsg4os.g4business.com/support/agents
+
+Catálogo, sincronização e detalhes dos agentes gerenciados disponíveis no G4 OS.
+
+## O que esta área cobre
+
+A área de `Agentes` serve para revisar os agentes gerenciados disponíveis no ambiente e verificar se eles estão prontos para uso.
+
+> **Beta:** agentes gerenciados são uma função beta e podem não estar disponíveis para todos os usuários, contas, workspaces ou builds do G4 OS.
+
+## O que você encontra aqui
+
+* status de sincronização de agentes
+* último sync executado
+* versão do manifesto sincronizado
+* erros do último sync, quando existirem
+* catálogo de agentes disponíveis
+* detalhes do agente selecionado
+
+## Detalhes que costumam aparecer por agente
+
+* descrição funcional
+* compatibilidade
+* capacidades expostas
+* escopo de filesystem permitido
+* limite de tamanho de arquivo
+* estado de consentimento, quando aplicável
+
+## Casos comuns
+
+* confirmar se um agente gerenciado já chegou ao workspace
+* forçar novo sync após mudanças administrativas
+* revisar limites antes de usar um agente em produção
+* entender por que um agente não está habilitado
+
+## Caminho no app
+
+* `Configurações > Agentes`
+
+## Deep links úteis
+
+* [Abrir Agentes](g4os://settings/agents)
+* [Abrir IA](g4os://settings/ai)
+
+## Quando olhar o admin
+
+Se o problema está na definição central do agente, e não no uso local, pode ser necessário abrir a área administrativa associada ao catálogo.
+
+Veja também [Agentes Gerenciados](/product/connections/managed-agents).
+
+
+# IA
+Source: https://docsg4os.g4business.com/support/ai
+
+Modelos, thinking, conexões com provedores e comportamento padrão de IA no G4 OS.
+
+## O que esta área controla
+
+A tela de `IA` concentra os padrões globais de execução ligados a modelos e conexões com provedores.
+
+## O que você encontra aqui
+
+* conexão padrão usada pelo app
+* modelo padrão associado à conexão
+* nível de thinking padrão
+* overrides por workspace
+* lista de conexões configuradas
+* ações como renomear conexão e revisar credenciais
+
+## Casos comuns
+
+* trocar o provedor padrão usado nas sessões
+* mudar o modelo principal de trabalho
+* ajustar o thinking padrão para equilibrar velocidade e profundidade
+* revisar se uma conexão está pronta para uso
+* corrigir credenciais ou reconfigurar uma conexão existente
+
+## Como pensar esta página
+
+`IA` define a base operacional do produto. Se o problema é “qual modelo ou qual provedor o G4 OS está usando”, normalmente a resposta está aqui.
+
+## Caminho no app
+
+* `Configurações > IA`
+
+## Deep links úteis
+
+* [Abrir IA](g4os://settings/ai)
+* [Abrir Configurações do App](g4os://settings)
+
+## Dica prática
+
+Se um workspace precisa de comportamento diferente do padrão global, use os overrides por workspace em vez de alterar a base para toda a instalação.
+
+
+# Configurações do App
+Source: https://docsg4os.g4business.com/support/app-settings
+
+Entenda os controles globais do desktop que afetam o G4 OS como aplicativo, não apenas um workspace.
+
+## Quando usar esta área
+
+Use `Configurações do App` quando a mudança afeta o comportamento geral do desktop, e não apenas um workspace específico.
+
+## O que você encontra aqui
+
+* notificações desktop
+* comportamento de energia e keep-awake
+* comportamento especial durante controle remoto
+* canal de atualização
+* idioma da interface
+* escolha do workspace padrão
+* ordenação de workspaces
+* informações da versão e build atual
+* acesso a DevTools e ações de conta, como logout
+
+## Casos comuns
+
+* ativar ou desativar notificações do app
+* manter a máquina acordada durante operações longas
+* revisar o canal de atualização usado pelo desktop
+* trocar o idioma da interface
+* definir qual workspace abre por padrão
+
+## Atualizações obrigatórias
+
+Administradores do G4 OS podem definir uma versão mínima suportada do app. Quando o desktop detecta que está rodando uma versão abaixo do mínimo exigido, um modal de atualização obrigatória é exibido e bloqueia o uso do app até que a atualização seja concluída.
+
+O modal oferece duas opções:
+
+* **Atualizar agora** — inicia a atualização automática pelo canal configurado
+* **Baixar manualmente** — abre o link de download direto caso a atualização automática não esteja disponível
+
+Esse modal não pode ser dispensado. O app verifica a política de versão a cada abertura.
+
+## Caminho no app
+
+* `Configurações > App`
+
+## Deep links úteis
+
+* [Abrir Configurações do App](g4os://settings)
+* [Abrir Preferências](g4os://settings/preferences)
+
+## Observação importante
+
+Se a mudança estiver ligada a fontes, permissões, aparência ou comportamento de um contexto específico, normalmente a tela correta não é `App`, e sim a configuração equivalente dentro de `Workspace` ou outra área dedicada.
+
+
+# Aparência
+Source: https://docsg4os.g4business.com/support/appearance
+
+Gerencie tema, modo, fontes e ícones visuais do G4 OS.
+
+## O que esta área cobre
+
+A tela de `Aparência` controla a camada visual do desktop e também permite diferenças por workspace.
+
+## O que você encontra aqui
+
+* tema padrão do app
+* overrides de tema por workspace
+* controle de fonte
+* mapeamento de ícones de ferramenta
+
+## Casos comuns
+
+* trocar a aparência padrão do desktop
+* aplicar um tema diferente em um workspace específico
+* revisar ícones usados por ferramentas e integrações
+* padronizar o visual para o time
+
+## Caminho no app
+
+* `Configurações > Aparência`
+
+## Deep links úteis
+
+* [Abrir Aparência](g4os://settings/appearance)
+* [Abrir Workspace](g4os://settings/workspace)
+
+## Observação
+
+Quando a intenção é mudar o visual só de um contexto, prefira um override de workspace em vez de alterar o padrão global.
+
+
+# Automações
+Source: https://docsg4os.g4business.com/support/automation
+
+Use agendamentos e vigias para transformar trabalho recorrente em operação assistida no G4 OS.
+
+## Como a automação está organizada
+
+A automação no G4 OS aparece na seção **Automações** do menu lateral.
+
+<Frame>
+  <img alt="Tela de Automações com abas de minhas automações, rotinas recomendadas e filtros por tipo" />
+</Frame>
+
+A tela reúne:
+
+* **Minhas Automações** — automações já criadas no workspace
+* **Rotinas Recomendadas** — sugestões de rotinas úteis para ativar com configuração guiada
+* **Rotina** — execuções recorrentes com agenda simples e propósito operacional
+* **Agendamento** — execuções programadas por horário, intervalo ou expressão cron
+* **Vigia** — monitoramentos que detectam eventos e disparam acompanhamento automaticamente
+
+> **Acesso:** A seção Automações fica no menu lateral do app, fora das Configurações. Não há deep link direto para ela — acesse pela navegação lateral.
+
+## O que você encontra na tela
+
+* criação e edição de jobs
+* agenda visual por horário, intervalo ou expressão cron avançada
+* histórico de execuções
+* seleção de fontes habilitadas
+* seleção de skills habilitadas
+* diretório de trabalho
+* escolha entre ação de **nova sessão** ou **ação em lote**
+* estado atual do monitoramento
+* abertura do detalhe de cada watcher
+* revisão do fluxo que dispara acompanhamentos
+* botão **Criar automação com agente** para configuração assistida
+
+## Casos comuns
+
+* criar uma rotina diária ou semanal de resumo
+* automatizar um prompt recorrente em nova sessão
+* monitorar uma thread no Slack e disparar follow-up automático
+* revisar histórico quando uma automação não executou como esperado
+
+## Como criar automações pelo assistente
+
+Você pode criar agendamentos e vigias diretamente numa sessão, pedindo ao assistente. Ele tem acesso às ferramentas `scheduler_create` e `vigia_create` e vai guiar a configuração com confirmação antes de salvar.
+
+Exemplo de prompt:
+
+> *"Cria um agendamento para todo dia útil às 8h que abre uma nova sessão com o resumo do dia."*
+
+## Caminho no app
+
+* Menu lateral > `Automações`
+* Menu lateral > `Automações` > `Minhas Automações`
+* Menu lateral > `Automações` > `Rotinas Recomendadas`
+
+## Observação sobre deep links
+
+O parser de deep links do desktop cobre `settings`, `sources`, `skills` e `sessions`. Para automação, acesse pela navegação lateral do app ou peça ao assistente para criar ou listar automações diretamente na sessão.
+
+
+# Planos e Créditos
+Source: https://docsg4os.g4business.com/support/billing-subscriptions
+
+Entenda os planos disponíveis no G4 OS, como os créditos funcionam e como resgatar cupons.
+
+## Como funciona
+
+O G4 OS usa **créditos** como unidade de consumo. Cada interação com o assistente consome uma quantidade de créditos que varia de acordo com o modelo de IA utilizado. Modelos mais avançados consomem mais créditos por turno.
+
+Todo workspace tem um **plano ativo** que define quantos créditos estão disponíveis por mês. Os créditos resetam automaticamente no primeiro dia de cada mês.
+
+## Planos disponíveis
+
+| Plano        | Créditos por mês | Para quem é                     |
+| ------------ | ---------------- | ------------------------------- |
+| **Gratuito** | 10 cr            | Para experimentar o G4 OS       |
+| **Pro**      | 252 cr           | Para uso individual consistente |
+| **Max**      | 566 cr           | Para uso individual intenso     |
+
+> Os créditos do plano são o seu **saldo base mensal**. Créditos extras (via cupom ou concessão) são somados por cima e consumidos antes do saldo base.
+
+### Planos corporativos
+
+Empresas não têm um plano separado — o acesso corporativo é uma agregação de seats individuais. O administrador da empresa escolhe quantos seats de cada plano alocar e distribui entre os membros da equipe. Cada membro opera com o plano atribuído a ele, com seus próprios créditos mensais.
+
+## Acompanhando seu consumo
+
+Você encontra seu consumo atual em **Configurações > Uso**. A tela mostra:
+
+* Créditos usados hoje vs. limite diário
+* Créditos usados no mês vs. limite mensal
+* Projeção de fechamento do mês
+* Quais modelos consumiram mais créditos
+
+Quando o saldo está próximo do limite, a barra de progresso muda de cor — azul quando acima de 80%, vermelha quando esgotado.
+
+## Resgatar um cupom
+
+<Frame>
+  <img alt="Tela de Uso — seção Resgatar cupom com campo de código e botão Resgatar" />
+</Frame>
+
+Se você recebeu um código de cupom, pode resgatá-lo diretamente pelo app:
+
+1. Vá em **Configurações > Uso**
+2. No campo **Resgatar cupom**, cole o código recebido
+3. Clique em **Resgatar**
+
+Os créditos são adicionados ao seu saldo imediatamente. Créditos extras aparecem com um indicador separado na barra de uso mensal e são consumidos antes do seu saldo de plano.
+
+## Quando os créditos acabam
+
+Se você atingir o limite mensal, novas interações com o assistente ficam bloqueadas até o reset do mês. O histórico e as sessões existentes continuam acessíveis para leitura.
+
+Em workspaces vinculados a uma empresa gerenciada, o administrador pode conceder créditos adicionais para desbloquear o acesso antes do reset. Veja [Uso → Quando os créditos acabam](/support/usage#quando-os-créditos-acabam).
+
+## Caminho no app
+
+* `Configurações > Uso` — acompanhar consumo e resgatar cupons
+
+## Veja também
+
+* [Uso](/support/usage) — detalhamento completo de consumo, limites e projeção
+* [Gerenciar Empresa](/support/empresa) — painel admin com políticas e limites por usuário
+
+
+# Cloud Sync
+Source: https://docsg4os.g4business.com/support/cloud-sync
+
+Sincronize um workspace entre dispositivos com token, push manual, prévia de pull e recuperação controlada.
+
+## O que é Cloud Sync
+
+Cloud Sync é o fluxo de continuidade e recuperação de um workspace entre dispositivos.
+
+Ele foi feito para dois cenários principais:
+
+* continuar o mesmo workspace em outra máquina
+* recuperar um workspace a partir de um estado já enviado para a nuvem
+
+Ele não substitui colaboração ao vivo. Para colaboração em sessão, o caminho certo continua sendo [Sessão colaborativa](/support/collaborative-session). Para continuar a mesma sessão no navegador ou no celular, use [Controle remoto](/support/remote-control).
+
+## Como o processo funciona
+
+Cloud Sync trabalha em cima de três ideias simples:
+
+* um `token` conecta o mesmo workspace entre dispositivos
+* `push` envia o estado local atual para a nuvem
+* `pull` traz o estado remoto de volta, sempre com uma prévia antes da confirmação
+
+## Fluxo recomendado entre dois dispositivos
+
+### 1. No dispositivo de origem, gere o token e faça o primeiro envio
+
+No dispositivo que já tem o workspace correto, o primeiro passo é abrir `Cloud Sync`, gerar o token e fazer o primeiro `Enviar para Nuvem`.
+
+<img alt="Geração do token e primeiro envio para a nuvem" />
+
+*Geração do token e início do primeiro push do workspace para a nuvem.*
+
+O que importa aqui:
+
+* o token aparece em claro só naquele momento
+* você precisa copiar e guardar esse token imediatamente
+* esse token é o que vai ligar o mesmo workspace ao outro dispositivo
+* o primeiro `push` é o que cria a base remota que depois poderá ser restaurada
+
+> O token não pode ser exibido novamente depois que essa etapa é dispensada.
+
+### 2. No dispositivo de destino, importe o token
+
+Na outra máquina, abra o workspace correspondente, vá até `Cloud Sync` e importe o token recebido.
+
+<img alt="Importação do token em outro dispositivo" />
+
+*Importação do token no dispositivo de destino para conectar o mesmo workspace.*
+
+Depois da importação, a tela deixa de mostrar só `Conectar` e passa a exibir:
+
+* `Status`
+* `Ações`
+* último `push`
+* último `pull`
+
+### 3. Antes de restaurar, revise a prévia do pull
+
+No dispositivo de destino, o próximo passo costuma ser `Baixar da Nuvem`.
+
+Antes de aplicar qualquer restauração, o G4 OS mostra uma `Prévia do Pull` com:
+
+* máquina de origem do último push
+* data e hora do push remoto
+* arquivos novos
+* arquivos modificados
+* arquivos que serão excluídos localmente
+
+<img alt="Prévia do pull antes da restauração" />
+
+*Prévia do pull mostrando a origem do snapshot remoto e o impacto antes da confirmação.*
+
+Esse é o momento de validar se você está trazendo o estado certo.
+
+## O que a tela mostra quando já está conectada
+
+<img alt="Status e ações do Cloud Sync depois da conexão" />
+
+*Estado conectado com token mascarado, timestamps e ações manuais.*
+
+Na prática, a tela passa a ter quatro blocos principais:
+
+### Token
+
+O token deixa de aparecer em claro e fica mascarado na área de `Status`.
+
+### Último push
+
+Mostra quando foi a última vez que esse workspace local enviou dados para a nuvem.
+
+### Último pull
+
+Mostra quando foi a última vez que esse workspace local restaurou dados da nuvem.
+
+### Ações
+
+* `Enviar para Nuvem`: envia o estado local atual
+* `Baixar da Nuvem`: abre a prévia do pull antes da restauração
+* `Desconectar`: remove o token desse workspace neste dispositivo
+
+## O que entra no Cloud Sync
+
+Cloud Sync prioriza contexto e configuração do workspace, não arquivos binários pesados.
+
+Ele sincroniza principalmente:
+
+* sessões
+* configurações de fontes
+* skills
+* temas
+* permissões
+* arquivos textuais de configuração e histórico do workspace
+
+## O que não entra no Cloud Sync
+
+Alguns itens ficam explicitamente fora do sync:
+
+* credenciais e tokens de autenticação
+* anexos de sessão
+* downloads
+* respostas longas armazenadas fora do histórico textual
+* chunks de gravação
+* arquivos acima de `10 MB`
+* conjuntos acima de `500 MB` no total
+
+Em outras palavras: o foco é sincronizar estado operacional textual, não espelhar tudo o que existe no disco.
+
+## O que precisa ficar claro antes de usar
+
+* `push` e `pull` são manuais
+* nada é sincronizado automaticamente em background
+* o `pull` pode sobrescrever divergências locais e excluir arquivos locais ausentes no remoto
+* por isso a `Prévia do Pull` existe e deve ser revisada antes da confirmação
+
+## Casos comuns
+
+* configurar o mesmo workspace em uma nova máquina
+* fazer backup manual antes de trocar de dispositivo
+* restaurar um workspace depois de recovery
+* validar qual máquina fez o último push
+
+## Quando usar Cloud Sync e quando não usar
+
+Use `Cloud Sync` quando o objetivo for continuidade, backup ou restauração controlada do workspace.
+
+Não use `Cloud Sync` como se fosse:
+
+* colaboração em tempo real
+* compartilhamento de sessão para outra pessoa
+* controle remoto da mesma conversa
+
+## Caminho no app
+
+* `Configurações > Cloud Sync`
+
+## Deep links úteis
+
+* [Abrir Cloud Sync](g4os://settings/sync)
+* [Abrir Workspace](g4os://settings/workspace)
+
+## Resumo rápido
+
+Cloud Sync conecta o mesmo workspace entre dispositivos com um token único, exige `push` e `pull` manuais, mostra uma prévia antes de restaurar, e sincroniza principalmente estado textual e configuração, sem incluir credenciais nem anexos pesados.
+
+
+# Sessão colaborativa
+Source: https://docsg4os.g4business.com/support/collaborative-session
+
+Entenda como convidar outro workspace do G4 OS para participar da mesma sessão com URL de leitura e token de edição.
+
+<Warning>
+  **Beta:** Sessão colaborativa é uma funcionalidade beta e ainda não foi disponibilizada para todos os usuários. Se não aparecer a funcionalidade, aguarde atualizações futuras.
+</Warning>
+
+## O que é uma sessão colaborativa
+
+Sessão colaborativa é o fluxo usado quando você quer que outro workspace do G4 OS entre na mesma conversa.
+
+Ela é diferente de um link público. Em vez de só abrir uma página para leitura, o G4 OS cria um convite com duas partes:
+
+* uma `URL de leitura`, que identifica a sessão compartilhada
+* um `token de edição`, que autoriza a participação colaborativa
+
+Quem recebe esse convite abre o G4 OS no próprio workspace, escolhe `Importar` e cola o texto completo. A partir daí, a sessão compartilhada passa a existir também naquele ambiente.
+
+<img alt="Janela de sessão colaborativa no G4 OS" />
+
+*Fluxo de criação e importação de convite colaborativo dentro do G4 OS.*
+
+## Como funciona na prática
+
+1. Você abre a sessão e entra em `Sessão colaborativa`.
+2. O G4 OS gera a `URL de leitura` e o `token de edição`.
+3. Você envia o texto completo do convite para a outra pessoa.
+4. A outra pessoa abre o G4 OS, escolhe `Importar sessão colaborativa` e cola o convite.
+5. O workspace de destino passa a acessar a mesma sessão compartilhada.
+
+## O que cada parte do convite faz
+
+### URL de leitura
+
+A URL de leitura identifica a sessão compartilhada e serve como referência para o conteúdo que será aberto no outro workspace.
+
+### Token de edição
+
+O token de edição é o que libera a participação colaborativa. Sem ele, o convite fica incompleto.
+
+Se o token não estiver mais disponível localmente ou já tiver expirado, o caminho correto é girar o token e gerar um novo convite.
+
+## O que você pode gerenciar depois
+
+Depois que o convite já existe, a própria tela de `Sessão colaborativa` permite controlar o acesso:
+
+* `Copiar convite`: copia novamente o texto completo para convidar outra pessoa
+* `Atualizar snapshot`: publica o estado mais recente da sessão compartilhada
+* `Girar token`: invalida o token atual e força novos acessos a usarem um convite novo
+* `Parar colaboração`: encerra o acesso colaborativo dessa sessão
+
+> Girar o token desconecta quem já estava colaborando e exige reentrada com o novo token.
+
+## Quando usar
+
+* quando outra pessoa precisa continuar a conversa no próprio G4 OS
+* quando o contexto precisa circular entre workspaces sem virar só um link de leitura
+* quando você quer manter um canal controlado de colaboração sobre a mesma sessão
+
+## Quando não usar
+
+* se a outra pessoa só precisa ler a conversa, prefira [Compartilhamento](/support/sharing)
+* se quem vai acessar é você mesmo em outro dispositivo, prefira [Controle remoto](/support/remote-control)
+
+## Requisitos práticos
+
+* a outra ponta precisa estar usando o G4 OS
+* o convite deve ser enviado com `URL de leitura` e `token de edição`
+* o import acontece dentro de um workspace ativo no app
+
+## Caminho no app
+
+* `Sessões > abrir uma sessão > menu de compartilhamento > Sessão colaborativa`
+
+## Deep links úteis
+
+* [Abrir Sessões](g4os://allSessions)
+
+## Resumo rápido
+
+Sessão colaborativa é o fluxo certo quando duas pontas do G4 OS precisam trabalhar sobre a mesma conversa, com convite controlado, importação dentro do app e revogação explícita quando necessário.
+
+
+# Company Context
+Source: https://docsg4os.g4business.com/support/company-context
+
+Entenda como vincular seu workspace a uma empresa verificada e o que o badge de verificação representa.
+
+## O que é o Company Context
+
+O **Company Context** é o vínculo entre um workspace e uma empresa cadastrada no G4 OS.
+
+Quando um workspace está conectado a uma empresa, os agentes passam a ter acesso a documentos, contexto organizacional e ferramentas compartilhadas daquela empresa — sem precisar repassar essas informações a cada nova sessão.
+
+## Como vincular um workspace a uma empresa
+
+1. Abra `Configurações > Workspace`
+2. Localize a seção **Company Context**
+3. Clique no seletor de empresa e escolha a empresa desejada
+4. Confirme o vínculo
+
+<img alt="Seletor de empresa no workspace com badge de verificação" />
+
+*Seletor de Company Context no workspace. Empresas verificadas aparecem com o badge azul ao lado do nome.*
+
+Depois de vincular, os agentes nas sessões desse workspace passam a usar o contexto daquela empresa automaticamente. Você pode desvincular a qualquer momento escolhendo **No company context**.
+
+## O que é uma empresa verificada
+
+Empresas verificadas exibem um **badge azul** ao lado do nome em:
+
+* Lista de workspaces no workspace selector
+* Sidebar da empresa
+* Header de admin da empresa
+* Viewer list
+
+Esse badge indica que a empresa foi validada pelo G4 como a organização real correspondente àquele cadastro.
+
+### Por que a verificação existe
+
+A verificação resolve um problema prático: garantir que os colaboradores saibam que estão se conectando à **empresa real**, e não a um cadastro duplicado, desatualizado ou criado por engano.
+
+Sem verificação, qualquer usuário com acesso ao admin poderia criar uma empresa com o mesmo nome. O badge azul é a confirmação de que o G4 validou aquela entidade.
+
+## Critérios para verificação
+
+Para que uma empresa seja elegível à verificação, ela deve atender a **todos** os seguintes critérios:
+
+1. **Assinatura ativa** — a empresa precisa ter um plano pago vigente no G4 OS
+2. **Mínimo de 10 usuários com seats pagantes ativos** — a conta deve ter ao menos 10 membros com licença paga ativa no momento da solicitação
+3. **Solicitação formal ao G4** — o admin da empresa deve abrir uma solicitação oficial, acompanhada de documentação que comprove tratar-se da empresa real (contrato social, CNPJ, ou documento equivalente)
+
+Após a análise e aprovação pelo G4, um admin do sistema marca a empresa como verificada no painel de administração.
+
+## Relação com a gestão de usuários
+
+A verificação está diretamente ligada à base de usuários da empresa:
+
+* **Seats pagantes** são contados a partir dos membros com licença ativa em `Configurações da Empresa > Membros`
+* Membros removidos ou inativos não contam para o critério de 10 seats
+* Se a empresa perder usuários abaixo do mínimo ou encerrar a assinatura, a verificação pode ser revisada
+
+Administradores podem acompanhar o status de membros e seats no painel da empresa.
+
+## Quem pode solicitar verificação
+
+Apenas **admins da empresa** no G4 OS podem iniciar o processo de verificação. O pedido deve ser feito diretamente ao suporte do G4 com a documentação necessária.
+
+## O que muda após a verificação
+
+* O badge azul aparece nos pontos descritos acima
+* Colaboradores que veem o badge sabem que aquele cadastro foi validado
+* O vínculo com um workspace verificado sinaliza para toda a equipe que o contexto compartilhado é o contexto oficial da empresa
+
+## Caminho no app
+
+* `Configurações > Workspace > Company Context`
+
+## Veja também
+
+<Columns>
+  <Card title="Workspace" icon="sliders" href="/support/workspace">
+    Veja todos os controles disponíveis nas configurações de workspace, incluindo o vínculo com Company Context.
+  </Card>
+
+  <Card title="Permissões" icon="shield" href="/support/permissions">
+    Entenda como permissões e escopos funcionam para membros e admins dentro do Company Context.
+  </Card>
+</Columns>
+
+
+# Contexto
+Source: https://docsg4os.g4business.com/support/context
+
+Gerencie documentos, estrutura, pessoas e PRs associados ao contexto compartilhado da empresa.
+
+## O que é Contexto
+
+`Contexto` é a área onde o workspace inspeciona e mantém contexto organizacional vinculado à empresa conectada.
+
+Ela é diferente de uma sessão comum: o objetivo é guardar referências estruturadas que ajudam o agente a entender a operação, a organização e as decisões que devem ser reaproveitadas.
+
+## Abas disponíveis
+
+### Docs
+
+Reúne documentos de contexto em markdown, com título, slug, nó responsável, regras de leitura e regras de edição.
+
+Use para manter informações como:
+
+* guias internos
+* metas e prioridades
+* políticas operacionais
+* documentação de processos
+* referências que o agente deve consultar com frequência
+
+### Estrutura
+
+Mostra a hierarquia de nós de contexto da empresa, como áreas, subáreas ou unidades operacionais.
+
+Use para entender onde um documento, pessoa ou decisão pertence.
+
+### Pessoas
+
+Lista pessoas associadas ao contexto da empresa, quando esse módulo está disponível para o workspace.
+
+Use para consultar responsabilidade, área, papel e relações operacionais importantes.
+
+### PRs
+
+Mostra propostas de alteração no contexto compartilhado, quando o fluxo de revisão está habilitado.
+
+Use para revisar mudanças antes de promover conteúdo para o contexto oficial.
+
+## Relação com Company Context
+
+Para que a área de `Contexto` tenha dados, o workspace precisa estar vinculado a uma empresa em `Configurações > Workspace > Company Context`.
+
+O vínculo define qual base organizacional será usada pelo agente e quais documentos, nós e pessoas aparecem nessa área.
+
+Veja [Company Context](/support/company-context) para entender o vínculo e o badge de verificação.
+
+## Caminho no app
+
+* Menu lateral > `Contexto`
+
+## Deep links úteis
+
+* [Abrir Contexto](g4os://company-context)
+* [Abrir configuração de Workspace](g4os://settings/workspace)
+
+## Dica prática
+
+Use `Contexto` para conhecimento que deve sobreviver a uma sessão específica. Use a sessão para trabalho em andamento, arquivos temporários e decisões que ainda precisam ser discutidas antes de virarem referência oficial.
+
+
+# Dashboards
+Source: https://docsg4os.g4business.com/support/dashboards
+
+Use dashboards nativos para salvar painéis de workspace com fontes, layout, filtros e refresh reutilizáveis.
+
+<Note>
+  Dashboards estão em beta. A disponibilidade pode variar por build, workspace e conjunto de fontes conectadas.
+</Note>
+
+## O que são dashboards
+
+Dashboards são painéis nativos salvos no workspace. Eles não são apenas respostas soltas em uma sessão: cada dashboard preserva uma definição durável com fontes, parâmetros, transformações, layout visual e histórico do último refresh.
+
+Use dashboards quando uma análise precisa ser reaberta, atualizada ou acompanhada de forma recorrente.
+
+<Frame>
+  <img alt="Aba Dashboards no hub Ferramentas do G4 OS" />
+</Frame>
+
+## Como funcionam
+
+Um dashboard normalmente reúne:
+
+* **fontes conectadas** que fornecem os dados
+* **parâmetros** como período, projeto, canal, status ou responsável
+* **transformações** para filtrar, agrupar, ordenar ou calcular métricas
+* **layout** em formato nativo, como KPIs, tabelas e gráficos
+* **last run** com status, horário, linhas processadas e erros ou bloqueios
+
+O objetivo é preservar o painel e atualizar os dados quando necessário, sem recriar o relatório do zero a cada sessão.
+
+## O que o agente pode fazer
+
+Quando as ferramentas de dashboard estão disponíveis, o agente pode:
+
+* criar um dashboard novo a partir de um objetivo claro
+* abrir um dashboard salvo na sessão
+* atualizar os dados de um dashboard existente
+* ajustar filtros, fontes, instruções ou layout quando você pedir uma edição
+
+Atualizar um dashboard não deve redesenhar o painel. O refresh usa a definição salva, executa as fontes configuradas e substitui os dados materializados.
+
+## Casos comuns
+
+* acompanhar KPIs comerciais, financeiros ou operacionais
+* transformar uma análise recorrente em painel reutilizável
+* revisar um dashboard antes de uma reunião
+* atualizar dados sem refazer a estrutura visual
+* manter um relatório com fontes e filtros padronizados
+
+## Caminho no app
+
+* Menu lateral > `Ferramentas` > `Dashboards`
+
+## Deep links úteis
+
+* [Abrir Dashboards](g4os://dashboards)
+
+O detalhe de um dashboard específico também pode ser aberto por deep link:
+
+```text theme={null}
+g4os://dashboards/dashboard/<slug-do-dashboard>
+```
+
+## Boas práticas
+
+* defina o objetivo do painel antes de pedir a criação
+* confirme quais fontes sustentam cada métrica
+* use parâmetros para filtros que mudam com frequência
+* prefira atualizar dashboards salvos em vez de pedir uma nova análise ad hoc
+* revise permissões e credenciais das fontes quando o refresh falhar
+
+Veja também [Ferramentas](/support/tools), [Conexões](/support/sources) e [Automação](/support/automation).
+
+
+# Gerenciar Empresa
+Source: https://docsg4os.g4business.com/support/empresa
+
+Acompanhe consumo, gerencie usuários e configure políticas de crédito para toda a empresa no G4 OS.
+
+## O que é Gerenciar Empresa
+
+**Gerenciar Empresa** é o painel administrativo da empresa dentro do G4 OS. Ele oferece uma visão consolidada do consumo de créditos, dos membros ativos e das políticas de uso — tudo em um só lugar.
+
+Apenas administradores da empresa têm acesso a esta área.
+
+## Abas disponíveis
+
+O painel é dividido em quatro abas:
+
+* **Visão geral** — resumo de métricas de consumo, pacing e projeção do mês
+* **Usuários** — listagem de membros com consumo individual e controles de override
+* **Consumo** — gráfico diário de uso por toda a empresa
+* **Políticas** — configuração de limites globais e grupos de política
+
+## Visão geral
+
+<Frame>
+  <img alt="Painel Gerenciar Empresa — aba Visão Geral com métricas de consumo, usuários ativos e gráfico diário" />
+</Frame>
+
+A aba **Visão geral** exibe:
+
+* **Modo de cobrança** — indica se a empresa opera no modelo ilimitado ou com pool de créditos definido
+* **Mês selecionado** — selector de mês para navegar pelo histórico de consumo
+* **Consumo do mês** — total de créditos consumidos no período selecionado
+* **Usuários ativos** — número de membros com atividade no mês
+* **Grupos de política** — quantidade de grupos de política específica configurados
+* **Resumo do mês** — comparativo com o mês anterior e projeção de fechamento
+* **Gráfico de consumo diário** — série temporal com consumo por dia; permite comparar mês atual e mês anterior
+
+### Botão Atualizar
+
+O botão **Atualizar** força um refresh dos dados. O cache tem 30 segundos de freshness e 10 minutos de stale — ou seja, dentro desse intervalo os dados são servidos do cache para evitar requisições duplicadas. Após o prazo, a próxima abertura do painel busca dados novos automaticamente.
+
+## Usuários
+
+A aba **Usuários** lista todos os membros associados explicitamente à empresa — não inclui usuários que apenas compartilham o mesmo domínio sem vínculo formal.
+
+Colunas disponíveis:
+
+| Coluna   | Descrição                                                |
+| -------- | -------------------------------------------------------- |
+| Usuário  | Email do membro                                          |
+| Créditos | Consumo total no mês selecionado                         |
+| Turns    | Número de interações com o assistente                    |
+| Sessions | Número de sessões abertas                                |
+| Limites  | Indica se há override de limites aplicado a esse usuário |
+
+A tabela é **ordenável** por qualquer coluna. Clique no cabeçalho para alternar entre crescente e decrescente.
+
+### Badge de auto-join
+
+Membros que entraram automaticamente via domínio — ou seja, criaram um workspace com um e-mail cujo domínio está na lista de domínios permitidos da empresa — exibem o badge **auto-join**. Isso diferencia membros explícitos (convidados diretamente) de membros por matching de domínio.
+
+> **Importante:** o consumo exibido na tabela considera apenas membros bound (vinculados) à empresa. Usuários com o mesmo domínio que **não** possuem vínculo formal não entram no cálculo.
+
+## Políticas
+
+<Frame>
+  <img alt="Aba Políticas — configuração de limites globais, overflow de pool e domínios de auto-join" />
+</Frame>
+
+A aba **Políticas** controla as regras padrão aplicadas a todos os membros da empresa.
+
+### Política global
+
+A **Política global** define os limites padrão de crédito e as regras de associação automática por domínio. É aplicada a todos os usuários da empresa que não estejam em um grupo de política específico.
+
+Campos disponíveis:
+
+| Campo                     | Descrição                                                                                                                |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| Limite diário             | Máximo de créditos que um usuário pode consumir por dia                                                                  |
+| Limite mensal             | Máximo de créditos que um usuário pode consumir no mês                                                                   |
+| Overflow do pool          | Permite que usuários continuem usando o assistente após esgotar seu pool pessoal, usando o pool da empresa como fallback |
+| Limite diário de overflow | Limite de créditos diários quando operando em overflow                                                                   |
+| Limite mensal de overflow | Limite de créditos mensais quando operando em overflow                                                                   |
+| Domínios permitidos       | Lista de domínios de e-mail que ativam a associação automática à empresa                                                 |
+| Auto-join por domínio     | Quando ativo, usuários com e-mail de um domínio permitido são automaticamente vinculados à empresa ao criar um workspace |
+
+### Grupos de política
+
+Além da política global, é possível criar **grupos de política** para aplicar limites diferentes a subconjuntos de usuários — por exemplo, um time de produto com limite maior ou um grupo de teste com acesso restrito.
+
+Cada grupo tem:
+
+* Nome e descrição
+* Lista de membros (e-mails)
+* Configuração de limites própria (diário, mensal, overflow)
+
+Membros em um grupo de política específico seguem as regras desse grupo, não as da política global.
+
+## Ciclo de acesso de usuários
+
+Administradores podem controlar o estado de acesso de membros individuais da empresa. O ciclo de acesso determina se um usuário pode ou não usar o G4 OS dentro do contexto gerenciado.
+
+| Estado              | O que significa                                                                                                                   |
+| ------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| **Ativo**           | Acesso normal; o usuário opera normalmente dentro das políticas configuradas                                                      |
+| **Suspenso**        | Acesso temporariamente bloqueado, por exemplo por inadimplência ou revisão de conta; o usuário não consegue iniciar novas sessões |
+| **Arquivado**       | Conta desativada e mantida no histórico; sem acesso operacional                                                                   |
+| **Desprovisionado** | Remoção permanente do contexto gerenciado; os dados históricos são preservados                                                    |
+
+Para alterar o estado de acesso de um usuário, acesse a aba **Usuários**, localize o membro e use o menu de ações. A mudança entra em vigor imediatamente.
+
+> Suspender um usuário não remove seus dados nem o histórico de consumo. O estado pode ser revertido a qualquer momento enquanto a conta estiver suspensa ou arquivada.
+
+## Planos e assinaturas
+
+Administradores com acesso ao painel SaaS podem criar e gerenciar planos e assinaturas vinculadas à empresa. Planos definem as condições de consumo (créditos mensais, limites por usuário) e são atribuídos a usuários por meio de assinaturas.
+
+Quando um plano é alterado, as permissões e limites dos usuários vinculados são sincronizados automaticamente em até 1 minuto. Não há necessidade de ação manual.
+
+> Esta seção está disponível apenas em workspaces com o módulo SaaS habilitado. Se o painel não aparecer, entre em contato com o suporte.
+
+## Limites mensais e enforcement em runtime
+
+Os limites mensais configurados em **Políticas** são aplicados em tempo de execução — ou seja, o bloqueio acontece no momento em que o usuário tenta fazer uma nova chamada ao modelo, não de forma retroativa.
+
+Quando um usuário atinge o limite:
+
+* Novas chamadas ao modelo são bloqueadas imediatamente
+* O usuário vê uma mensagem informando que o limite foi atingido
+* O histórico de sessões e dados permanecem acessíveis (somente leitura)
+* O contador reseta automaticamente no primeiro dia do mês seguinte
+
+Administradores podem conceder créditos adicionais ou ajustar os limites a qualquer momento para desbloquear o usuário antes do reset mensal.
+
+## Caminho no app
+
+* `Menu lateral > Gerenciar Empresa`
+
+## Deep links úteis
+
+* [Abrir Gerenciar Empresa](g4os://business-management)
+
+## Veja também
+
+* [Uso](/support/usage) — visão individual de consumo de créditos, incluindo como a política da empresa afeta o que o usuário vê
+* [Workspace](/support/workspace) — configuração de vínculo com Company Context
+
+
+# Central de suporte
+Source: https://docsg4os.g4business.com/support/index
+
+Documentação detalhada das funcionalidades hoje mapeadas na rota Support do G4 OS.
+
+## O que é esta seção
+
+Esta seção documenta, com mais detalhe, as áreas que hoje aparecem na rota interna de `Support` do G4 OS.
+
+Ela existe para ajudar quem está usando o produto a:
+
+* entender onde cada configuração vive
+* saber quando usar cada tela
+* abrir mais rápido a área certa dentro do app
+
+## Como usar
+
+Para cada tema, você vai encontrar:
+
+* o que aquela área controla
+* tarefas comuns
+* o caminho dentro do app
+* quando relevante, um deep link `g4os://` para abrir a tela no desktop
+
+> Os deep links `g4os://` funcionam quando o app desktop do G4 OS está instalado e registrado no sistema.
+
+## Abrir a central no app
+
+* Caminho no app: `Configurações > Suporte`
+* Deep link: [Abrir Support no G4 OS](g4os://settings/support)
+
+## Tópicos disponíveis
+
+<Columns>
+  <Card title="Configurações do App" icon="sliders" href="/support/app-settings">
+    Notificações, energia, atualização, idioma, workspace padrão e informações da aplicação.
+  </Card>
+
+  <Card title="IA" icon="sparkles" href="/support/ai">
+    Modelo padrão, thinking, conexões, credenciais e overrides por workspace.
+  </Card>
+
+  <Card title="Agentes" icon="bot" href="/support/agents">
+    Catálogo de agentes gerenciados, sincronização e detalhes operacionais.
+  </Card>
+
+  <Card title="Ferramentas" icon="screwdriver-wrench" href="/support/tools">
+    Hub de conexões, skills, workflows e dashboards do workspace.
+  </Card>
+
+  <Card title="Conexões" icon="plug" href="/support/sources">
+    APIs, MCPs, pastas locais, conectores gerenciados e agentes G4.
+  </Card>
+
+  <Card title="Skills" icon="wand-sparkles" href="/support/skills">
+    Instruções reutilizáveis para orientar tarefas específicas.
+  </Card>
+
+  <Card title="Workflows" icon="diagram-project" href="/support/workflows">
+    Processos versionados acionados por comando dentro das sessões.
+  </Card>
+
+  <Card title="Dashboards" icon="chart-line" href="/support/dashboards">
+    Painéis nativos salvos com fontes, layout, filtros e refresh.
+  </Card>
+
+  <Card title="Automações" icon="clock-rotate-left" href="/support/automation">
+    Agendamentos e vigias para execução recorrente.
+  </Card>
+
+  <Card title="Permissões" icon="shield-check" href="/support/permissions">
+    Regras de autonomia do app em leitura, escrita e execução.
+  </Card>
+
+  <Card title="Labels" icon="tags" href="/support/labels">
+    Hierarquia de labels, autoaplicação e organização de sessões.
+  </Card>
+
+  <Card title="Aparência" icon="palette" href="/support/appearance">
+    Tema, modo, fontes e mapeamento de ícones de ferramenta.
+  </Card>
+
+  <Card title="Workspace" icon="folder-tree" href="/support/workspace">
+    Configurações por contexto, fontes padrão, company context e caminhos locais.
+  </Card>
+
+  <Card title="Contexto" icon="book-open" href="/support/context">
+    Docs, estrutura, pessoas e PRs ligados ao contexto compartilhado da empresa.
+  </Card>
+
+  <Card title="Cloud Sync" icon="cloud-arrow-up" href="/support/cloud-sync">
+    Token, push manual, prévia de pull e recuperação de workspace entre dispositivos.
+  </Card>
+
+  <Card title="Brain" icon="brain" href="/support/shared-brain">
+    Memória compartilhada, sync criptografado, grafo de contexto e nós confiáveis.
+  </Card>
+
+  <Card title="Modo reparo" icon="wrench" href="/support/repair-mode">
+    Diagnósticos de saúde, correção guiada de metadados e log técnico para suporte.
+  </Card>
+
+  <Card title="Uso" icon="chart-line" href="/support/usage">
+    Consumo de créditos gerenciados e status de orçamento.
+  </Card>
+
+  <Card title="Preferências" icon="user" href="/support/preferences">
+    Perfil pessoal, localização e notas.
+  </Card>
+
+  <Card title="Input" icon="keyboard" href="/support/input">
+    Capitalização automática, spell check e tecla de envio de mensagens.
+  </Card>
+
+  <Card title="Atalhos de teclado" icon="command" href="/support/shortcuts">
+    Referência completa de atalhos organizados por categoria.
+  </Card>
+
+  <Card title="Compartilhamento" icon="share-nodes" href="/support/sharing">
+    Publicação pública de sessões, atualização de link e revogação de acesso.
+  </Card>
+
+  <Card title="Sessão colaborativa" icon="users" href="/support/collaborative-session">
+    Convites entre workspaces, importação no app e gestão de snapshot e token.
+  </Card>
+
+  <Card title="Controle remoto" icon="desktop" href="/support/remote-control">
+    Pareamento de navegador ou celular, liberação da sessão e uso remoto.
+  </Card>
+
+  <Card title="Marketplace" icon="store" href="/support/marketplace">
+    Publique, edite e colabore em skills e workflows no marketplace do G4 OS.
+  </Card>
+</Columns>
+
+
+# Input
+Source: https://docsg4os.g4business.com/support/input
+
+Configure o comportamento do campo de texto no G4 OS — capitalização, correção ortográfica e tecla de envio.
+
+## O que esta área cobre
+
+`Configurações > Input` controla como o campo de texto se comporta durante a digitação e no envio de mensagens.
+
+## O que você encontra aqui
+
+* **Auto Capitalisation** — capitaliza automaticamente o início de frases enquanto você digita
+* **Spell Check** — sublinha palavras com possíveis erros ortográficos no campo de input
+* **Send Message Key** — define qual tecla envia a mensagem: `Enter` ou `⌘ Enter` (macOS) / `Ctrl+Enter` (Windows/Linux)
+
+## Casos comuns
+
+* desativar auto capitalização ao digitar comandos ou código
+* ativar spell check para mensagens mais longas e formais
+* trocar a tecla de envio para `⌘ Enter` quando você quer poder quebrar linhas com `Enter`
+
+## Caminho no app
+
+* `Configurações > Input`
+
+## Deep links úteis
+
+* [Abrir Input](g4os://settings/input)
+* [Abrir Atalhos](g4os://settings/shortcuts)
+
+
+# Labels
+Source: https://docsg4os.g4business.com/support/labels
+
+Organize sessões com hierarquia de labels, semântica visual e regras de autoaplicação.
+
+## Para que servem as labels
+
+Labels ajudam a organizar sessões com marcadores reutilizáveis e, quando necessário, metadados mais estruturados.
+
+## O que você encontra aqui
+
+* árvore de labels do workspace
+* semântica visual, incluindo cores
+* regras automáticas de aplicação por padrão de mensagem
+
+## Casos comuns
+
+* criar labels para áreas, projetos e prioridades
+* ajustar a hierarquia para facilitar navegação
+* usar autoaplicação para reduzir trabalho manual
+* combinar labels com a visão de sessões para filtrar contexto
+
+## Caminho no app
+
+* `Configurações > Labels`
+
+## Deep links úteis
+
+* [Abrir Labels](g4os://settings/labels)
+* [Abrir Sessões](g4os://allSessions)
+
+## Revisar labels com o assistente
+
+O painel de sessões tem um atalho para abrir uma nova sessão já preparada para revisar a estrutura de labels do workspace.
+
+Ao clicar em **Review labels with assistant** (ícone de edição no cabeçalho do painel de labels), o assistente recebe automaticamente o prompt:
+
+> *Explain the current label structure and auto-apply rules, suggest improvements, and guide me through the update process. Do not edit anything yet; ask for confirmation first.*
+
+Você também pode abrir essa sessão diretamente pelo deep link:
+
+* [Revisar labels com o assistente](g4os://action/new-session?input=Explain%20the%20current%20label%20structure%20and%20auto-apply%20rules%2C%20suggest%20improvements%2C%20and%20guide%20me%20through%20the%20update%20process.%20Do%20not%20edit%20anything%20yet%3B%20ask%20for%20confirmation%20first.\&send=true\&mode=ask\&workdir=none)
+
+## Dica prática
+
+Se as labels estão sendo usadas só como lista plana, vale revisar a hierarquia e as regras automáticas. Isso normalmente melhora bastante a navegabilidade.
+
+
+# Marketplace
+Source: https://docsg4os.g4business.com/support/marketplace
+
+Publique, edite e colabore em skills e workflows no marketplace do G4 OS.
+
+## O que é o Marketplace
+
+O Marketplace é onde skills e workflows criados no G4 OS podem ser publicados, descobertos e reutilizados por outros workspaces.
+
+Como publicador, você gerencia seus itens diretamente no app — sem precisar sair do G4 OS para editar metadados, conteúdo ou colaboradores.
+
+## Meus Itens
+
+A aba **Meus Itens** lista tudo que você já criou ou co-edita no marketplace.
+
+É possível filtrar por status:
+
+* **Rascunho** — salvo localmente, ainda não publicado
+* **Ativo** — publicado e disponível no marketplace
+* **Despublicado** — retirado temporariamente da listagem
+* **Oculto** — visível apenas para você e colaboradores
+* **Bloqueado** — item suspenso por violação de política
+
+<Frame>
+  <img alt="Aba Meus Itens — listagem de items com filtro por status e painel de edição" />
+</Frame>
+
+## Editor de item
+
+Ao abrir um item em **Meus Itens**, você acessa o editor com quatro abas:
+
+### Geral
+
+Metadados do item:
+
+* **Slug** — identificador único em kebab-case
+* **Nome público do autor** — como seu nome aparece no marketplace
+* **Visibilidade** — controla quem pode ver o item (veja abaixo)
+* **Colaboradores** — emails de pessoas que podem co-editar
+* **Categorias** — até 3 categorias para facilitar a descoberta
+
+### Conteúdo
+
+Editor markdown com prévia ao vivo. Use para escrever a descrição completa do item: casos de uso, exemplos, instruções de uso e requisitos.
+
+### Arquivos
+
+Árvore de arquivos do item. Permite:
+
+* renomear arquivos
+* excluir arquivos
+* visualizar o conteúdo de cada arquivo
+
+### Versões
+
+Histórico de publicações do item. Mostra cada versão publicada com data e permite acompanhar a evolução do item ao longo do tempo.
+
+## Autosave e rascunhos
+
+O editor salva automaticamente as alterações como rascunho local. Se você fechar o app ou navegar para outra tela sem publicar, o rascunho é preservado.
+
+Na próxima vez que abrir o item, o app exibirá um aviso:
+
+> **Rascunho local encontrado** — Há alterações salvas localmente que ainda não foram enviadas à nuvem.
+
+Você pode **Restaurar** o rascunho para continuar de onde parou, ou **Descartar** para voltar à versão publicada.
+
+## Visibilidade
+
+| Opção                 | Quem pode ver                                          |
+| --------------------- | ------------------------------------------------------ |
+| **Público**           | Qualquer pessoa com acesso ao marketplace              |
+| **Mesmo domínio**     | Somente usuários do mesmo domínio do autor             |
+| **Lista de domínios** | Somente pessoas em domínios explicitamente autorizados |
+| **Somente convite**   | Somente emails na lista de convidados                  |
+
+> **Nota sobre "Somente convite":** o autor do item é automaticamente incluído na lista de visibilidade, mesmo que o próprio e-mail não esteja na lista de convidados. Isso garante que o criador sempre consiga acessar e editar o item, independente da configuração de visibilidade.
+
+## Colaboradores
+
+Você pode convidar outras pessoas para co-editar um item informando o email delas na seção **Colaboradores** (um email por linha).
+
+### O que colaboradores podem fazer
+
+* Editar o conteúdo, os arquivos, a visibilidade e publicar novas versões
+
+### O que colaboradores **não** podem fazer
+
+* Gerenciar a lista de colaboradores
+* Despublicar o item
+* Transferir a propriedade
+
+Itens co-editados exibem um badge **Compartilhado** na listagem de **Meus Itens**.
+
+## Publicar uma nova versão
+
+Após editar o item, clique em **Publicar nova versão** para enviar as alterações ao marketplace. O botão **Salvar** persiste o rascunho localmente sem publicar.
+
+Para retirar um item da listagem sem excluí-lo, use **Despublicar**.
+
+## Caminho no app
+
+* `Marketplace > Meus Itens`
+
+## Deep links úteis
+
+* [Abrir Marketplace](g4os://marketplace)
+* [Abrir Meus Itens](g4os://marketplace/my-items)
+
+
+# Permissões
+Source: https://docsg4os.g4business.com/support/permissions
+
+Controle o que o G4 OS pode fazer automaticamente no workspace e nas integrações.
+
+## O que esta área controla
+
+`Permissões` define o nível de autonomia do produto para leitura, edição e execução.
+
+## O que você encontra aqui
+
+* explicação do modelo de permissões
+* regras padrão do app
+* overrides específicos do workspace
+* edições assistidas para ajustar políticas
+
+## Casos comuns
+
+* liberar uma ação que hoje está sendo bloqueada
+* restringir comportamentos sensíveis no workspace
+* diferenciar política global da política de um contexto específico
+* revisar se uma automação pode executar sem intervenção
+
+## Caminho no app
+
+* `Configurações > Permissões`
+
+## Deep links úteis
+
+* [Abrir Permissões](g4os://settings/permissions)
+* [Abrir Workspace](g4os://settings/workspace)
+
+## Boa prática
+
+Evite usar permissões muito amplas como primeiro passo. Comece com o necessário para o fluxo atual e expanda quando houver confiança operacional.
+
+
+# Preferências
+Source: https://docsg4os.g4business.com/support/preferences
+
+Gerencie o contexto pessoal usado para personalização no G4 OS.
+
+## O que esta área cobre
+
+`Preferências` guarda o contexto pessoal que ajuda o app a responder e operar melhor para você.
+
+## O que você encontra aqui
+
+* nome
+* fuso horário
+* idioma
+* cidade
+* país
+* notas pessoais
+
+## Casos comuns
+
+* corrigir timezone para agendas e automações
+* atualizar idioma preferido
+* manter localização alinhada ao contexto real
+* registrar notas úteis para personalização
+
+## Caminho no app
+
+* `Configurações > Preferências`
+
+## Deep links úteis
+
+* [Abrir Preferências](g4os://settings/preferences)
+* [Abrir Configurações do App](g4os://settings)
+
+## Dica prática
+
+Se o comportamento do assistente parece inconsistente com seu horário, contexto local ou forma de trabalho, comece revisando esta página.
+
+
+# Controle remoto
+Source: https://docsg4os.g4business.com/support/remote-control
+
+Entenda como parear um navegador ou celular, liberar uma sessão e continuar o uso remoto do G4 OS.
+
+## O que é controle remoto
+
+Controle remoto é o fluxo usado quando você quer continuar a mesma sessão em outro dispositivo, como navegador desktop, navegador mobile ou celular.
+
+Ele não publica a conversa para fora e não convida outro workspace para colaborar. O objetivo aqui é liberar a sua própria sessão para um dispositivo pareado.
+
+<img alt="Janela de controle remoto no G4 OS" />
+
+*Fluxo de pareamento, liberação da sessão e uso remoto no navegador ou celular.*
+
+## Como funciona na prática
+
+1. Você gera um `link de pareamento` no desktop.
+2. Abre esse link no navegador ou celular que vai controlar o app.
+3. Faz login com o mesmo e-mail usado no G4 OS.
+4. Volta ao desktop, atualiza a lista de dispositivos e libera a sessão desejada.
+5. Depois disso, o dispositivo pareado pode abrir o controle remoto e continuar dali.
+
+## O que o pareamento faz
+
+O pareamento transforma aquele navegador ou celular em um dispositivo conhecido pelo seu workspace.
+
+Depois de pareado, o dispositivo pode aparecer na lista de autorização de sessões. Isso não significa que ele já tem acesso a tudo. Cada sessão ainda precisa ser liberada explicitamente.
+
+## O que significa liberar a sessão
+
+Liberar a sessão é o passo que autoriza um dispositivo pareado a acessar aquela conversa específica.
+
+Na prática, o fluxo é separado em duas camadas:
+
+* `parear o dispositivo`
+* `liberar a sessão para esse dispositivo`
+
+Essa separação evita que todo dispositivo pareado tenha acesso automático a todas as sessões.
+
+## O que costuma ser lembrado
+
+O mesmo navegador ou perfil costuma lembrar o pareamento e pode voltar ao controle remoto sem repetir tudo do zero.
+
+Se você trocar de navegador, usar aba anônima, outro perfil ou uma webview diferente, é comum precisar gerar um novo link de pareamento.
+
+## O que você consegue gerenciar
+
+Na tela de `Controle remoto`, você pode:
+
+* criar um novo link de pareamento
+* atualizar a lista de dispositivos pareados
+* liberar uma sessão para um dispositivo
+* remover o acesso de uma sessão
+* revogar um dispositivo quando ele não deve mais aparecer na lista
+
+## Disponibilidade e energia
+
+Para o controle remoto funcionar bem, o app desktop precisa continuar disponível.
+
+O G4 OS tem a opção `Manter disponível para controle remoto`, que evita repouso automático enquanto houver dispositivo pareado e o computador estiver na tomada. Ainda assim:
+
+* a tela pode desligar e o acesso continuar
+* fechar a tampa do notebook desconecta o acesso remoto
+* colocar o computador em repouso manualmente também desconecta
+
+## Quando usar
+
+* quando você quer continuar uma sessão no celular
+* quando prefere operar a conversa pelo navegador sem perder o contexto do desktop
+* quando o objetivo é mobilidade, e não colaboração entre workspaces
+
+## Quando não usar
+
+* se outra pessoa precisa entrar na sessão pelo próprio G4 OS, use [Sessão colaborativa](/support/collaborative-session)
+* se você só quer enviar um link para leitura, use [Compartilhamento](/support/sharing)
+
+## Caminho no app
+
+* `Sessões > abrir uma sessão > menu da sessão > Controle remoto`
+
+## Deep links úteis
+
+* [Abrir Sessões](g4os://allSessions)
+
+## Resumo rápido
+
+Controle remoto é o fluxo certo quando a mesma pessoa quer continuar a sessão em outro dispositivo, com pareamento por link, login no mesmo e-mail e liberação explícita da conversa antes do acesso remoto.
+
+## Veja também
+
+* [Mensagens via Telegram](/support/telegram-messaging) — continue conversas pelo celular via Telegram sem abrir o app
+* [Sessão colaborativa](/support/collaborative-session) — compartilhe uma sessão com outro usuário do G4 OS
+
+
+# Modo reparo
+Source: https://docsg4os.g4business.com/support/repair-mode
+
+Entenda os diagnósticos de saúde, o reparo guiado e o log para suporte do G4 OS.
+
+<Warning>
+  **Beta:** Modo reparo é uma funcionalidade beta e ainda não foi disponibilizada para todos os usuários. Se não aparecer no menu de configurações, aguarde atualizações futuras.
+</Warning>
+
+## O que é o Modo reparo
+
+`Modo reparo` é a área de diagnóstico e recuperação assistida do G4 OS.
+
+Ela existe para ajudar quando o app continua abrindo, mas alguma parte do estado local ficou inconsistente depois de uma atualização, reinstalação, troca de versão ou migração entre máquinas.
+
+<img alt="Tela de Modo reparo no G4 OS" />
+
+*Tela de diagnósticos de saúde, reparo guiado e geração de log para suporte.*
+
+## Quando usar
+
+Use essa tela principalmente quando:
+
+* sessões antigas pararam de abrir como antes
+* o workspace atual ficou com caminhos quebrados
+* a conexão gerenciada correta deixou de ser reconhecida
+* você precisa validar a saúde local do app antes de chamar o suporte
+* o time de suporte pediu um log técnico sem segredos
+
+## O que esta tela faz
+
+O `Modo reparo` combina três frentes:
+
+* `diagnósticos somente leitura` para mapear o estado atual do app
+* `reparo guiado` para corrigir metadados de sessão e revalidar o provedor gerenciado
+* `log para suporte` para exportar um JSON técnico seguro de compartilhar
+
+O ponto mais importante: a tela foi desenhada para ser conservadora.
+
+Os diagnósticos e as prévias não alteram dados. Quando existe ação de aplicação, ela fica restrita a metadados de sessão ou à cópia de sessões importadas para o workspace ativo.
+
+## O que o reparo guiado corrige
+
+Na área `Reparo guiado`, a ação principal é `Corrigir sessões e provedor`.
+
+Na prática, ela faz duas coisas:
+
+1. Revalida a conexão gerenciada usada pelo app.
+2. Revisa os `workspaces saudáveis` e normaliza somente metadados de sessão que costumam quebrar após mudanças de ambiente.
+
+Os campos que podem ser ajustados nessa correção incluem:
+
+* conexão gerenciada
+* raiz do workspace
+* diretório de trabalho
+* `sdkCwd`
+* runtime
+* provedor
+* modelo
+* nível de pensamento
+
+O que essa correção preserva:
+
+* mensagens
+* arquivos
+* credenciais
+* conteúdo das sessões
+
+Se você quiser revisar o impacto antes de aplicar, use `Ver detalhes antes`.
+
+## Como ler o resumo de saúde
+
+O bloco `Resumo de saúde` mostra cartões por subsistema. Eles ajudam a identificar rapidamente onde está o problema:
+
+* `Config e backup`: valida se a configuração principal e o backup estão legíveis
+* `Workspaces`: mostra quantos workspaces estão saudáveis e quantos precisam de atenção
+* `Sessões e índices`: verifica diretórios, arquivos de sessão e índices usados pelo app
+* `Saúde do runtime`: indica se o runtime de execução das sessões está saudável
+* `Artefatos de runtime`: checa se os artefatos empacotados exigidos estão presentes
+* `Instalação da plataforma`: mostra diagnósticos específicos de macOS, Windows ou Linux
+* `Credenciais e fontes`: revisa o armazenamento criptografado e diagnósticos salvos das fontes
+* `Base de operações`: mostra se progresso, cancelamento e log técnico estão prontos para uso
+
+Quando o topo da tela mostra `Status geral: Atenção` ou `Falha`, esses cartões ajudam a localizar a origem do problema antes de aplicar qualquer correção.
+
+## Log para suporte
+
+`Log para suporte` gera um arquivo JSON técnico com contexto suficiente para investigação, sem expor segredos.
+
+Esse log inclui principalmente:
+
+* dados do app, versão e distribuição
+* resumo da configuração carregada
+* resumo dos workspaces conhecidos
+* snapshot completo dos diagnósticos
+* últimas entradas do log interno do próprio modo reparo
+
+Por padrão, o arquivo é salvo em `Downloads/G4 OS Support Logs`. Se preferir, você pode usar `Escolher local...` para salvar em outro lugar.
+
+Depois da geração, o caminho do arquivo é copiado automaticamente, o que acelera o envio ao suporte.
+
+## O que o Modo reparo não faz
+
+É importante não esperar desta tela coisas que ela não promete fazer:
+
+* ela não apaga nem reescreve o conteúdo textual das conversas
+* ela não substitui binários empacotados do app
+* ela não serve como reinstalação automática
+* ela não executa verificações de assinatura e notarização como parte dos diagnósticos
+
+Em outras palavras: o foco aqui é `diagnosticar`, `corrigir metadados` e `gerar contexto técnico`, não reinstalar o produto.
+
+## Casos em que costuma ajudar
+
+* depois de atualizar o G4 OS e perceber que sessões antigas ficaram inconsistentes
+* depois de reinstalar o app em cima de uma instalação anterior
+* quando o app abre, mas caminhos locais ou provedor parecem desalinhados
+* quando você quer gerar um pacote técnico limpo antes de abrir um chamado
+
+## Caminho no app
+
+* `Configurações > Suporte` → tópico **Modo reparo** (quando disponível na sua conta)
+
+## Deep links úteis
+
+* [Abrir Support](g4os://settings/support)
+* [Abrir Workspace](g4os://settings/workspace)
+* [Abrir Cloud Sync](g4os://settings/sync)
+
+## Resumo rápido
+
+`Modo reparo` é a área certa para diagnosticar problemas locais do G4 OS, corrigir metadados de sessão sem mexer no conteúdo das conversas e gerar um log técnico seguro para suporte.
+
+
+# Brain
+Source: https://docsg4os.g4business.com/support/shared-brain
+
+Use o Shared Brain para manter memória e contexto de workspace entre máquinas, com sync criptografado e gestão de nós confiáveis.
+
+<Note>
+  O Brain está em beta. Use para memória e contexto durável; não use para credenciais, tokens, anexos ou logs brutos de sessão.
+</Note>
+
+## O que é o Brain
+
+O Brain é a camada de memória compartilhada do G4 OS.
+
+Ele permite que um workspace mantenha contexto durável para o agente e, quando o sync criptografado está ativo, compartilhe esse contexto com outros workspaces ou computadores confiáveis que entraram no mesmo Shared Brain.
+
+<Frame>
+  <img alt="Visão geral do Shared Brain com abas de visão geral, memória e sync e nós" />
+</Frame>
+
+Na prática, ele serve para:
+
+* lembrar decisões, preferências, convenções e correções importantes
+* manter preferências de fontes e contas no escopo certo do workspace
+* pesquisar memórias por lista ou grafo de contexto
+* sincronizar memória entre máquinas sem sincronizar credenciais
+* gerenciar quais computadores e workspaces participam daquele brain
+
+## Quando usar
+
+Use o Brain quando você quer que o agente tenha continuidade entre workspaces ou computadores.
+
+Bons exemplos:
+
+* "neste workspace, use Gmail X para e-mails comerciais"
+* "a decisão atual do projeto é seguir o fluxo Y"
+* "essa análise usa sempre o dashboard Z como referência"
+* "esse erro já aconteceu; a correção correta foi esta"
+* "este workspace compartilha contexto com outro computador meu"
+
+Não use o Brain como substituto para Cloud Sync. Cloud Sync continua sendo o fluxo de backup/restauração do workspace inteiro. O Brain sincroniza memória canônica e sinais de nós; ele não espelha sessões completas, anexos ou tudo que existe em disco.
+
+## Escopo: workspace, global e fontes
+
+O Brain separa melhor o que deve ser memória do workspace e o que pode ser preferência global.
+
+Na dúvida, trate como memória do workspace:
+
+* preferência de fonte ou conta, como Gmail, Slack, MCP, ERP ou banco específico
+* convenção de projeto
+* decisão operacional daquele contexto
+* raiz lógica, dashboard, fonte ou rotina válida só naquele workspace
+
+Use memória global apenas quando a preferência é claramente da pessoa e faz sentido em todos os workspaces.
+
+Exemplo: se em um workspace você usa um Gmail e em outro usa outro MCP ou outra conta Gmail, isso deve ficar ligado ao workspace correto, não como preferência global.
+
+## Como ativar
+
+Abra `Brain` no menu principal ou vá em `Configurações > Workspace` para ativar o recurso no workspace atual.
+
+Ao iniciar, o app mostra duas opções:
+
+### Criar brain daqui
+
+Use quando este workspace é a origem do contexto.
+
+O G4 OS ativa a memória local e abre uma sessão em modo execute para o assistente:
+
+* ler contexto local do workspace
+* revisar arquivos de contexto e memória já existentes
+* criar ou atualizar artefatos necessários
+* salvar memórias duráveis quando fizer sentido
+* deixar orientação para futuras sessões usarem o Brain sem incomodar
+
+### Importar shared brain
+
+Use quando outro computador ou workspace já tem o Shared Brain.
+
+Cole o código de configuração exportado do outro ambiente. Depois que o código é aceito, o G4 OS abre uma sessão em modo execute para o assistente:
+
+* puxar primeiro o estado remoto do Brain
+* pesquisar memórias e vizinhanças do grafo
+* reconciliar memórias importadas com o contexto local
+* propor instruções portáveis para futuras sessões usarem o Brain corretamente
+* atualizar memórias, links e status quando houver confirmação
+* manter o Brain atualizado daqui para frente sem editar arquivos locais em silêncio
+
+O código de configuração contém o token de sync e a chave de criptografia. Use apenas em computador ou workspace confiável.
+
+## Como o sync funciona
+
+Quando o sync criptografado está pronto:
+
+* o G4 OS roda sync em segundo plano periodicamente
+* alterações locais feitas pelo agente disparam sync assíncrono logo depois
+* outro computador pode receber um sinal criptografado para puxar novidades
+* o app mostra último sync, saída pendente, nós confiáveis e eventos de auditoria
+
+O sync não deve congelar a interface. Se um endpoint remoto falhar, a tela mostra o estado bloqueado/falhou e registra o motivo na auditoria.
+
+## Vários computadores e vários workspaces
+
+O modelo não assume que um usuário tem só uma máquina ou só um workspace.
+
+Pense em:
+
+```text theme={null}
+Pessoa
+  -> Computador A
+     -> Workspace 1
+     -> Workspace 2
+  -> Computador B
+     -> Workspace 3
+```
+
+Cada computador tem uma identidade de nó. Cada workspace pode ou não estar vinculado ao Shared Brain.
+
+Um nó confiável não conecta automaticamente todos os workspaces daquele computador. A tela de sync mostra as participações de workspace para você ver e controlar quais vínculos estão ativos.
+
+## O que é sincronizado
+
+O Brain sincroniza memória canônica e metadados necessários para colaboração segura:
+
+* registros de memória
+* status da memória, como confirmada, rejeitada, supersedida ou expirada
+* links entre memórias e nós do grafo
+* conflitos e provenance quando aplicável
+* estado de sync, nós confiáveis, vínculos de workspace e auditoria local
+
+## Gestão de sync e nós
+
+A aba `Sync e nós` mostra a identidade deste computador, os nós confiáveis, as participações de workspace e os eventos de auditoria.
+
+Use essa aba para:
+
+* exportar um código de configuração para outro workspace confiável
+* importar um código recebido de outro computador ou workspace
+* sincronizar manualmente quando quiser conferir o estado agora
+* ver se o último sync enviou, baixou, aplicou ou ignorou alterações
+* revisar quais nós e workspaces participam deste Brain
+* revogar ou desvincular acessos quando um computador ou workspace não deve mais participar
+
+Revogar um nó bloqueia syncs futuros daquele participante. Isso não apaga dados que já foram descriptografados localmente naquele computador.
+
+Se a auditoria mostrar `falhou`, `bloqueado`, `negado` ou um código remoto, trate como sinal operacional: o sync pode estar incompleto até o endpoint, token, permissão ou presença remota ser corrigido.
+
+## O que nunca deve entrar
+
+Não salve nem sincronize:
+
+* credenciais
+* tokens OAuth
+* chaves de API
+* material de autenticação de fontes
+* anexos
+* logs brutos de sessão
+* respostas longas completas
+* dados temporários de uma tarefa que não precisam ser lembrados
+
+Se uma informação parece segredo, ela deve ficar fora do Brain.
+
+## Memórias e grafo
+
+A aba `Memória` permite ver registros em lista ou grafo.
+
+Use a lista para revisar, filtrar por tipo e arquivar memórias. Use o grafo para entender relações entre:
+
+* preferências
+* decisões
+* observações
+* resumos
+* referências
+* sessões ou contextos relacionados
+
+Ao clicar em um nó, a tela mostra o conteúdo, fontes, status, sensibilidade, links e ações possíveis.
+
+O agente também deve pesquisar de forma progressiva:
+
+1. começar por status e busca ampla
+2. olhar memórias diretas e recentes
+3. expandir nós de contexto promissores
+4. seguir links relacionados
+5. só então criar, atualizar ou conectar uma memória
+
+Isso evita concluir que "não existe memória" depois de uma busca estreita demais.
+
+## Como o agente deve se comportar
+
+Quando o Brain está ativo, o agente deve ser proativo, mas não inconveniente.
+
+O comportamento esperado:
+
+* lembrar memórias relevantes de forma discreta
+* sugerir atualização quando perceber uma decisão, preferência ou correção durável
+* perguntar uma vez antes de salvar, salvo quando você pediu explicitamente para lembrar
+* atualizar status em vez de duplicar memória quando algo foi rejeitado, expirou ou foi supersedido
+* conectar memórias relacionadas quando isso ajuda a busca futura
+* manter preferências de fontes e contas no workspace correto
+* propor alterações em `CLAUDE.md`, `AGENTS.md` ou arquivos de contexto e aguardar confirmação explícita antes de editar
+* nunca gravar caminhos absolutos locais, usuário da máquina ou raiz local do app em memória durável ou instruções compartilhadas
+
+Use caminhos relativos, IDs lógicos de raiz, nomes de workspace, source slugs e metadados de mapeamento de raiz. Caminhos absolutos podem aparecer como diagnóstico local, mas não devem virar regra durável do Brain.
+
+## Onde encontrar
+
+* Menu principal: `Brain`
+* Configuração por workspace: `Configurações > Workspace`
+* Aba de memória: `Brain > Memória`
+* Aba de sync e nós: `Brain > Sync e nós`
+* Deep link geral: [Abrir Brain no G4 OS](g4os://shared-brain)
+* Deep link de configuração: [Abrir Workspace no G4 OS](g4os://settings/workspace)
+
+
+# Compartilhamento
+Source: https://docsg4os.g4business.com/support/sharing
+
+Publique sessões, compartilhe links e entenda quando usar sessão colaborativa ou controle remoto no G4 OS.
+
+<Warning>
+  **Beta:** Sessão colaborativa é uma funcionalidade beta e ainda não foi disponibilizada para todos os usuários. Se não aparecer a funcionalidade, aguarde atualizações futuras.
+</Warning>
+
+## O que esta área cobre
+
+A área de `Compartilhamento` reúne três fluxos diferentes dentro do G4 OS:
+
+* `Compartilhamento público`: gera um link para leitura fora do app
+* `Sessão colaborativa`: permite que outro workspace do G4 OS participe da mesma sessão
+* `Controle remoto`: libera a mesma sessão para continuar em um navegador ou celular pareado
+
+<Columns>
+  <Card title="Sessão colaborativa" icon="users" href="/support/collaborative-session">
+    Convide outro workspace do G4 OS para entrar nesta sessão com URL de leitura e token de edição.
+  </Card>
+
+  <Card title="Controle remoto" icon="desktop" href="/support/remote-control">
+    Pareie um navegador ou celular, libere a sessão e continue dali com o mesmo login do G4 OS.
+  </Card>
+</Columns>
+
+## Quando usar cada opção
+
+| Fluxo                    | Melhor quando                                                              | Quem acessa                     |
+| ------------------------ | -------------------------------------------------------------------------- | ------------------------------- |
+| Compartilhamento público | você quer mandar uma conversa para leitura ou revisão                      | qualquer pessoa com o link      |
+| Sessão colaborativa      | outra pessoa ou outro workspace precisa continuar a sessão dentro do G4 OS | outro workspace do G4 OS        |
+| Controle remoto          | você quer continuar a mesma sessão no navegador ou no celular              | você, em um dispositivo pareado |
+
+## Compartilhamento público
+
+Compartilhamento público é o fluxo mais simples da área. Ele publica uma sessão online para leitura e mantém o mesmo link quando você decide atualizar a versão publicada.
+
+### O que você consegue fazer
+
+* publicar uma sessão online
+* abrir o link publicado no navegador
+* copiar o link
+* atualizar o compartilhamento sem trocar a URL
+* encerrar o compartilhamento e revogar o acesso
+
+### Fluxo recomendado
+
+1. Abra a sessão que deseja compartilhar.
+2. Use o menu de compartilhamento no cabeçalho.
+3. Publique, copie ou abra o link.
+4. Quando necessário, atualize ou revogue o compartilhamento.
+
+### Casos comuns
+
+* demo assíncrona
+* revisão de conversa por outra pessoa
+* repasse de contexto para suporte ou operação
+* envio de conversa publicada para stakeholders
+
+## Quando não usar compartilhamento público
+
+* quando a outra ponta precisa continuar a conversa dentro do G4 OS
+* quando você quer operar a mesma sessão a partir do seu próprio celular ou navegador
+
+Nesses casos, o fluxo correto costuma ser [Sessão colaborativa](/support/collaborative-session) ou [Controle remoto](/support/remote-control).
+
+## Caminho no app
+
+* `Sessões > abrir uma sessão > menu de compartilhamento`
+
+## Deep links úteis
+
+* [Abrir Sessões](g4os://allSessions)
+
+## Importante
+
+Atualizar um compartilhamento publica a versão mais recente no mesmo link. Encerrar o compartilhamento remove o acesso externo àquela publicação.
+
+
+# Atalhos de teclado
+Source: https://docsg4os.g4business.com/support/shortcuts
+
+Referência de atalhos de teclado disponíveis no G4 OS para navegação e ações rápidas.
+
+## O que esta área cobre
+
+`Configurações > Shortcuts` exibe a lista completa de atalhos de teclado disponíveis no G4 OS, organizados por categoria.
+
+Os atalhos são gerados dinamicamente a partir do registro de ações do app — refletem sempre o estado atual do produto.
+
+## Quando usar
+
+* para descobrir atalhos de navegação entre sessões e painéis
+* para verificar qual tecla executa uma ação específica no seu sistema operacional
+* os atalhos variam levemente entre macOS (`⌘`) e Windows/Linux (`Ctrl`)
+
+## Caminho no app
+
+* `Configurações > Shortcuts`
+
+## Deep links úteis
+
+* [Abrir Atalhos](g4os://settings/shortcuts)
+* [Abrir Input](g4os://settings/input)
+
+## Dica prática
+
+A tela de atalhos não tem configuração manual — para alterar a tecla de envio de mensagens, use [Input](g4os://settings/input).
+
+
+# Skills
+Source: https://docsg4os.g4business.com/support/skills
+
+Gerencie skills reutilizáveis que estendem o comportamento do G4 OS em fluxos recorrentes.
+
+## O que são skills
+
+Skills são instruções reutilizáveis que podem ser aplicadas em tarefas específicas para orientar melhor o comportamento do agente.
+
+Em versões anteriores, essa área podia aparecer como `Habilidades`. Na interface atual, ela fica dentro de `Ferramentas > Skills`.
+
+## O que você encontra aqui
+
+* lista de skills disponíveis no workspace
+* busca por nome, slug e descrição
+* abertura do detalhe da skill
+* envio de skill para outro workspace
+* ações de abrir no Finder ou por deep link, quando suportadas
+
+## Casos comuns
+
+* revisar uma skill antes de usá-la em produção
+* organizar skills por área ou fluxo
+* reutilizar uma mesma skill em múltiplos workspaces
+* encontrar rapidamente uma skill específica pelo slug
+
+## Caminho no app
+
+* `Ferramentas > Skills`
+
+## Deep links úteis
+
+* [Abrir Skills](g4os://skills)
+
+## Observação
+
+O detalhe de uma skill específica também pode ser aberto por deep link, no formato:
+
+```text theme={null}
+g4os://skills/skill/<slug-da-skill>
+```
+
+Veja também [Ferramentas](/support/tools) e [Workflows](/support/workflows).
+
+
+# Conexões
+Source: https://docsg4os.g4business.com/support/sources
+
+Conecte e gerencie APIs, MCPs, pastas locais, conectores gerenciados e outras integrações reutilizáveis.
+
+## O que são conexões
+
+Conexões são integrações que dão acesso a dados, sistemas e contextos externos dentro do G4 OS.
+
+Em versões anteriores, essa área aparecia como `Fontes`. Na interface atual, ela fica dentro de `Ferramentas > Conexões`.
+
+## Tipos de conexão que a interface já expõe
+
+* APIs
+* MCPs
+* pastas locais
+* conectores gerenciados
+* agentes G4, quando disponíveis no ambiente
+
+## O que você encontra na experiência de conexões
+
+* lista completa de integrações configuradas
+* filtros por tipo
+* status de conexão e autenticação
+* detalhe por fonte
+* ações de autenticação rápida, quando suportadas
+* atalho para abrir a pasta da fonte localmente
+
+## Casos comuns
+
+* adicionar uma nova integração reutilizável
+* checar se uma conexão está conectada ou bloqueada
+* entender se o problema é de auth, runtime local ou configuração
+* separar rapidamente APIs, MCPs e pastas locais
+
+## Caminhos no app
+
+* `Ferramentas > Conexões`
+* `Ferramentas > Conexões > APIs`
+* `Ferramentas > Conexões > MCPs`
+* `Ferramentas > Conexões > Pastas locais`
+* `Ferramentas > Conexões > Gerenciadas`
+* `Ferramentas > Conexões > Agentes`
+
+## Deep links úteis
+
+* [Abrir Conexões](g4os://sources)
+* [Abrir APIs](g4os://sources/api)
+* [Abrir MCPs](g4os://sources/mcp)
+* [Abrir Pastas Locais](g4os://sources/local)
+* [Abrir Agentes](g4os://sources/agent)
+* [Abrir Conectores Gerenciados](g4os://sources/g4-managed)
+* [Abrir Agentes G4](g4os://sources/g4-agents)
+
+## Dica prática
+
+Quando a dúvida é “essa integração existe no workspace?” ou “por que ela não está conectando?”, comece pela lista de conexões e só depois vá para a sessão específica.
+
+Veja também [Ferramentas](/support/tools), [Conexões](/product/connections) e [Conexões Gerenciadas](/product/connections/managed-connections).
+
+
+# Mensagens via Telegram
+Source: https://docsg4os.g4business.com/support/telegram-messaging
+
+Conecte um bot do Telegram ao G4 OS para controlar sessões e continuar conversas pelo celular.
+
+## O que é
+
+A integração com o Telegram permite conectar um bot ao seu workspace do G4 OS. Depois de configurado, você pode **parear chats do Telegram com sessões específicas** — e continuar conversando com o assistente diretamente pelo app do Telegram, sem precisar abrir o G4 OS no desktop.
+
+É útil quando você está no celular, em reunião, ou quer receber e enviar mensagens de uma sessão em andamento de qualquer lugar.
+
+## Pré-requisitos
+
+Você precisa criar um bot no Telegram antes de configurar a integração:
+
+1. Abra o Telegram e procure por **@BotFather**
+2. Envie `/newbot` e siga as instruções para nomear o bot
+3. Ao final, o BotFather entrega o **token do bot** (formato `123456:ABC-DEF...`) — copie e guarde
+
+## Configurar o bot no G4 OS
+
+<Frame>
+  <img alt="Configurações do Workspace — seção Telegram com campo de token do bot e lista de chats pareados" />
+</Frame>
+
+1. Vá em **Configurações > Workspace**
+2. Role até a seção **Telegram**
+3. Cole o token do bot no campo **Token do bot**
+4. Clique em **Salvar token**
+
+O gateway se conecta automaticamente. O status muda para **online** quando está recebendo mensagens.
+
+> O token fica armazenado no cofre criptografado de credenciais do workspace — nunca em texto claro.
+
+## Parear uma sessão com um chat do Telegram
+
+Com o bot configurado e online, você pode vincular qualquer sessão a um chat:
+
+1. Abra a sessão desejada no G4 OS
+2. Clique no menu da sessão (⋯) e selecione **Gateway Telegram**
+3. Clique em **Gerar código**
+4. Um código de pareamento é exibido junto com o comando `/pair <código>`
+5. Abra o Telegram, envie esse comando para o seu bot
+6. O bot confirma o pareamento e o chat passa a estar vinculado à sessão
+
+A partir daí, mensagens enviadas naquele chat do Telegram chegam diretamente na sessão pareada — e as respostas do assistente são entregues de volta no Telegram.
+
+## Chats pareados
+
+A seção **Chats pareados** em **Configurações > Workspace > Telegram** lista todos os chats do Telegram vinculados a sessões deste workspace. Para cada chat, você vê qual sessão está ativa no vínculo.
+
+## Desconectar ou remover o bot
+
+| Ação            | O que faz                                                                              |
+| --------------- | -------------------------------------------------------------------------------------- |
+| **Desconectar** | Para o gateway mas mantém o token salvo; reconecta ao clicar em Salvar token novamente |
+| **Remover**     | Apaga o token permanentemente e desvincula todos os chats pareados                     |
+
+## Estados do gateway
+
+| Estado                        | O que significa                                                  |
+| ----------------------------- | ---------------------------------------------------------------- |
+| **Online**                    | Bot conectado e recebendo mensagens                              |
+| **Ativado, mas desconectado** | Token salvo, mas sem conexão ativa — verifique o token ou a rede |
+| **Desativado**                | Nenhum bot configurado para este workspace                       |
+
+## Caminho no app
+
+* `Configurações > Workspace` → seção Telegram (configuração do bot)
+* `Menu da sessão (⋯) > Gateway Telegram` (parear uma sessão)
+
+## Veja também
+
+* [Controle remoto](/support/remote-control) — acesse a mesma sessão em outro dispositivo pelo navegador
+* [Sessão colaborativa](/support/collaborative-session) — compartilhe uma sessão com outro usuário do G4 OS
+
+
+# Ferramentas
+Source: https://docsg4os.g4business.com/support/tools
+
+Entenda o hub que reúne conexões, skills, workflows e dashboards do workspace.
+
+## O que é Ferramentas
+
+`Ferramentas` é o hub do workspace para tudo que amplia a capacidade operacional do G4 OS.
+
+É ali que você encontra:
+
+* **Conexões** para APIs, MCPs, pastas locais, conectores gerenciados e agentes G4
+* **Skills** para instruções reutilizáveis aplicadas a tarefas específicas
+* **Workflows** para processos versionados que rodam por comando
+* **Dashboards** para painéis nativos salvos no workspace
+
+<Frame>
+  <img alt="Hub Ferramentas do G4 OS com abas de Conexões, Skills, Workflows e Dashboards" />
+</Frame>
+
+## Como usar
+
+Use esta área quando quiser revisar o que o workspace já tem disponível antes de abrir uma sessão, criar uma automação ou pedir para o agente executar um fluxo.
+
+Na prática, ela ajuda a responder perguntas como:
+
+* quais conexões este workspace pode usar?
+* quais skills e workflows já existem?
+* existe um dashboard salvo para este assunto?
+* a integração que eu preciso está conectada, exige autenticação ou tem problema de validação?
+
+## Abas principais
+
+### Conexões
+
+Mostra integrações reutilizáveis, incluindo conectores gerenciados, MCPs, APIs, pastas locais e agentes. Para o guia detalhado, veja [Conexões](/support/sources).
+
+### Skills
+
+Mostra skills disponíveis no workspace. Skills são instruções especializadas que podem ser acionadas pelo agente quando o tipo de trabalho combina com a descrição da skill. Veja [Skills](/support/skills).
+
+### Workflows
+
+Mostra processos reutilizáveis, normalmente acionados por `/nome-do-workflow` no input da sessão. Veja [Workflows](/support/workflows).
+
+### Dashboards
+
+Mostra painéis nativos salvos no workspace. Dashboards preservam definição, fontes, layout e último refresh. Veja [Dashboards](/support/dashboards).
+
+## Caminho no app
+
+* Menu lateral > `Ferramentas`
+
+## Deep links úteis
+
+* [Abrir Ferramentas / Conexões](g4os://sources)
+* [Abrir Skills](g4os://skills)
+* [Abrir Workflows](g4os://workflows)
+* [Abrir Dashboards](g4os://dashboards)
+
+## Dica prática
+
+Quando uma sessão não encontra uma ferramenta ou o agente diz que não tem acesso a uma capacidade, comece por `Ferramentas`. Verifique primeiro se a conexão, skill, workflow ou dashboard existe no workspace e só depois investigue permissões, credenciais ou automações.
+
+
+# Uso
+Source: https://docsg4os.g4business.com/support/usage
+
+Acompanhe consumo de créditos e entenda como a política da empresa afeta seus limites no G4 OS.
+
+## O que esta área mostra
+
+A página de `Uso` resume o consumo de créditos do workspace ativo dentro do G4 OS, exibindo limites, projeções e o detalhamento de como os créditos foram gastos no mês.
+
+Em workspaces **vinculados a uma empresa**, a visão passa a refletir a política daquela empresa para o usuário logado: os limites exibidos são os definidos pela administração (política global ou grupo de política específico), e o consumo é calculado dentro desse contexto. Em workspaces **pessoais** sem vínculo empresarial, o comportamento permanece o mesmo.
+
+<img alt="Página de Uso — resumo do mês, ritmo vs. mês passado, projeção, breakdown por modelo e gráfico diário" />
+
+## Estrutura da página
+
+### Badge de escopo
+
+No topo, um badge indica se o consumo exibido é **pessoal** ou vinculado a uma **empresa gerenciada**. Quando vinculado a uma empresa, o nome da organização aparece ao lado do ícone.
+
+### Limites de uso
+
+Dois cartões mostram o consumo atual versus o limite configurado:
+
+| Campo          | Descrição                                                             |
+| -------------- | --------------------------------------------------------------------- |
+| **Uso diário** | Créditos consumidos no dia corrente. Reseta à meia-noite.             |
+| **Uso mensal** | Créditos consumidos no mês corrente. Reseta no início do próximo mês. |
+
+Cada cartão exibe:
+
+* Créditos usados vs. limite (ex: `13,5 de 100 cr`)
+* Percentual restante
+* Barra de progresso com código de cor:
+  * **Normal** (\< 80%): barra escura
+  * **Atenção** (80–99%): barra azul
+  * **Limite atingido** (≥ 100%): barra vermelha
+
+Quando não há limite configurado, o campo mostra apenas o consumo sem indicador de percentual.
+
+### Resumo do mês
+
+Dois cartões de análise são exibidos lado a lado:
+
+**Ritmo vs. mês passado**
+Compara o consumo atual com o mesmo período do mês anterior. Pode mostrar:
+
+* *Acima do ritmo* — consumo percentualmente maior que o mês anterior
+* *Abaixo do ritmo* — consumo percentualmente menor
+* *No ritmo* — consumo equivalente
+* *Sem histórico suficiente* — quando não há dados do mês anterior para comparar
+
+Inclui métricas de créditos, turnos e sessões do mês atual vs. mesmo dia do mês passado.
+
+**Projeção do mês**
+Estima o total de créditos que será consumido até o fim do mês com base no ritmo atual. Quando há limite configurado, exibe o percentual projetado em relação ao limite e alerta se a projeção ultrapassar o teto.
+
+### Onde seus créditos foram
+
+Exibe os modelos de IA mais utilizados no mês, com:
+
+* Nome do modelo
+* Créditos consumidos e percentual do total
+* Número de turnos
+
+Esta seção aparece apenas em contas pessoais ou quando há dados de uso por modelo disponíveis.
+
+### Consumo por dia
+
+Gráfico de barras com o consumo diário de créditos. Permite alternar entre o mês atual e o mês anterior para comparação visual. O totalizador de cada período é exibido acima do gráfico.
+
+> **Nota:** O gráfico considera apenas conexões gerenciadas.
+
+### Como isso se aplica
+
+Seção explicativa sobre o modelo de créditos:
+
+* Créditos são a única unidade exibida no app.
+* O uso pessoal continua disponível mesmo fora de um workspace vinculado a uma empresa.
+* Quando o workspace está vinculado a uma empresa e o usuário é gerenciado por ela, a tela **Gerenciar Empresa** passa a ser a fonte de verdade das sessões e limites.
+
+## Caminho no app
+
+* `Configurações > Uso`
+
+## Deep links úteis
+
+* [Abrir Uso](g4os://settings/usage)
+
+## Atualizar dados
+
+O botão de atualização (ícone de seta circular) no canto superior direito recarrega os dados de consumo sob demanda.
+
+## Quando os créditos acabam
+
+Se você ou sua empresa atingir o limite mensal configurado, o app bloqueia novas chamadas ao modelo em tempo de execução. A mensagem de erro aparece diretamente na sessão:
+
+> *Limite mensal de créditos atingido.*
+
+**O que acontece:**
+
+* Novas interações com o assistente ficam bloqueadas
+* Sessões e histórico permanecem acessíveis para leitura
+* O bloqueio é automaticamente removido no primeiro dia do mês seguinte
+
+**Em workspaces gerenciados**, o administrador da empresa pode conceder créditos adicionais ou ajustar o limite sem esperar o reset mensal. Entre em contato com o administrador da sua organização se precisar de acesso imediato.
+
+## Veja também
+
+* [Planos e Créditos](/support/billing-subscriptions) — entenda os planos disponíveis, como resgatar cupons e o que são créditos extras
+* [Gerenciar Empresa](/support/empresa) — painel administrativo com visão consolidada do consumo da empresa, tabela de usuários e configuração de políticas
+* [Workspace](/support/workspace) — configuração de vínculo com Company Context
+
+
+# Workflows
+Source: https://docsg4os.g4business.com/support/workflows
+
+Use workflows para padronizar processos recorrentes e acioná-los por comando dentro das sessões.
+
+## O que são workflows
+
+Workflows são processos reutilizáveis do workspace. Eles descrevem uma sequência de trabalho, contexto de apoio e critérios de execução para que o agente consiga repetir um fluxo com mais consistência.
+
+Diferente de uma skill, que tende a orientar comportamento para uma classe de tarefa, um workflow costuma representar um processo mais completo: diagnóstico, análise, criação de artefato, revisão, handoff ou rotina operacional.
+
+## Onde aparecem
+
+Workflows aparecem em `Ferramentas > Workflows`.
+
+<Frame>
+  <img alt="Lista de workflows dentro do hub Ferramentas do G4 OS" />
+</Frame>
+
+## Como acionar
+
+Em uma sessão, digite `/` no input para abrir sugestões de workflows disponíveis. Ao escolher um workflow, o G4 OS injeta as instruções versionadas daquele processo na execução.
+
+Exemplos:
+
+```text theme={null}
+/daily-checkpoint
+/slides
+/web-app
+```
+
+O nome exato depende dos workflows instalados no workspace.
+
+## O que você encontra no detalhe
+
+* nome e slug do workflow
+* descrição e comando de acionamento
+* instruções do processo
+* arquivos de conhecimento associados, quando existirem
+* ações para abrir no Finder, enviar para outro workspace ou abrir por deep link
+
+## Casos comuns
+
+* padronizar uma análise recorrente
+* criar um processo de revisão ou qualidade
+* transformar um playbook interno em comando reutilizável
+* instalar workflows do marketplace e adaptar para o workspace
+* compartilhar um workflow entre workspaces sem copiar instruções manualmente
+
+## Caminho no app
+
+* Menu lateral > `Ferramentas` > `Workflows`
+
+## Deep links úteis
+
+* [Abrir Workflows](g4os://workflows)
+
+O detalhe de um workflow específico também pode ser aberto por deep link:
+
+```text theme={null}
+g4os://workflows/workflow/<slug-do-workflow>
+```
+
+## Relação com automações
+
+Automações podem usar workflows quando uma rotina precisa rodar com o mesmo processo toda vez. Nesse caso, configure a automação para disparar uma nova sessão ou ação recorrente com o workflow certo.
+
+Veja também [Automação](/support/automation) e [Marketplace](/support/marketplace).
+
+
+# Workspace
+Source: https://docsg4os.g4business.com/support/workspace
+
+Entenda os controles que definem o contexto operacional de cada workspace no G4 OS.
+
+## O que esta área controla
+
+`Workspace` reúne configurações que pertencem ao contexto ativo, e não ao app inteiro.
+
+## O que você encontra aqui
+
+* nome e identificação do workspace
+* modo de permissão padrão
+* vínculo com Company Context, quando disponível
+* fontes padrão do workspace
+* cycling de modos
+* recomendações de parceiro
+* diretório de trabalho
+* pasta raiz de projetos
+* configuração de local MCP
+
+## Situações especiais
+
+Quando um workspace está quebrado ou incompleto, esta área também é usada para orientar reparo e restauração do caminho raiz. Nesses casos, vale consultar também [Modo reparo](/support/repair-mode).
+
+## Relação com o onboarding
+
+O onboarding inicial do G4 OS cria o primeiro estado do workspace. É ali que normalmente entram:
+
+* nome do workspace
+* idioma e região
+* empresa
+* perfil de trabalho
+* objetivos iniciais
+* primeiras conexões
+
+Depois que o workspace já existe, a área de `Workspace` vira o lugar certo para revisar e ajustar as decisões que pertencem a esse contexto específico.
+
+## Casos comuns
+
+* renomear um workspace
+* revisar qual diretório de trabalho está ativo
+* escolher fontes padrão para novas sessões
+* vincular ou desvincular um Company Context
+* ajustar a raiz de projetos gerenciados
+
+## Company Context
+
+O **Company Context** vincula este workspace a uma empresa cadastrada no G4 OS. Com o vínculo ativo, os agentes nas sessões passam a acessar o contexto organizacional dessa empresa automaticamente.
+
+Empresas verificadas exibem um **badge azul** ao lado do nome no seletor. Esse badge indica que o G4 validou que aquele cadastro corresponde à empresa real — garantindo que os colaboradores saibam que estão se conectando ao contexto correto.
+
+<Card title="Saiba mais sobre Company Context e verificação" icon="badge-check" href="/support/company-context">
+  Critérios de verificação, o que o badge representa e como o vínculo com a empresa afeta suas sessões.
+</Card>
+
+## Caminho no app
+
+* `Configurações > Workspace`
+
+## Deep links úteis
+
+* [Abrir Workspace](g4os://settings/workspace)
+* [Abrir Sessões](g4os://allSessions)
+
+## Dica prática
+
+Se a dúvida for “isso vale para todo o app ou só para este contexto?”, normalmente `Workspace` é a resposta quando o comportamento precisa ficar isolado por projeto, time ou operação.
+
+Veja também [Quickstart](/getting-started/quickstart) para o fluxo inicial de criação do workspace.
+
+
+# Design & Slides
+Source: https://docsg4os.g4business.com/use-cases/design/design-slides
+
+Crie apresentações, protótipos interativos e animações diretamente no G4 OS — basta descrever o que você precisa.
+
+## O que este caso de uso cobre
+
+O workflow **G4 OS Design** transforma descrições em texto em entregas de design de alta fidelidade — slides 1920×1080, mockups de app, infográficos e animações com export MP4/GIF. Tudo gerado como HTML no G4 OS, sem ferramentas externas.
+
+## Antes de começar: instalar o workflow
+
+O workflow **G4 OS Design** precisa estar instalado no seu workspace. Ele está disponível no Marketplace do G4 OS.
+
+<Steps>
+  <Step title="Abrir o Marketplace">
+    Acesse o Marketplace pelo menu lateral do G4 OS ou pelo deep link abaixo.
+
+    [Abrir Marketplace](g4os://marketplace)
+  </Step>
+
+  <Step title="Buscar e instalar">
+    Pesquise por **"G4 OS Design"** e instale no seu workspace. Após a instalação, o workflow fica disponível como `/g4os-design` em qualquer sessão.
+  </Step>
+
+  <Step title="Confirmar a instalação">
+    Abra uma sessão nova e digite `/g4os-design` — o G4 OS vai pedir seu briefing e começar a criar.
+  </Step>
+</Steps>
+
+## Abrir no G4 OS
+
+<Card title="Criar apresentação de slides no G4 OS" icon="presentation-screen" href="g4os://action/new-session?input=%2Fg4os-design+Quero+criar+uma+apresentacao+de+slides.+Me+ajude+com+o+briefing+e+depois+gere+os+slides.&send=true&mode=execute&workdir=none">
+  Abrir sessão com o workflow G4 OS Design
+</Card>
+
+O G4 OS vai perguntar sobre tema, estilo visual, quantidade de slides e conteúdo — e depois entrega o deck completo como HTML pronto para visualizar, exportar em PDF ou converter para PPTX.
+
+## O que o workflow entrega
+
+| Tipo                | Formato de entrega                     | Export    |
+| ------------------- | -------------------------------------- | --------- |
+| Slides / deck       | HTML 1920×1080 por slide               | PDF, PPTX |
+| Protótipo de app    | HTML interativo com frames nativos     | —         |
+| Animação / motion   | HTML com timeline CSS/JS               | MP4, GIF  |
+| Infográfico         | HTML estático, tipografia premium      | PNG, PDF  |
+| Variações de design | 3 direções lado a lado com live tweaks | —         |
+
+## Exemplo de output
+
+Abaixo um exemplo de slide gerado pelo G4 OS a partir de um briefing simples:
+
+<img alt="Slide de exemplo — Design com G4 OS" />
+
+*Slide 1920×1080 gerado pelo G4 OS com o workflow G4 OS Design. Tema escuro, paleta dourada, layout dois painéis com features.*
+
+## O que você pode pedir
+
+Exemplos de briefings que funcionam bem:
+
+* `"Crie um deck de 8 slides para uma proposta comercial de software B2B, tom executivo, tema escuro"`
+* `"Faça um mockup do app de login e dashboard de um SaaS, estilo iOS"`
+* `"Crie um infográfico de funil de vendas com 5 etapas, paleta azul corporativo"`
+* `"Monte uma apresentação de onboarding para novos colaboradores, 10 slides, tema claro"`
+* `"Crie uma animação de intro de 5 segundos para uma apresentação"`
+
+## Análises e entregas possíveis
+
+* **Decks executivos** — propostas, pitches, relatórios mensais
+* **Onboarding e treinamento** — apresentações didáticas com progressão visual
+* **Protótipos de produto** — mockups clicáveis para validação de UX
+* **Materiais de marketing** — landing pages estáticas, banners, infográficos
+* **Motion design** — animações para abertura de vídeos ou apresentações
+
+## Veja também
+
+* [Casos de Uso — índice](/use-cases)
+
+
+# Casos de Uso
+Source: https://docsg4os.g4business.com/use-cases/index
+
+Exemplos práticos de como usar o G4 OS — sessões pré-configuradas que abrem direto no app com o contexto já pronto.
+
+## Explore o G4 OS com exemplos prontos
+
+Cada caso de uso mostra o G4 OS em ação para um tipo específico de tarefa. Clique no deep link de qualquer caso e o app abre uma sessão no modo Execute com tudo já configurado.
+
+<CardGroup>
+  <Card title="Cohort de Receita" icon="chart-line" href="/use-cases/marketing-vendas/cohort-receita">
+    Retenção, LTV e MRR por cohort. 36 meses.
+  </Card>
+
+  <Card title="Funil de Marketing" icon="filter" href="/use-cases/marketing-vendas/funil-marketing">
+    CAC, ROAS e conversão por canal. 104 semanas.
+  </Card>
+
+  <Card title="Churn e Retenção" icon="arrow-right-from-bracket" href="/use-cases/marketing-vendas/churn-retencao">
+    Motivos de saída e receita perdida. 36 meses.
+  </Card>
+
+  <Card title="Performance Comercial" icon="trophy" href="/use-cases/marketing-vendas/performance-comercial">
+    38 mil deals, ranking de vendedores e ramp.
+  </Card>
+
+  <Card title="Otimização de Processos" icon="gears" href="/use-cases/operacoes/apqc-otimizacao-processos">
+    Entrevista guiada + mapeamento APQC PCF v8.0.
+  </Card>
+
+  <Card title="Design & Slides" icon="palette" href="/use-cases/design/design-slides">
+    Apresentações, protótipos e animações com IA.
+  </Card>
+
+  <Card title="Pentest Supabase" icon="shield-halved" href="/use-cases/seguranca/seguranca-lovable">
+    Auditoria automatizada de apps Lovable e Bolt.
+  </Card>
+</CardGroup>
+
+## Como funciona o deep link
+
+Cada página tem um botão **"Abrir no G4 OS"**. Ao clicar, o app abre uma sessão no modo Execute com o contexto e as instruções já prontos — sem copiar prompt, sem configurar nada.
+
+Para isso funcionar, o app desktop do G4 OS precisa estar instalado e em execução.
+
+<Card title="Baixar o G4 OS" icon="download" href="https://g4oscloud.com/download-public">
+  Instale o app desktop para usar os deep links desta seção.
+</Card>
+
+
+# Churn e Retenção
+Source: https://docsg4os.g4business.com/use-cases/marketing-vendas/churn-retencao
+
+Analise motivos de saída, taxa de churn mensal por produto e estratégias de retenção com um dataset de exemplo pronto para uso no G4 OS.
+
+## O que este caso de uso cobre
+
+Análise de **churn e retenção de clientes** — com foco em motivos de cancelamento, valor perdido por produto e oportunidades de reativação. O G4 OS calcula taxas, ranqueia motivos por impacto financeiro e gera gráficos Mermaid de evolução do churn.
+
+## Dataset de exemplo
+
+<Card title="nexus_churn_retencao.xlsx" icon="table" href="https://raw.githubusercontent.com/Gestao-Quatro-Ponto-Zero/g4os-docs/main/use-cases/datasets/nexus_churn_retencao.xlsx">
+  Baixar dataset — churn mensal por produto e motivo (133 KB, 36 meses)
+</Card>
+
+### O que tem dentro
+
+| Coluna             | Descrição                                 |
+| ------------------ | ----------------------------------------- |
+| `mes`              | Mês de referência                         |
+| `produto`          | Produto cancelado                         |
+| `motivo_churn`     | Motivo declarado de cancelamento          |
+| `churns`           | Número de cancelamentos                   |
+| `valor_churn`      | Receita perdida no mês                    |
+| `ticket_medio`     | Ticket médio dos clientes que cancelaram  |
+| `clientes_retidos` | Clientes que estavam em risco mas ficaram |
+| `taxa_churn_pct`   | Taxa de churn mensal do produto           |
+| `reativacoes`      | Clientes reativados no mesmo mês          |
+
+**Motivos de churn incluídos:** preço/custo-benefício, resultado não percebido, falta de tempo/engajamento, troca por concorrente, situação financeira, conclusão natural do programa.
+
+## Abrir no G4 OS
+
+<Card title="Analisar churn e retenção no G4 OS" icon="sparkles" href="g4os://action/new-session?input=Faca+o+download+do+dataset+nexus_churn_retencao.xlsx+em+https%3A%2F%2Fraw.githubusercontent.com%2FGestao-Quatro-Ponto-Zero%2Fg4os-docs%2Fmain%2Fuse-cases%2Fdatasets%2Fnexus_churn_retencao.xlsx+e+execute%3A+%281%29+carregue+e+inspecione+o+arquivo%2C+%282%29+calcule+taxa+de+churn+por+produto+ao+longo+do+tempo%2C+%283%29+ranqueie+os+principais+motivos+por+frequencia+e+receita+perdida%2C+%284%29+gere+um+grafico+Mermaid+de+pie+chart+com+distribuicao+dos+motivos+de+churn%2C+%285%29+gere+um+grafico+de+linha+com+evolucao+da+taxa+de+churn+mensal+por+produto%2C+%286%29+sugira+acoes+de+retencao+baseadas+nos+padroes+encontrados.&send=true&mode=execute&workdir=none">
+  Abrir sessão — executa automaticamente no modo Execute
+</Card>
+
+### O que o G4 OS faz ao abrir
+
+1. Baixa e processa o dataset
+2. Calcula taxa de churn mensal por produto
+3. Rankeia motivos por frequência e impacto financeiro
+4. Gera pie chart Mermaid com distribuição dos motivos
+5. Gera gráfico de linha com evolução da taxa mensal
+6. Sugere ações de retenção baseadas nos padrões encontrados
+
+## Análises possíveis com este dataset
+
+* **Evolução do churn** — curva mensal por produto nos 36 meses
+* **Custo do churn** — receita perdida acumulada por motivo
+* **Distribuição de motivos** — pie chart de causas de cancelamento
+* **Eficiência de retenção** — taxa de sucesso vs tentativas por mês
+* **Sazonalidade** — churn tem padrão em determinados meses?
+* **Reativações** — quais meses têm mais recuperação de clientes perdidos
+
+## Exemplo de output
+
+<img alt="Churns mensais por produto — Nexus Consultoria" />
+
+*Evolução do churn mensal por produto ao longo de 36 meses, com sugestões de ações de retenção priorizadas por impacto financeiro, geradas pelo G4 OS.*
+
+## Veja também
+
+* [Cohort de Receita](/use-cases/marketing-vendas/cohort-receita) — visualize o impacto do churn na receita por cohort
+* [Performance Comercial](/use-cases/marketing-vendas/performance-comercial) — leads de baixa qualidade aumentam churn futuro?
+* [Funil de Marketing](/use-cases/marketing-vendas/funil-marketing) — origem do cliente e correlação com churn
+
+
+# Cohort de Receita por Produto
+Source: https://docsg4os.g4business.com/use-cases/marketing-vendas/cohort-receita
+
+Analise retenção de receita, LTV e comportamento de cohorts mensais com um dataset de exemplo pronto para uso no G4 OS.
+
+## O que este caso de uso cobre
+
+Análise de **cohorts de clientes e receita por produto** — cruzando retenção mensal, ticket médio, LTV e churn por cohort de entrada. O G4 OS baixa o dataset, roda as análises em Python e gera tabelas, gráficos Mermaid e um resumo executivo.
+
+## Dataset de exemplo
+
+<Card title="nexus_cohort_receita.xlsx" icon="table" href="https://raw.githubusercontent.com/Gestao-Quatro-Ponto-Zero/g4os-docs/main/use-cases/datasets/nexus_cohort_receita.xlsx">
+  Baixar dataset — cohort mensal de receita por produto (26 KB, 36 meses)
+</Card>
+
+### O que tem dentro
+
+| Coluna            | Descrição                                     |
+| ----------------- | --------------------------------------------- |
+| `mes_cohort`      | Mês de entrada do cohort                      |
+| `mes_referencia`  | Mês da observação                             |
+| `produto`         | Produto contratado                            |
+| `clientes_ativos` | Clientes ativos naquele mês                   |
+| `receita_mrr`     | Receita recorrente mensal                     |
+| `ticket_medio`    | Ticket médio do cohort                        |
+| `retencao_pct`    | Taxa de retenção em relação ao mês de entrada |
+| `ltv_acumulado`   | LTV acumulado até o mês de referência         |
+
+## Abrir no G4 OS
+
+<Card title="Analisar cohort de receita no G4 OS" icon="sparkles" href="g4os://action/new-session?input=Faca+o+download+do+dataset+nexus_cohort_receita.xlsx+em+https%3A%2F%2Fraw.githubusercontent.com%2FGestao-Quatro-Ponto-Zero%2Fg4os-docs%2Fmain%2Fuse-cases%2Fdatasets%2Fnexus_cohort_receita.xlsx+e+execute+a+seguinte+analise%3A+%281%29+carregue+e+inspecione+o+arquivo%2C+%282%29+calcule+retencao+por+produto+e+cohort%2C+%283%29+estime+LTV+medio+por+produto%2C+%284%29+identifique+os+cohorts+com+maior+e+menor+retencao%2C+%285%29+gere+um+grafico+de+barras+em+Mermaid+com+retencao+M3+dos+melhores+e+piores+cohorts%2C+%286%29+gere+um+resumo+executivo+com+tabela+de+LTV+por+produto+e+principais+insights.&send=true&mode=execute&workdir=none">
+  Abrir sessão — executa automaticamente no modo Execute
+</Card>
+
+### O que o G4 OS faz ao abrir
+
+1. Baixa o dataset direto do GitHub
+2. Calcula retenção por produto e mês de cohort
+3. Estima LTV médio e evolução por cohort
+4. Identifica os cohorts com melhor e pior retenção
+5. Gera gráfico Mermaid de retenção M3
+6. Entrega resumo executivo com tabela de LTV por produto
+
+## Exemplos de output
+
+Abaixo dois exemplos reais do que o G4 OS produz com este dataset:
+
+### Resumo executivo com LTV por produto
+
+<img alt="Resumo executivo — Nexus Consultoria: Análise de Cohort & LTV" />
+
+*Tabela de LTV/cliente e participação na receita por produto, gerada pelo G4 OS a partir do dataset de cohort.*
+
+### Gráfico de retenção M3 por cohort
+
+<img alt="Retenção M3 por Cohort — Melhores e Piores" />
+
+*Gráfico Mermaid de barras comparando retenção no terceiro mês entre os melhores e piores cohorts.*
+
+## Análises possíveis com este dataset
+
+* **Heatmap de retenção** — quais cohorts retêm mais ao longo do tempo
+* **Comparação de LTV por produto** — qual linha gera mais valor no longo prazo
+* **Gráfico de evolução de MRR** — curva de receita por cohort de entrada
+* **Sazonalidade** — cohorts de determinados meses têm melhor retenção?
+* **Projeção de receita** — extrapolar MRR esperado com base nas taxas históricas
+
+## Veja também
+
+* [Funil de Marketing](/use-cases/marketing-vendas/funil-marketing) — de onde vêm os clientes que entram nesses cohorts
+* [Churn e Retenção](/use-cases/marketing-vendas/churn-retencao) — análise detalhada dos motivos de saída
+* [Performance Comercial](/use-cases/marketing-vendas/performance-comercial) — conversão e ciclo de venda antes da entrada no cohort
+
+
+# Funil de Marketing e Campanhas
+Source: https://docsg4os.g4business.com/use-cases/marketing-vendas/funil-marketing
+
+Analise performance de campanhas, CAC, ROAS e funil semanal por canal com um dataset de exemplo pronto para uso no G4 OS.
+
+## O que este caso de uso cobre
+
+Análise de **funil de marketing em granularidade semanal** — do investimento até a conversão, segmentado por canal, campanha e origem orgânica/paga. O G4 OS roda as análises, compara canais e gera gráficos Mermaid de funil e evolução temporal.
+
+## Dataset de exemplo
+
+<Card title="nexus_funil_marketing.xlsx" icon="table" href="https://raw.githubusercontent.com/Gestao-Quatro-Ponto-Zero/g4os-docs/main/use-cases/datasets/nexus_funil_marketing.xlsx">
+  Baixar dataset — funil semanal, campanhas e canais (152 KB, 4 abas)
+</Card>
+
+### O que tem dentro
+
+**4 abas:**
+
+| Aba             | Conteúdo                                          | Linhas        |
+| --------------- | ------------------------------------------------- | ------------- |
+| `Funil Semanal` | Visão agregada semanal por canal                  | 104 semanas   |
+| `Por Canal`     | Breakdown por canal de aquisição                  | 572 linhas    |
+| `Campanhas`     | Campanhas individuais com tipo, status e métricas | 1.314 linhas  |
+| `Orgânico`      | Tráfego orgânico, SEO e referral                  | série semanal |
+
+**Campos principais:**
+
+| Campo           | Descrição                                                       |
+| --------------- | --------------------------------------------------------------- |
+| `semana`        | Semana de referência                                            |
+| `canal`         | Canal de aquisição (Paid Social, Search, Email, Orgânico, etc.) |
+| `investimento`  | Gasto em mídia naquela semana/campanha                          |
+| `leads`         | Leads gerados                                                   |
+| `deals_criados` | Oportunidades abertas no CRM                                    |
+| `deals_ganhos`  | Deals fechados atribuídos ao canal                              |
+| `cac`           | Custo de aquisição por cliente                                  |
+| `roas`          | Retorno sobre investimento em mídia                             |
+
+## Abrir no G4 OS
+
+<Card title="Analisar funil de marketing no G4 OS" icon="sparkles" href="g4os://action/new-session?input=Faca+o+download+do+dataset+nexus_funil_marketing.xlsx+em+https%3A%2F%2Fraw.githubusercontent.com%2FGestao-Quatro-Ponto-Zero%2Fg4os-docs%2Fmain%2Fuse-cases%2Fdatasets%2Fnexus_funil_marketing.xlsx+e+execute%3A+%281%29+carregue+as+4+abas%2C+%282%29+compare+CAC+e+ROAS+por+canal%2C+%283%29+ranqueie+as+top+10+campanhas+por+eficiencia+de+conversao%2C+%284%29+gere+um+grafico+Mermaid+de+funil+mostrando+leads+%3E+deals+criados+%3E+deals+ganhos+pelo+canal+com+melhor+ROAS%2C+%285%29+analise+tendencia+semanal+e+sazonalidade%2C+%286%29+recomende+alocacao+de+investimento+com+base+nos+dados.&send=true&mode=execute&workdir=none">
+  Abrir sessão — executa automaticamente no modo Execute
+</Card>
+
+### O que o G4 OS faz ao abrir
+
+1. Baixa e processa as 4 abas do dataset
+2. Compara CAC e ROAS por canal ao longo do tempo
+3. Rankeia as top 10 campanhas por eficiência de conversão
+4. Gera gráfico Mermaid de funil pelo canal com melhor ROAS
+5. Identifica tendências e sazonalidade semanal
+6. Recomenda alocação de investimento com base nos dados
+
+## Análises possíveis com este dataset
+
+* **Comparação de canais** — CAC, ROAS e taxa de conversão lead→deal por canal
+* **Funil visual** — gráfico de funil do canal mais eficiente
+* **Evolução semanal** — linha de tempo de investimento vs leads vs deals
+* **Ranking de campanhas** — as mais e menos eficientes do período
+* **Mix orgânico vs pago** — proporção do funil por origem
+* **Sazonalidade** — quais semanas concentram mais conversões
+
+## Exemplo de output
+
+<img alt="Análise de CAC e ROAS por canal — Nexus Consultoria" />
+
+*Resumo executivo gerado pelo G4 OS: CAC e ROAS por canal, top campanhas por conversão e insight sobre canais orgânicos vs pagos.*
+
+## Veja também
+
+* [Cohort de Receita](/use-cases/marketing-vendas/cohort-receita) — o que acontece depois da conversão
+* [Performance Comercial](/use-cases/marketing-vendas/performance-comercial) — conversão por vendedor após o lead entrar
+* [Churn e Retenção](/use-cases/marketing-vendas/churn-retencao) — qualidade dos leads por canal de aquisição
+
+
+# Performance Comercial
+Source: https://docsg4os.g4business.com/use-cases/marketing-vendas/performance-comercial
+
+Analise conversão por vendedor, perfil de lead, ciclo de venda e ranking de time comercial com um dataset de exemplo pronto para uso no G4 OS.
+
+## O que este caso de uso cobre
+
+Análise de **performance do time comercial** com granularidade em nível de deal individual — conversão por vendedor, perfil do lead por origem, ciclo de venda e ramp de novos vendedores. O G4 OS processa mais de 38 mil registros, gera rankings e gráficos Mermaid comparativos.
+
+## Dataset de exemplo
+
+<Card title="nexus_performance_comercial.xlsx" icon="table" href="https://raw.githubusercontent.com/Gestao-Quatro-Ponto-Zero/g4os-docs/main/use-cases/datasets/nexus_performance_comercial.xlsx">
+  Baixar dataset — 38.213 deals individuais + ranking de vendedores (3.3 MB, 4 abas)
+</Card>
+
+### O que tem dentro
+
+**4 abas:**
+
+| Aba                  | Conteúdo                                      | Linhas          |
+| -------------------- | --------------------------------------------- | --------------- |
+| `Deals Individuais`  | Um registro por deal com vendedor e resultado | 38.213          |
+| `Ranking Vendedores` | Vendedor × mês com métricas agregadas         | 360             |
+| `Perfil de Lead`     | Breakdown de perfil por origem de canal       | série mensal    |
+| `Ramp Vendedores`    | Curva de ramp de novos vendedores             | por contratação |
+
+**Campos principais:**
+
+| Campo          | Descrição                                         |
+| -------------- | ------------------------------------------------- |
+| `vendedor`     | Nome do vendedor (anonimizado)                    |
+| `equipe`       | Time de vendas (Inside Sales, Selfcheckout, etc.) |
+| `origem_lead`  | Canal que gerou o lead                            |
+| `perfil_lead`  | Segmento do lead                                  |
+| `produto`      | Produto negociado                                 |
+| `status`       | Ganho / Perdido / Em andamento                    |
+| `motivo_perda` | Motivo de perda quando aplicável                  |
+| `ciclo_dias`   | Dias do primeiro contato ao fechamento            |
+| `ticket`       | Valor do deal                                     |
+
+## Abrir no G4 OS
+
+<Card title="Analisar performance comercial no G4 OS" icon="sparkles" href="g4os://action/new-session?input=Faca+o+download+do+dataset+nexus_performance_comercial.xlsx+em+https%3A%2F%2Fraw.githubusercontent.com%2FGestao-Quatro-Ponto-Zero%2Fg4os-docs%2Fmain%2Fuse-cases%2Fdatasets%2Fnexus_performance_comercial.xlsx+e+execute%3A+%281%29+carregue+as+4+abas%2C+%282%29+calcule+taxa+de+conversao+e+ticket+medio+por+vendedor%2C+%283%29+compare+performance+por+perfil+de+lead+e+origem%2C+%284%29+gere+um+grafico+Mermaid+de+barras+com+ranking+dos+top+10+vendedores+por+receita%2C+%285%29+analise+ciclo+de+venda+por+produto+e+equipe%2C+%286%29+gere+grafico+de+linha+com+curva+de+ramp+media+dos+vendedores%2C+%287%29+entregue+ranking+executivo+com+insights+e+pontos+de+atencao+por+vendedor.&send=true&mode=execute&workdir=none">
+  Abrir sessão — executa automaticamente no modo Execute
+</Card>
+
+### O que o G4 OS faz ao abrir
+
+1. Baixa e processa as 4 abas do dataset
+2. Calcula taxa de conversão e ticket médio por vendedor
+3. Compara performance por perfil de lead e origem
+4. Gera ranking Mermaid dos top 10 vendedores por receita
+5. Analisa ciclo de venda por produto e equipe
+6. Gera curva de ramp média dos vendedores
+7. Entrega ranking executivo com insights e pontos de atenção
+
+## Análises possíveis com este dataset
+
+* **Ranking de vendedores** — por volume, conversão e ticket médio simultaneamente
+* **Qualidade por origem** — quais canais geram leads com melhor taxa de fechamento
+* **Ciclo de venda** — produtos e perfis com ciclo mais curto e mais longo
+* **Motivos de perda** — o que impede o fechamento e como varia por equipe
+* **Curva de ramp** — quanto tempo leva para um novo vendedor atingir produtividade plena
+* **Sazonalidade comercial** — quais meses concentram mais deals ganhos e perdidos
+
+## Exemplo de output
+
+<img alt="Curva de ramp — Receita Mensal Média por mês de mandato" />
+
+*Curva de ramp gerada pelo G4 OS: receita mensal média por mês de mandato (barras) com média móvel de 4 meses (linha azul), mostrando o tempo até atingir produtividade plena.*
+
+## Veja também
+
+* [Funil de Marketing](/use-cases/marketing-vendas/funil-marketing) — de onde vêm os leads que entram no pipeline
+* [Cohort de Receita](/use-cases/marketing-vendas/cohort-receita) — retenção dos clientes fechados por cada equipe
+* [Churn e Retenção](/use-cases/marketing-vendas/churn-retencao) — correlação entre vendedor/origem e churn futuro
+
+
+# Mapeamento e Otimização de Processos com APQC
+Source: https://docsg4os.g4business.com/use-cases/operacoes/apqc-otimizacao-processos
+
+O G4 OS como companheiro para mapear processos, criar POPs e Playbooks, definir indicadores e identificar oportunidades de automação — usando o APQC PCF v8.0 como referência.
+
+## O que este caso de uso cobre
+
+O G4 OS atua como seu **companheiro de operações** em um ciclo contínuo de melhoria:
+
+<CardGroup>
+  <Card title="1. Mapear" icon="map">
+    Entrevista guiada para entender como seus processos funcionam hoje, usando o APQC PCF como estrutura de referência.
+  </Card>
+
+  <Card title="2. Documentar" icon="file-lines">
+    Criação de POPs (Procedimentos Operacionais Padrão) e Playbooks estruturados para cada processo mapeado.
+  </Card>
+
+  <Card title="3. Medir" icon="chart-bar">
+    Definição de indicadores de **Quantidade**, **Qualidade** e **Custo** para monitorar e controlar cada processo.
+  </Card>
+
+  <Card title="4. Otimizar" icon="bolt">
+    Identificação de automações, simplificações e melhorias prioritárias com base nos indicadores e no benchmark do APQC.
+  </Card>
+</CardGroup>
+
+Ideal para gestores, COOs e líderes operacionais que querem estruturar a operação sem precisar dominar o framework manualmente.
+
+***
+
+## Framework de referência
+
+<Card title="APQC_PCF_Cross-Industry_v8.0.xlsx" icon="table" href="https://raw.githubusercontent.com/Gestao-Quatro-Ponto-Zero/g4os-docs/main/use-cases/datasets/APQC_PCF_Cross-Industry_v8.0.xlsx">
+  Baixar planilha APQC PCF v8.0 — 13 categorias, 4 níveis de processos, cross-industry (933 KB)
+</Card>
+
+O **APQC Process Classification Framework (PCF)** é o padrão global para classificação de processos de negócio, mantido pela APQC desde 1992 e usado por centenas de empresas para benchmarking e melhoria contínua.
+
+### As 13 categorias do PCF
+
+| #    | Categoria                                                       | Tipo        |
+| ---- | --------------------------------------------------------------- | ----------- |
+| 1.0  | Develop Vision and Strategy                                     | Operacional |
+| 2.0  | Develop and Manage Products and Services                        | Operacional |
+| 3.0  | Market and Sell Products and Services                           | Operacional |
+| 4.0  | Manage Supply Chain for Physical Products                       | Operacional |
+| 5.0  | Deliver Services                                                | Operacional |
+| 6.0  | Manage Customer Service                                         | Operacional |
+| 7.0  | Develop and Manage Human Resources                              | Suporte     |
+| 8.0  | Manage Information Technology (IT)                              | Suporte     |
+| 9.0  | Manage Financial Resources                                      | Suporte     |
+| 10.0 | Acquire, Construct, and Manage Assets                           | Suporte     |
+| 11.0 | Manage Enterprise Risk, Compliance, Remediation, and Resiliency | Suporte     |
+| 12.0 | Manage External Relationships                                   | Suporte     |
+| 13.0 | Develop and Manage Business Capabilities                        | Suporte     |
+
+Cada categoria se desdobra em até **4 níveis de detalhe** com definições, descrições e referências de benchmarking.
+
+***
+
+## Como funciona a sessão
+
+A sessão é conduzida em **quatro fases**, cada uma com um entregável claro.
+
+### Fase 1 — Mapeamento (entrevista guiada)
+
+O G4 OS faz perguntas para entender seu contexto e seus processos atuais:
+
+* Qual é o negócio e seu papel
+* Quais categorias do PCF consomem mais tempo ou geram mais dor
+* Como funciona o processo mais crítico, passo a passo
+* Quais ferramentas e sistemas estão envolvidos
+* Onde está o retrabalho, o gargalo e a dependência de pessoa-chave
+
+**Entregável:** lista de processos mapeados com referência ao PCF (Hierarchy ID + nome).
+
+***
+
+### Fase 2 — Documentação (POPs e Playbooks)
+
+Para cada processo mapeado, o G4 OS cria:
+
+**POP (Procedimento Operacional Padrão):**
+
+* Objetivo do processo
+* Responsável e participantes
+* Gatilho de início e critério de encerramento
+* Passo a passo detalhado
+* Exceções e como tratar
+
+**Playbook:**
+
+* Contexto e propósito
+* Pré-requisitos e recursos necessários
+* Fluxo principal com decisões
+* Variações e casos especiais
+* Checklist de execução
+
+**Entregável:** POPs e Playbooks prontos para usar, exportáveis como Markdown ou documentos.
+
+***
+
+### Fase 3 — Indicadores (Quantidade, Qualidade, Custo)
+
+Para cada processo documentado, o G4 OS propõe indicadores nas três dimensões:
+
+| Dimensão       | O que mede                        | Exemplos                                                      |
+| -------------- | --------------------------------- | ------------------------------------------------------------- |
+| **Quantidade** | Volume e velocidade de execução   | Nº de processos executados/semana, tempo de ciclo, capacidade |
+| **Qualidade**  | Conformidade e acerto na execução | Taxa de retrabalho, % de erros, NPS interno, SLA cumprido     |
+| **Custo**      | Recursos consumidos por unidade   | Custo por processo, horas por entrega, custo de retrabalho    |
+
+**Entregável:** dashboard de indicadores com metas sugeridas e método de coleta.
+
+***
+
+### Fase 4 — Otimização
+
+Com processos documentados e indicadores definidos, o G4 OS identifica:
+
+* **Quick wins** (menos de 2 semanas): simplificações, eliminação de etapas desnecessárias, padronização de templates
+* **Automações com IA** (1–4 semanas): processos repetitivos que o G4 OS pode executar diretamente
+* **Integrações e streamlines** (1–3 meses): conexão entre ferramentas, eliminação de handoffs manuais
+* **Redesenho de processo** (3+ meses): reengenharia onde a estrutura atual é o problema
+
+**Entregável:** plano de ação priorizado por impacto × esforço, com responsável e prazo.
+
+***
+
+## Antes de começar: instalar a skill
+
+A skill **APQC — Mapeamento e Otimização de Processos** precisa estar instalada no seu workspace. Ela está disponível no Marketplace do G4 OS.
+
+<Steps>
+  <Step title="Abrir o Marketplace">
+    Acesse o Marketplace pelo menu lateral do G4 OS ou pelo deep link abaixo.
+
+    [Abrir Marketplace](g4os://marketplace)
+  </Step>
+
+  <Step title="Buscar e instalar">
+    Pesquise por **"APQC"** e instale a skill no seu workspace. Após a instalação, ela fica disponível como `/apqc-processos` em qualquer sessão.
+  </Step>
+
+  <Step title="Confirmar a instalação">
+    Abra uma sessão nova e digite `/apqc-processos` — o G4 OS vai reconhecer a skill e iniciar a entrevista guiada.
+  </Step>
+</Steps>
+
+***
+
+## Abrir no G4 OS
+
+Com a skill instalada, use o deep link abaixo para iniciar uma sessão. O G4 OS abre no modo Execute e aciona a skill automaticamente.
+
+<Card title="Iniciar mapeamento de processos com APQC" icon="sparkles" href="g4os://action/new-session?input=%2Fapqc-processos&send=true&mode=execute&workdir=none">
+  Abrir sessão — inicia entrevista guiada no modo Execute
+</Card>
+
+### O que acontece ao abrir
+
+1. G4 OS baixa e processa a planilha APQC PCF v8.0
+2. Conduz entrevista de mapeamento, uma pergunta por vez
+3. Mapeia suas respostas nos processos correspondentes do PCF
+4. Gera POPs e Playbooks para os processos críticos
+5. Propõe indicadores de Quantidade, Qualidade e Custo
+6. Entrega plano de otimização priorizado por impacto × esforço
+
+***
+
+## Exemplos de output
+
+### POP gerado pelo G4 OS
+
+```
+PROCESSO: Qualificação de Leads
+PCF: 3.5.1.2 — Identify/receive leads/opportunities
+
+OBJETIVO
+Garantir que apenas leads com fit real avancem no pipeline,
+aumentando a taxa de conversão e reduzindo tempo do ciclo de vendas.
+
+RESPONSÁVEL: SDR / BDR
+GATILHO: Lead entra no CRM via formulário, inbound ou prospecção
+ENCERRAMENTO: Lead qualificado enviado ao AE ou descartado com motivo
+
+PASSO A PASSO
+1. Verificar dados básicos (empresa, cargo, tamanho)
+2. Aplicar critério BANT (Budget, Authority, Need, Timeline)
+3. Consultar histórico de interações no CRM
+4. Classificar como: Qualificado / Nurturing / Descartado
+5. Registrar motivo de qualificação ou descarte
+6. Notificar AE se qualificado; adicionar à sequência de nurturing se não
+
+EXCEÇÕES
+• Lead de conta estratégica: escalar para gerente comercial antes de descartar
+• Lead sem telefone/email válido: tentar enriquecimento via ferramenta antes
+```
+
+### Indicadores propostos
+
+| Indicador                                        | Dimensão   | Meta sugerida        | Coleta           |
+| ------------------------------------------------ | ---------- | -------------------- | ---------------- |
+| Leads qualificados/semana                        | Quantidade | ≥ 40                 | CRM              |
+| Tempo médio de qualificação                      | Quantidade | ≤ 15 min/lead        | CRM + timer      |
+| Taxa de qualificação (qual/total)                | Qualidade  | ≥ 30%                | CRM              |
+| Taxa de requalificação (voltaram como Nurturing) | Qualidade  | ≤ 10%                | CRM              |
+| Custo por lead qualificado                       | Custo      | Benchmarking interno | CRM + financeiro |
+
+### Plano de otimização
+
+| Prioridade | Processo (PCF)           | Ação                               | Tipo         | Prazo     |
+| ---------- | ------------------------ | ---------------------------------- | ------------ | --------- |
+| 1          | 3.5.1.2 — Identify leads | Lead scoring automático com IA     | Automação    | 1 semana  |
+| 2          | 6.1 — Customer service   | FAQ + deflexão com G4 OS           | Automação    | 2 semanas |
+| 3          | 3.3.5.2 — Revenue trend  | Dashboard de cohort de receita     | Indicador    | 2 semanas |
+| 4          | 7.x — HR onboarding      | Playbook de onboarding padronizado | Documentação | 1 mês     |
+
+***
+
+## O que você pode fazer nesta sessão
+
+* **Mapear qualquer área da operação** — vendas, CS, RH, financeiro, produto, TI
+* **Criar POPs e Playbooks** para os processos mais críticos
+* **Definir indicadores** de Quantidade, Qualidade e Custo com metas
+* **Identificar automações** que o G4 OS pode executar hoje
+* **Priorizar melhorias** por impacto × esforço com um plano de 90 dias
+* **Revisitar periodicamente** — o G4 OS lembra do contexto e ajuda a evoluir os playbooks
+
+***
+
+## Veja também
+
+* [Funil de Marketing](/use-cases/marketing-vendas/funil-marketing) — indicadores de aquisição
+* [Performance Comercial](/use-cases/marketing-vendas/performance-comercial) — eficiência do time de vendas
+* [Cohort de Receita](/use-cases/marketing-vendas/cohort-receita) — impacto das melhorias na retenção
+* [Churn e Retenção](/use-cases/marketing-vendas/churn-retencao) — qualidade do processo de CS
+
+
+# Pentest de App Supabase
+Source: https://docsg4os.g4business.com/use-cases/seguranca/seguranca-lovable
+
+Auditoria automatizada de segurança para apps com backend Supabase — RLS, autenticação, isolamento de tenant e exposição de dados.
+
+## O que este caso de uso cobre
+
+O workflow **Segurança Lovable** conduz uma auditoria automatizada de segurança em aplicações web com backend Supabase. Foi criado especialmente para apps gerados no **Lovable** e **Bolt** — mas funciona em qualquer aplicação que use Supabase como backend, independente de como foi desenvolvida.
+
+O workflow verifica RLS, autenticação, isolamento de tenant, escrita anônima e exposição de dados, e classifica os findings com rigor para evitar falsos positivos.
+
+<Warning>
+  Esta é uma análise automatizada por IA. Ela cobre os vetores mais comuns mas não substitui um pentest manual profissional. Para aplicações em produção com dados sensíveis, envolva um time de segurança.
+</Warning>
+
+## Antes de começar: instalar o workflow
+
+O workflow **Segurança Lovable** precisa estar instalado no seu workspace. Ele está disponível no Marketplace do G4 OS.
+
+<Steps>
+  <Step title="Abrir o Marketplace">
+    Acesse o Marketplace pelo menu lateral do G4 OS ou pelo deep link abaixo.
+
+    [Abrir Marketplace](g4os://marketplace)
+  </Step>
+
+  <Step title="Buscar e instalar">
+    Pesquise por **"Segurança Lovable"** e instale no seu workspace. Após a instalação, o workflow fica disponível como `/seguranca-lovable` em qualquer sessão.
+  </Step>
+
+  <Step title="Confirmar a instalação">
+    Abra uma sessão nova e digite `/seguranca-lovable` — o G4 OS vai reconhecer o workflow e iniciar o fluxo de perguntas.
+  </Step>
+</Steps>
+
+## Abrir no G4 OS
+
+Com o workflow instalado, use o deep link abaixo para iniciar uma auditoria. O G4 OS abre uma sessão no modo Execute e aciona o workflow automaticamente.
+
+<Card title="Iniciar auditoria de segurança no G4 OS" icon="shield-halved" href="g4os://action/new-session?input=%2Fseguranca-lovable&send=true&mode=execute&workdir=none">
+  Abrir sessão com o workflow Segurança Lovable
+</Card>
+
+O G4 OS vai perguntar:
+
+1. **Qual a URL da sua aplicação?**
+2. **Que tipo de análise?** — Rápida (Nível 1) ou Completa (Nível 2)
+
+## Níveis de análise
+
+| Nível                  | O que faz                                                        | Tempo     | Créditos |
+| ---------------------- | ---------------------------------------------------------------- | --------- | -------- |
+| **Nível 1 — Rápida**   | Verifica se dados estão expostos via API pública                 | Minutos   | Baixo    |
+| **Nível 2 — Completa** | Tudo do Nível 1 + cria conta real e testa como usuário malicioso | 15–30 min | Médio    |
+
+Se não souber qual escolher: vá de Nível 1. O Nível 2 é recomendado para validar isolamento entre usuários.
+
+## O que o workflow verifica
+
+**Nível 1 — API:**
+
+* Supabase URL e anon key extraídos do JavaScript público
+* `service_role` key exposta no frontend (crítico imediato se encontrada)
+* Enumeração de tabelas via schema OpenAPI
+* Leitura anônima de dados sensíveis por tabela
+* Escrita anônima sem autenticação
+* Endpoints e mecanismo de login
+
+**Nível 2 — Usuário real (adicional ao Nível 1):**
+
+* Criação de conta real via browser
+* Acesso cruzado entre contas (tenant isolation)
+* Tentativa de leitura e escrita de dados de outros usuários
+* Escalada de privilégios via manipulação de JWT
+
+## Como os findings são classificados
+
+| Ícone | Classificação            | Critério                                                                               |
+| ----- | ------------------------ | -------------------------------------------------------------------------------------- |
+| 🔴    | **Confirmado**           | Dados sensíveis reais vazaram ou escrita não autorizada funcionou                      |
+| 🟡    | **Precisa clarificação** | Pode ser problema ou comportamento esperado — o workflow pergunta antes de classificar |
+| ✅     | **Protegido**            | Testado e funcionando como esperado                                                    |
+
+<Note>
+  Schema OpenAPI exposto e anon key pública são comportamento padrão do Supabase — não são findings. O workflow não os reporta como vulnerabilidades.
+</Note>
+
+## Exemplo de output
+
+<img alt="Relatório de pentest — Score de Segurança CRÍTICO" />
+
+*Exemplo real de relatório gerado pelo workflow: score de segurança, findings classificados (🔴 confirmado, 🟡 atenção, ✅ protegido) com evidências e recomendações de correção.*
+
+O workflow entrega um relatório estruturado com:
+
+* score de segurança geral por severidade
+* findings confirmados com evidência concreta
+* items que precisam de clarificação com contexto
+* lista do que está protegido e funcionando
+* recomendações de correção priorizadas
+
+## Veja também
+
+* [Casos de Uso — índice](/use-cases)
+
+
