@@ -153,7 +153,47 @@ Tela de configurações completa com sidebar de categorias e painel de opções 
 | **RN-95** | Permissões configuráveis: o que o agente faz sem perguntar vs. pede confirmação |
 | **RN-96** | Monitoramento de uso/custos por provider de LLM |
 
-### 2.9 Sessões e Memória
+### 2.9 Suporte (Help Center)
+
+Tela dedicada de ajuda e documentação interna, acessível via Settings > Suporte.
+
+| Regra | Descrição |
+|-------|-----------|
+| **RN-100** | Tela de Suporte com busca por tópicos ("Buscar tópicos de suporte...") |
+| **RN-101** | Cards de navegação rápida: Visão geral, App, IA, Agentes, Fontes, Skills |
+| **RN-102** | Botão "Enviar Feedback" para reportar bugs/sugestões |
+| **RN-103** | Seção "Abrir no App" com links diretos para rotas internas (App, Fontes, Automações) |
+| **RN-104** | Documentação offline (não depende de internet) |
+| **RN-105** | Link para documentação online completa quando disponível |
+
+**Conteúdo dos cards:**
+
+| Card | Descrição |
+|------|-----------|
+| **Visão geral** | Guias, solução de problemas, documentação online e atalhos internos |
+| **App** | Configurações globais de notificações, inicialização, atualizações e workspace inicial |
+| **IA** | Modelos, raciocínio, conexões, provedores gerenciados e padrões de resposta |
+| **Agentes** | Agentes de IA gerenciados, disponibilidade local e sincronização de definições compartilhadas |
+| **Fontes** | APIs, servidores MCP e pastas locais que podem ser reutilizados nas sessões |
+| **Skills** | Instruções reutilizáveis para tarefas recorrentes, processos de equipe e trabalhos especializados |
+
+### 2.10 Preferências do Usuário
+
+Tela dedicada para personalização do perfil do usuário (Settings > Preferências).
+
+| Regra | Descrição |
+|-------|-----------|
+| **RN-110** | Campo "Nome" — nome do usuário para personalização |
+| **RN-111** | Campo "Timezone" — fuso horário para formatação de datas |
+| **RN-112** | Campo "Idioma preferido" — idioma de comunicação do agente |
+| **RN-113** | Campo "País" — contexto regional |
+| **RN-114** | Seção "Notas" — contexto livre editável que o agente usa para entender preferências |
+| **RN-115** | O agente consulta as preferências antes de responder (tom, idioma, contexto) |
+| **RN-116** | Notas podem conter missão, rotina, skills, ferramentas — qualquer contexto relevante |
+
+**Notas:** Campo de texto livre onde o usuário descreve seu cargo, missão, rotina e como as ferramentas se conectam ao seu trabalho. O agente usa isso como contexto permanente para personalizar respostas.
+
+### 2.11 Sessões e Memória
 
 | Regra | Descrição |
 |-------|-----------|
@@ -161,6 +201,7 @@ Tela de configurações completa com sidebar de categorias e painel de opções 
 | **RN-41** | Sessões são listadas na sidebar por ordem de última interação |
 | **RN-42** | O agente pode ter memória persistente entre sessões (contexto global) |
 | **RN-43** | A memória é armazenada localmente (SQLite) |
+| **RN-44** | Sessões podem ter tags para organização (ver RN-96) |
 
 ---
 
