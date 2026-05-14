@@ -85,7 +85,25 @@ O AdOS permite criar tarefas recorrentes (rotinas) que o agente executa automati
 
 **Tela de Automações:** Painel com lista de automações criadas, status, próxima execução, filtros por tipo (Rotina, Agendamento, Vigia), botão de criar nova.
 
-### 2.6 Sessões e Memória
+### 2.6 Marketplace (Fase futura)
+
+Loja de skills/workflows compartilhados entre usuários do AdOS. Segundo momento do produto — implica compartilhamento de dados entre instâncias.
+
+| Regra | Descrição |
+|-------|-----------|
+| **RN-60** | Marketplace é uma tela dedicada no app |
+| **RN-61** | Usuários podem publicar skills que criaram |
+| **RN-62** | Usuários podem instalar skills de outros |
+| **RN-63** | Skills têm categorias (Pesquisa, Texto, Código, Automação, Projetos, Dados, Design) |
+| **RN-64** | Skills têm versionamento (v1, v2, etc.) |
+| **RN-65** | Skills podem ser atualizadas pelo autor |
+| **RN-66** | Busca por nome, categoria ou caso de uso |
+| **RN-67** | Seção "Destaques" com curadoria |
+| **RN-68** | Requer backend/API centralizado (não é local-only) |
+
+**Dependência:** Exige um servidor central (API) para hospedar e distribuir skills. Entra no roadmap após o MVP local funcionar.
+
+### 2.7 Sessões e Memória
 
 | Regra | Descrição |
 |-------|-----------|
