@@ -2,7 +2,10 @@ import { useState, useEffect } from 'react';
 import Sidebar from './components/Sidebar';
 import Chat from './pages/Chat';
 import Settings from './pages/Settings';
+import SetupWizard from './components/SetupWizard';
 import TitleBar from './components/TitleBar';
+import BrowserPanel from './components/BrowserPanel';
+import BrowserPill from './components/BrowserPill';
 
 type Page = 'chat' | 'settings';
 
@@ -20,14 +23,32 @@ export default function App() {
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
   const [sessions, setSessions] = useState<Session[]>([]);
   const [activeSession, setActiveSession] = useState<string | null>(null);
+  const [needsSetup, setNeedsSetup] = useState<boolean | null>(null);
+  const [browserOpen, setBrowserOpen] = useState(false);
+  const [browserVisible, setBrowserVisible] = useState(false);
+  const [browserUrl, setBrowserUrl] = useState('');
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', theme === 'dark');
   }, [theme]);
 
   useEffect(() => {
+    checkSetup();
     loadSessions();
+    ados.browser.onStateChanged((state: any) => {
+      setBrowserOpen(state.open);
+      setBrowserVisible(state.visible);
+      if (state.url) setBrowserUrl(state.url);
+    });
   }, []);
+
+  const checkSetup = async () => {
+    const hasOpenAI = await ados.llm.hasKey('openai');
+    const hasAnthropic = await ados.llm.hasKey('anthropic');
+    const hasGoogle = await ados.llm.hasKey('google');
+    const hasOpenRouter = await ados.llm.hasKey('openrouter');
+    setNeedsSetup(!hasOpenAI && !hasAnthropic && !hasGoogle && !hasOpenRouter);
+  };
 
   const loadSessions = async () => {
     const rows = await ados.db.getSessions();
@@ -67,9 +88,47 @@ export default function App() {
     setSessions(sessions.map(s => s.id === id ? { ...s, title } : s));
   };
 
+  if (needsSetup === null) {
+    return <div className="flex h-screen items-center justify-center bg-surface-0"><span className="text-muted">Carregando...</span></div>;
+  }
+
+  if (needsSetup) {
+    return (
+      <div className="flex flex-col h-screen bg-surface-0 text-primary">
+        <TitleBar theme={theme} onToggleTheme={toggleTheme} />
+        <SetupWizard onComplete={() => setNeedsSetup(false)} />
+      </div>
+    );
+  }
+
+  const handleBrowserShow = () => {
+    setBrowserVisible(true);
+    ados.browser.show();
+  };
+
+  const handleBrowserHide = () => {
+    setBrowserVisible(false);
+    ados.browser.hide();
+  };
+
+  const handleBrowserClose = () => {
+    setBrowserOpen(false);
+    setBrowserVisible(false);
+    ados.browser.close();
+  };
+
   return (
     <div className="flex flex-col h-screen bg-surface-0 text-primary">
-      <TitleBar theme={theme} onToggleTheme={toggleTheme} />
+      <div className="flex items-center">
+        <div className="flex-1">
+          <TitleBar theme={theme} onToggleTheme={toggleTheme} />
+        </div>
+        {browserOpen && !browserVisible && (
+          <div className="absolute top-1.5 left-1/2 -translate-x-1/2 z-50">
+            <BrowserPill url={browserUrl} onClick={handleBrowserShow} />
+          </div>
+        )}
+      </div>
       <div className="flex flex-1 overflow-hidden">
         <Sidebar
           sessions={sessions}
@@ -90,6 +149,13 @@ export default function App() {
           {page === 'settings' && <Settings />}
         </main>
       </div>
+      {browserVisible && (
+        <BrowserPanel
+          visible={browserVisible}
+          onClose={handleBrowserClose}
+          onMinimize={handleBrowserHide}
+        />
+      )}
     </div>
   );
 }

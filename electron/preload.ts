@@ -9,8 +9,8 @@ contextBridge.exposeInMainWorld('ados', {
   llm: {
     chat: (messages: Array<{ role: string; content: string }>, model: string) =>
       ipcRenderer.invoke('llm:chat', messages, model),
-    stream: (messages: Array<{ role: string; content: string }>, model: string) =>
-      ipcRenderer.invoke('llm:stream', messages, model),
+    stream: (messages: Array<{ role: string; content: string }>, model: string, tools?: any[]) =>
+      ipcRenderer.invoke('llm:stream', messages, model, tools),
     onStreamChunk: (callback: (chunk: string) => void) => {
       ipcRenderer.on('llm:stream-chunk', (_e, chunk) => callback(chunk));
     },
@@ -20,10 +20,14 @@ contextBridge.exposeInMainWorld('ados', {
     onStreamError: (callback: (error: string) => void) => {
       ipcRenderer.on('llm:stream-error', (_e, error) => callback(error));
     },
+    onToolCall: (callback: (data: any) => void) => {
+      ipcRenderer.on('llm:tool-call', (_e, data) => callback(data));
+    },
     removeStreamListeners: () => {
       ipcRenderer.removeAllListeners('llm:stream-chunk');
       ipcRenderer.removeAllListeners('llm:stream-end');
       ipcRenderer.removeAllListeners('llm:stream-error');
+      ipcRenderer.removeAllListeners('llm:tool-call');
     },
     saveKey: (provider: string, key: string) =>
       ipcRenderer.invoke('llm:save-key', provider, key),
@@ -31,6 +35,30 @@ contextBridge.exposeInMainWorld('ados', {
       ipcRenderer.invoke('llm:test-key', provider, key),
     hasKey: (provider: string) =>
       ipcRenderer.invoke('llm:has-key', provider),
+  },
+  mcp: {
+    listServers: () => ipcRenderer.invoke('mcp:list-servers'),
+    addServer: (config: any) => ipcRenderer.invoke('mcp:add-server', config),
+    removeServer: (name: string) => ipcRenderer.invoke('mcp:remove-server', name),
+    connectServer: (name: string) => ipcRenderer.invoke('mcp:connect-server', name),
+    disconnectServer: (name: string) => ipcRenderer.invoke('mcp:disconnect-server', name),
+    connectAll: () => ipcRenderer.invoke('mcp:connect-all'),
+    testServer: (config: any) => ipcRenderer.invoke('mcp:test-server', config),
+    listTools: (serverName?: string) => ipcRenderer.invoke('mcp:list-tools', serverName),
+    getAllTools: () => ipcRenderer.invoke('mcp:get-all-tools'),
+    callTool: (serverName: string, toolName: string, args: any) =>
+      ipcRenderer.invoke('mcp:call-tool', serverName, toolName, args),
+  },
+  providers: {
+    list: () => ipcRenderer.invoke('providers:list'),
+    listModels: () => ipcRenderer.invoke('providers:list-models'),
+    add: (provider: any) => ipcRenderer.invoke('providers:add', provider),
+    remove: (id: string) => ipcRenderer.invoke('providers:remove', id),
+    addModel: (providerId: string, model: any) => ipcRenderer.invoke('providers:add-model', providerId, model),
+    getKey: (providerId: string) => ipcRenderer.invoke('providers:get-key', providerId),
+    saveKey: (providerId: string, key: string) => ipcRenderer.invoke('providers:save-key', providerId, key),
+    getDefaultModel: () => ipcRenderer.invoke('providers:get-default-model'),
+    setDefaultModel: (modelId: string) => ipcRenderer.invoke('providers:set-default-model', modelId),
   },
   db: {
     createSession: (id: string, title: string) =>
@@ -56,7 +84,29 @@ contextBridge.exposeInMainWorld('ados', {
     getTitle: () => ipcRenderer.invoke('browser:get-title'),
     executeJs: (code: string) => ipcRenderer.invoke('browser:execute-js', code),
     close: () => ipcRenderer.invoke('browser:close'),
+    hide: () => ipcRenderer.invoke('browser:hide'),
+    show: () => ipcRenderer.invoke('browser:show'),
+    isOpen: () => ipcRenderer.invoke('browser:is-open'),
     resize: (bounds: { x: number; y: number; width: number; height: number }) =>
       ipcRenderer.invoke('browser:resize', bounds),
+    onStateChanged: (callback: (state: any) => void) => {
+      ipcRenderer.on('browser:state-changed', (_e, state) => callback(state));
+    },
+  },
+  chatgpt: {
+    open: () => ipcRenderer.invoke('chatgpt:open'),
+    checkSession: () => ipcRenderer.invoke('chatgpt:check-session'),
+    sendMessage: (message: string) => ipcRenderer.invoke('chatgpt:send-message', message),
+    logout: () => ipcRenderer.invoke('chatgpt:logout'),
+    close: () => ipcRenderer.invoke('chatgpt:close'),
+  },
+  openaiOAuth: {
+    start: () => ipcRenderer.invoke('openai-oauth:start'),
+    poll: (deviceAuthId: string, userCode: string, interval: number) =>
+      ipcRenderer.invoke('openai-oauth:poll', deviceAuthId, userCode, interval),
+    check: () => ipcRenderer.invoke('openai-oauth:check'),
+    refresh: () => ipcRenderer.invoke('openai-oauth:refresh'),
+    logout: () => ipcRenderer.invoke('openai-oauth:logout'),
+    getToken: () => ipcRenderer.invoke('openai-oauth:get-token'),
   },
 });

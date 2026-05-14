@@ -2,7 +2,16 @@ import { app, BrowserWindow, ipcMain } from 'electron';
 import path from 'path';
 import { registerBrowserHandlers } from './browser';
 import { registerLLMHandlers } from './llm';
+import { registerMcpHandlers } from './mcp-manager';
+import { registerProviderHandlers } from './providers';
+import { registerChatGPTAuthHandlers } from './chatgpt-auth';
+import { registerOpenAIOAuthHandlers } from './openai-oauth';
 import { initDatabase, registerDatabaseHandlers } from './database';
+import { registerToolHandlers } from './tools';
+
+app.disableHardwareAcceleration();
+app.commandLine.appendSwitch('disable-gpu');
+app.commandLine.appendSwitch('disable-software-rasterizer');
 
 let mainWindow: BrowserWindow | null = null;
 
@@ -36,6 +45,11 @@ async function createWindow() {
   registerDatabaseHandlers();
   registerBrowserHandlers(mainWindow);
   registerLLMHandlers();
+  registerMcpHandlers();
+  registerProviderHandlers();
+  registerChatGPTAuthHandlers();
+  registerOpenAIOAuthHandlers();
+  registerToolHandlers();
 }
 
 app.on('ready', createWindow);

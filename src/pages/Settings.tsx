@@ -1,70 +1,143 @@
 import { useState, useEffect } from 'react';
 
-interface ApiKeyConfig {
-  provider: string;
-  label: string;
-  placeholder: string;
-  icon: string;
-}
-
-const providers: ApiKeyConfig[] = [
-  { provider: 'openai', label: 'OpenAI', placeholder: 'sk-...', icon: '⚡' },
-  { provider: 'anthropic', label: 'Anthropic (Claude)', placeholder: 'sk-ant-...', icon: '🧠' },
-  { provider: 'google', label: 'Google (Gemini)', placeholder: 'AIza...', icon: '✦' },
-];
-
-type SettingsTab = 'api-keys' | 'model' | 'about';
+type SettingsTab = 'providers' | 'mcp' | 'model' | 'about';
 
 const ados = (window as any).ados;
 
+interface Provider {
+  id: string;
+  name: string;
+  type: string;
+  models: any[];
+  hasKey: boolean;
+  apiKeyPlaceholder?: string;
+}
+
+interface McpServer {
+  name: string;
+  command?: string;
+  args?: string[];
+  url?: string;
+  transport?: string;
+  enabled?: boolean;
+  status: string;
+  error?: string;
+  toolCount: number;
+}
+
+interface Model {
+  id: string;
+  name: string;
+  providerId: string;
+  providerName: string;
+  description?: string;
+  hasKey: boolean;
+  api: string;
+}
+
 export default function Settings() {
-  const [keys, setKeys] = useState<Record<string, string>>({});
-  const [status, setStatus] = useState<Record<string, 'idle' | 'saving' | 'testing' | 'saved' | 'error'>>({});
-  const [hasKeys, setHasKeys] = useState<Record<string, boolean>>({});
-  const [activeTab, setActiveTab] = useState<SettingsTab>('api-keys');
+  const [activeTab, setActiveTab] = useState<SettingsTab>('providers');
+  const [providers, setProviders] = useState<Provider[]>([]);
+  const [mcpServers, setMcpServers] = useState<McpServer[]>([]);
+  const [models, setModels] = useState<Model[]>([]);
+  const [defaultModel, setDefaultModel] = useState('codex-mini-latest');
+  const [keyInputs, setKeyInputs] = useState<Record<string, string>>({});
+  const [keyStatus, setKeyStatus] = useState<Record<string, string>>({});
+  const [showAddMcp, setShowAddMcp] = useState(false);
+  const [mcpForm, setMcpForm] = useState({ name: '', command: '', args: '', url: '', transport: 'stdio' as string });
 
   useEffect(() => {
-    checkExistingKeys();
+    loadProviders();
+    loadMcpServers();
+    loadModels();
   }, []);
 
-  const checkExistingKeys = async () => {
-    const result: Record<string, boolean> = {};
-    for (const p of providers) {
-      result[p.provider] = await ados.llm.hasKey(p.provider);
-    }
-    setHasKeys(result);
+  const loadProviders = async () => {
+    const list = await ados.providers.list();
+    setProviders(list);
   };
 
-  const handleSave = async (provider: string) => {
-    const value = keys[provider];
-    if (!value) return;
+  const loadMcpServers = async () => {
+    const list = await ados.mcp.listServers();
+    setMcpServers(list);
+  };
 
-    setStatus({ ...status, [provider]: 'testing' });
+  const loadModels = async () => {
+    const list = await ados.providers.listModels();
+    setModels(list);
+    const dm = await ados.providers.getDefaultModel();
+    setDefaultModel(dm);
+  };
 
-    const testResult = await ados.llm.testKey(provider, value);
+  const handleSaveKey = async (providerId: string) => {
+    const key = keyInputs[providerId];
+    if (!key) return;
+    setKeyStatus({ ...keyStatus, [providerId]: 'testing' });
+
+    const testResult = await ados.llm.testKey(providerId, key);
     if (testResult.error) {
-      setStatus({ ...status, [provider]: 'error' });
+      setKeyStatus({ ...keyStatus, [providerId]: 'error' });
       return;
     }
 
-    setStatus({ ...status, [provider]: 'saving' });
-    const saveResult = await ados.llm.saveKey(provider, value);
-
-    if (saveResult.success) {
-      setStatus({ ...status, [provider]: 'saved' });
-      setHasKeys({ ...hasKeys, [provider]: true });
-      setKeys({ ...keys, [provider]: '' });
-      setTimeout(() => setStatus((s) => ({ ...s, [provider]: 'idle' })), 2000);
+    setKeyStatus({ ...keyStatus, [providerId]: 'saving' });
+    const result = await ados.providers.saveKey(providerId, key);
+    if (result.success) {
+      setKeyStatus({ ...keyStatus, [providerId]: 'saved' });
+      setKeyInputs({ ...keyInputs, [providerId]: '' });
+      loadProviders();
+      loadModels();
+      setTimeout(() => setKeyStatus((s) => ({ ...s, [providerId]: '' })), 2000);
     } else {
-      setStatus({ ...status, [provider]: 'error' });
+      setKeyStatus({ ...keyStatus, [providerId]: 'error' });
     }
+  };
+
+  const handleAddMcpServer = async () => {
+    const config: any = { name: mcpForm.name, enabled: true };
+    if (mcpForm.transport === 'stdio') {
+      config.command = mcpForm.command;
+      config.args = mcpForm.args ? mcpForm.args.split(' ').filter(Boolean) : [];
+    } else {
+      config.url = mcpForm.url;
+      config.transport = mcpForm.transport;
+    }
+    await ados.mcp.addServer(config);
+    setShowAddMcp(false);
+    setMcpForm({ name: '', command: '', args: '', url: '', transport: 'stdio' });
+    loadMcpServers();
+  };
+
+  const handleConnectMcp = async (name: string) => {
+    await ados.mcp.connectServer(name);
+    loadMcpServers();
+  };
+
+  const handleDisconnectMcp = async (name: string) => {
+    await ados.mcp.disconnectServer(name);
+    loadMcpServers();
+  };
+
+  const handleRemoveMcp = async (name: string) => {
+    await ados.mcp.removeServer(name);
+    loadMcpServers();
+  };
+
+  const handleSetDefaultModel = async (modelId: string) => {
+    await ados.providers.setDefaultModel(modelId);
+    setDefaultModel(modelId);
   };
 
   const tabs: { id: SettingsTab; label: string; icon: React.ReactNode }[] = [
     {
-      id: 'api-keys',
-      label: 'API Keys',
+      id: 'providers',
+      label: 'Providers',
       icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>,
+    },
+    {
+      id: 'mcp',
+      label: 'MCP Servers',
+      icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>,
     },
     {
       id: 'model',
@@ -78,8 +151,8 @@ export default function Settings() {
     },
   ];
 
-  const getButtonLabel = (provider: string) => {
-    const s = status[provider];
+  const getKeyButtonLabel = (providerId: string) => {
+    const s = keyStatus[providerId];
     if (s === 'testing') return 'Testando...';
     if (s === 'saving') return 'Salvando...';
     if (s === 'saved') return '✓ Salvo';
@@ -87,20 +160,17 @@ export default function Settings() {
     return 'Salvar';
   };
 
-  const getButtonClass = (provider: string) => {
-    const s = status[provider];
-    if (s === 'saved') return 'bg-green-500/10 text-green-600 dark:text-green-400 border border-green-500/20';
-    if (s === 'error') return 'bg-red-500/10 text-red-500 border border-red-500/20';
-    if (s === 'testing' || s === 'saving') return 'bg-surface-3 text-muted cursor-wait';
-    return 'bg-brand-600 hover:bg-brand-700 text-white hover:shadow-glow';
+  const getStatusBadge = (status: string) => {
+    if (status === 'connected') return <span className="text-[10px] font-medium bg-green-500/10 text-green-500 px-2 py-0.5 rounded-full">Conectado</span>;
+    if (status === 'error') return <span className="text-[10px] font-medium bg-red-500/10 text-red-500 px-2 py-0.5 rounded-full">Erro</span>;
+    if (status === 'connecting') return <span className="text-[10px] font-medium bg-yellow-500/10 text-yellow-500 px-2 py-0.5 rounded-full">Conectando</span>;
+    return <span className="text-[10px] font-medium bg-surface-3 text-muted px-2 py-0.5 rounded-full">Desconectado</span>;
   };
 
   return (
     <div className="flex-1 flex overflow-hidden">
-      <nav className="w-48 bg-surface-1 border-r border-default p-3 flex flex-col gap-1">
-        <h2 className="text-[10px] uppercase text-muted font-semibold px-3 py-2 tracking-wider">
-          Configurações
-        </h2>
+      <nav className="w-52 bg-surface-1 border-r border-default p-3 flex flex-col gap-1">
+        <h2 className="text-[10px] uppercase text-muted font-semibold px-3 py-2 tracking-wider">Configurações</h2>
         {tabs.map((tab) => (
           <button
             key={tab.id}
@@ -118,21 +188,24 @@ export default function Settings() {
       </nav>
 
       <div className="flex-1 overflow-y-auto p-8">
-        {activeTab === 'api-keys' && (
+        {activeTab === 'providers' && (
           <div className="max-w-2xl">
-            <h1 className="text-lg font-semibold text-primary mb-1">API Keys</h1>
+            <h1 className="text-lg font-semibold text-primary mb-1">Providers & API Keys</h1>
             <p className="text-sm text-muted mb-6">
-              Chaves criptografadas via Windows Credential Manager. A key é testada antes de salvar.
+              Configure as chaves de API dos providers de IA. Suporta OpenAI, Anthropic, Google, OpenRouter e custom.
             </p>
+
+
+            <h3 className="text-xs uppercase text-muted font-semibold tracking-wider mb-3">API Keys (alternativo)</h3>
 
             <div className="space-y-4">
               {providers.map((p) => (
-                <div key={p.provider} className="bg-surface-1 border border-default rounded-2xl p-5 shadow-card hover:shadow-card-hover transition-shadow">
+                <div key={p.id} className="bg-surface-1 border border-default rounded-2xl p-5 shadow-card hover:shadow-card-hover transition-shadow">
                   <div className="flex items-center gap-2 mb-3">
-                    <span className="text-lg">{p.icon}</span>
-                    <label className="text-sm font-medium text-primary">{p.label}</label>
-                    {hasKeys[p.provider] && (
-                      <span className="ml-auto text-[10px] font-medium bg-green-500/10 text-green-600 dark:text-green-400 px-2 py-0.5 rounded-full">
+                    <span className="text-sm font-medium text-primary">{p.name}</span>
+                    <span className="text-[10px] text-muted bg-surface-2 px-2 py-0.5 rounded-full">{p.models.length} modelos</span>
+                    {p.hasKey && (
+                      <span className="ml-auto text-[10px] font-medium bg-green-500/10 text-green-500 px-2 py-0.5 rounded-full">
                         Configurada
                       </span>
                     )}
@@ -140,18 +213,168 @@ export default function Settings() {
                   <div className="flex gap-3">
                     <input
                       type="password"
-                      placeholder={hasKeys[p.provider] ? '••••••••••••••••' : p.placeholder}
-                      value={keys[p.provider] || ''}
-                      onChange={(e) => setKeys({ ...keys, [p.provider]: e.target.value })}
+                      placeholder={p.hasKey ? '••••••••••••••••' : (p.apiKeyPlaceholder || 'API Key')}
+                      value={keyInputs[p.id] || ''}
+                      onChange={(e) => setKeyInputs({ ...keyInputs, [p.id]: e.target.value })}
                       className="flex-1 bg-surface-0 border border-default rounded-xl px-4 py-2.5 text-sm text-primary placeholder-muted outline-none focus:border-brand-500/50 focus:shadow-glow transition-all"
                     />
                     <button
-                      onClick={() => handleSave(p.provider)}
-                      disabled={!keys[p.provider] || status[p.provider] === 'testing' || status[p.provider] === 'saving'}
-                      className={`px-5 py-2.5 rounded-xl text-sm font-medium transition-all ${getButtonClass(p.provider)}`}
+                      onClick={() => handleSaveKey(p.id)}
+                      disabled={!keyInputs[p.id] || keyStatus[p.id] === 'testing' || keyStatus[p.id] === 'saving'}
+                      className={`px-5 py-2.5 rounded-xl text-sm font-medium transition-all ${
+                        keyStatus[p.id] === 'saved' ? 'bg-green-500/10 text-green-500 border border-green-500/20' :
+                        keyStatus[p.id] === 'error' ? 'bg-red-500/10 text-red-500 border border-red-500/20' :
+                        'bg-brand-600 hover:bg-brand-700 text-white hover:shadow-glow disabled:bg-surface-3 disabled:text-muted'
+                      }`}
                     >
-                      {getButtonLabel(p.provider)}
+                      {getKeyButtonLabel(p.id)}
                     </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'mcp' && (
+          <div className="max-w-3xl">
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <h1 className="text-lg font-semibold text-primary mb-1">MCP Servers</h1>
+                <p className="text-sm text-muted">
+                  Conecte servidores MCP para expandir as capacidades do agente com tools externas.
+                </p>
+              </div>
+              <button
+                onClick={() => setShowAddMcp(true)}
+                className="px-4 py-2.5 bg-brand-600 hover:bg-brand-700 rounded-xl text-sm font-medium text-white transition-all hover:shadow-glow flex items-center gap-2"
+              >
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                  <path d="M7 1v12M1 7h12"/>
+                </svg>
+                Adicionar
+              </button>
+            </div>
+
+            {showAddMcp && (
+              <div className="bg-surface-1 border border-brand-500/30 rounded-2xl p-6 mb-6 shadow-card">
+                <h3 className="text-sm font-medium text-primary mb-4">Novo Servidor MCP</h3>
+                <div className="space-y-4">
+                  <div className="flex gap-3">
+                    <input
+                      placeholder="Nome (ex: filesystem)"
+                      value={mcpForm.name}
+                      onChange={(e) => setMcpForm({ ...mcpForm, name: e.target.value })}
+                      className="flex-1 bg-surface-0 border border-default rounded-xl px-4 py-2.5 text-sm text-primary placeholder-muted outline-none focus:border-brand-500/50 transition-all"
+                    />
+                    <select
+                      value={mcpForm.transport}
+                      onChange={(e) => setMcpForm({ ...mcpForm, transport: e.target.value })}
+                      className="bg-surface-0 border border-default rounded-xl px-4 py-2.5 text-sm text-primary outline-none focus:border-brand-500/50 transition-all"
+                    >
+                      <option value="stdio">Stdio (local)</option>
+                      <option value="sse">SSE (remoto)</option>
+                      <option value="streamable-http">HTTP (remoto)</option>
+                    </select>
+                  </div>
+
+                  {mcpForm.transport === 'stdio' ? (
+                    <div className="flex gap-3">
+                      <input
+                        placeholder="Comando (ex: npx, uvx, node)"
+                        value={mcpForm.command}
+                        onChange={(e) => setMcpForm({ ...mcpForm, command: e.target.value })}
+                        className="w-1/3 bg-surface-0 border border-default rounded-xl px-4 py-2.5 text-sm text-primary placeholder-muted outline-none focus:border-brand-500/50 transition-all"
+                      />
+                      <input
+                        placeholder="Argumentos separados por espaço"
+                        value={mcpForm.args}
+                        onChange={(e) => setMcpForm({ ...mcpForm, args: e.target.value })}
+                        className="flex-1 bg-surface-0 border border-default rounded-xl px-4 py-2.5 text-sm text-primary placeholder-muted outline-none focus:border-brand-500/50 transition-all"
+                      />
+                    </div>
+                  ) : (
+                    <input
+                      placeholder="URL do servidor (ex: https://mcp.example.com/sse)"
+                      value={mcpForm.url}
+                      onChange={(e) => setMcpForm({ ...mcpForm, url: e.target.value })}
+                      className="w-full bg-surface-0 border border-default rounded-xl px-4 py-2.5 text-sm text-primary placeholder-muted outline-none focus:border-brand-500/50 transition-all"
+                    />
+                  )}
+
+                  <div className="flex gap-3 justify-end">
+                    <button
+                      onClick={() => setShowAddMcp(false)}
+                      className="px-4 py-2 rounded-xl text-sm text-secondary hover:bg-surface-2 transition-all"
+                    >
+                      Cancelar
+                    </button>
+                    <button
+                      onClick={handleAddMcpServer}
+                      disabled={!mcpForm.name || (mcpForm.transport === 'stdio' ? !mcpForm.command : !mcpForm.url)}
+                      className="px-5 py-2 bg-brand-600 hover:bg-brand-700 disabled:bg-surface-3 disabled:text-muted rounded-xl text-sm font-medium text-white transition-all hover:shadow-glow"
+                    >
+                      Adicionar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {mcpServers.length === 0 && !showAddMcp && (
+              <div className="text-center py-16">
+                <div className="w-16 h-16 rounded-2xl bg-surface-2 flex items-center justify-center mx-auto mb-4">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-muted">
+                    <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>
+                  </svg>
+                </div>
+                <p className="text-sm text-muted mb-2">Nenhum servidor MCP configurado</p>
+                <p className="text-xs text-muted">Adicione servidores para expandir as tools disponíveis para o agente.</p>
+              </div>
+            )}
+
+            <div className="space-y-3">
+              {mcpServers.map((server) => (
+                <div key={server.name} className="bg-surface-1 border border-default rounded-2xl p-5 shadow-card hover:shadow-card-hover transition-shadow">
+                  <div className="flex items-center gap-3">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-sm font-medium text-primary">{server.name}</span>
+                        {getStatusBadge(server.status)}
+                        {server.toolCount > 0 && (
+                          <span className="text-[10px] text-muted bg-surface-2 px-2 py-0.5 rounded-full">
+                            {server.toolCount} tools
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-xs text-muted">
+                        {server.command ? `${server.command} ${(server.args || []).join(' ')}` : server.url}
+                      </p>
+                      {server.error && <p className="text-xs text-red-500 mt-1">{server.error}</p>}
+                    </div>
+                    <div className="flex gap-2">
+                      {server.status === 'connected' ? (
+                        <button
+                          onClick={() => handleDisconnectMcp(server.name)}
+                          className="px-3 py-1.5 rounded-lg text-xs text-secondary hover:bg-surface-2 border border-default transition-all"
+                        >
+                          Desconectar
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => handleConnectMcp(server.name)}
+                          className="px-3 py-1.5 rounded-lg text-xs bg-brand-600 hover:bg-brand-700 text-white transition-all"
+                        >
+                          Conectar
+                        </button>
+                      )}
+                      <button
+                        onClick={() => handleRemoveMcp(server.name)}
+                        className="px-3 py-1.5 rounded-lg text-xs text-red-500 hover:bg-red-500/10 transition-all"
+                      >
+                        Remover
+                      </button>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -163,32 +386,39 @@ export default function Settings() {
           <div className="max-w-2xl">
             <h1 className="text-lg font-semibold text-primary mb-1">Modelo Padrão</h1>
             <p className="text-sm text-muted mb-6">
-              Escolha o modelo de IA que será usado nas novas sessões.
+              Escolha o modelo de IA usado nas novas sessões. Modelos sem API key ficam desabilitados.
             </p>
 
-            <div className="space-y-3">
-              {[
-                { id: 'codex-mini-latest', name: 'Codex Mini', provider: 'OpenAI', desc: 'Modelo principal — rápido e inteligente' },
-                { id: 'gpt-4o', name: 'GPT-4o', provider: 'OpenAI', desc: 'Versátil, ótimo para conversas gerais' },
-                { id: 'o3-mini', name: 'O3 Mini', provider: 'OpenAI', desc: 'Raciocínio avançado' },
-                { id: 'claude-sonnet-4-6', name: 'Claude Sonnet 4.6', provider: 'Anthropic', desc: 'Excelente em código e análise' },
-                { id: 'gemini-2.5-flash', name: 'Gemini 2.5 Flash', provider: 'Google', desc: 'Ultra-rápido, bom custo-benefício' },
-              ].map((model) => (
+            <div className="space-y-2">
+              {models.map((model) => (
                 <label
-                  key={model.id}
-                  className="flex items-center gap-4 p-4 bg-surface-1 border border-default rounded-2xl cursor-pointer hover:shadow-card-hover hover:border-brand-500/30 transition-all"
+                  key={`${model.providerId}-${model.id}`}
+                  className={`flex items-center gap-4 p-4 bg-surface-1 border rounded-2xl transition-all ${
+                    model.hasKey
+                      ? 'border-default cursor-pointer hover:shadow-card-hover hover:border-brand-500/30'
+                      : 'border-default/50 opacity-50 cursor-not-allowed'
+                  }`}
                 >
                   <input
                     type="radio"
                     name="model"
                     value={model.id}
-                    defaultChecked={model.id === 'codex-mini-latest'}
+                    checked={defaultModel === model.id}
+                    onChange={() => model.hasKey && handleSetDefaultModel(model.id)}
+                    disabled={!model.hasKey}
                     className="w-4 h-4 text-brand-600 accent-brand-600"
                   />
-                  <div>
-                    <p className="text-sm font-medium text-primary">{model.name}</p>
-                    <p className="text-xs text-muted">{model.provider} — {model.desc}</p>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2">
+                      <p className="text-sm font-medium text-primary">{model.name}</p>
+                      <span className="text-[10px] text-muted bg-surface-2 px-1.5 py-0.5 rounded">{model.providerName}</span>
+                      <span className="text-[10px] text-muted bg-surface-2 px-1.5 py-0.5 rounded">{model.api}</span>
+                    </div>
+                    <p className="text-xs text-muted mt-0.5">{model.description}</p>
                   </div>
+                  {!model.hasKey && (
+                    <span className="text-[10px] text-yellow-500">Sem API key</span>
+                  )}
                 </label>
               ))}
             </div>
@@ -198,9 +428,7 @@ export default function Settings() {
         {activeTab === 'about' && (
           <div className="max-w-2xl">
             <h1 className="text-lg font-semibold text-primary mb-1">Sobre o AdOS</h1>
-            <p className="text-sm text-muted mb-6">
-              AI Operational System da AdNet Monetize.
-            </p>
+            <p className="text-sm text-muted mb-6">AI Operational System da AdNet Monetize.</p>
 
             <div className="bg-surface-1 border border-default rounded-2xl p-6 shadow-card">
               <div className="flex items-center gap-4 mb-4">
@@ -209,14 +437,16 @@ export default function Settings() {
                 </div>
                 <div>
                   <h3 className="text-base font-semibold text-primary">AdOS</h3>
-                  <p className="text-xs text-muted">Versão 0.2.0</p>
+                  <p className="text-xs text-muted">Versão 0.3.0</p>
                 </div>
               </div>
               <div className="space-y-2 text-sm text-secondary">
-                <p>Chat com múltiplos modelos de IA (streaming)</p>
+                <p>Multi-provider AI (OpenAI Codex, Anthropic, Google, OpenRouter + custom)</p>
+                <p>MCP Protocol — conecte tools externas via stdio/SSE/HTTP</p>
+                <p>Agent Engine com tool calling nativo</p>
                 <p>Browser automation integrado (WebContentsView)</p>
-                <p>Persistência local (SQLite criptografado)</p>
-                <p>Automações, memória e marketplace (em desenvolvimento)</p>
+                <p>Persistência local (SQLite + safeStorage)</p>
+                <p>Catálogo dinâmico de 17+ modelos extensível</p>
               </div>
             </div>
           </div>

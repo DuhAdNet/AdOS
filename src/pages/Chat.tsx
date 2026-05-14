@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import MessageBubble from '../components/MessageBubble';
+import ToolSteps from '../components/ToolSteps';
 
 interface Message {
   id: string;
@@ -19,6 +20,8 @@ export default function Chat({ sessionId, onUpdateTitle }: ChatProps) {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [streamContent, setStreamContent] = useState('');
+  const [toolSteps, setToolSteps] = useState<Array<{ name: string; timestamp: number }>>([]);
+  const [toolStartTime, setToolStartTime] = useState(0);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const isFirstMessage = useRef(true);
 
@@ -59,8 +62,14 @@ export default function Chat({ sessionId, onUpdateTitle }: ChatProps) {
     }
 
     ados.llm.removeStreamListeners();
+    setToolSteps([]);
+    setToolStartTime(Date.now());
 
     let accumulated = '';
+
+    ados.llm.onToolCall((data: any) => {
+      setToolSteps((prev) => [...prev, { name: data.name, timestamp: Date.now() }]);
+    });
 
     ados.llm.onStreamChunk((chunk: string) => {
       accumulated += chunk;
@@ -75,6 +84,7 @@ export default function Chat({ sessionId, onUpdateTitle }: ChatProps) {
       };
       setMessages((prev) => [...prev, assistantMsg]);
       setStreamContent('');
+      setToolSteps([]);
       setLoading(false);
       await ados.db.addMessage(assistantMsg.id, sessionId, 'assistant', accumulated);
       ados.llm.removeStreamListeners();
@@ -98,7 +108,9 @@ export default function Chat({ sessionId, onUpdateTitle }: ChatProps) {
       content: m.content,
     }));
 
-    const result = await ados.llm.stream(allMessages, 'codex-mini-latest');
+    const defaultModel = await ados.providers.getDefaultModel();
+    const mcpTools = await ados.mcp.getAllTools();
+    const result = await ados.llm.stream(allMessages, defaultModel, mcpTools.length > 0 ? mcpTools : undefined);
 
     if (result.error && !accumulated) {
       const errorMsg: Message = {
@@ -138,16 +150,33 @@ export default function Chat({ sessionId, onUpdateTitle }: ChatProps) {
         {messages.map((msg) => (
           <MessageBubble key={msg.id} role={msg.role} content={msg.content} />
         ))}
-        {streamContent && (
-          <MessageBubble role="assistant" content={streamContent} />
-        )}
-        {loading && !streamContent && (
+        {loading && toolSteps.length > 0 && (
           <div className="flex justify-start mb-4">
-            <div className="flex items-start gap-3">
-              <div className="w-7 h-7 rounded-full bg-surface-2 flex items-center justify-center text-xs font-semibold text-secondary shrink-0">
+            <div className="flex items-start gap-2">
+              <div className="w-6 h-6 rounded-full bg-surface-2 flex items-center justify-center text-[10px] font-semibold text-secondary shrink-0">
                 A
               </div>
-              <div className="bg-surface-2 px-4 py-3 rounded-2xl rounded-tl-md">
+              <div className="max-w-lg">
+                <ToolSteps steps={toolSteps} isRunning={loading} startTime={toolStartTime} />
+                {streamContent && (
+                  <div className="bg-surface-2 px-3 py-2 rounded-2xl rounded-tl-md mt-1">
+                    <span className="text-sm text-primary whitespace-pre-wrap break-words">{streamContent}</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+        {streamContent && toolSteps.length === 0 && (
+          <MessageBubble role="assistant" content={streamContent} />
+        )}
+        {loading && !streamContent && toolSteps.length === 0 && (
+          <div className="flex justify-start mb-4">
+            <div className="flex items-start gap-2">
+              <div className="w-6 h-6 rounded-full bg-surface-2 flex items-center justify-center text-[10px] font-semibold text-secondary shrink-0">
+                A
+              </div>
+              <div className="bg-surface-2 px-3 py-2 rounded-2xl rounded-tl-md">
                 <div className="flex gap-1.5">
                   <span className="w-2 h-2 bg-muted rounded-full animate-pulse-dot" />
                   <span className="w-2 h-2 bg-muted rounded-full animate-pulse-dot [animation-delay:0.2s]" />

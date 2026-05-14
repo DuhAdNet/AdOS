@@ -1,7 +1,8 @@
-import { ipcMain, BrowserWindow, WebContentsView, webContents } from 'electron';
+import { ipcMain, BrowserWindow, WebContentsView } from 'electron';
 
 let browserView: WebContentsView | null = null;
 let mainWindow: BrowserWindow | null = null;
+let browserVisible = false;
 
 export function registerBrowserHandlers(win: BrowserWindow) {
   mainWindow = win;
@@ -21,9 +22,12 @@ export function registerBrowserHandlers(win: BrowserWindow) {
         });
 
         mainWindow.contentView.addChildView(browserView);
-        resizeBrowserView();
         browserView.webContents.loadURL(url);
       }
+
+      browserVisible = true;
+      resizeBrowserView();
+      mainWindow.webContents.send('browser:state-changed', { open: true, visible: true, url });
 
       return { success: true, url };
     } catch (err: unknown) {
@@ -98,8 +102,29 @@ export function registerBrowserHandlers(win: BrowserWindow) {
       mainWindow.contentView.removeChildView(browserView);
       browserView.webContents.close();
       browserView = null;
+      browserVisible = false;
     }
     return { success: true };
+  });
+
+  ipcMain.handle('browser:hide', async () => {
+    if (browserView && mainWindow) {
+      browserView.setBounds({ x: 0, y: 0, width: 0, height: 0 });
+      browserVisible = false;
+    }
+    return { success: true };
+  });
+
+  ipcMain.handle('browser:show', async () => {
+    if (browserView && mainWindow) {
+      browserVisible = true;
+      resizeBrowserView();
+    }
+    return { success: true };
+  });
+
+  ipcMain.handle('browser:is-open', () => {
+    return { open: browserView !== null, visible: browserVisible };
   });
 
   ipcMain.handle('browser:resize', async (_event, bounds: { x: number; y: number; width: number; height: number }) => {
@@ -110,20 +135,50 @@ export function registerBrowserHandlers(win: BrowserWindow) {
   });
 
   mainWindow.on('resize', () => {
-    resizeBrowserView();
+    if (browserVisible) resizeBrowserView();
   });
 }
 
 function resizeBrowserView() {
   if (!browserView || !mainWindow) return;
   const { width, height } = mainWindow.getContentBounds();
-  // Browser takes right half (split view with chat on left)
   const sidebarWidth = 256;
   const chatWidth = Math.floor((width - sidebarWidth) / 2);
   browserView.setBounds({
     x: sidebarWidth + chatWidth,
-    y: 32, // below title bar
+    y: 72, // below title bar + browser header
     width: width - sidebarWidth - chatWidth,
-    height: height - 32,
+    height: height - 72,
   });
+}
+
+export async function openBrowserUrl(url: string): Promise<void> {
+  if (!mainWindow) return;
+  if (browserView) {
+    browserView.webContents.loadURL(url);
+  } else {
+    const { WebContentsView: WCV } = require('electron');
+    browserView = new WCV({
+      webPreferences: { contextIsolation: true, nodeIntegration: false },
+    });
+    mainWindow.contentView.addChildView(browserView!);
+    browserView!.webContents.loadURL(url);
+  }
+  browserVisible = true;
+  resizeBrowserView();
+  mainWindow.webContents.send('browser:state-changed', { open: true, visible: true, url });
+}
+
+export async function getBrowserTitle(): Promise<string> {
+  if (!browserView) return '';
+  return browserView.webContents.getTitle();
+}
+
+export async function getBrowserText(): Promise<string> {
+  if (!browserView) return '';
+  try {
+    return await browserView.webContents.executeJavaScript('document.body.innerText.slice(0, 8000)');
+  } catch {
+    return '';
+  }
 }
