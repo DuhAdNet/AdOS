@@ -4,7 +4,6 @@ import Chat from './pages/Chat';
 import Settings from './pages/Settings';
 import SetupWizard from './components/SetupWizard';
 import TitleBar from './components/TitleBar';
-import BrowserPanel from './components/BrowserPanel';
 import BrowserPill from './components/BrowserPill';
 
 type Page = 'chat' | 'settings';
@@ -47,7 +46,8 @@ export default function App() {
     const hasAnthropic = await ados.llm.hasKey('anthropic');
     const hasGoogle = await ados.llm.hasKey('google');
     const hasOpenRouter = await ados.llm.hasKey('openrouter');
-    setNeedsSetup(!hasOpenAI && !hasAnthropic && !hasGoogle && !hasOpenRouter);
+    const hasOAuth = await ados.openaiOAuth.check();
+    setNeedsSetup(!hasOpenAI && !hasAnthropic && !hasGoogle && !hasOpenRouter && !hasOAuth?.authenticated);
   };
 
   const loadSessions = async () => {
@@ -123,9 +123,9 @@ export default function App() {
         <div className="flex-1">
           <TitleBar theme={theme} onToggleTheme={toggleTheme} />
         </div>
-        {browserOpen && !browserVisible && (
+        {browserOpen && (
           <div className="absolute top-1.5 left-1/2 -translate-x-1/2 z-50">
-            <BrowserPill url={browserUrl} onClick={handleBrowserShow} />
+            <BrowserPill url={browserUrl} onClick={browserVisible ? handleBrowserHide : handleBrowserShow} />
           </div>
         )}
       </div>
@@ -149,13 +149,6 @@ export default function App() {
           {page === 'settings' && <Settings />}
         </main>
       </div>
-      {browserVisible && (
-        <BrowserPanel
-          visible={browserVisible}
-          onClose={handleBrowserClose}
-          onMinimize={handleBrowserHide}
-        />
-      )}
     </div>
   );
 }

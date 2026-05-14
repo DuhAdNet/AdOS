@@ -77,16 +77,18 @@ export default function Chat({ sessionId, onUpdateTitle }: ChatProps) {
     });
 
     ados.llm.onStreamEnd(async () => {
-      const assistantMsg: Message = {
-        id: crypto.randomUUID(),
-        role: 'assistant',
-        content: accumulated,
-      };
-      setMessages((prev) => [...prev, assistantMsg]);
+      if (accumulated.trim()) {
+        const assistantMsg: Message = {
+          id: crypto.randomUUID(),
+          role: 'assistant',
+          content: accumulated,
+        };
+        setMessages((prev) => [...prev, assistantMsg]);
+        await ados.db.addMessage(assistantMsg.id, sessionId, 'assistant', accumulated);
+      }
       setStreamContent('');
       setToolSteps([]);
       setLoading(false);
-      await ados.db.addMessage(assistantMsg.id, sessionId, 'assistant', accumulated);
       ados.llm.removeStreamListeners();
     });
 
@@ -156,18 +158,13 @@ export default function Chat({ sessionId, onUpdateTitle }: ChatProps) {
               <div className="w-6 h-6 rounded-full bg-surface-2 flex items-center justify-center text-[10px] font-semibold text-secondary shrink-0">
                 A
               </div>
-              <div className="max-w-lg">
+              <div className="max-w-[70%]">
                 <ToolSteps steps={toolSteps} isRunning={loading} startTime={toolStartTime} />
-                {streamContent && (
-                  <div className="bg-surface-2 px-3 py-2 rounded-2xl rounded-tl-md mt-1">
-                    <span className="text-sm text-primary whitespace-pre-wrap break-words">{streamContent}</span>
-                  </div>
-                )}
               </div>
             </div>
           </div>
         )}
-        {streamContent && toolSteps.length === 0 && (
+        {streamContent && (
           <MessageBubble role="assistant" content={streamContent} />
         )}
         {loading && !streamContent && toolSteps.length === 0 && (

@@ -140,7 +140,6 @@ export function registerLLMHandlers() {
       }
 
       // Execute tool calls and feed results back
-      if (win) win.webContents.send('llm:stream-chunk', '\n\n');
       for (const tc of pendingToolCalls) {
         let args: Record<string, any> = {};
         try { args = JSON.parse(tc.arguments); } catch {}

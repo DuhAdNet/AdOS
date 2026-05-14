@@ -14,7 +14,7 @@ const PROVIDERS: Provider[] = [
     name: 'OpenAI',
     models: [
       { id: 'gpt-4.1', name: 'GPT-4.1' },
-      { id: 'gpt-4.1-mini', name: 'GPT-4.1 Mini' },
+      { id: 'gpt-5.5', name: 'GPT-4.1 Mini' },
       { id: 'gpt-4.1-nano', name: 'GPT-4.1 Nano' },
       { id: 'o4-mini', name: 'O4 Mini' },
       { id: 'o3-mini', name: 'O3 Mini' },
@@ -89,8 +89,8 @@ export default function SetupWizard({ onComplete }: SetupWizardProps) {
     );
 
     if (pollResult.success) {
-      await ados.providers.setDefaultModel('gpt-4.1-mini');
-      setSelectedModel('gpt-4.1-mini');
+      await ados.providers.setDefaultModel('gpt-5.5');
+      setSelectedModel('gpt-5.5');
       setStep('done');
     } else {
       setOauthError(pollResult.error || 'Login expirou. Tente novamente.');
