@@ -2,10 +2,11 @@ import { app, BrowserWindow, ipcMain } from 'electron';
 import path from 'path';
 import { registerBrowserHandlers } from './browser';
 import { registerLLMHandlers } from './llm';
+import { initDatabase, registerDatabaseHandlers } from './database';
 
 let mainWindow: BrowserWindow | null = null;
 
-function createWindow() {
+async function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1400,
     height: 900,
@@ -13,7 +14,7 @@ function createWindow() {
     minHeight: 600,
     frame: false,
     titleBarStyle: 'hidden',
-    backgroundColor: '#0a0e17',
+    backgroundColor: '#0b0f1a',
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,
@@ -31,6 +32,8 @@ function createWindow() {
     mainWindow = null;
   });
 
+  await initDatabase();
+  registerDatabaseHandlers();
   registerBrowserHandlers(mainWindow);
   registerLLMHandlers();
 }

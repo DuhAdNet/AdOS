@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import MessageBubble from '../components/MessageBubble';
 
 interface Message {
@@ -9,23 +9,38 @@ interface Message {
 
 interface ChatProps {
   sessionId: string;
+  onUpdateTitle: (title: string) => void;
 }
 
-export default function Chat({ sessionId }: ChatProps) {
+const ados = (window as any).ados;
+
+export default function Chat({ sessionId, onUpdateTitle }: ChatProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
+  const [streamContent, setStreamContent] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const isFirstMessage = useRef(true);
+
+  useEffect(() => {
+    loadMessages();
+  }, [sessionId]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
+  }, [messages, streamContent]);
 
-  const sendMessage = async () => {
+  const loadMessages = async () => {
+    const rows = await ados.db.getMessages(sessionId);
+    setMessages(rows.map((r: any) => ({ id: r.id, role: r.role, content: r.content })));
+    isFirstMessage.current = rows.length === 0;
+  };
+
+  const sendMessage = useCallback(async () => {
     if (!input.trim() || loading) return;
 
     const userMsg: Message = {
-      id: Date.now().toString(),
+      id: crypto.randomUUID(),
       role: 'user',
       content: input.trim(),
     };
@@ -33,36 +48,69 @@ export default function Chat({ sessionId }: ChatProps) {
     setMessages((prev) => [...prev, userMsg]);
     setInput('');
     setLoading(true);
+    setStreamContent('');
 
-    try {
-      const allMessages = [...messages, userMsg].map((m) => ({
-        role: m.role,
-        content: m.content,
-      }));
+    await ados.db.addMessage(userMsg.id, sessionId, 'user', userMsg.content);
 
-      const response = await (window as any).ados.llm.chat(allMessages, 'gpt-4o');
-
-      if (response.error) {
-        setMessages((prev) => [
-          ...prev,
-          { id: Date.now().toString(), role: 'assistant', content: `Erro: ${response.error}` },
-        ]);
-      } else {
-        setMessages((prev) => [
-          ...prev,
-          { id: Date.now().toString(), role: 'assistant', content: response.content },
-        ]);
-      }
-    } catch (err: unknown) {
-      const error = err as Error;
-      setMessages((prev) => [
-        ...prev,
-        { id: Date.now().toString(), role: 'assistant', content: `Erro: ${error.message}` },
-      ]);
-    } finally {
-      setLoading(false);
+    if (isFirstMessage.current) {
+      const title = userMsg.content.slice(0, 50) + (userMsg.content.length > 50 ? '...' : '');
+      onUpdateTitle(title);
+      isFirstMessage.current = false;
     }
-  };
+
+    ados.llm.removeStreamListeners();
+
+    let accumulated = '';
+
+    ados.llm.onStreamChunk((chunk: string) => {
+      accumulated += chunk;
+      setStreamContent(accumulated);
+    });
+
+    ados.llm.onStreamEnd(async () => {
+      const assistantMsg: Message = {
+        id: crypto.randomUUID(),
+        role: 'assistant',
+        content: accumulated,
+      };
+      setMessages((prev) => [...prev, assistantMsg]);
+      setStreamContent('');
+      setLoading(false);
+      await ados.db.addMessage(assistantMsg.id, sessionId, 'assistant', accumulated);
+      ados.llm.removeStreamListeners();
+    });
+
+    ados.llm.onStreamError(async (error: string) => {
+      const errorMsg: Message = {
+        id: crypto.randomUUID(),
+        role: 'assistant',
+        content: `Erro: ${error}`,
+      };
+      setMessages((prev) => [...prev, errorMsg]);
+      setStreamContent('');
+      setLoading(false);
+      await ados.db.addMessage(errorMsg.id, sessionId, 'assistant', `Erro: ${error}`);
+      ados.llm.removeStreamListeners();
+    });
+
+    const allMessages = [...messages, userMsg].map((m) => ({
+      role: m.role,
+      content: m.content,
+    }));
+
+    const result = await ados.llm.stream(allMessages, 'gpt-4o');
+
+    if (result.error && !accumulated) {
+      const errorMsg: Message = {
+        id: crypto.randomUUID(),
+        role: 'assistant',
+        content: `Erro: ${result.error}`,
+      };
+      setMessages((prev) => [...prev, errorMsg]);
+      setLoading(false);
+      await ados.db.addMessage(errorMsg.id, sessionId, 'assistant', `Erro: ${result.error}`);
+    }
+  }, [input, loading, messages, sessionId, onUpdateTitle]);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
@@ -74,7 +122,7 @@ export default function Chat({ sessionId }: ChatProps) {
   return (
     <div className="flex-1 flex flex-col bg-surface-0" data-session={sessionId}>
       <div className="flex-1 overflow-y-auto px-6 py-6">
-        {messages.length === 0 && (
+        {messages.length === 0 && !loading && (
           <div className="flex-1 flex items-center justify-center h-full">
             <div className="text-center">
               <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center mx-auto mb-5 shadow-glow">
@@ -90,7 +138,10 @@ export default function Chat({ sessionId }: ChatProps) {
         {messages.map((msg) => (
           <MessageBubble key={msg.id} role={msg.role} content={msg.content} />
         ))}
-        {loading && (
+        {streamContent && (
+          <MessageBubble role="assistant" content={streamContent} />
+        )}
+        {loading && !streamContent && (
           <div className="flex justify-start mb-4">
             <div className="flex items-start gap-3">
               <div className="w-7 h-7 rounded-full bg-surface-2 flex items-center justify-center text-xs font-semibold text-secondary shrink-0">
@@ -130,7 +181,7 @@ export default function Chat({ sessionId }: ChatProps) {
           </button>
         </div>
         <p className="text-[10px] text-muted text-center mt-2">
-          AdOS usa GPT-4o. Enter para enviar, Shift+Enter para nova linha.
+          AdOS usa GPT-4o · Enter para enviar · Shift+Enter para nova linha
         </p>
       </div>
     </div>
