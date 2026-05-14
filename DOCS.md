@@ -66,7 +66,26 @@ O navegador é **embutido dentro da janela do app** (não uma janela externa). F
 
 **Implementação técnica:** Electron `WebContentsView` (substituto do deprecated BrowserView) renderiza uma página web real dentro do app. O agente controla via `webContents.executeJavaScript()`, `webContents.capturePage()` para screenshots, e DevTools Protocol para DOM inspection. Não usa Playwright — usa o Chromium do próprio Electron.
 
-### 2.5 Sessões e Memória
+### 2.5 Automações
+
+O AdOS permite criar tarefas recorrentes (rotinas) que o agente executa automaticamente em horários definidos — mas APENAS enquanto o app está aberto.
+
+| Regra | Descrição |
+|-------|-----------|
+| **RN-50** | Automações SÓ rodam enquanto o app está aberto |
+| **RN-51** | Quando o app abre, verifica automações "atrasadas" e oferece executá-las |
+| **RN-52** | Cada automação tem: nome, descrição, cron/intervalo, status (ativo/desativado) |
+| **RN-53** | O usuário pode criar automações via chat ("cria uma rotina que...") |
+| **RN-54** | O usuário pode criar automações manualmente (tela de Automações) |
+| **RN-55** | Automações podem usar o browser (navegar, preencher, extrair dados) |
+| **RN-56** | Automações podem chamar APIs externas (Notion, Slack, banco SQL) |
+| **RN-57** | Cada execução gera um log com resultado (sucesso/erro/output) |
+| **RN-58** | O usuário pode ver histórico de execuções |
+| **RN-59** | Tipos de automação: Rotina (cron), Agendamento (data/hora única), Vigia (monitoramento) |
+
+**Tela de Automações:** Painel com lista de automações criadas, status, próxima execução, filtros por tipo (Rotina, Agendamento, Vigia), botão de criar nova.
+
+### 2.6 Sessões e Memória
 
 | Regra | Descrição |
 |-------|-----------|
