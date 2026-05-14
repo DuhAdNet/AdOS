@@ -47,16 +47,24 @@ O objetivo é ter um assistente IA interno com:
 | **RN-23** | O usuário pode cadastrar keys de múltiplos providers |
 | **RN-24** | Providers suportados: OpenAI, Anthropic, Google |
 
-### 2.4 Browser Automation
+### 2.4 Navegador Integrado
+
+O navegador é **embutido dentro da janela do app** (não uma janela externa). Funciona como uma aba/view interna — igual ao G4 OS. O agente opera nele, tira prints, navega, e o usuário pode intervir a qualquer momento na mesma view.
 
 | Regra | Descrição |
 |-------|-----------|
-| **RN-30** | O browser abre em modo headed (visível) |
-| **RN-31** | O usuário pode assistir o agente operando em tempo real |
-| **RN-32** | O usuário pode pausar a automação e assumir o controle |
-| **RN-33** | O usuário pode devolver o controle ao agente |
-| **RN-34** | Quando o app fecha, o browser fecha junto (RN-04) |
-| **RN-35** | O agente pode tirar screenshots e analisar DOM |
+| **RN-30** | O browser é uma view embutida dentro do app (BrowserView/WebContentsView) |
+| **RN-31** | O navegador tem barra de URL, botões voltar/avançar/reload visíveis |
+| **RN-32** | O usuário pode navegar manualmente (digitar URL, clicar em links) |
+| **RN-33** | O agente pode assumir controle do browser (navegar, clicar, preencher) |
+| **RN-34** | O usuário pode intervir/pausar a automação e operar manualmente |
+| **RN-35** | O agente tira screenshots da view para análise (envia para o LLM) |
+| **RN-36** | O agente pode ler o DOM/snapshot da página atual |
+| **RN-37** | Quando o app fecha, o browser fecha junto (RN-04) |
+| **RN-38** | O browser deve ser alternável com o chat (split view ou tabs/abas) |
+| **RN-39** | O usuário pode abrir o browser manualmente (botão na UI) sem precisar do agente |
+
+**Implementação técnica:** Electron `WebContentsView` (substituto do deprecated BrowserView) renderiza uma página web real dentro do app. O agente controla via `webContents.executeJavaScript()`, `webContents.capturePage()` para screenshots, e DevTools Protocol para DOM inspection. Não usa Playwright — usa o Chromium do próprio Electron.
 
 ### 2.5 Sessões e Memória
 
