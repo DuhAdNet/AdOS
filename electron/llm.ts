@@ -5,6 +5,7 @@ import path from 'path';
 import { getStoredKey } from './providers';
 import { getOpenAIAccessToken } from './openai-oauth';
 import { getBuiltinTools, executeBuiltinTool } from './tools';
+import { getSetting } from './database';
 
 let clients: Record<string, OpenAI> = {};
 let usingOAuth = false;
@@ -96,7 +97,8 @@ export function registerLLMHandlers() {
     for (let iteration = 0; iteration < maxIterations; iteration++) {
       const params: any = { model: effectiveModel, input, stream: true };
       if (usingOAuth) {
-        params.instructions = 'You are a helpful assistant with access to tools. Use tools to read/write files, run commands, browse the web, and create documents. Files are stored in ~/Documents/AdOS/. Always use tools when the user asks to create files, search the web, or run commands.';
+        const customPrompt = getSetting('system_prompt');
+        params.instructions = customPrompt || 'You are a helpful assistant with access to tools. Use tools to read/write files, run commands, browse the web, and create documents. Files are stored in ~/Documents/AdOS/. Always use tools when the user asks to create files, search the web, or run commands.';
         params.store = false;
       }
       if (tools.length > 0) {
@@ -216,7 +218,8 @@ export function registerLLMHandlers() {
         const effectiveModel = usingOAuth ? 'gpt-5.5' : selectedModel;
         const chatParams: any = { model: effectiveModel, input };
         if (usingOAuth) {
-          chatParams.instructions = 'You are a helpful assistant.';
+          const customPrompt = getSetting('system_prompt');
+          chatParams.instructions = customPrompt || 'You are a helpful assistant.';
           chatParams.store = false;
         }
         const response = await (client as any).responses.create(chatParams);

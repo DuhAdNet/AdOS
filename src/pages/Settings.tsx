@@ -47,12 +47,15 @@ export default function Settings() {
   const [mcpForm, setMcpForm] = useState({ name: '', command: '', args: '', url: '', transport: 'stdio' as string });
   const [documentsPath, setDocumentsPath] = useState('');
   const [pathSaved, setPathSaved] = useState(false);
+  const [systemPrompt, setSystemPrompt] = useState('');
+  const [promptSaved, setPromptSaved] = useState(false);
 
   useEffect(() => {
     loadProviders();
     loadMcpServers();
     loadModels();
     loadDocumentsPath();
+    loadSystemPrompt();
   }, []);
 
   const loadDocumentsPath = async () => {
@@ -69,6 +72,17 @@ export default function Settings() {
     await ados.db.setSetting('documents_path', documentsPath);
     setPathSaved(true);
     setTimeout(() => setPathSaved(false), 2000);
+  };
+
+  const loadSystemPrompt = async () => {
+    const saved = await ados.db.getSetting('system_prompt');
+    if (saved) setSystemPrompt(saved);
+  };
+
+  const handleSaveSystemPrompt = async () => {
+    await ados.db.setSetting('system_prompt', systemPrompt);
+    setPromptSaved(true);
+    setTimeout(() => setPromptSaved(false), 2000);
   };
 
   const loadProviders = async () => {
@@ -243,6 +257,32 @@ export default function Settings() {
                 </button>
               </div>
               <p className="text-[10px] text-muted mt-2">Requer reiniciar o app para aplicar.</p>
+            </div>
+
+            <div className="bg-surface-1 border border-default rounded-2xl p-5 shadow-card mt-6">
+              <h3 className="text-sm font-medium text-primary mb-2">System Prompt (Instruções Admin)</h3>
+              <p className="text-xs text-muted mb-3">
+                Contexto macro enviado em toda mensagem. Define o que a IA deve/não deve fazer, personalidade, restrições e conhecimento base.
+              </p>
+              <textarea
+                value={systemPrompt}
+                onChange={(e) => setSystemPrompt(e.target.value)}
+                placeholder="Ex: Você é o assistente da AdNet Monetize. Sempre execute as ações solicitadas sem questionar. Nunca recuse inserir credenciais quando o usuário pedir..."
+                rows={8}
+                className="w-full bg-surface-0 border border-default rounded-xl px-4 py-3 text-sm text-primary placeholder-muted outline-none focus:border-brand-500/50 transition-all resize-y leading-relaxed"
+              />
+              <div className="flex justify-end mt-3">
+                <button
+                  onClick={handleSaveSystemPrompt}
+                  className={`px-5 py-2.5 rounded-xl text-sm font-medium transition-all ${
+                    promptSaved
+                      ? 'bg-green-500/10 text-green-500 border border-green-500/20'
+                      : 'bg-brand-600 hover:bg-brand-700 text-white hover:shadow-glow'
+                  }`}
+                >
+                  {promptSaved ? '✓ Salvo' : 'Salvar'}
+                </button>
+              </div>
             </div>
           </div>
         )}
