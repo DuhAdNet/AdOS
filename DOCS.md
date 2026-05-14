@@ -103,7 +103,28 @@ Loja de skills/workflows compartilhados entre usuários do AdOS. Segundo momento
 
 **Dependência:** Exige um servidor central (API) para hospedar e distribuir skills. Entra no roadmap após o MVP local funcionar.
 
-### 2.7 Sessões e Memória
+### 2.7 Brain (Memória em Grafo)
+
+Sistema de memória persistente do agente com visualização em grafo interativo (estilo Obsidian). O agente aprende com o uso e conecta informações entre si.
+
+| Regra | Descrição |
+|-------|-----------|
+| **RN-70** | Brain é uma tela dedicada para visualizar e gerenciar memórias |
+| **RN-71** | Memórias são nós em um grafo conectado |
+| **RN-72** | Tipos de memória: Preferência, Decisão, Observação, Resumo, Afirmação, Referência |
+| **RN-73** | Visualização em grafo interativo (zoom, pan, fullscreen) |
+| **RN-74** | Visualização alternativa em lista |
+| **RN-75** | Filtros por tipo e status (Ativas, Arquivadas, Todas) |
+| **RN-76** | Busca textual nas memórias |
+| **RN-77** | O agente cria memórias automaticamente durante conversas |
+| **RN-78** | O usuário pode confirmar, editar, arquivar ou deletar memórias |
+| **RN-79** | Memórias conectam-se entre si (grafo de conhecimento) |
+| **RN-80** | O agente consulta memórias relevantes antes de responder |
+| **RN-81** | Tudo armazenado localmente (SQLite) |
+
+**Visualização:** Canvas 2D com nós (círculos) representando tipos de memória e arestas mostrando conexões. Nós centrais (Shared Brain) conectam aos tipos. Cada nó filho é uma memória individual. Zoom, pan, seleção para ver detalhes.
+
+### 2.8 Sessões e Memória
 
 | Regra | Descrição |
 |-------|-----------|
