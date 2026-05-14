@@ -7,7 +7,8 @@ import { registerProviderHandlers } from './providers';
 import { registerChatGPTAuthHandlers } from './chatgpt-auth';
 import { registerOpenAIOAuthHandlers } from './openai-oauth';
 import { initDatabase, registerDatabaseHandlers } from './database';
-import { registerToolHandlers } from './tools';
+import { registerToolHandlers, setDocumentsRoot } from './tools';
+import { getSetting } from './database';
 
 app.disableHardwareAcceleration();
 app.commandLine.appendSwitch('disable-gpu');
@@ -43,6 +44,10 @@ async function createWindow() {
 
   await initDatabase();
   registerDatabaseHandlers();
+
+  const customPath = getSetting('documents_path');
+  if (customPath) setDocumentsRoot(customPath);
+
   registerBrowserHandlers(mainWindow);
   registerLLMHandlers();
   registerMcpHandlers();

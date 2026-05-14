@@ -109,4 +109,7 @@ contextBridge.exposeInMainWorld('ados', {
     logout: () => ipcRenderer.invoke('openai-oauth:logout'),
     getToken: () => ipcRenderer.invoke('openai-oauth:get-token'),
   },
+  tools: {
+    getDocumentsPath: () => ipcRenderer.invoke('tools:get-documents-path'),
+  },
 });

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-type SettingsTab = 'providers' | 'mcp' | 'model' | 'about';
+type SettingsTab = 'general' | 'providers' | 'mcp' | 'model' | 'about';
 
 const ados = (window as any).ados;
 
@@ -36,7 +36,7 @@ interface Model {
 }
 
 export default function Settings() {
-  const [activeTab, setActiveTab] = useState<SettingsTab>('providers');
+  const [activeTab, setActiveTab] = useState<SettingsTab>('general');
   const [providers, setProviders] = useState<Provider[]>([]);
   const [mcpServers, setMcpServers] = useState<McpServer[]>([]);
   const [models, setModels] = useState<Model[]>([]);
@@ -45,12 +45,31 @@ export default function Settings() {
   const [keyStatus, setKeyStatus] = useState<Record<string, string>>({});
   const [showAddMcp, setShowAddMcp] = useState(false);
   const [mcpForm, setMcpForm] = useState({ name: '', command: '', args: '', url: '', transport: 'stdio' as string });
+  const [documentsPath, setDocumentsPath] = useState('');
+  const [pathSaved, setPathSaved] = useState(false);
 
   useEffect(() => {
     loadProviders();
     loadMcpServers();
     loadModels();
+    loadDocumentsPath();
   }, []);
+
+  const loadDocumentsPath = async () => {
+    const saved = await ados.db.getSetting('documents_path');
+    if (saved) {
+      setDocumentsPath(saved);
+    } else {
+      const defaultPath = await ados.tools?.getDocumentsPath?.();
+      if (defaultPath) setDocumentsPath(defaultPath);
+    }
+  };
+
+  const handleSaveDocumentsPath = async () => {
+    await ados.db.setSetting('documents_path', documentsPath);
+    setPathSaved(true);
+    setTimeout(() => setPathSaved(false), 2000);
+  };
 
   const loadProviders = async () => {
     const list = await ados.providers.list();
@@ -130,6 +149,11 @@ export default function Settings() {
 
   const tabs: { id: SettingsTab; label: string; icon: React.ReactNode }[] = [
     {
+      id: 'general',
+      label: 'Geral',
+      icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>,
+    },
+    {
       id: 'providers',
       label: 'Providers',
       icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>,
@@ -188,6 +212,41 @@ export default function Settings() {
       </nav>
 
       <div className="flex-1 overflow-y-auto p-8">
+        {activeTab === 'general' && (
+          <div className="max-w-2xl">
+            <h1 className="text-lg font-semibold text-primary mb-1">Geral</h1>
+            <p className="text-sm text-muted mb-6">Configurações gerais do AdOS.</p>
+
+            <div className="bg-surface-1 border border-default rounded-2xl p-5 shadow-card">
+              <h3 className="text-sm font-medium text-primary mb-2">Pasta de Documentos</h3>
+              <p className="text-xs text-muted mb-3">
+                Local onde o AdOS salva dashboards, reports, skills e downloads.
+              </p>
+              <div className="flex gap-3">
+                <input
+                  type="text"
+                  value={documentsPath}
+                  onChange={(e) => setDocumentsPath(e.target.value)}
+                  placeholder="C:\Users\...\Documents\AdOS"
+                  className="flex-1 bg-surface-0 border border-default rounded-xl px-4 py-2.5 text-sm text-primary placeholder-muted outline-none focus:border-brand-500/50 transition-all"
+                />
+                <button
+                  onClick={handleSaveDocumentsPath}
+                  disabled={!documentsPath}
+                  className={`px-5 py-2.5 rounded-xl text-sm font-medium transition-all ${
+                    pathSaved
+                      ? 'bg-green-500/10 text-green-500 border border-green-500/20'
+                      : 'bg-brand-600 hover:bg-brand-700 text-white hover:shadow-glow disabled:bg-surface-3 disabled:text-muted'
+                  }`}
+                >
+                  {pathSaved ? '✓ Salvo' : 'Salvar'}
+                </button>
+              </div>
+              <p className="text-[10px] text-muted mt-2">Requer reiniciar o app para aplicar.</p>
+            </div>
+          </div>
+        )}
+
         {activeTab === 'providers' && (
           <div className="max-w-2xl">
             <h1 className="text-lg font-semibold text-primary mb-1">Providers & API Keys</h1>

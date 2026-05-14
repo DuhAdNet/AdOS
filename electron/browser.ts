@@ -142,13 +142,15 @@ export function registerBrowserHandlers(win: BrowserWindow) {
 function resizeBrowserView() {
   if (!browserView || !mainWindow) return;
   const { width, height } = mainWindow.getContentBounds();
-  const sidebarWidth = 256;
-  const chatWidth = Math.floor((width - sidebarWidth) / 2);
+  const modalWidth = Math.min(900, width - 100);
+  const modalHeight = Math.min(600, height - 100);
+  const x = Math.floor((width - modalWidth) / 2);
+  const y = Math.floor((height - modalHeight) / 2) + 40;
   browserView.setBounds({
-    x: sidebarWidth + chatWidth,
-    y: 72, // below title bar + browser header
-    width: width - sidebarWidth - chatWidth,
-    height: height - 72,
+    x,
+    y,
+    width: modalWidth,
+    height: modalHeight - 40,
   });
 }
 
@@ -181,4 +183,8 @@ export async function getBrowserText(): Promise<string> {
   } catch {
     return '';
   }
+}
+
+export function getBrowserView(): WebContentsView | null {
+  return browserView;
 }

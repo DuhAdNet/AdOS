@@ -4,7 +4,17 @@ import path from 'path';
 import { exec } from 'child_process';
 import { openBrowserUrl, getBrowserText, getBrowserTitle } from './browser';
 
-const DOCUMENTS_ROOT = path.join(app.getPath('documents'), 'AdOS');
+let DOCUMENTS_ROOT = path.join(app.getPath('documents'), 'AdOS');
+
+export function setDocumentsRoot(customPath: string) {
+  if (customPath && customPath.trim()) {
+    DOCUMENTS_ROOT = customPath.trim();
+  }
+}
+
+export function getDocumentsRoot(): string {
+  return DOCUMENTS_ROOT;
+}
 
 function ensureDocumentsRoot() {
   if (!fs.existsSync(DOCUMENTS_ROOT)) {
@@ -109,6 +119,40 @@ export function getBuiltinTools(): ToolDefinition[] {
         required: ['query'],
       },
     },
+    {
+      name: 'browser_click',
+      description: 'Click an element in the browser by text content or CSS selector. Use text: prefix for text matching, or a CSS selector.',
+      inputSchema: {
+        type: 'object',
+        properties: {
+          target: { type: 'string', description: 'Element to click. Use "text:Button Label" for text match or a CSS selector like "#id", ".class", "a[href*=url]"' },
+        },
+        required: ['target'],
+      },
+    },
+    {
+      name: 'browser_type',
+      description: 'Type text into a focused input or a specific element in the browser.',
+      inputSchema: {
+        type: 'object',
+        properties: {
+          selector: { type: 'string', description: 'CSS selector of the input element (optional, uses focused element if omitted)' },
+          text: { type: 'string', description: 'Text to type' },
+        },
+        required: ['text'],
+      },
+    },
+    {
+      name: 'browser_get_elements',
+      description: 'Get a list of interactive elements (links, buttons, inputs) visible on the current page with their text and selector.',
+      inputSchema: {
+        type: 'object',
+        properties: {
+          filter: { type: 'string', description: 'Optional text filter to narrow results' },
+        },
+        required: [],
+      },
+    },
   ];
 }
 
@@ -192,6 +236,122 @@ export async function executeBuiltinTool(name: string, args: Record<string, any>
         return results.length > 0 ? results.join('\n\n') : 'No results found.';
       } catch (err) {
         return `Search error: ${(err as Error).message}`;
+      }
+    }
+
+    case 'browser_click': {
+      const { getBrowserView } = require('./browser');
+      const view = getBrowserView();
+      if (!view) return 'Error: Browser not open';
+      const target: string = args.target;
+      try {
+        let code: string;
+        if (target.startsWith('text:')) {
+          const text = target.slice(5).trim();
+          code = `
+            (function() {
+              const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_ELEMENT);
+              let node;
+              while (node = walker.nextNode()) {
+                if (node.offsetParent !== null && node.textContent.trim() === ${JSON.stringify(text)}) {
+                  node.click();
+                  return 'Clicked: ' + node.tagName + ' "' + node.textContent.trim().slice(0, 50) + '"';
+                }
+              }
+              // Try partial match
+              const walker2 = document.createTreeWalker(document.body, NodeFilter.SHOW_ELEMENT);
+              while (node = walker2.nextNode()) {
+                if (node.offsetParent !== null && node.textContent.trim().includes(${JSON.stringify(text)}) && node.children.length === 0) {
+                  node.click();
+                  return 'Clicked (partial): ' + node.tagName + ' "' + node.textContent.trim().slice(0, 50) + '"';
+                }
+              }
+              return 'Error: No element found with text "' + ${JSON.stringify(text)} + '"';
+            })()
+          `;
+        } else {
+          code = `
+            (function() {
+              const el = document.querySelector(${JSON.stringify(target)});
+              if (!el) return 'Error: No element found for selector "${target}"';
+              el.click();
+              return 'Clicked: ' + el.tagName + ' "' + (el.textContent || '').trim().slice(0, 50) + '"';
+            })()
+          `;
+        }
+        const result = await view.webContents.executeJavaScript(code);
+        return result;
+      } catch (err) {
+        return `Error clicking: ${(err as Error).message}`;
+      }
+    }
+
+    case 'browser_type': {
+      const { getBrowserView } = require('./browser');
+      const view = getBrowserView();
+      if (!view) return 'Error: Browser not open';
+      try {
+        const selector = args.selector;
+        const text = args.text;
+        let code: string;
+        if (selector) {
+          code = `
+            (function() {
+              const el = document.querySelector(${JSON.stringify(selector)});
+              if (!el) return 'Error: Element not found';
+              el.focus();
+              el.value = ${JSON.stringify(text)};
+              el.dispatchEvent(new Event('input', { bubbles: true }));
+              return 'Typed into ' + el.tagName + '[' + (el.id || el.className || '') + ']';
+            })()
+          `;
+        } else {
+          code = `
+            (function() {
+              const el = document.activeElement;
+              if (!el || el === document.body) return 'Error: No element focused';
+              el.value = ${JSON.stringify(text)};
+              el.dispatchEvent(new Event('input', { bubbles: true }));
+              return 'Typed into ' + el.tagName;
+            })()
+          `;
+        }
+        const result = await view.webContents.executeJavaScript(code);
+        return result;
+      } catch (err) {
+        return `Error typing: ${(err as Error).message}`;
+      }
+    }
+
+    case 'browser_get_elements': {
+      const { getBrowserView } = require('./browser');
+      const view = getBrowserView();
+      if (!view) return 'Error: Browser not open';
+      try {
+        const filter = args.filter || '';
+        const code = `
+          (function() {
+            const els = document.querySelectorAll('a, button, input, select, textarea, [onclick], [role="button"], [role="link"], [role="tab"], [role="menuitem"]');
+            const results = [];
+            for (let i = 0; i < els.length && results.length < 50; i++) {
+              const el = els[i];
+              if (el.offsetParent === null) continue;
+              const text = (el.textContent || el.getAttribute('placeholder') || el.getAttribute('aria-label') || '').trim().slice(0, 60);
+              if (!text) continue;
+              const filterStr = ${JSON.stringify(filter)};
+              if (filterStr && !text.toLowerCase().includes(filterStr.toLowerCase())) continue;
+              const tag = el.tagName.toLowerCase();
+              const id = el.id ? '#' + el.id : '';
+              const cls = el.className && typeof el.className === 'string' ? '.' + el.className.split(' ')[0] : '';
+              results.push(tag + id + cls + ' → "' + text + '"');
+            }
+            return results.join('\\n') || '(no interactive elements found)';
+          })()
+        `;
+        const result = await view.webContents.executeJavaScript(code);
+        return result;
+      } catch (err) {
+        return `Error: ${(err as Error).message}`;
       }
     }
 

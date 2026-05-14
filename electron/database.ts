@@ -58,6 +58,13 @@ function saveDb() {
   fs.writeFileSync(DB_PATH, buffer);
 }
 
+export function getSetting(key: string): string | null {
+  if (!db) return null;
+  const rows = db.exec('SELECT value FROM settings WHERE key = ?', [key]);
+  if (!rows.length || !rows[0].values.length) return null;
+  return rows[0].values[0][0] as string;
+}
+
 export function registerDatabaseHandlers() {
   ipcMain.handle('db:create-session', (_event, id: string, title: string) => {
     db.run('INSERT INTO sessions (id, title) VALUES (?, ?)', [id, title]);
