@@ -168,7 +168,9 @@ export default function Settings() {
 
             <div className="space-y-3">
               {[
-                { id: 'gpt-4o', name: 'GPT-4o', provider: 'OpenAI', desc: 'Rápido e versátil' },
+                { id: 'codex-mini-latest', name: 'Codex Mini', provider: 'OpenAI', desc: 'Modelo principal — rápido e inteligente' },
+                { id: 'gpt-4o', name: 'GPT-4o', provider: 'OpenAI', desc: 'Versátil, ótimo para conversas gerais' },
+                { id: 'o3-mini', name: 'O3 Mini', provider: 'OpenAI', desc: 'Raciocínio avançado' },
                 { id: 'claude-sonnet-4-6', name: 'Claude Sonnet 4.6', provider: 'Anthropic', desc: 'Excelente em código e análise' },
                 { id: 'gemini-2.5-flash', name: 'Gemini 2.5 Flash', provider: 'Google', desc: 'Ultra-rápido, bom custo-benefício' },
               ].map((model) => (
@@ -180,7 +182,7 @@ export default function Settings() {
                     type="radio"
                     name="model"
                     value={model.id}
-                    defaultChecked={model.id === 'gpt-4o'}
+                    defaultChecked={model.id === 'codex-mini-latest'}
                     className="w-4 h-4 text-brand-600 accent-brand-600"
                   />
                   <div>

@@ -98,7 +98,7 @@ export default function Chat({ sessionId, onUpdateTitle }: ChatProps) {
       content: m.content,
     }));
 
-    const result = await ados.llm.stream(allMessages, 'gpt-4o');
+    const result = await ados.llm.stream(allMessages, 'codex-mini-latest');
 
     if (result.error && !accumulated) {
       const errorMsg: Message = {
@@ -181,7 +181,7 @@ export default function Chat({ sessionId, onUpdateTitle }: ChatProps) {
           </button>
         </div>
         <p className="text-[10px] text-muted text-center mt-2">
-          AdOS usa GPT-4o · Enter para enviar · Shift+Enter para nova linha
+          AdOS usa OpenAI Codex · Enter para enviar · Shift+Enter para nova linha
         </p>
       </div>
     </div>
