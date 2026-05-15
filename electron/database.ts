@@ -83,6 +83,15 @@ export async function initDatabase() {
   `);
 
   db.run(`
+    CREATE TABLE IF NOT EXISTS memories (
+      id TEXT PRIMARY KEY,
+      content TEXT NOT NULL,
+      category TEXT NOT NULL DEFAULT 'general',
+      created_at TEXT NOT NULL DEFAULT (datetime('now'))
+    )
+  `);
+
+  db.run(`
     CREATE TABLE IF NOT EXISTS automations (
       id TEXT PRIMARY KEY,
       name TEXT NOT NULL,
@@ -229,6 +238,30 @@ export function registerDatabaseHandlers() {
     db.run('DELETE FROM connections WHERE id = ?', [id]);
     saveDb();
     return { success: true };
+  });
+
+  ipcMain.handle('db:get-memories', () => {
+    const rows = db.exec('SELECT id, content, category, created_at FROM memories ORDER BY created_at DESC');
+    if (!rows.length) return [];
+    return rows[0].values.map((r: any[]) => ({ id: r[0], content: r[1], category: r[2], createdAt: r[3] }));
+  });
+
+  ipcMain.handle('db:add-memory', (_event, id: string, content: string, category: string) => {
+    db.run('INSERT INTO memories (id, content, category) VALUES (?, ?, ?)', [id, content, category]);
+    saveDb();
+    return { success: true };
+  });
+
+  ipcMain.handle('db:delete-memory', (_event, id: string) => {
+    db.run('DELETE FROM memories WHERE id = ?', [id]);
+    saveDb();
+    return { success: true };
+  });
+
+  ipcMain.handle('db:search-memories', (_event, query: string) => {
+    const rows = db.exec('SELECT id, content, category, created_at FROM memories WHERE content LIKE ? ORDER BY created_at DESC', [`%${query}%`]);
+    if (!rows.length) return [];
+    return rows[0].values.map((r: any[]) => ({ id: r[0], content: r[1], category: r[2], createdAt: r[3] }));
   });
 
   ipcMain.handle('db:get-automations', () => {

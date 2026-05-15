@@ -85,6 +85,11 @@ contextBridge.exposeInMainWorld('ados', {
     addWorkflow: (id: string, name: string, slug: string, description: string, instructions: string) =>
       ipcRenderer.invoke('db:add-workflow', id, name, slug, description, instructions),
     deleteWorkflow: (id: string) => ipcRenderer.invoke('db:delete-workflow', id),
+    getMemories: () => ipcRenderer.invoke('db:get-memories'),
+    addMemory: (id: string, content: string, category: string) =>
+      ipcRenderer.invoke('db:add-memory', id, content, category),
+    deleteMemory: (id: string) => ipcRenderer.invoke('db:delete-memory', id),
+    searchMemories: (query: string) => ipcRenderer.invoke('db:search-memories', query),
     getAutomations: () => ipcRenderer.invoke('db:get-automations'),
     addAutomation: (id: string, name: string, description: string, schedule: string, sources: string) =>
       ipcRenderer.invoke('db:add-automation', id, name, description, schedule, sources),
