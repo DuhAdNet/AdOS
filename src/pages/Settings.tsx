@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-type SettingsTab = 'general' | 'providers' | 'mcp' | 'model' | 'about';
+type SettingsTab = 'app' | 'appearance' | 'input' | 'workspace' | 'providers' | 'mcp' | 'model' | 'preferences' | 'about';
 
 const ados = (window as any).ados;
 
@@ -36,7 +36,16 @@ interface Model {
 }
 
 export default function Settings() {
-  const [activeTab, setActiveTab] = useState<SettingsTab>('general');
+  const [activeTab, setActiveTab] = useState<SettingsTab>('app');
+  const [themeMode, setThemeMode] = useState<'system' | 'light' | 'dark'>('dark');
+  const [font, setFont] = useState<'manrope' | 'system'>('manrope');
+  const [sendKey, setSendKey] = useState<'enter' | 'ctrl-enter'>('enter');
+  const [autoCapitalize, setAutoCapitalize] = useState(true);
+  const [spellCheck, setSpellCheck] = useState(true);
+  const [userName, setUserName] = useState('');
+  const [userTimezone, setUserTimezone] = useState('America/Sao_Paulo');
+  const [userLanguage, setUserLanguage] = useState('pt-BR');
+  const [userNotes, setUserNotes] = useState('');
   const [providers, setProviders] = useState<Provider[]>([]);
   const [mcpServers, setMcpServers] = useState<McpServer[]>([]);
   const [models, setModels] = useState<Model[]>([]);
@@ -161,32 +170,16 @@ export default function Settings() {
     setDefaultModel(modelId);
   };
 
-  const tabs: { id: SettingsTab; label: string; icon: React.ReactNode }[] = [
-    {
-      id: 'general',
-      label: 'Geral',
-      icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>,
-    },
-    {
-      id: 'providers',
-      label: 'Providers',
-      icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>,
-    },
-    {
-      id: 'mcp',
-      label: 'MCP Servers',
-      icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>,
-    },
-    {
-      id: 'model',
-      label: 'Modelo',
-      icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>,
-    },
-    {
-      id: 'about',
-      label: 'Sobre',
-      icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>,
-    },
+  const tabs: { id: SettingsTab; label: string; section?: string }[] = [
+    { id: 'app', label: 'App', section: 'APP' },
+    { id: 'appearance', label: 'Aparência' },
+    { id: 'input', label: 'Entrada' },
+    { id: 'workspace', label: 'Workspace', section: 'WORKSPACE' },
+    { id: 'providers', label: 'Providers' },
+    { id: 'mcp', label: 'MCP Servers' },
+    { id: 'model', label: 'Modelo' },
+    { id: 'preferences', label: 'Preferências', section: 'SISTEMA' },
+    { id: 'about', label: 'Sobre' },
   ];
 
   const getKeyButtonLabel = (providerId: string) => {
@@ -207,29 +200,32 @@ export default function Settings() {
 
   return (
     <div className="flex-1 flex overflow-hidden">
-      <nav className="w-52 bg-surface-1 border-r border-default p-3 flex flex-col gap-1">
-        <h2 className="text-[10px] uppercase text-muted font-semibold px-3 py-2 tracking-wider">Configurações</h2>
+      <nav className="w-52 bg-surface-1 border-r border-default p-3 flex flex-col gap-0.5 overflow-y-auto">
+        <h2 className="text-xs font-semibold text-primary px-3 py-2">Configurações</h2>
         {tabs.map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
-            className={`w-full text-left px-3 py-2.5 rounded-xl text-sm transition-all flex items-center gap-2.5 ${
-              activeTab === tab.id
-                ? 'bg-brand-600/10 text-brand-600 dark:text-brand-400 font-medium'
-                : 'text-secondary hover:bg-surface-2'
-            }`}
-          >
-            <span className="opacity-60">{tab.icon}</span>
-            {tab.label}
-          </button>
+          <div key={tab.id}>
+            {tab.section && (
+              <p className="text-[10px] uppercase text-muted font-semibold px-3 pt-3 pb-1 tracking-wider">{tab.section}</p>
+            )}
+            <button
+              onClick={() => setActiveTab(tab.id)}
+              className={`w-full text-left px-3 py-2 rounded-xl text-sm transition-all ${
+                activeTab === tab.id
+                  ? 'bg-brand-600/10 text-brand-600 dark:text-brand-400 font-medium'
+                  : 'text-secondary hover:bg-surface-2'
+              }`}
+            >
+              {tab.label}
+            </button>
+          </div>
         ))}
       </nav>
 
       <div className="flex-1 overflow-y-auto p-8">
-        {activeTab === 'general' && (
+        {activeTab === 'app' && (
           <div className="max-w-2xl">
-            <h1 className="text-lg font-semibold text-primary mb-1">Geral</h1>
-            <p className="text-sm text-muted mb-6">Configurações gerais do AdOS.</p>
+            <h1 className="text-lg font-semibold text-primary mb-1">App</h1>
+            <p className="text-sm text-muted mb-6">Notificações, diretórios e instruções do sistema.</p>
 
             <div className="bg-surface-1 border border-default rounded-2xl p-5 shadow-card">
               <h3 className="text-sm font-medium text-primary mb-2">Pasta de Documentos</h3>
@@ -524,6 +520,210 @@ export default function Settings() {
           </div>
         )}
 
+        {activeTab === 'appearance' && (
+          <div className="max-w-2xl">
+            <h1 className="text-lg font-semibold text-primary mb-1">Aparência</h1>
+            <p className="text-sm text-muted mb-6">Tema, fonte e ícones de ferramenta.</p>
+
+            <div className="bg-surface-1 border border-default rounded-2xl p-5 shadow-card mb-4">
+              <h3 className="text-sm font-medium text-primary mb-3">Tema padrão</h3>
+              <div className="flex items-center justify-between mb-4">
+                <span className="text-sm text-secondary">Modo</span>
+                <div className="flex gap-1 bg-surface-2 rounded-lg p-0.5">
+                  {(['system', 'light', 'dark'] as const).map(m => (
+                    <button
+                      key={m}
+                      onClick={() => setThemeMode(m)}
+                      className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
+                        themeMode === m ? 'bg-surface-3 text-primary' : 'text-muted hover:text-secondary'
+                      }`}
+                    >
+                      {m === 'system' ? '💻 Sistema' : m === 'light' ? '☀️ Claro' : '🌙 Escuro'}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-secondary">Fonte</span>
+                <div className="flex gap-1 bg-surface-2 rounded-lg p-0.5">
+                  {(['manrope', 'system'] as const).map(f => (
+                    <button
+                      key={f}
+                      onClick={() => setFont(f)}
+                      className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
+                        font === f ? 'bg-surface-3 text-primary' : 'text-muted hover:text-secondary'
+                      }`}
+                    >
+                      {f === 'manrope' ? 'Manrope' : 'Sistema'}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'input' && (
+          <div className="max-w-2xl">
+            <h1 className="text-lg font-semibold text-primary mb-1">Entrada</h1>
+            <p className="text-sm text-muted mb-6">Tecla de envio e corretor ortográfico.</p>
+
+            <div className="bg-surface-1 border border-default rounded-2xl p-5 shadow-card mb-4">
+              <h3 className="text-sm font-medium text-primary mb-4">Digitação</h3>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-secondary">Auto-capitalização</p>
+                    <p className="text-xs text-muted">Capitaliza automaticamente a primeira letra ao digitar.</p>
+                  </div>
+                  <button
+                    onClick={() => setAutoCapitalize(!autoCapitalize)}
+                    className={`w-10 h-5 rounded-full transition-colors ${autoCapitalize ? 'bg-brand-600' : 'bg-surface-3'}`}
+                  >
+                    <div className={`w-4 h-4 rounded-full bg-white transition-transform ${autoCapitalize ? 'translate-x-5' : 'translate-x-0.5'}`} />
+                  </button>
+                </div>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-secondary">Corretor ortográfico</p>
+                    <p className="text-xs text-muted">Sublinha palavras com possíveis erros enquanto você digita.</p>
+                  </div>
+                  <button
+                    onClick={() => setSpellCheck(!spellCheck)}
+                    className={`w-10 h-5 rounded-full transition-colors ${spellCheck ? 'bg-brand-600' : 'bg-surface-3'}`}
+                  >
+                    <div className={`w-4 h-4 rounded-full bg-white transition-transform ${spellCheck ? 'translate-x-5' : 'translate-x-0.5'}`} />
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-surface-1 border border-default rounded-2xl p-5 shadow-card">
+              <h3 className="text-sm font-medium text-primary mb-4">Envio</h3>
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-secondary">Enviar mensagem com</p>
+                  <p className="text-xs text-muted">Atalho de teclado para enviar mensagens.</p>
+                </div>
+                <select
+                  value={sendKey}
+                  onChange={(e) => setSendKey(e.target.value as any)}
+                  className="bg-surface-2 border border-default rounded-lg px-3 py-1.5 text-xs text-primary outline-none"
+                >
+                  <option value="enter">Enter</option>
+                  <option value="ctrl-enter">Ctrl+Enter</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'workspace' && (
+          <div className="max-w-2xl">
+            <h1 className="text-lg font-semibold text-primary mb-1">Configurações do Workspace</h1>
+            <p className="text-sm text-muted mb-6">Nome, ícone, permissões e fontes padrão.</p>
+
+            <div className="bg-surface-1 border border-default rounded-2xl p-5 shadow-card mb-4">
+              <h3 className="text-sm font-medium text-primary mb-4">Informações do Workspace</h3>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-secondary">Nome</span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm text-primary font-medium">AdOS</span>
+                    <button className="text-xs text-brand-500">Editar</button>
+                  </div>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-secondary">Diretório de trabalho</span>
+                  <span className="text-xs text-muted font-mono">~/Documents/AdOS</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-surface-1 border border-default rounded-2xl p-5 shadow-card mb-4">
+              <h3 className="text-sm font-medium text-primary mb-4">Permissões</h3>
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-secondary">Modo padrão</span>
+                <select className="bg-surface-2 border border-default rounded-lg px-3 py-1.5 text-xs text-primary outline-none">
+                  <option value="execute">Executar</option>
+                  <option value="ask">Perguntar antes de editar</option>
+                  <option value="explore">Explorar</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="bg-surface-1 border border-default rounded-2xl p-5 shadow-card">
+              <h3 className="text-sm font-medium text-primary mb-4">Avançado</h3>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-secondary">Servidores MCP Locais</p>
+                    <p className="text-xs text-muted">Habilitar servidores de subprocesso stdio.</p>
+                  </div>
+                  <div className="w-10 h-5 rounded-full bg-brand-600">
+                    <div className="w-4 h-4 rounded-full bg-white translate-x-5" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'preferences' && (
+          <div className="max-w-2xl">
+            <h1 className="text-lg font-semibold text-primary mb-1">Preferências</h1>
+            <p className="text-sm text-muted mb-6">Ajude a IA a personalizar respostas para você.</p>
+
+            <div className="bg-surface-1 border border-default rounded-2xl p-5 shadow-card mb-4">
+              <h3 className="text-sm font-medium text-primary mb-4">Informações básicas</h3>
+              <div className="space-y-4">
+                <div>
+                  <label className="text-xs text-muted block mb-1">Nome</label>
+                  <input
+                    type="text"
+                    value={userName}
+                    onChange={(e) => setUserName(e.target.value)}
+                    placeholder="Como o AdOS deve se referir a você"
+                    className="w-full bg-surface-0 border border-default rounded-xl px-4 py-2.5 text-sm text-primary placeholder-muted outline-none focus:border-brand-500/50 transition-all"
+                  />
+                </div>
+                <div>
+                  <label className="text-xs text-muted block mb-1">Fuso horário</label>
+                  <input
+                    type="text"
+                    value={userTimezone}
+                    onChange={(e) => setUserTimezone(e.target.value)}
+                    placeholder="America/Sao_Paulo"
+                    className="w-full bg-surface-0 border border-default rounded-xl px-4 py-2.5 text-sm text-primary placeholder-muted outline-none focus:border-brand-500/50 transition-all"
+                  />
+                </div>
+                <div>
+                  <label className="text-xs text-muted block mb-1">Idioma</label>
+                  <input
+                    type="text"
+                    value={userLanguage}
+                    onChange={(e) => setUserLanguage(e.target.value)}
+                    placeholder="pt-BR"
+                    className="w-full bg-surface-0 border border-default rounded-xl px-4 py-2.5 text-sm text-primary placeholder-muted outline-none focus:border-brand-500/50 transition-all"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-surface-1 border border-default rounded-2xl p-5 shadow-card">
+              <h3 className="text-sm font-medium text-primary mb-2">Notas</h3>
+              <p className="text-xs text-muted mb-3">Contexto livre que ajuda a IA a entender suas preferências.</p>
+              <textarea
+                value={userNotes}
+                onChange={(e) => setUserNotes(e.target.value)}
+                placeholder="Ex: Sou gestor de projetos na AdNet Monetize. Prefiro respostas diretas e executivas..."
+                rows={6}
+                className="w-full bg-surface-0 border border-default rounded-xl px-4 py-3 text-sm text-primary placeholder-muted outline-none focus:border-brand-500/50 transition-all resize-y leading-relaxed"
+              />
+            </div>
+          </div>
+        )}
+
         {activeTab === 'about' && (
           <div className="max-w-2xl">
             <h1 className="text-lg font-semibold text-primary mb-1">Sobre o AdOS</h1>
@@ -536,16 +736,16 @@ export default function Settings() {
                 </div>
                 <div>
                   <h3 className="text-base font-semibold text-primary">AdOS</h3>
-                  <p className="text-xs text-muted">Versão 0.3.0</p>
+                  <p className="text-xs text-muted">Versão 0.4.0</p>
                 </div>
               </div>
               <div className="space-y-2 text-sm text-secondary">
-                <p>Multi-provider AI (OpenAI Codex, Anthropic, Google, OpenRouter + custom)</p>
+                <p>Multi-provider AI (OpenAI GPT-5.5 via OAuth, Anthropic, Google, OpenRouter)</p>
                 <p>MCP Protocol — conecte tools externas via stdio/SSE/HTTP</p>
-                <p>Agent Engine com tool calling nativo</p>
-                <p>Browser automation integrado (WebContentsView)</p>
+                <p>Agent Engine com tool calling nativo (até 10 iterações)</p>
+                <p>Browser automation integrado (janela independente)</p>
+                <p>Skills, Workflows, Automações e Brain</p>
                 <p>Persistência local (SQLite + safeStorage)</p>
-                <p>Catálogo dinâmico de 17+ modelos extensível</p>
               </div>
             </div>
           </div>
