@@ -1,6 +1,6 @@
 {
   "name": "ados",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "AdNet AI Desktop — Agente IA desktop com browser automation",
   "main": "dist/electron/main.js",
   "scripts": {
@@ -40,7 +40,8 @@
     "productName": "AdOS",
     "win": {
       "target": "nsis",
-      "icon": "resources/icon.ico"
+      "icon": "resources/icon.ico",
+      "signAndEditExecutable": false
     },
     "nsis": {
       "oneClick": true,
@@ -49,6 +50,7 @@
     "files": [
       "dist/**/*",
       "resources/**/*"
-    ]
+    ],
+    "forceCodeSigning": false
   }
 }
