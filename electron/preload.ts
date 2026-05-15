@@ -135,4 +135,22 @@ contextBridge.exposeInMainWorld('ados', {
   tools: {
     getDocumentsPath: () => ipcRenderer.invoke('tools:get-documents-path'),
   },
+  oauth: {
+    start: (provider: string) => ipcRenderer.invoke('oauth:start', provider),
+    status: (provider: string) => ipcRenderer.invoke('oauth:status', provider),
+    logout: (provider: string) => ipcRenderer.invoke('oauth:logout', provider),
+    refresh: (provider: string) => ipcRenderer.invoke('oauth:refresh', provider),
+  },
+  integrations: {
+    gmailList: (maxResults?: number) => ipcRenderer.invoke('integration:gmail-list', maxResults),
+    gmailRead: (id: string) => ipcRenderer.invoke('integration:gmail-read', id),
+    gmailSend: (to: string, subject: string, body: string) => ipcRenderer.invoke('integration:gmail-send', to, subject, body),
+    driveList: (query?: string) => ipcRenderer.invoke('integration:drive-list', query),
+    githubRepos: () => ipcRenderer.invoke('integration:github-repos'),
+    githubIssues: (repo: string) => ipcRenderer.invoke('integration:github-issues', repo),
+    githubCreateIssue: (repo: string, title: string, body: string) => ipcRenderer.invoke('integration:github-create-issue', repo, title, body),
+    slackChannels: () => ipcRenderer.invoke('integration:slack-channels'),
+    slackHistory: (channel: string, limit?: number) => ipcRenderer.invoke('integration:slack-history', channel, limit),
+    slackSend: (channel: string, text: string) => ipcRenderer.invoke('integration:slack-send', channel, text),
+  },
 });

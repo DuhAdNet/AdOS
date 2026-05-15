@@ -8,6 +8,8 @@ import { registerChatGPTAuthHandlers } from './chatgpt-auth';
 import { registerOpenAIOAuthHandlers } from './openai-oauth';
 import { initDatabase, registerDatabaseHandlers } from './database';
 import { registerToolHandlers, setDocumentsRoot } from './tools';
+import { registerOAuthHandlers } from './oauth';
+import { registerIntegrationHandlers } from './integrations';
 import { getSetting } from './database';
 
 app.disableHardwareAcceleration();
@@ -55,6 +57,8 @@ async function createWindow() {
   registerChatGPTAuthHandlers();
   registerOpenAIOAuthHandlers();
   registerToolHandlers();
+  registerOAuthHandlers();
+  registerIntegrationHandlers();
 }
 
 app.on('ready', createWindow);
