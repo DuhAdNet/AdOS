@@ -87,7 +87,27 @@ export default function Tools() {
   };
 
   const handleTestConnection = async (conn: Connection) => {
-    await ados.db.updateConnection(conn.id, { status: 'connected' });
+    const baseUrl = conn.config?.baseUrl;
+    const apiKey = conn.config?.apiKey;
+    if (!baseUrl && !apiKey) {
+      await ados.db.updateConnection(conn.id, { status: 'error' });
+      loadAll();
+      return;
+    }
+    try {
+      if (baseUrl) {
+        const response = await fetch(baseUrl, { method: 'HEAD', signal: AbortSignal.timeout(5000) });
+        if (response.ok || response.status === 405 || response.status === 401) {
+          await ados.db.updateConnection(conn.id, { status: 'connected' });
+        } else {
+          await ados.db.updateConnection(conn.id, { status: 'error' });
+        }
+      } else {
+        await ados.db.updateConnection(conn.id, { status: 'connected' });
+      }
+    } catch {
+      await ados.db.updateConnection(conn.id, { status: 'error' });
+    }
     loadAll();
   };
 

@@ -21,10 +21,16 @@ export async function initDatabase() {
     CREATE TABLE IF NOT EXISTS sessions (
       id TEXT PRIMARY KEY,
       title TEXT NOT NULL DEFAULT 'Nova Sessão',
+      favorite INTEGER NOT NULL DEFAULT 0,
+      archived INTEGER NOT NULL DEFAULT 0,
       created_at TEXT NOT NULL DEFAULT (datetime('now')),
       updated_at TEXT NOT NULL DEFAULT (datetime('now'))
     )
   `);
+
+  // Migration: add columns if table already exists without them
+  try { db.run('ALTER TABLE sessions ADD COLUMN favorite INTEGER NOT NULL DEFAULT 0'); } catch (_) {}
+  try { db.run('ALTER TABLE sessions ADD COLUMN archived INTEGER NOT NULL DEFAULT 0'); } catch (_) {}
 
   db.run(`
     CREATE TABLE IF NOT EXISTS messages (
@@ -151,14 +157,28 @@ export function registerDatabaseHandlers() {
   });
 
   ipcMain.handle('db:get-sessions', () => {
-    const rows = db.exec('SELECT id, title, created_at, updated_at FROM sessions ORDER BY updated_at DESC');
+    const rows = db.exec('SELECT id, title, favorite, archived, created_at, updated_at FROM sessions ORDER BY updated_at DESC');
     if (!rows.length) return [];
     return rows[0].values.map((r: any[]) => ({
       id: r[0],
       title: r[1],
-      createdAt: r[2],
-      updatedAt: r[3],
+      favorite: !!r[2],
+      archived: !!r[3],
+      createdAt: r[4],
+      updatedAt: r[5],
     }));
+  });
+
+  ipcMain.handle('db:toggle-session-favorite', (_event, id: string) => {
+    db.run('UPDATE sessions SET favorite = CASE WHEN favorite = 0 THEN 1 ELSE 0 END, updated_at = datetime("now") WHERE id = ?', [id]);
+    saveDb();
+    return { success: true };
+  });
+
+  ipcMain.handle('db:toggle-session-archived', (_event, id: string) => {
+    db.run('UPDATE sessions SET archived = CASE WHEN archived = 0 THEN 1 ELSE 0 END, updated_at = datetime("now") WHERE id = ?', [id]);
+    saveDb();
+    return { success: true };
   });
 
   ipcMain.handle('db:update-session-title', (_event, id: string, title: string) => {

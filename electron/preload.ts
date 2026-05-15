@@ -67,6 +67,8 @@ contextBridge.exposeInMainWorld('ados', {
     updateSessionTitle: (id: string, title: string) =>
       ipcRenderer.invoke('db:update-session-title', id, title),
     deleteSession: (id: string) => ipcRenderer.invoke('db:delete-session', id),
+    toggleSessionFavorite: (id: string) => ipcRenderer.invoke('db:toggle-session-favorite', id),
+    toggleSessionArchived: (id: string) => ipcRenderer.invoke('db:toggle-session-archived', id),
     addMessage: (id: string, sessionId: string, role: string, content: string) =>
       ipcRenderer.invoke('db:add-message', id, sessionId, role, content),
     getMessages: (sessionId: string) => ipcRenderer.invoke('db:get-messages', sessionId),

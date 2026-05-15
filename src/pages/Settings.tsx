@@ -65,7 +65,48 @@ export default function Settings() {
     loadModels();
     loadDocumentsPath();
     loadSystemPrompt();
+    loadAppearanceSettings();
+    loadInputSettings();
+    loadPreferences();
   }, []);
+
+  const loadAppearanceSettings = async () => {
+    const savedTheme = await ados.db.getSetting('theme_mode');
+    if (savedTheme) setThemeMode(savedTheme as any);
+    const savedFont = await ados.db.getSetting('font');
+    if (savedFont) setFont(savedFont as any);
+  };
+
+  const loadInputSettings = async () => {
+    const savedSendKey = await ados.db.getSetting('send_key');
+    if (savedSendKey) setSendKey(savedSendKey as any);
+    const savedAutoCap = await ados.db.getSetting('auto_capitalize');
+    if (savedAutoCap) setAutoCapitalize(savedAutoCap === 'true');
+    const savedSpell = await ados.db.getSetting('spell_check');
+    if (savedSpell) setSpellCheck(savedSpell === 'true');
+  };
+
+  const loadPreferences = async () => {
+    const savedName = await ados.db.getSetting('user_name');
+    if (savedName) setUserName(savedName);
+    const savedTz = await ados.db.getSetting('user_timezone');
+    if (savedTz) setUserTimezone(savedTz);
+    const savedLang = await ados.db.getSetting('user_language');
+    if (savedLang) setUserLanguage(savedLang);
+    const savedNotes = await ados.db.getSetting('user_notes');
+    if (savedNotes) setUserNotes(savedNotes);
+  };
+
+  const handleSaveAppearance = async (key: string, value: string) => {
+    await ados.db.setSetting(key, value);
+  };
+
+  const handleSavePreferences = async () => {
+    await ados.db.setSetting('user_name', userName);
+    await ados.db.setSetting('user_timezone', userTimezone);
+    await ados.db.setSetting('user_language', userLanguage);
+    await ados.db.setSetting('user_notes', userNotes);
+  };
 
   const loadDocumentsPath = async () => {
     const saved = await ados.db.getSetting('documents_path');
@@ -535,7 +576,7 @@ export default function Settings() {
                   {(['system', 'light', 'dark'] as const).map(m => (
                     <button
                       key={m}
-                      onClick={() => setThemeMode(m)}
+                      onClick={() => { setThemeMode(m); handleSaveAppearance('theme_mode', m); }}
                       className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
                         themeMode === m ? 'bg-surface-3 text-primary' : 'text-muted hover:text-secondary'
                       }`}
@@ -551,7 +592,7 @@ export default function Settings() {
                   {(['manrope', 'system'] as const).map(f => (
                     <button
                       key={f}
-                      onClick={() => setFont(f)}
+                      onClick={() => { setFont(f); handleSaveAppearance('font', f); }}
                       className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
                         font === f ? 'bg-surface-3 text-primary' : 'text-muted hover:text-secondary'
                       }`}
@@ -579,7 +620,7 @@ export default function Settings() {
                     <p className="text-xs text-muted">Capitaliza automaticamente a primeira letra ao digitar.</p>
                   </div>
                   <button
-                    onClick={() => setAutoCapitalize(!autoCapitalize)}
+                    onClick={() => { const v = !autoCapitalize; setAutoCapitalize(v); handleSaveAppearance('auto_capitalize', String(v)); }}
                     className={`w-10 h-5 rounded-full transition-colors ${autoCapitalize ? 'bg-brand-600' : 'bg-surface-3'}`}
                   >
                     <div className={`w-4 h-4 rounded-full bg-white transition-transform ${autoCapitalize ? 'translate-x-5' : 'translate-x-0.5'}`} />
@@ -591,7 +632,7 @@ export default function Settings() {
                     <p className="text-xs text-muted">Sublinha palavras com possíveis erros enquanto você digita.</p>
                   </div>
                   <button
-                    onClick={() => setSpellCheck(!spellCheck)}
+                    onClick={() => { const v = !spellCheck; setSpellCheck(v); handleSaveAppearance('spell_check', String(v)); }}
                     className={`w-10 h-5 rounded-full transition-colors ${spellCheck ? 'bg-brand-600' : 'bg-surface-3'}`}
                   >
                     <div className={`w-4 h-4 rounded-full bg-white transition-transform ${spellCheck ? 'translate-x-5' : 'translate-x-0.5'}`} />
@@ -609,7 +650,7 @@ export default function Settings() {
                 </div>
                 <select
                   value={sendKey}
-                  onChange={(e) => setSendKey(e.target.value as any)}
+                  onChange={(e) => { const v = e.target.value as any; setSendKey(v); handleSaveAppearance('send_key', v); }}
                   className="bg-surface-2 border border-default rounded-lg px-3 py-1.5 text-xs text-primary outline-none"
                 >
                   <option value="enter">Enter</option>
@@ -723,6 +764,13 @@ export default function Settings() {
                 className="w-full bg-surface-0 border border-default rounded-xl px-4 py-3 text-sm text-primary placeholder-muted outline-none focus:border-brand-500/50 transition-all resize-y leading-relaxed"
               />
             </div>
+
+            <button
+              onClick={handleSavePreferences}
+              className="mt-4 px-5 py-2.5 bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium rounded-xl transition-colors"
+            >
+              Salvar Preferências
+            </button>
           </div>
         )}
 

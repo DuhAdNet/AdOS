@@ -86,6 +86,18 @@ export default function App() {
     }
   };
 
+  const handleToggleFavorite = async (id: string) => {
+    await ados.db.toggleSessionFavorite(id);
+    const rows = await ados.db.getSessions();
+    setSessions(rows);
+  };
+
+  const handleToggleArchived = async (id: string) => {
+    await ados.db.toggleSessionArchived(id);
+    const rows = await ados.db.getSessions();
+    setSessions(rows);
+  };
+
   const handleRenameSession = async (id: string, title: string) => {
     await ados.db.updateSessionTitle(id, title);
     setSessions(sessions.map(s => s.id === id ? { ...s, title } : s));
@@ -130,6 +142,8 @@ export default function App() {
               onSelectSession={(id) => setActiveSession(id)}
               onNewSession={handleNewSession}
               onDeleteSession={handleDeleteSession}
+              onToggleFavorite={handleToggleFavorite}
+              onToggleArchived={handleToggleArchived}
             />
             <main className="flex-1 flex flex-col overflow-hidden">
               {activeSession && (
