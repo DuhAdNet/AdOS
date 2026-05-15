@@ -814,77 +814,157 @@ export default function Settings() {
 }
 
 function AgentsSection() {
-  const [providers, setProviders] = useState<Provider[]>([]);
-  const [mcpServers, setMcpServers] = useState<McpServer[]>([]);
+  const [agents, setAgents] = useState<any[]>([]);
+  const [routing, setRouting] = useState(true);
+  const [tiers, setTiers] = useState<any>(null);
+  const [editingAgent, setEditingAgent] = useState<string | null>(null);
+  const [editModel, setEditModel] = useState('');
 
   useEffect(() => {
     loadAgents();
   }, []);
 
   const loadAgents = async () => {
-    const p = await ados.providers.list();
-    setProviders(p || []);
-    const m = await ados.mcp.listServers();
-    setMcpServers(m || []);
+    const list = await ados.agents.list();
+    setAgents(list || []);
+    const r = await ados.agents.getRouting();
+    setRouting(r?.routingEnabled ?? true);
+    const t = await ados.agents.getTiers();
+    setTiers(t);
   };
 
-  const connectedProviders = providers.filter(p => p.hasKey);
-  const totalTools = mcpServers.reduce((sum, s) => sum + (s.toolCount || 0), 0);
+  const handleToggleRouting = async () => {
+    const newVal = !routing;
+    await ados.agents.setRouting(newVal);
+    setRouting(newVal);
+  };
+
+  const handleToggleAgent = async (id: string, enabled: boolean) => {
+    await ados.agents.update(id, { enabled: !enabled });
+    loadAgents();
+  };
+
+  const handleChangeModel = async (id: string) => {
+    if (!editModel) return;
+    await ados.agents.update(id, { model: editModel });
+    setEditingAgent(null);
+    setEditModel('');
+    loadAgents();
+  };
+
+  const tierColors: Record<string, string> = {
+    router: 'bg-purple-500/10 text-purple-400',
+    fast: 'bg-green-500/10 text-green-400',
+    balanced: 'bg-blue-500/10 text-blue-400',
+    power: 'bg-orange-500/10 text-orange-400',
+  };
+
+  const tierLabels: Record<string, string> = {
+    router: 'Router',
+    fast: 'Fast',
+    balanced: 'Balanced',
+    power: 'Power',
+  };
 
   return (
     <div className="max-w-3xl">
-      <h1 className="text-lg font-semibold text-primary mb-1">Agentes & Conexões</h1>
-      <p className="text-sm text-muted mb-6">Visão geral de providers, agentes MCP e ferramentas disponíveis.</p>
+      <h1 className="text-lg font-semibold text-primary mb-1">Multi-Agentes</h1>
+      <p className="text-sm text-muted mb-6">Hierarquia de agentes com roteamento inteligente por complexidade.</p>
 
-      <div className="grid grid-cols-3 gap-4 mb-6">
-        <div className="bg-surface-1 border border-default rounded-xl p-4 text-center">
-          <p className="text-2xl font-bold text-primary">{connectedProviders.length}</p>
-          <p className="text-xs text-muted">Providers ativos</p>
-        </div>
-        <div className="bg-surface-1 border border-default rounded-xl p-4 text-center">
-          <p className="text-2xl font-bold text-primary">{mcpServers.filter(s => s.status === 'connected').length}</p>
-          <p className="text-xs text-muted">MCP conectados</p>
-        </div>
-        <div className="bg-surface-1 border border-default rounded-xl p-4 text-center">
-          <p className="text-2xl font-bold text-primary">{totalTools}</p>
-          <p className="text-xs text-muted">Tools disponíveis</p>
-        </div>
-      </div>
-
-      <h2 className="text-sm font-medium text-secondary mb-3">Providers LLM</h2>
-      <div className="space-y-2 mb-6">
-        {providers.map(p => (
-          <div key={p.id} className="bg-surface-1 border border-default rounded-xl px-4 py-3 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <span className="text-sm font-medium text-primary">{p.name}</span>
-              <span className="text-[10px] text-muted">{p.models?.length || 0} modelos</span>
-            </div>
-            <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${p.hasKey ? 'bg-green-500/10 text-green-500' : 'bg-surface-3 text-muted'}`}>
-              {p.hasKey ? 'Ativo' : 'Sem chave'}
-            </span>
+      <div className="bg-surface-1 border border-default rounded-2xl p-5 shadow-card mb-6">
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <h3 className="text-sm font-medium text-primary">Roteamento Automático</h3>
+            <p className="text-xs text-muted mt-0.5">O Router analisa cada mensagem e direciona para o agente ideal.</p>
           </div>
-        ))}
-        {providers.length === 0 && <p className="text-sm text-muted">Nenhum provider configurado.</p>}
+          <button
+            onClick={handleToggleRouting}
+            className={`w-10 h-5 rounded-full transition-colors ${routing ? 'bg-brand-600' : 'bg-surface-3'}`}
+          >
+            <div className={`w-4 h-4 rounded-full bg-white transition-transform ${routing ? 'translate-x-5' : 'translate-x-0.5'}`} />
+          </button>
+        </div>
+
+        {tiers && (
+          <div className="grid grid-cols-4 gap-2">
+            {tiers.tiers.map((t: any) => (
+              <div key={t.id} className={`rounded-lg p-2.5 text-center ${tierColors[t.id] || 'bg-surface-2'}`}>
+                <p className="text-xs font-semibold">{t.name}</p>
+                <p className="text-[10px] opacity-75">{t.cost}x custo</p>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
-      <h2 className="text-sm font-medium text-secondary mb-3">Servidores MCP</h2>
+      <h2 className="text-sm font-medium text-secondary mb-3">Agentes Configurados</h2>
       <div className="space-y-2">
-        {mcpServers.map(s => (
-          <div key={s.name} className="bg-surface-1 border border-default rounded-xl px-4 py-3 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <span className="text-sm font-medium text-primary">{s.name}</span>
-              <span className="text-[10px] text-muted">{s.toolCount} tools</span>
+        {agents.map(agent => (
+          <div key={agent.id} className="bg-surface-1 border border-default rounded-xl px-4 py-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => handleToggleAgent(agent.id, agent.enabled)}
+                  className={`w-8 h-4 rounded-full transition-colors ${agent.enabled ? 'bg-brand-600' : 'bg-surface-3'}`}
+                >
+                  <div className={`w-3 h-3 rounded-full bg-white transition-transform ${agent.enabled ? 'translate-x-4' : 'translate-x-0.5'}`} />
+                </button>
+                <div>
+                  <span className="text-sm font-medium text-primary">{agent.name}</span>
+                  <span className={`ml-2 text-[10px] px-1.5 py-0.5 rounded-full font-medium ${tierColors[agent.tier] || ''}`}>
+                    {tierLabels[agent.tier] || agent.tier}
+                  </span>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] text-muted font-mono">{agent.model}</span>
+                <button
+                  onClick={() => { setEditingAgent(agent.id); setEditModel(agent.model); }}
+                  className="text-[10px] text-brand-500 hover:text-brand-400"
+                >
+                  editar
+                </button>
+              </div>
             </div>
-            <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${
-              s.status === 'connected' ? 'bg-green-500/10 text-green-500' :
-              s.status === 'error' ? 'bg-red-500/10 text-red-500' : 'bg-surface-3 text-muted'
-            }`}>
-              {s.status === 'connected' ? 'Conectado' : s.status === 'error' ? 'Erro' : 'Desconectado'}
-            </span>
+            {agent.description && (
+              <p className="text-xs text-muted mt-1 ml-11">{agent.description}</p>
+            )}
+            {editingAgent === agent.id && (
+              <div className="mt-2 ml-11 flex items-center gap-2">
+                <input
+                  type="text"
+                  value={editModel}
+                  onChange={(e) => setEditModel(e.target.value)}
+                  className="flex-1 bg-surface-0 border border-default rounded-lg px-3 py-1.5 text-xs text-primary outline-none"
+                  placeholder="model-id"
+                />
+                <button onClick={() => handleChangeModel(agent.id)} className="px-3 py-1.5 rounded-lg text-xs bg-brand-600 text-white">Salvar</button>
+                <button onClick={() => setEditingAgent(null)} className="px-3 py-1.5 rounded-lg text-xs text-muted hover:text-secondary">Cancelar</button>
+              </div>
+            )}
           </div>
         ))}
-        {mcpServers.length === 0 && <p className="text-sm text-muted">Nenhum servidor MCP configurado.</p>}
       </div>
+
+      {tiers && (
+        <div className="mt-6 bg-surface-1 border border-default rounded-2xl p-5 shadow-card">
+          <h3 className="text-sm font-medium text-primary mb-3">Modelos Recomendados por Tier</h3>
+          <div className="space-y-3">
+            {Object.entries(tiers.models).map(([tier, models]: [string, any]) => (
+              <div key={tier} className="flex items-start gap-3">
+                <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium mt-0.5 min-w-[70px] text-center ${tierColors[tier]}`}>
+                  {tierLabels[tier] || tier}
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {models.map((m: string) => (
+                    <span key={m} className="text-[10px] font-mono text-muted bg-surface-2 rounded px-1.5 py-0.5">{m}</span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

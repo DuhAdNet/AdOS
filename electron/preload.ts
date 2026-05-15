@@ -147,6 +147,49 @@ contextBridge.exposeInMainWorld('ados', {
   tools: {
     getDocumentsPath: () => ipcRenderer.invoke('tools:get-documents-path'),
   },
+  agents: {
+    list: () => ipcRenderer.invoke('agents:list'),
+    get: (id: string) => ipcRenderer.invoke('agents:get', id),
+    update: (id: string, updates: any) => ipcRenderer.invoke('agents:update', id, updates),
+    add: (config: any) => ipcRenderer.invoke('agents:add', config),
+    remove: (id: string) => ipcRenderer.invoke('agents:remove', id),
+    reset: () => ipcRenderer.invoke('agents:reset'),
+    route: (message: string) => ipcRenderer.invoke('agents:route', message),
+    execute: (agentId: string, input: string, stream?: boolean) =>
+      ipcRenderer.invoke('agents:execute', agentId, input, stream),
+    runPipeline: (message: string) => ipcRenderer.invoke('agents:run-pipeline', message),
+    getHistory: () => ipcRenderer.invoke('agents:get-history'),
+    clearHistory: () => ipcRenderer.invoke('agents:clear-history'),
+    setRouting: (enabled: boolean) => ipcRenderer.invoke('agents:set-routing', enabled),
+    getRouting: () => ipcRenderer.invoke('agents:get-routing'),
+    getTiers: () => ipcRenderer.invoke('agents:get-tiers'),
+    onRouting: (callback: (data: any) => void) => {
+      ipcRenderer.on('agent:routing', (_e, data) => callback(data));
+    },
+    onExecuting: (callback: (data: any) => void) => {
+      ipcRenderer.on('agent:executing', (_e, data) => callback(data));
+    },
+    onResult: (callback: (data: any) => void) => {
+      ipcRenderer.on('agent:result', (_e, data) => callback(data));
+    },
+    onPipelineStart: (callback: (data: any) => void) => {
+      ipcRenderer.on('agent:pipeline-start', (_e, data) => callback(data));
+    },
+    onSubtaskStart: (callback: (data: any) => void) => {
+      ipcRenderer.on('agent:subtask-start', (_e, data) => callback(data));
+    },
+    onSubtaskComplete: (callback: (data: any) => void) => {
+      ipcRenderer.on('agent:subtask-complete', (_e, data) => callback(data));
+    },
+    removeListeners: () => {
+      ipcRenderer.removeAllListeners('agent:routing');
+      ipcRenderer.removeAllListeners('agent:executing');
+      ipcRenderer.removeAllListeners('agent:result');
+      ipcRenderer.removeAllListeners('agent:pipeline-start');
+      ipcRenderer.removeAllListeners('agent:subtask-start');
+      ipcRenderer.removeAllListeners('agent:subtask-complete');
+    },
+  },
   oauth: {
     start: (provider: string) => ipcRenderer.invoke('oauth:start', provider),
     status: (provider: string) => ipcRenderer.invoke('oauth:status', provider),

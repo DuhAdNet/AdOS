@@ -27,6 +27,8 @@ export default function Chat({ sessionId, onUpdateTitle }: ChatProps) {
   const [acItems, setAcItems] = useState<Array<{ slug: string; name: string; description: string; type: 'skill' | 'workflow' }>>([]);
   const [models, setModels] = useState<Array<{ id: string; name: string }>>([]);
   const [selectedModel, setSelectedModel] = useState('');
+  const [activeAgent, setActiveAgent] = useState<string | null>(null);
+  const [routingEnabled, setRoutingEnabled] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const isFirstMessage = useRef(true);
 
@@ -37,7 +39,13 @@ export default function Chat({ sessionId, onUpdateTitle }: ChatProps) {
   useEffect(() => {
     loadAcItems();
     loadModels();
+    loadRoutingState();
   }, []);
+
+  const loadRoutingState = async () => {
+    const r = await ados.agents.getRouting();
+    setRoutingEnabled(r?.routingEnabled ?? false);
+  };
 
   const loadModels = async () => {
     const modelsList = await ados.providers.listModels();
@@ -143,9 +151,30 @@ export default function Chat({ sessionId, onUpdateTitle }: ChatProps) {
       content: m.content,
     }));
 
-    const defaultModel = await ados.providers.getDefaultModel();
+    let modelToUse = await ados.providers.getDefaultModel();
+
+    // Agent routing: pick optimal model based on task complexity
+    if (routingEnabled) {
+      try {
+        const decision = await ados.agents.route(userMsg.content);
+        if (decision.agentId && decision.agentId !== 'direct') {
+          const agent = await ados.agents.get(decision.agentId);
+          if (agent) {
+            modelToUse = agent.model;
+            setActiveAgent(agent.name);
+          }
+        } else {
+          setActiveAgent(null);
+        }
+      } catch {
+        setActiveAgent(null);
+      }
+    } else {
+      setActiveAgent(null);
+    }
+
     const mcpTools = await ados.mcp.getAllTools();
-    const result = await ados.llm.stream(allMessages, defaultModel, mcpTools.length > 0 ? mcpTools : undefined);
+    const result = await ados.llm.stream(allMessages, modelToUse, mcpTools.length > 0 ? mcpTools : undefined);
 
     if (result.error && !accumulated) {
       const errorMsg: Message = {
@@ -157,7 +186,7 @@ export default function Chat({ sessionId, onUpdateTitle }: ChatProps) {
       setLoading(false);
       await ados.db.addMessage(errorMsg.id, sessionId, 'assistant', `Erro: ${result.error}`);
     }
-  }, [input, loading, messages, sessionId, onUpdateTitle]);
+  }, [input, loading, messages, sessionId, onUpdateTitle, routingEnabled]);
 
   const handleInputChange = (value: string) => {
     setInput(value);
@@ -205,7 +234,19 @@ export default function Chat({ sessionId, onUpdateTitle }: ChatProps) {
             </select>
             <span className="text-[10px] text-muted">Modelo ativo</span>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
+            <button
+              onClick={async () => { const v = !routingEnabled; setRoutingEnabled(v); await ados.agents.setRouting(v); }}
+              className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[10px] font-medium transition-colors ${
+                routingEnabled ? 'bg-brand-600/10 text-brand-500' : 'bg-surface-2 text-muted hover:text-secondary'
+              }`}
+              title="Multi-agente: roteia tarefas para modelos otimizados por custo"
+            >
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                <path d="M12 2L2 7l10 5 10-5-10-5z" /><path d="M2 17l10 5 10-5" /><path d="M2 12l10 5 10-5" />
+              </svg>
+              Multi-Agent
+            </button>
             <span className="text-[10px] text-muted">{messages.length} msgs</span>
           </div>
         </div>
@@ -248,11 +289,16 @@ export default function Chat({ sessionId, onUpdateTitle }: ChatProps) {
               <div className="w-6 h-6 rounded-full bg-surface-2 flex items-center justify-center text-[10px] font-semibold text-secondary shrink-0">
                 A
               </div>
-              <div className="bg-surface-2 px-3 py-2 rounded-2xl rounded-tl-md">
-                <div className="flex gap-1.5">
-                  <span className="w-2 h-2 bg-muted rounded-full animate-pulse-dot" />
-                  <span className="w-2 h-2 bg-muted rounded-full animate-pulse-dot [animation-delay:0.2s]" />
-                  <span className="w-2 h-2 bg-muted rounded-full animate-pulse-dot [animation-delay:0.4s]" />
+              <div>
+                {activeAgent && (
+                  <div className="text-[10px] text-brand-400 font-medium mb-1">{activeAgent}</div>
+                )}
+                <div className="bg-surface-2 px-3 py-2 rounded-2xl rounded-tl-md">
+                  <div className="flex gap-1.5">
+                    <span className="w-2 h-2 bg-muted rounded-full animate-pulse-dot" />
+                    <span className="w-2 h-2 bg-muted rounded-full animate-pulse-dot [animation-delay:0.2s]" />
+                    <span className="w-2 h-2 bg-muted rounded-full animate-pulse-dot [animation-delay:0.4s]" />
+                  </div>
                 </div>
               </div>
             </div>

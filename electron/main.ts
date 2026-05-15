@@ -10,6 +10,7 @@ import { initDatabase, registerDatabaseHandlers } from './database';
 import { registerToolHandlers, setDocumentsRoot } from './tools';
 import { registerOAuthHandlers } from './oauth';
 import { registerIntegrationHandlers } from './integrations';
+import { registerAgentHandlers } from './agents';
 import { getSetting } from './database';
 
 app.disableHardwareAcceleration();
@@ -59,6 +60,7 @@ async function createWindow() {
   registerToolHandlers();
   registerOAuthHandlers();
   registerIntegrationHandlers();
+  registerAgentHandlers();
 }
 
 app.on('ready', createWindow);
