@@ -28,6 +28,15 @@ interface Workflow {
   instructions: string;
 }
 
+interface Dashboard {
+  id: string;
+  name: string;
+  slug: string;
+  html: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 const ados = (window as any).ados;
 
 export default function Tools() {
@@ -35,6 +44,8 @@ export default function Tools() {
   const [connections, setConnections] = useState<Connection[]>([]);
   const [skills, setSkills] = useState<Skill[]>([]);
   const [workflows, setWorkflows] = useState<Workflow[]>([]);
+  const [dashboards, setDashboards] = useState<Dashboard[]>([]);
+  const [viewingDashboard, setViewingDashboard] = useState<Dashboard | null>(null);
   const [showAdd, setShowAdd] = useState(false);
   const [connForm, setConnForm] = useState({ name: '', type: 'api_key', apiKey: '', baseUrl: '' });
   const [skillForm, setSkillForm] = useState({ name: '', slug: '', description: '', instructions: '' });
@@ -43,14 +54,22 @@ export default function Tools() {
   useEffect(() => { loadAll(); }, []);
 
   const loadAll = async () => {
-    const [conns, sk, wf] = await Promise.all([
+    const [conns, sk, wf, dash] = await Promise.all([
       ados.db.getConnections(),
       ados.db.getSkills(),
       ados.db.getWorkflows(),
+      ados.db.getDashboards(),
     ]);
     setConnections(conns);
     setSkills(sk);
     setWorkflows(wf);
+    setDashboards(dash);
+  };
+
+  const handleDeleteDashboard = async (id: string) => {
+    await ados.db.deleteDashboard(id);
+    setViewingDashboard(null);
+    loadAll();
   };
 
   const handleAddConnection = async () => {
@@ -104,7 +123,7 @@ export default function Tools() {
     { id: 'connections', label: 'Conexões', count: connections.length },
     { id: 'skills', label: 'Skills', count: skills.length },
     { id: 'workflows', label: 'Workflows', count: workflows.length },
-    { id: 'dashboards', label: 'Dashboards', count: 0 },
+    { id: 'dashboards', label: 'Dashboards', count: dashboards.length },
   ];
 
   const typeLabels: Record<string, string> = {
@@ -128,7 +147,7 @@ export default function Tools() {
           )}
         </div>
         <p className="text-sm text-muted mb-4">
-          {connections.length} conexões, {skills.length} skills, {workflows.length} workflows, 0 dashboards
+          {connections.length} conexões, {skills.length} skills, {workflows.length} workflows, {dashboards.length} dashboards
         </p>
 
         <div className="flex gap-1 bg-surface-1 rounded-xl p-1 w-fit">
@@ -392,18 +411,59 @@ export default function Tools() {
 
         {/* DASHBOARDS TAB */}
         {tab === 'dashboards' && (
-          <div className="flex flex-col items-center justify-center h-full text-center">
-            <div className="w-12 h-12 rounded-2xl bg-surface-2 flex items-center justify-center mb-4">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-muted">
-                <rect x="3" y="3" width="7" height="7" rx="1" strokeLinecap="round" strokeLinejoin="round" />
-                <rect x="14" y="3" width="7" height="4" rx="1" strokeLinecap="round" strokeLinejoin="round" />
-                <rect x="14" y="10" width="7" height="11" rx="1" strokeLinecap="round" strokeLinejoin="round" />
-                <rect x="3" y="13" width="7" height="8" rx="1" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </div>
-            <p className="text-sm font-medium text-secondary mb-1">Nenhum dashboard encontrado</p>
-            <p className="text-xs text-muted">Peça à IA para criar um dashboard e ele aparecerá aqui.</p>
-          </div>
+          <>
+            {viewingDashboard ? (
+              <div className="flex flex-col h-full">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-3">
+                    <button onClick={() => setViewingDashboard(null)} className="text-xs text-muted hover:text-secondary">← Voltar</button>
+                    <span className="text-sm font-medium text-primary">{viewingDashboard.name}</span>
+                  </div>
+                  <button onClick={() => handleDeleteDashboard(viewingDashboard.id)} className="px-3 py-1 rounded-lg text-xs text-red-500 hover:bg-red-500/10">Remover</button>
+                </div>
+                <div className="flex-1 rounded-xl overflow-hidden border border-default bg-white">
+                  <iframe
+                    srcDoc={viewingDashboard.html}
+                    className="w-full h-full border-0"
+                    sandbox="allow-scripts"
+                    title={viewingDashboard.name}
+                  />
+                </div>
+              </div>
+            ) : (
+              <>
+                {dashboards.length === 0 && (
+                  <div className="flex flex-col items-center justify-center h-full text-center">
+                    <div className="w-12 h-12 rounded-2xl bg-surface-2 flex items-center justify-center mb-4">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-muted">
+                        <rect x="3" y="3" width="7" height="7" rx="1" strokeLinecap="round" strokeLinejoin="round" />
+                        <rect x="14" y="3" width="7" height="4" rx="1" strokeLinecap="round" strokeLinejoin="round" />
+                        <rect x="14" y="10" width="7" height="11" rx="1" strokeLinecap="round" strokeLinejoin="round" />
+                        <rect x="3" y="13" width="7" height="8" rx="1" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </div>
+                    <p className="text-sm font-medium text-secondary mb-1">Nenhum dashboard encontrado</p>
+                    <p className="text-xs text-muted">Peça à IA para criar um dashboard e ele aparecerá aqui.</p>
+                  </div>
+                )}
+                <div className="grid grid-cols-2 gap-3">
+                  {dashboards.map((d) => (
+                    <button
+                      key={d.id}
+                      onClick={() => setViewingDashboard(d)}
+                      className="bg-surface-1 border border-default rounded-2xl p-5 shadow-card hover:shadow-card-hover transition-shadow text-left"
+                    >
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-sm font-medium text-primary">{d.name}</span>
+                        <span className="text-[10px] text-muted">{new Date(d.updatedAt).toLocaleDateString('pt-BR')}</span>
+                      </div>
+                      <p className="text-xs text-muted">/{d.slug}</p>
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
+          </>
         )}
       </div>
     </div>
