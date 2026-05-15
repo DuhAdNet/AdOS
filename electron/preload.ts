@@ -85,6 +85,11 @@ contextBridge.exposeInMainWorld('ados', {
     addWorkflow: (id: string, name: string, slug: string, description: string, instructions: string) =>
       ipcRenderer.invoke('db:add-workflow', id, name, slug, description, instructions),
     deleteWorkflow: (id: string) => ipcRenderer.invoke('db:delete-workflow', id),
+    getPermissions: () => ipcRenderer.invoke('db:get-permissions'),
+    addPermission: (id: string, pattern: string, type: string, access: string, comment: string) =>
+      ipcRenderer.invoke('db:add-permission', id, pattern, type, access, comment),
+    updatePermission: (id: string, access: string) => ipcRenderer.invoke('db:update-permission', id, access),
+    deletePermission: (id: string) => ipcRenderer.invoke('db:delete-permission', id),
     getDashboards: () => ipcRenderer.invoke('db:get-dashboards'),
     addDashboard: (id: string, name: string, slug: string, html: string) =>
       ipcRenderer.invoke('db:add-dashboard', id, name, slug, html),

@@ -92,6 +92,17 @@ export async function initDatabase() {
   `);
 
   db.run(`
+    CREATE TABLE IF NOT EXISTS permissions (
+      id TEXT PRIMARY KEY,
+      pattern TEXT NOT NULL,
+      type TEXT NOT NULL DEFAULT 'bash',
+      access TEXT NOT NULL DEFAULT 'ask',
+      comment TEXT NOT NULL DEFAULT '',
+      created_at TEXT NOT NULL DEFAULT (datetime('now'))
+    )
+  `);
+
+  db.run(`
     CREATE TABLE IF NOT EXISTS dashboards (
       id TEXT PRIMARY KEY,
       name TEXT NOT NULL,
@@ -247,6 +258,30 @@ export function registerDatabaseHandlers() {
 
   ipcMain.handle('db:delete-connection', (_event, id: string) => {
     db.run('DELETE FROM connections WHERE id = ?', [id]);
+    saveDb();
+    return { success: true };
+  });
+
+  ipcMain.handle('db:get-permissions', () => {
+    const rows = db.exec('SELECT id, pattern, type, access, comment FROM permissions ORDER BY type, pattern');
+    if (!rows.length) return [];
+    return rows[0].values.map((r: any[]) => ({ id: r[0], pattern: r[1], type: r[2], access: r[3], comment: r[4] }));
+  });
+
+  ipcMain.handle('db:add-permission', (_event, id: string, pattern: string, type: string, access: string, comment: string) => {
+    db.run('INSERT INTO permissions (id, pattern, type, access, comment) VALUES (?, ?, ?, ?, ?)', [id, pattern, type, access, comment]);
+    saveDb();
+    return { success: true };
+  });
+
+  ipcMain.handle('db:update-permission', (_event, id: string, access: string) => {
+    db.run('UPDATE permissions SET access = ? WHERE id = ?', [access, id]);
+    saveDb();
+    return { success: true };
+  });
+
+  ipcMain.handle('db:delete-permission', (_event, id: string) => {
+    db.run('DELETE FROM permissions WHERE id = ?', [id]);
     saveDb();
     return { success: true };
   });

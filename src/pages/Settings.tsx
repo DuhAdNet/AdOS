@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-type SettingsTab = 'app' | 'appearance' | 'input' | 'workspace' | 'providers' | 'mcp' | 'model' | 'preferences' | 'about';
+type SettingsTab = 'app' | 'appearance' | 'input' | 'workspace' | 'providers' | 'mcp' | 'model' | 'permissions' | 'preferences' | 'about';
 
 const ados = (window as any).ados;
 
@@ -178,7 +178,8 @@ export default function Settings() {
     { id: 'providers', label: 'Providers' },
     { id: 'mcp', label: 'MCP Servers' },
     { id: 'model', label: 'Modelo' },
-    { id: 'preferences', label: 'Preferências', section: 'SISTEMA' },
+    { id: 'permissions', label: 'Permissões', section: 'SISTEMA' },
+    { id: 'preferences', label: 'Preferências' },
     { id: 'about', label: 'Sobre' },
   ];
 
@@ -724,6 +725,10 @@ export default function Settings() {
           </div>
         )}
 
+        {activeTab === 'permissions' && (
+          <PermissionsSection />
+        )}
+
         {activeTab === 'about' && (
           <div className="max-w-2xl">
             <h1 className="text-lg font-semibold text-primary mb-1">Sobre o AdOS</h1>
@@ -750,6 +755,110 @@ export default function Settings() {
             </div>
           </div>
         )}
+      </div>
+    </div>
+  );
+}
+
+function PermissionsSection() {
+  const [permissions, setPermissions] = useState<Array<{ id: string; pattern: string; type: string; access: string; comment: string }>>([]);
+  const [showAdd, setShowAdd] = useState(false);
+  const [form, setForm] = useState({ pattern: '', type: 'bash', access: 'ask', comment: '' });
+
+  useEffect(() => { loadPerms(); }, []);
+
+  const loadPerms = async () => {
+    const rows = await ados.db.getPermissions();
+    setPermissions(rows);
+  };
+
+  const handleAdd = async () => {
+    const id = crypto.randomUUID();
+    await ados.db.addPermission(id, form.pattern, form.type, form.access, form.comment);
+    setForm({ pattern: '', type: 'bash', access: 'ask', comment: '' });
+    setShowAdd(false);
+    loadPerms();
+  };
+
+  const handleChangeAccess = async (id: string, access: string) => {
+    await ados.db.updatePermission(id, access);
+    loadPerms();
+  };
+
+  const handleDelete = async (id: string) => {
+    await ados.db.deletePermission(id);
+    loadPerms();
+  };
+
+  const accessColors: Record<string, string> = {
+    allow: 'bg-green-500/10 text-green-500',
+    ask: 'bg-yellow-500/10 text-yellow-600',
+    block: 'bg-red-500/10 text-red-500',
+  };
+
+  const accessLabels: Record<string, string> = { allow: 'Permitido', ask: 'Perguntar', block: 'Bloqueado' };
+
+  return (
+    <div className="max-w-3xl">
+      <div className="flex items-center justify-between mb-4">
+        <div>
+          <h1 className="text-lg font-semibold text-primary mb-1">Permissões</h1>
+          <p className="text-sm text-muted">Controle o que a IA pode executar sem perguntar.</p>
+        </div>
+        <button onClick={() => setShowAdd(true)} className="px-3 py-1.5 bg-brand-600 hover:bg-brand-700 rounded-lg text-xs text-white font-medium">+ Regra</button>
+      </div>
+
+      {showAdd && (
+        <div className="bg-surface-1 border border-brand-500/30 rounded-2xl p-5 mb-4 shadow-card">
+          <div className="space-y-3">
+            <div className="flex gap-3">
+              <input placeholder="Pattern (regex)" value={form.pattern} onChange={(e) => setForm({ ...form, pattern: e.target.value })} className="flex-1 bg-surface-0 border border-default rounded-xl px-3 py-2 text-sm text-primary placeholder-muted outline-none focus:border-brand-500/50" />
+              <select value={form.type} onChange={(e) => setForm({ ...form, type: e.target.value })} className="bg-surface-0 border border-default rounded-xl px-3 py-2 text-sm text-primary outline-none">
+                <option value="bash">Bash</option>
+                <option value="mcp">MCP</option>
+                <option value="tool">Tool</option>
+                <option value="file">File</option>
+              </select>
+              <select value={form.access} onChange={(e) => setForm({ ...form, access: e.target.value })} className="bg-surface-0 border border-default rounded-xl px-3 py-2 text-sm text-primary outline-none">
+                <option value="allow">Permitido</option>
+                <option value="ask">Perguntar</option>
+                <option value="block">Bloqueado</option>
+              </select>
+            </div>
+            <input placeholder="Comentário (opcional)" value={form.comment} onChange={(e) => setForm({ ...form, comment: e.target.value })} className="w-full bg-surface-0 border border-default rounded-xl px-3 py-2 text-sm text-primary placeholder-muted outline-none focus:border-brand-500/50" />
+            <div className="flex justify-end gap-2">
+              <button onClick={() => setShowAdd(false)} className="px-4 py-2 rounded-xl text-sm text-secondary hover:bg-surface-2">Cancelar</button>
+              <button onClick={handleAdd} disabled={!form.pattern} className="px-5 py-2 bg-brand-600 hover:bg-brand-700 disabled:bg-surface-3 disabled:text-muted rounded-xl text-sm font-medium text-white">Adicionar</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {permissions.length === 0 && !showAdd && (
+        <div className="bg-surface-1 border border-default rounded-2xl p-8 text-center">
+          <p className="text-sm text-muted">Nenhuma regra de permissão configurada.</p>
+          <p className="text-xs text-muted mt-1">Clique em "+ Regra" para definir o que a IA pode fazer automaticamente.</p>
+        </div>
+      )}
+
+      <div className="space-y-2">
+        {permissions.map((perm) => (
+          <div key={perm.id} className="bg-surface-1 border border-default rounded-xl px-4 py-3 flex items-center gap-3">
+            <span className="text-[10px] font-mono px-2 py-0.5 bg-surface-2 rounded text-muted uppercase">{perm.type}</span>
+            <span className="text-sm font-mono text-primary flex-1 truncate">{perm.pattern}</span>
+            {perm.comment && <span className="text-[10px] text-muted truncate max-w-32">{perm.comment}</span>}
+            <select
+              value={perm.access}
+              onChange={(e) => handleChangeAccess(perm.id, e.target.value)}
+              className={`text-[10px] font-medium px-2 py-1 rounded-lg outline-none ${accessColors[perm.access]}`}
+            >
+              <option value="allow">{accessLabels.allow}</option>
+              <option value="ask">{accessLabels.ask}</option>
+              <option value="block">{accessLabels.block}</option>
+            </select>
+            <button onClick={() => handleDelete(perm.id)} className="text-xs text-red-500 hover:bg-red-500/10 px-2 py-1 rounded-lg">X</button>
+          </div>
+        ))}
       </div>
     </div>
   );
