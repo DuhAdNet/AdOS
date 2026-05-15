@@ -48,6 +48,18 @@ export async function initDatabase() {
     )
   `);
 
+  db.run(`
+    CREATE TABLE IF NOT EXISTS connections (
+      id TEXT PRIMARY KEY,
+      name TEXT NOT NULL,
+      type TEXT NOT NULL DEFAULT 'api_key',
+      status TEXT NOT NULL DEFAULT 'disconnected',
+      config TEXT NOT NULL DEFAULT '{}',
+      created_at TEXT NOT NULL DEFAULT (datetime('now')),
+      updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+    )
+  `);
+
   saveDb();
 }
 
@@ -112,6 +124,40 @@ export function registerDatabaseHandlers() {
       content: r[2],
       createdAt: r[3],
     }));
+  });
+
+  ipcMain.handle('db:get-connections', () => {
+    const rows = db.exec('SELECT id, name, type, status, config, created_at, updated_at FROM connections ORDER BY updated_at DESC');
+    if (!rows.length) return [];
+    return rows[0].values.map((r: any[]) => ({
+      id: r[0], name: r[1], type: r[2], status: r[3], config: JSON.parse(r[4] || '{}'), createdAt: r[5], updatedAt: r[6],
+    }));
+  });
+
+  ipcMain.handle('db:add-connection', (_event, id: string, name: string, type: string, config: string) => {
+    db.run('INSERT INTO connections (id, name, type, config) VALUES (?, ?, ?, ?)', [id, name, type, config]);
+    saveDb();
+    return { success: true };
+  });
+
+  ipcMain.handle('db:update-connection', (_event, id: string, fields: { name?: string; type?: string; status?: string; config?: string }) => {
+    const sets: string[] = [];
+    const vals: any[] = [];
+    if (fields.name) { sets.push('name = ?'); vals.push(fields.name); }
+    if (fields.type) { sets.push('type = ?'); vals.push(fields.type); }
+    if (fields.status) { sets.push('status = ?'); vals.push(fields.status); }
+    if (fields.config) { sets.push('config = ?'); vals.push(fields.config); }
+    sets.push('updated_at = datetime("now")');
+    vals.push(id);
+    db.run(`UPDATE connections SET ${sets.join(', ')} WHERE id = ?`, vals);
+    saveDb();
+    return { success: true };
+  });
+
+  ipcMain.handle('db:delete-connection', (_event, id: string) => {
+    db.run('DELETE FROM connections WHERE id = ?', [id]);
+    saveDb();
+    return { success: true };
   });
 
   ipcMain.handle('db:get-setting', (_event, key: string) => {

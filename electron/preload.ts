@@ -72,6 +72,11 @@ contextBridge.exposeInMainWorld('ados', {
     getMessages: (sessionId: string) => ipcRenderer.invoke('db:get-messages', sessionId),
     getSetting: (key: string) => ipcRenderer.invoke('db:get-setting', key),
     setSetting: (key: string, value: string) => ipcRenderer.invoke('db:set-setting', key, value),
+    getConnections: () => ipcRenderer.invoke('db:get-connections'),
+    addConnection: (id: string, name: string, type: string, config: string) =>
+      ipcRenderer.invoke('db:add-connection', id, name, type, config),
+    updateConnection: (id: string, fields: any) => ipcRenderer.invoke('db:update-connection', id, fields),
+    deleteConnection: (id: string) => ipcRenderer.invoke('db:delete-connection', id),
   },
   browser: {
     open: (url: string) => ipcRenderer.invoke('browser:open', url),
