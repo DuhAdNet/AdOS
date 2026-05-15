@@ -1,6 +1,73 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import hljs from 'highlight.js/lib/core';
+import javascript from 'highlight.js/lib/languages/javascript';
+import typescript from 'highlight.js/lib/languages/typescript';
+import python from 'highlight.js/lib/languages/python';
+import bash from 'highlight.js/lib/languages/bash';
+import json from 'highlight.js/lib/languages/json';
+import css from 'highlight.js/lib/languages/css';
+import xml from 'highlight.js/lib/languages/xml';
+import sql from 'highlight.js/lib/languages/sql';
+import markdown from 'highlight.js/lib/languages/markdown';
+import yaml from 'highlight.js/lib/languages/yaml';
+
+hljs.registerLanguage('javascript', javascript);
+hljs.registerLanguage('js', javascript);
+hljs.registerLanguage('typescript', typescript);
+hljs.registerLanguage('ts', typescript);
+hljs.registerLanguage('python', python);
+hljs.registerLanguage('py', python);
+hljs.registerLanguage('bash', bash);
+hljs.registerLanguage('sh', bash);
+hljs.registerLanguage('shell', bash);
+hljs.registerLanguage('json', json);
+hljs.registerLanguage('css', css);
+hljs.registerLanguage('html', xml);
+hljs.registerLanguage('xml', xml);
+hljs.registerLanguage('sql', sql);
+hljs.registerLanguage('markdown', markdown);
+hljs.registerLanguage('md', markdown);
+hljs.registerLanguage('yaml', yaml);
+hljs.registerLanguage('yml', yaml);
+
+function CodeBlock({ children, className }: { children: string; className?: string }) {
+  const [copied, setCopied] = useState(false);
+  const codeRef = useRef<HTMLElement>(null);
+  const language = className?.replace('language-', '') || '';
+
+  useEffect(() => {
+    if (codeRef.current && language && hljs.getLanguage(language)) {
+      codeRef.current.innerHTML = hljs.highlight(children, { language }).value;
+    }
+  }, [children, language]);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(children);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <div className="relative group/code my-3">
+      <div className="flex items-center justify-between bg-surface-3 rounded-t-xl px-4 py-1.5 border border-b-0 border-default">
+        <span className="text-[10px] font-mono text-muted uppercase">{language || 'code'}</span>
+        <button
+          onClick={handleCopy}
+          className="text-[10px] text-muted hover:text-primary transition-colors px-2 py-0.5 rounded hover:bg-surface-2"
+        >
+          {copied ? '✓ Copiado' : 'Copiar'}
+        </button>
+      </div>
+      <pre className="bg-surface-0 rounded-b-xl p-4 overflow-x-auto border border-t-0 border-default m-0">
+        <code ref={codeRef} className={`text-xs font-mono leading-relaxed text-primary ${className || ''}`}>
+          {children}
+        </code>
+      </pre>
+    </div>
+  );
+}
 
 interface MessageBubbleProps {
   role: 'user' | 'assistant';
@@ -43,8 +110,6 @@ export default function MessageBubble({ role, content }: MessageBubbleProps) {
                 [&_li]:text-secondary [&_li]:leading-relaxed
                 [&_li_p]:my-0
                 [&_code]:text-xs [&_code]:bg-surface-0 [&_code]:text-brand-400 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded-md [&_code]:font-mono
-                [&_pre]:bg-surface-0 [&_pre]:rounded-xl [&_pre]:p-4 [&_pre]:my-3 [&_pre]:overflow-x-auto [&_pre]:border [&_pre]:border-default
-                [&_pre_code]:bg-transparent [&_pre_code]:p-0 [&_pre_code]:text-primary
                 [&_blockquote]:border-l-2 [&_blockquote]:border-brand-500 [&_blockquote]:pl-4 [&_blockquote]:my-3 [&_blockquote]:text-muted [&_blockquote]:italic
                 [&_table]:w-full [&_table]:my-3 [&_table]:text-xs [&_table]:border-collapse
                 [&_th]:px-3 [&_th]:py-2 [&_th]:bg-surface-0 [&_th]:text-left [&_th]:font-semibold [&_th]:text-primary [&_th]:border-b [&_th]:border-default
@@ -52,7 +117,23 @@ export default function MessageBubble({ role, content }: MessageBubbleProps) {
                 [&_a]:text-brand-400 [&_a]:underline [&_a]:underline-offset-2
                 [&_hr]:border-default [&_hr]:my-4
               ">
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>{content.trim()}</ReactMarkdown>
+                <ReactMarkdown
+                  remarkPlugins={[remarkGfm]}
+                  components={{
+                    code({ className, children, ...props }) {
+                      const isBlock = className?.startsWith('language-') || String(children).includes('\n');
+                      if (isBlock) {
+                        return <CodeBlock className={className}>{String(children).replace(/\n$/, '')}</CodeBlock>;
+                      }
+                      return <code className={className} {...props}>{children}</code>;
+                    },
+                    pre({ children }) {
+                      return <>{children}</>;
+                    },
+                  }}
+                >
+                  {content.trim()}
+                </ReactMarkdown>
               </div>
             </div>
           )}

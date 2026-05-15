@@ -41,6 +41,7 @@ export default function App() {
   const [browserOpen, setBrowserOpen] = useState(false);
   const [browserVisible, setBrowserVisible] = useState(false);
   const [browserUrl, setBrowserUrl] = useState('');
+  const [navCollapsed, setNavCollapsed] = useState(false);
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', theme === 'dark');
@@ -169,7 +170,7 @@ export default function App() {
         )}
       </div>
       <div className="flex flex-1 overflow-hidden">
-        <NavRail active={page} onNavigate={setPage} />
+        <NavRail active={page} onNavigate={setPage} collapsed={navCollapsed} onToggleCollapse={() => setNavCollapsed(!navCollapsed)} />
 
         {page === 'sessions' && (
           <>

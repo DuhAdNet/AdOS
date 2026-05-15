@@ -1,10 +1,10 @@
-import { useState } from 'react';
-
 export type NavPage = 'sessions' | 'tools' | 'automations' | 'marketplace' | 'brain' | 'telegram' | 'labels' | 'sharing' | 'dashboards' | 'health' | 'cloud-sync' | 'settings';
 
 interface NavRailProps {
   active: NavPage;
   onNavigate: (page: NavPage) => void;
+  collapsed: boolean;
+  onToggleCollapse: () => void;
 }
 
 const navItems: Array<{ id: NavPage; label: string; icon: string }> = [
@@ -21,23 +21,34 @@ const navItems: Array<{ id: NavPage; label: string; icon: string }> = [
   { id: 'cloud-sync', label: 'Cloud Sync', icon: 'M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z' },
 ];
 
-export default function NavRail({ active, onNavigate }: NavRailProps) {
+export default function NavRail({ active, onNavigate, collapsed, onToggleCollapse }: NavRailProps) {
   return (
-    <nav className="w-[52px] bg-surface-1 border-r border-default flex flex-col items-center py-3 gap-1 shrink-0">
+    <nav className={`${collapsed ? 'w-[52px]' : 'w-[180px]'} bg-surface-1 border-r border-default flex flex-col py-3 gap-0.5 shrink-0 transition-all duration-200`}>
+      <button
+        onClick={onToggleCollapse}
+        className="mx-auto mb-2 w-9 h-7 rounded-lg flex items-center justify-center text-muted hover:bg-surface-2 hover:text-secondary transition-colors"
+        title={collapsed ? 'Expandir' : 'Recolher'}
+      >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          {collapsed ? <path d="M5 12h14M12 5l7 7-7 7" /> : <path d="M19 12H5M12 19l-7-7 7-7" />}
+        </svg>
+      </button>
+
       {navItems.map((item) => (
         <button
           key={item.id}
           onClick={() => onNavigate(item.id)}
-          title={item.label}
-          className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all ${
+          title={collapsed ? item.label : undefined}
+          className={`mx-2 ${collapsed ? 'w-9 h-9 justify-center' : 'h-9 px-3 gap-2.5 justify-start'} rounded-xl flex items-center transition-all ${
             active === item.id
               ? 'bg-brand-600/15 text-brand-500'
               : 'text-muted hover:bg-surface-2 hover:text-secondary'
           }`}
         >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
             <path d={item.icon} />
           </svg>
+          {!collapsed && <span className="text-xs font-medium truncate">{item.label}</span>}
         </button>
       ))}
 
@@ -45,17 +56,18 @@ export default function NavRail({ active, onNavigate }: NavRailProps) {
 
       <button
         onClick={() => onNavigate('settings')}
-        title="Configurações"
-        className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all ${
+        title={collapsed ? 'Configurações' : undefined}
+        className={`mx-2 ${collapsed ? 'w-9 h-9 justify-center' : 'h-9 px-3 gap-2.5 justify-start'} rounded-xl flex items-center transition-all ${
           active === 'settings'
             ? 'bg-brand-600/15 text-brand-500'
             : 'text-muted hover:bg-surface-2 hover:text-secondary'
         }`}
       >
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
           <circle cx="12" cy="12" r="3" />
           <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68 1.65 1.65 0 0 0 9 3V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
         </svg>
+        {!collapsed && <span className="text-xs font-medium">Configurações</span>}
       </button>
     </nav>
   );

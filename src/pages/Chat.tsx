@@ -85,10 +85,16 @@ export default function Chat({ sessionId, onUpdateTitle }: ChatProps) {
   const sendMessage = useCallback(async () => {
     if (!input.trim() || loading) return;
 
+    let msgContent = input.trim();
+    if (attachments.length > 0) {
+      const attText = attachments.map(a => `--- Anexo: ${a.name} ---\n${a.content}`).join('\n\n');
+      msgContent = `${msgContent}\n\n${attText}`;
+      setAttachments([]);
+    }
     const userMsg: Message = {
       id: crypto.randomUUID(),
       role: 'user',
-      content: input.trim(),
+      content: msgContent,
     };
 
     setMessages((prev) => [...prev, userMsg]);
@@ -221,8 +227,47 @@ export default function Chat({ sessionId, onUpdateTitle }: ChatProps) {
     }
   };
 
+  const [attachments, setAttachments] = useState<Array<{ name: string; content: string }>>([]);
+
+  const handleDrop = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    const files = Array.from(e.dataTransfer.files);
+    files.forEach(file => {
+      if (file.type.startsWith('text/') || file.name.endsWith('.json') || file.name.endsWith('.csv') || file.name.endsWith('.md')) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          setAttachments(prev => [...prev, { name: file.name, content: reader.result as string }]);
+        };
+        reader.readAsText(file);
+      } else if (file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          setAttachments(prev => [...prev, { name: file.name, content: `[Imagem: ${file.name}]` }]);
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  }, []);
+
+  const handlePaste = useCallback((e: React.ClipboardEvent) => {
+    const items = Array.from(e.clipboardData.items);
+    for (const item of items) {
+      if (item.type.startsWith('image/')) {
+        const file = item.getAsFile();
+        if (file) {
+          setAttachments(prev => [...prev, { name: `pasted-image.${file.type.split('/')[1]}`, content: `[Imagem colada]` }]);
+        }
+      }
+    }
+  }, []);
+
   return (
-    <div className="flex-1 flex flex-col overflow-hidden bg-surface-0" data-session={sessionId}>
+    <div
+      className="flex-1 flex flex-col overflow-hidden bg-surface-0"
+      data-session={sessionId}
+      onDrop={handleDrop}
+      onDragOver={(e) => e.preventDefault()}
+    >
       {models.length > 0 && (
         <div className="shrink-0 px-6 py-2 border-b border-default flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -332,11 +377,25 @@ export default function Chat({ sessionId, onUpdateTitle }: ChatProps) {
             onClose={() => setAutocomplete(null)}
           />
         )}
+        {attachments.length > 0 && (
+          <div className="flex flex-wrap gap-2 mb-2">
+            {attachments.map((att, i) => (
+              <div key={i} className="flex items-center gap-1.5 bg-surface-2 border border-default rounded-lg px-2.5 py-1.5 text-xs text-secondary">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="shrink-0">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+                </svg>
+                <span className="truncate max-w-[120px]">{att.name}</span>
+                <button onClick={() => setAttachments(prev => prev.filter((_, j) => j !== i))} className="text-muted hover:text-red-500 ml-1">×</button>
+              </div>
+            ))}
+          </div>
+        )}
         <div className="flex items-end gap-3 bg-surface-1 border border-default rounded-2xl px-4 py-3 shadow-card focus-within:shadow-card-hover focus-within:border-brand-500/50 transition-all">
           <textarea
             value={input}
             onChange={(e) => handleInputChange(e.target.value)}
             onKeyDown={handleKeyDown}
+            onPaste={handlePaste}
             placeholder="Digite sua mensagem... (/ para skills, @ para workflows)"
             rows={1}
             className="flex-1 bg-transparent text-sm text-primary placeholder-muted resize-none outline-none max-h-32 leading-relaxed"
