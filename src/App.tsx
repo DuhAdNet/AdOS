@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react';
-import Sidebar from './components/Sidebar';
+import NavRail, { NavPage } from './components/NavRail';
+import SessionPanel from './components/SessionPanel';
 import Chat from './pages/Chat';
 import Settings from './pages/Settings';
+import Tools from './pages/Tools';
+import Automations from './pages/Automations';
+import Marketplace from './pages/Marketplace';
+import Brain from './pages/Brain';
 import SetupWizard from './components/SetupWizard';
 import TitleBar from './components/TitleBar';
 import BrowserPill from './components/BrowserPill';
-
-type Page = 'chat' | 'settings';
 
 interface Session {
   id: string;
@@ -18,7 +21,7 @@ interface Session {
 const ados = (window as any).ados;
 
 export default function App() {
-  const [page, setPage] = useState<Page>('chat');
+  const [page, setPage] = useState<NavPage>('sessions');
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
   const [sessions, setSessions] = useState<Session[]>([]);
   const [activeSession, setActiveSession] = useState<string | null>(null);
@@ -71,7 +74,7 @@ export default function App() {
     const rows = await ados.db.getSessions();
     setSessions(rows);
     setActiveSession(id);
-    setPage('chat');
+    setPage('sessions');
   };
 
   const handleDeleteSession = async (id: string) => {
@@ -88,6 +91,9 @@ export default function App() {
     setSessions(sessions.map(s => s.id === id ? { ...s, title } : s));
   };
 
+  const handleBrowserShow = () => { setBrowserVisible(true); ados.browser.show(); };
+  const handleBrowserHide = () => { setBrowserVisible(false); ados.browser.hide(); };
+
   if (needsSetup === null) {
     return <div className="flex h-screen items-center justify-center bg-surface-0"><span className="text-muted">Carregando...</span></div>;
   }
@@ -100,22 +106,6 @@ export default function App() {
       </div>
     );
   }
-
-  const handleBrowserShow = () => {
-    setBrowserVisible(true);
-    ados.browser.show();
-  };
-
-  const handleBrowserHide = () => {
-    setBrowserVisible(false);
-    ados.browser.hide();
-  };
-
-  const handleBrowserClose = () => {
-    setBrowserOpen(false);
-    setBrowserVisible(false);
-    ados.browser.close();
-  };
 
   return (
     <div className="flex flex-col h-screen bg-surface-0 text-primary">
@@ -130,24 +120,33 @@ export default function App() {
         )}
       </div>
       <div className="flex flex-1 overflow-hidden">
-        <Sidebar
-          sessions={sessions}
-          activeSession={activeSession}
-          onSelectSession={(id) => { setActiveSession(id); setPage('chat'); }}
-          onNewSession={handleNewSession}
-          onDeleteSession={handleDeleteSession}
-          onRenameSession={handleRenameSession}
-          onOpenSettings={() => setPage('settings')}
-        />
-        <main className="flex-1 flex flex-col overflow-hidden">
-          {page === 'chat' && activeSession && (
-            <Chat
-              sessionId={activeSession}
-              onUpdateTitle={(title) => handleRenameSession(activeSession, title)}
+        <NavRail active={page} onNavigate={setPage} />
+
+        {page === 'sessions' && (
+          <>
+            <SessionPanel
+              sessions={sessions}
+              activeSession={activeSession}
+              onSelectSession={(id) => setActiveSession(id)}
+              onNewSession={handleNewSession}
+              onDeleteSession={handleDeleteSession}
             />
-          )}
-          {page === 'settings' && <Settings />}
-        </main>
+            <main className="flex-1 flex flex-col overflow-hidden">
+              {activeSession && (
+                <Chat
+                  sessionId={activeSession}
+                  onUpdateTitle={(title) => handleRenameSession(activeSession, title)}
+                />
+              )}
+            </main>
+          </>
+        )}
+
+        {page === 'tools' && <Tools />}
+        {page === 'automations' && <Automations />}
+        {page === 'marketplace' && <Marketplace />}
+        {page === 'brain' && <Brain />}
+        {page === 'settings' && <Settings />}
       </div>
     </div>
   );
