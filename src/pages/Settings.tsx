@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-type SettingsTab = 'app' | 'appearance' | 'input' | 'workspace' | 'providers' | 'mcp' | 'model' | 'permissions' | 'preferences' | 'about';
+type SettingsTab = 'app' | 'appearance' | 'input' | 'workspace' | 'providers' | 'mcp' | 'model' | 'agents' | 'permissions' | 'preferences' | 'about';
 
 const ados = (window as any).ados;
 
@@ -178,7 +178,8 @@ export default function Settings() {
     { id: 'providers', label: 'Providers' },
     { id: 'mcp', label: 'MCP Servers' },
     { id: 'model', label: 'Modelo' },
-    { id: 'permissions', label: 'Permissões', section: 'SISTEMA' },
+    { id: 'agents', label: 'Agentes', section: 'SISTEMA' },
+    { id: 'permissions', label: 'Permissões' },
     { id: 'preferences', label: 'Preferências' },
     { id: 'about', label: 'Sobre' },
   ];
@@ -725,6 +726,10 @@ export default function Settings() {
           </div>
         )}
 
+        {activeTab === 'agents' && (
+          <AgentsSection />
+        )}
+
         {activeTab === 'permissions' && (
           <PermissionsSection />
         )}
@@ -741,7 +746,7 @@ export default function Settings() {
                 </div>
                 <div>
                   <h3 className="text-base font-semibold text-primary">AdOS</h3>
-                  <p className="text-xs text-muted">Versão 0.4.0</p>
+                  <p className="text-xs text-muted">Versão 1.0.0</p>
                 </div>
               </div>
               <div className="space-y-2 text-sm text-secondary">
@@ -755,6 +760,82 @@ export default function Settings() {
             </div>
           </div>
         )}
+      </div>
+    </div>
+  );
+}
+
+function AgentsSection() {
+  const [providers, setProviders] = useState<Provider[]>([]);
+  const [mcpServers, setMcpServers] = useState<McpServer[]>([]);
+
+  useEffect(() => {
+    loadAgents();
+  }, []);
+
+  const loadAgents = async () => {
+    const p = await ados.providers.list();
+    setProviders(p || []);
+    const m = await ados.mcp.listServers();
+    setMcpServers(m || []);
+  };
+
+  const connectedProviders = providers.filter(p => p.hasKey);
+  const totalTools = mcpServers.reduce((sum, s) => sum + (s.toolCount || 0), 0);
+
+  return (
+    <div className="max-w-3xl">
+      <h1 className="text-lg font-semibold text-primary mb-1">Agentes & Conexões</h1>
+      <p className="text-sm text-muted mb-6">Visão geral de providers, agentes MCP e ferramentas disponíveis.</p>
+
+      <div className="grid grid-cols-3 gap-4 mb-6">
+        <div className="bg-surface-1 border border-default rounded-xl p-4 text-center">
+          <p className="text-2xl font-bold text-primary">{connectedProviders.length}</p>
+          <p className="text-xs text-muted">Providers ativos</p>
+        </div>
+        <div className="bg-surface-1 border border-default rounded-xl p-4 text-center">
+          <p className="text-2xl font-bold text-primary">{mcpServers.filter(s => s.status === 'connected').length}</p>
+          <p className="text-xs text-muted">MCP conectados</p>
+        </div>
+        <div className="bg-surface-1 border border-default rounded-xl p-4 text-center">
+          <p className="text-2xl font-bold text-primary">{totalTools}</p>
+          <p className="text-xs text-muted">Tools disponíveis</p>
+        </div>
+      </div>
+
+      <h2 className="text-sm font-medium text-secondary mb-3">Providers LLM</h2>
+      <div className="space-y-2 mb-6">
+        {providers.map(p => (
+          <div key={p.id} className="bg-surface-1 border border-default rounded-xl px-4 py-3 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <span className="text-sm font-medium text-primary">{p.name}</span>
+              <span className="text-[10px] text-muted">{p.models?.length || 0} modelos</span>
+            </div>
+            <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${p.hasKey ? 'bg-green-500/10 text-green-500' : 'bg-surface-3 text-muted'}`}>
+              {p.hasKey ? 'Ativo' : 'Sem chave'}
+            </span>
+          </div>
+        ))}
+        {providers.length === 0 && <p className="text-sm text-muted">Nenhum provider configurado.</p>}
+      </div>
+
+      <h2 className="text-sm font-medium text-secondary mb-3">Servidores MCP</h2>
+      <div className="space-y-2">
+        {mcpServers.map(s => (
+          <div key={s.name} className="bg-surface-1 border border-default rounded-xl px-4 py-3 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <span className="text-sm font-medium text-primary">{s.name}</span>
+              <span className="text-[10px] text-muted">{s.toolCount} tools</span>
+            </div>
+            <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${
+              s.status === 'connected' ? 'bg-green-500/10 text-green-500' :
+              s.status === 'error' ? 'bg-red-500/10 text-red-500' : 'bg-surface-3 text-muted'
+            }`}>
+              {s.status === 'connected' ? 'Conectado' : s.status === 'error' ? 'Erro' : 'Desconectado'}
+            </span>
+          </div>
+        ))}
+        {mcpServers.length === 0 && <p className="text-sm text-muted">Nenhum servidor MCP configurado.</p>}
       </div>
     </div>
   );
