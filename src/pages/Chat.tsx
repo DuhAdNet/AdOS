@@ -8,6 +8,7 @@ interface Message {
   id: string;
   role: 'user' | 'assistant';
   content: string;
+  steps?: Array<{ name: string; timestamp: number }>;
 }
 
 interface ChatProps {
@@ -124,6 +125,7 @@ export default function Chat({ sessionId, onUpdateTitle }: ChatProps) {
           id: crypto.randomUUID(),
           role: 'assistant',
           content: accumulated,
+          steps: toolSteps.length > 0 ? [...toolSteps] : undefined,
         };
         setMessages((prev) => [...prev, assistantMsg]);
         await ados.db.addMessage(assistantMsg.id, sessionId, 'assistant', accumulated);
@@ -269,7 +271,17 @@ export default function Chat({ sessionId, onUpdateTitle }: ChatProps) {
           </div>
         )}
         {messages.map((msg) => (
-          <MessageBubble key={msg.id} role={msg.role} content={msg.content} />
+          <div key={msg.id}>
+            {msg.steps && msg.steps.length > 0 && (
+              <div className="flex justify-start mb-2">
+                <div className="flex items-start gap-2">
+                  <div className="w-6 h-6 shrink-0" />
+                  <ToolSteps steps={msg.steps} isRunning={false} startTime={msg.steps[0]?.timestamp || 0} />
+                </div>
+              </div>
+            )}
+            <MessageBubble role={msg.role} content={msg.content} />
+          </div>
         ))}
         {loading && toolSteps.length > 0 && (
           <div className="flex justify-start mb-4">

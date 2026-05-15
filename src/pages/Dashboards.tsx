@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 const ados = (window as any).ados;
 
@@ -15,7 +15,17 @@ interface Widget {
   type: 'metric' | 'chart' | 'list' | 'text';
   title: string;
   config: string;
+  value?: string | number;
 }
+
+const BUILTIN_METRICS: Record<string, () => Promise<string | number>> = {
+  'Total de Sessões': async () => { const s = await ados.db.getSessions(); return s.length; },
+  'Sessões Favoritas': async () => { const s = await ados.db.getSessions(); return s.filter((x: any) => x.favorite).length; },
+  'Labels Criadas': async () => { const l = await ados.db.getLabels(); return l.length; },
+  'Memórias Salvas': async () => { const m = await ados.db.getMemories(); return m.length; },
+  'MCP Servers': async () => { const s = await ados.mcp.listServers(); return s.length; },
+  'Automações Ativas': async () => { const a = await ados.db.getAutomations(); return a.filter((x: any) => x.enabled).length; },
+};
 
 export default function Dashboards() {
   const [dashboards, setDashboards] = useState<Dashboard[]>([]);
@@ -35,10 +45,22 @@ export default function Dashboards() {
     }
   };
 
+  const refreshWidgetValues = useCallback(async (wList: Widget[]) => {
+    const updated = await Promise.all(wList.map(async (w) => {
+      if (w.type === 'metric' && BUILTIN_METRICS[w.title]) {
+        const value = await BUILTIN_METRICS[w.title]();
+        return { ...w, value };
+      }
+      return w;
+    }));
+    setWidgets(updated);
+  }, []);
+
   const loadWidgets = (dash: Dashboard) => {
     try {
       const parsed = JSON.parse(dash.layout || '[]');
       setWidgets(parsed);
+      refreshWidgetValues(parsed);
     } catch {
       setWidgets([]);
     }
@@ -58,10 +80,14 @@ export default function Dashboards() {
   };
 
   const handleAddWidget = async (type: Widget['type']) => {
+    const metricNames = Object.keys(BUILTIN_METRICS);
+    const usedTitles = widgets.filter(w => w.type === 'metric').map(w => w.title);
+    const nextMetric = metricNames.find(n => !usedTitles.includes(n)) || metricNames[0];
+
     const widget: Widget = {
       id: crypto.randomUUID(),
       type,
-      title: type === 'metric' ? 'Nova Métrica' : type === 'chart' ? 'Novo Gráfico' : type === 'list' ? 'Nova Lista' : 'Novo Texto',
+      title: type === 'metric' ? nextMetric : type === 'chart' ? 'Novo Gráfico' : type === 'list' ? 'Nova Lista' : 'Novo Texto',
       config: '{}',
     };
     const updated = [...widgets, widget];
@@ -69,6 +95,7 @@ export default function Dashboards() {
     if (active) {
       await ados.db.updateDashboard?.(active.id, JSON.stringify(updated));
     }
+    refreshWidgetValues(updated);
   };
 
   const handleDeleteWidget = async (widgetId: string) => {
@@ -205,8 +232,8 @@ export default function Dashboards() {
                       <span className="text-xs uppercase text-muted font-semibold tracking-wider">{w.type}</span>
                     </div>
                     <p className="text-sm font-medium text-primary">{w.title}</p>
-                    <p className="text-2xl font-bold text-primary mt-2">—</p>
-                    <p className="text-[10px] text-muted mt-1">Configure via prompt do assistente</p>
+                    <p className="text-2xl font-bold text-primary mt-2">{w.value !== undefined ? w.value : '—'}</p>
+                    {w.value === undefined && <p className="text-[10px] text-muted mt-1">Métrica não reconhecida</p>}
                   </div>
                 ))}
               </div>

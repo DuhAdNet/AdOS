@@ -29,6 +29,12 @@ function ensureDocumentsRoot() {
 
 function resolvePath(filePath: string): string {
   if (path.isAbsolute(filePath)) return filePath;
+  if (!filePath.includes('/') && !filePath.includes('\\')) {
+    const ext = path.extname(filePath).toLowerCase();
+    if (ext === '.html' || ext === '.htm') return path.join(DOCUMENTS_ROOT, 'dashboards', filePath);
+    if (ext === '.pdf' || ext === '.csv' || ext === '.xlsx') return path.join(DOCUMENTS_ROOT, 'reports', filePath);
+    if (ext === '.py' || ext === '.js' || ext === '.ts' || ext === '.sh') return path.join(DOCUMENTS_ROOT, 'skills', filePath);
+  }
   return path.join(DOCUMENTS_ROOT, filePath);
 }
 

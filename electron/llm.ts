@@ -5,7 +5,7 @@ import path from 'path';
 import { getStoredKey } from './providers';
 import { getOpenAIAccessToken } from './openai-oauth';
 import { getBuiltinTools, executeBuiltinTool } from './tools';
-import { getSetting } from './database';
+import { getSetting, getPreferences, getMemories } from './database';
 
 let clients: Record<string, OpenAI> = {};
 let usingOAuth = false;
@@ -52,6 +52,29 @@ function resolveProvider(model: string): { providerId: string; baseUrl?: string;
   return { providerId: 'openai' };
 }
 
+function buildEnrichedPrompt(basePrompt: string): string {
+  const prefs = getPreferences();
+  const memories = getMemories(15);
+  let enriched = basePrompt;
+
+  const prefEntries = Object.entries(prefs).filter(([, v]) => v.trim());
+  if (prefEntries.length > 0) {
+    enriched += '\n\n## User Preferences\n';
+    for (const [k, v] of prefEntries) {
+      enriched += `- ${k}: ${v}\n`;
+    }
+  }
+
+  if (memories.length > 0) {
+    enriched += '\n\n## Workspace Memories\n';
+    for (const m of memories) {
+      enriched += `- [${m.category}] ${m.content}\n`;
+    }
+  }
+
+  return enriched;
+}
+
 // --- Anthropic Native Streaming ---
 async function streamAnthropic(
   messages: Array<{ role: string; content: string }>,
@@ -63,7 +86,7 @@ async function streamAnthropic(
   const apiKey = getStoredKey('anthropic');
   if (!apiKey) throw new Error('API key não configurada para Anthropic. Vá em Configurações > Providers.');
 
-  const systemPrompt = getSetting('system_prompt') || 'You are a helpful assistant with access to tools.';
+  const systemPrompt = buildEnrichedPrompt(getSetting('system_prompt') || 'You are a helpful assistant with access to tools.');
   let currentMessages = messages.map((m) => ({
     role: m.role === 'system' ? 'user' : m.role as 'user' | 'assistant',
     content: m.content,
@@ -206,7 +229,12 @@ async function streamGoogle(
 
     const systemPrompt = getSetting('system_prompt');
     if (systemPrompt) {
-      body.systemInstruction = { parts: [{ text: systemPrompt }] };
+      body.systemInstruction = { parts: [{ text: buildEnrichedPrompt(systemPrompt) }] };
+    } else {
+      const enriched = buildEnrichedPrompt('You are a helpful assistant.');
+      if (enriched !== 'You are a helpful assistant.') {
+        body.systemInstruction = { parts: [{ text: enriched }] };
+      }
     }
 
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:streamGenerateContent?alt=sse&key=${apiKey}`;
@@ -333,8 +361,8 @@ export function registerLLMHandlers() {
     for (let iteration = 0; iteration < maxIterations; iteration++) {
       const params: any = { model: effectiveModel, input, stream: true };
       if (usingOAuth) {
-        const customPrompt = getSetting('system_prompt');
-        params.instructions = customPrompt || 'You are a helpful assistant with access to tools. Use tools to read/write files, run commands, browse the web, and create documents. Files are stored in ~/Documents/AdOS/. Always use tools when the user asks to create files, search the web, or run commands.';
+        const customPrompt = getSetting('system_prompt') || 'You are a helpful assistant with access to tools. Use tools to read/write files, run commands, browse the web, and create documents. Files are stored in ~/Documents/AdOS/. Always use tools when the user asks to create files, search the web, or run commands.';
+        params.instructions = buildEnrichedPrompt(customPrompt);
         params.store = false;
       }
       if (tools.length > 0) {
@@ -413,6 +441,14 @@ export function registerLLMHandlers() {
       role: m.role as 'user' | 'assistant' | 'system',
       content: m.content,
     }));
+
+    if (!currentMessages.some((m: any) => m.role === 'system')) {
+      const base = getSetting('system_prompt') || 'You are a helpful assistant.';
+      currentMessages.unshift({ role: 'system', content: buildEnrichedPrompt(base) });
+    } else {
+      const sysIdx = currentMessages.findIndex((m: any) => m.role === 'system');
+      currentMessages[sysIdx].content = buildEnrichedPrompt(currentMessages[sysIdx].content);
+    }
 
     for (let iteration = 0; iteration < maxIterations; iteration++) {
       const params: any = {

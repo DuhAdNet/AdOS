@@ -214,9 +214,43 @@ export function setSetting(key: string, value: string): void {
   saveDb();
 }
 
+export function getDb() { return db; }
+
+export function getPreferences(): Record<string, string> {
+  if (!db) return {};
+  const rows = db.exec('SELECT key, value FROM preferences');
+  if (!rows.length) return {};
+  const prefs: Record<string, string> = {};
+  for (const r of rows[0].values) { prefs[r[0] as string] = r[1] as string; }
+  return prefs;
+}
+
+export function getMemories(limit = 20): Array<{ content: string; category: string }> {
+  if (!db) return [];
+  const rows = db.exec(`SELECT content, category FROM memories ORDER BY created_at DESC LIMIT ${limit}`);
+  if (!rows.length) return [];
+  return rows[0].values.map((r: any[]) => ({ content: r[0], category: r[1] }));
+}
+
+function applyAutoLabels(sessionId: string, title: string) {
+  if (!db) return;
+  const rows = db.exec('SELECT id, auto_pattern FROM labels WHERE auto_pattern IS NOT NULL AND auto_pattern != ""');
+  if (!rows.length) return;
+  for (const r of rows[0].values) {
+    const labelId = r[0] as string;
+    const pattern = r[1] as string;
+    try {
+      if (new RegExp(pattern, 'i').test(title)) {
+        db.run('INSERT OR IGNORE INTO session_labels (session_id, label_id) VALUES (?, ?)', [sessionId, labelId]);
+      }
+    } catch {}
+  }
+}
+
 export function registerDatabaseHandlers() {
   ipcMain.handle('db:create-session', (_event, id: string, title: string) => {
     db.run('INSERT INTO sessions (id, title) VALUES (?, ?)', [id, title]);
+    applyAutoLabels(id, title);
     saveDb();
     return { success: true };
   });
@@ -248,6 +282,7 @@ export function registerDatabaseHandlers() {
 
   ipcMain.handle('db:update-session-title', (_event, id: string, title: string) => {
     db.run('UPDATE sessions SET title = ?, updated_at = datetime("now") WHERE id = ?', [title, id]);
+    applyAutoLabels(id, title);
     saveDb();
     return { success: true };
   });

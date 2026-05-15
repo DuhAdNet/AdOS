@@ -39,9 +39,16 @@ export default function Sharing() {
     load();
   };
 
-  const handleCopy = (publicId: string) => {
-    const url = `ados://shared/${publicId}`;
-    navigator.clipboard.writeText(url);
+  const handleCopy = async (publicId: string) => {
+    const sharedEntry = shared.find(s => s.publicId === publicId);
+    if (sharedEntry) {
+      const messages = await ados.db.getMessages(sharedEntry.sessionId);
+      const title = getTitle(sharedEntry.sessionId);
+      const exportData = { title, publicId, messages, exportedAt: new Date().toISOString() };
+      await navigator.clipboard.writeText(JSON.stringify(exportData, null, 2));
+    } else {
+      await navigator.clipboard.writeText(`ados://shared/${publicId}`);
+    }
     setCopied(publicId);
     setTimeout(() => setCopied(null), 2000);
   };

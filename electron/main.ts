@@ -12,7 +12,8 @@ import { registerOAuthHandlers } from './oauth';
 import { registerIntegrationHandlers } from './integrations';
 import { registerAgentHandlers } from './agents';
 import { registerTelegramHandlers } from './telegram';
-import { getSetting } from './database';
+import { getSetting, getDb } from './database';
+import { startScheduler } from './scheduler';
 
 app.disableHardwareAcceleration();
 app.commandLine.appendSwitch('disable-gpu');
@@ -63,6 +64,7 @@ async function createWindow() {
   registerIntegrationHandlers();
   registerAgentHandlers();
   registerTelegramHandlers(mainWindow);
+  startScheduler(getDb(), mainWindow);
 }
 
 app.on('ready', createWindow);

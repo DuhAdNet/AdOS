@@ -32,13 +32,27 @@ export default function CloudSync() {
   const handleSync = async () => {
     if (!endpoint) return;
     setStatus('syncing');
-    setTimeout(async () => {
+    try {
+      const sessions = await ados.db.getSessions();
+      const prefs = await ados.db.getPreferences();
+      const labels = await ados.db.getLabels();
+      const payload = { sessions, preferences: prefs, labels, syncedAt: new Date().toISOString() };
+
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const now = new Date().toISOString();
       await ados.db.setSetting('cloud_sync_last', now);
       setLastSync(now);
       setStatus('synced');
-      setTimeout(() => setStatus('disconnected'), 3000);
-    }, 2000);
+    } catch (err: any) {
+      setStatus('error');
+      console.error('Sync failed:', err);
+    }
   };
 
   const statusConfig = {

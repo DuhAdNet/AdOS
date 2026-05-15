@@ -34,6 +34,7 @@ const ados = (window as any).ados;
 export default function App() {
   const [page, setPage] = useState<NavPage>('sessions');
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const [font, setFont] = useState<'manrope' | 'system'>('manrope');
   const [sessions, setSessions] = useState<Session[]>([]);
   const [activeSession, setActiveSession] = useState<string | null>(null);
   const [needsSetup, setNeedsSetup] = useState<boolean | null>(null);
@@ -43,17 +44,35 @@ export default function App() {
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', theme === 'dark');
+    document.documentElement.classList.toggle('light', theme === 'light');
   }, [theme]);
+
+  useEffect(() => {
+    document.documentElement.style.fontFamily = font === 'manrope'
+      ? "'Manrope', sans-serif"
+      : '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+  }, [font]);
 
   useEffect(() => {
     checkSetup();
     loadSessions();
+    loadAppearance();
     ados.browser.onStateChanged((state: any) => {
       setBrowserOpen(state.open);
       setBrowserVisible(state.visible);
       if (state.url) setBrowserUrl(state.url);
     });
   }, []);
+
+  const loadAppearance = async () => {
+    const savedTheme = await ados.db.getSetting('theme_mode');
+    const savedFont = await ados.db.getSetting('font');
+    if (savedTheme === 'light' || savedTheme === 'dark') setTheme(savedTheme);
+    else if (savedTheme === 'system') {
+      setTheme(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    }
+    if (savedFont === 'system' || savedFont === 'manrope') setFont(savedFont);
+  };
 
   const checkSetup = async () => {
     const hasOpenAI = await ados.llm.hasKey('openai');
