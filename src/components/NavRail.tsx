@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export type NavPage = 'sessions' | 'tools' | 'automations' | 'marketplace' | 'brain' | 'settings';
+export type NavPage = 'sessions' | 'tools' | 'automations' | 'marketplace' | 'brain' | 'telegram' | 'settings';
 
 interface NavRailProps {
   active: NavPage;
@@ -13,6 +13,7 @@ const navItems: Array<{ id: NavPage; label: string; icon: string }> = [
   { id: 'automations', label: 'Automações', icon: 'M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83' },
   { id: 'marketplace', label: 'Marketplace', icon: 'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z' },
   { id: 'brain', label: 'Brain', icon: 'M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z' },
+  { id: 'telegram', label: 'Telegram', icon: 'M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z' },
 ];
 
 export default function NavRail({ active, onNavigate }: NavRailProps) {

@@ -149,6 +149,12 @@ export function getSetting(key: string): string | null {
   return rows[0].values[0][0] as string;
 }
 
+export function setSetting(key: string, value: string): void {
+  if (!db) return;
+  db.run('INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)', [key, value]);
+  saveDb();
+}
+
 export function registerDatabaseHandlers() {
   ipcMain.handle('db:create-session', (_event, id: string, title: string) => {
     db.run('INSERT INTO sessions (id, title) VALUES (?, ?)', [id, title]);

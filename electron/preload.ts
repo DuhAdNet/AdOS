@@ -208,4 +208,33 @@ contextBridge.exposeInMainWorld('ados', {
     slackHistory: (channel: string, limit?: number) => ipcRenderer.invoke('integration:slack-history', channel, limit),
     slackSend: (channel: string, text: string) => ipcRenderer.invoke('integration:slack-send', channel, text),
   },
+  telegram: {
+    setToken: (token: string) => ipcRenderer.invoke('telegram:set-token', token),
+    getToken: () => ipcRenderer.invoke('telegram:get-token'),
+    removeToken: () => ipcRenderer.invoke('telegram:remove-token'),
+    getMe: () => ipcRenderer.invoke('telegram:get-me'),
+    send: (chatId: number | string, text: string, parseMode?: string) =>
+      ipcRenderer.invoke('telegram:send', chatId, text, parseMode),
+    sendPhoto: (chatId: number | string, photoUrl: string, caption?: string) =>
+      ipcRenderer.invoke('telegram:send-photo', chatId, photoUrl, caption),
+    sendDocument: (chatId: number | string, documentUrl: string, caption?: string) =>
+      ipcRenderer.invoke('telegram:send-document', chatId, documentUrl, caption),
+    getChats: () => ipcRenderer.invoke('telegram:get-chats'),
+    startPolling: () => ipcRenderer.invoke('telegram:start-polling'),
+    stopPolling: () => ipcRenderer.invoke('telegram:stop-polling'),
+    pollingStatus: () => ipcRenderer.invoke('telegram:polling-status'),
+    setWebhook: (url: string) => ipcRenderer.invoke('telegram:set-webhook', url),
+    deleteWebhook: () => ipcRenderer.invoke('telegram:delete-webhook'),
+    getWebhookInfo: () => ipcRenderer.invoke('telegram:get-webhook-info'),
+    onMessage: (callback: (msg: any) => void) => {
+      ipcRenderer.on('telegram:message', (_e, msg) => callback(msg));
+    },
+    onError: (callback: (error: string) => void) => {
+      ipcRenderer.on('telegram:error', (_e, error) => callback(error));
+    },
+    removeListeners: () => {
+      ipcRenderer.removeAllListeners('telegram:message');
+      ipcRenderer.removeAllListeners('telegram:error');
+    },
+  },
 });

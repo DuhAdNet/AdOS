@@ -7,6 +7,7 @@ import Tools from './pages/Tools';
 import Automations from './pages/Automations';
 import Marketplace from './pages/Marketplace';
 import Brain from './pages/Brain';
+import TelegramPage from './pages/Telegram';
 import SetupWizard from './components/SetupWizard';
 import TitleBar from './components/TitleBar';
 import BrowserPill from './components/BrowserPill';
@@ -160,6 +161,7 @@ export default function App() {
         {page === 'automations' && <Automations />}
         {page === 'marketplace' && <Marketplace />}
         {page === 'brain' && <Brain />}
+        {page === 'telegram' && <TelegramPage />}
         {page === 'settings' && <Settings />}
       </div>
     </div>

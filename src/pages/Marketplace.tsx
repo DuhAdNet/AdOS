@@ -59,6 +59,23 @@ export default function Marketplace() {
     setInstalled(new Set([...installed, item.slug]));
   };
 
+  const handleUninstall = async (item: MarketplaceItem) => {
+    const [skills, workflows] = await Promise.all([
+      ados.db.getSkills(),
+      ados.db.getWorkflows(),
+    ]);
+    if (item.type === 'skill') {
+      const match = skills.find((s: any) => s.slug === item.slug);
+      if (match) await ados.db.deleteSkill(match.id);
+    } else {
+      const match = workflows.find((w: any) => w.slug === item.slug);
+      if (match) await ados.db.deleteWorkflow(match.id);
+    }
+    const next = new Set(installed);
+    next.delete(item.slug);
+    setInstalled(next);
+  };
+
   const filtered = catalog.filter(item => {
     if (item.type !== tab) return false;
     if (activeCategory && item.category !== activeCategory) return false;
@@ -144,7 +161,12 @@ export default function Marketplace() {
                   <span className="ml-2 text-[10px] px-2 py-0.5 bg-surface-2 rounded-full text-muted">{item.category}</span>
                 </div>
                 {installed.has(item.slug) ? (
-                  <span className="text-[10px] px-2 py-0.5 bg-green-500/10 text-green-500 rounded-full font-medium">Instalado</span>
+                  <button
+                    onClick={() => handleUninstall(item)}
+                    className="px-3 py-1 bg-surface-2 hover:bg-red-500/10 hover:text-red-500 border border-default rounded-lg text-xs text-secondary font-medium transition-colors"
+                  >
+                    Desinstalar
+                  </button>
                 ) : (
                   <button
                     onClick={() => handleInstall(item)}

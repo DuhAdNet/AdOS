@@ -11,6 +11,7 @@ import { registerToolHandlers, setDocumentsRoot } from './tools';
 import { registerOAuthHandlers } from './oauth';
 import { registerIntegrationHandlers } from './integrations';
 import { registerAgentHandlers } from './agents';
+import { registerTelegramHandlers } from './telegram';
 import { getSetting } from './database';
 
 app.disableHardwareAcceleration();
@@ -61,6 +62,7 @@ async function createWindow() {
   registerOAuthHandlers();
   registerIntegrationHandlers();
   registerAgentHandlers();
+  registerTelegramHandlers(mainWindow);
 }
 
 app.on('ready', createWindow);
