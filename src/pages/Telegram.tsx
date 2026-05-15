@@ -19,7 +19,19 @@ interface TelegramMessage {
   date: number;
 }
 
-type Tab = 'inbox' | 'send' | 'config';
+type Tab = 'inbox' | 'send' | 'pairings' | 'config';
+
+interface Pairing {
+  chatId: number;
+  sessionId: string;
+  direction: string;
+  createdAt: string;
+}
+
+interface Session {
+  id: string;
+  title: string;
+}
 
 export default function Telegram() {
   const [tab, setTab] = useState<Tab>('config');
@@ -33,6 +45,11 @@ export default function Telegram() {
   const [sendText, setSendText] = useState('');
   const [sending, setSending] = useState(false);
   const [configStatus, setConfigStatus] = useState('');
+  const [pairings, setPairings] = useState<Pairing[]>([]);
+  const [sessions, setSessions] = useState<Session[]>([]);
+  const [pairChat, setPairChat] = useState<number | null>(null);
+  const [pairSession, setPairSession] = useState('');
+  const [pairDirection, setPairDirection] = useState('both');
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -45,6 +62,7 @@ export default function Telegram() {
       loadBotInfo();
       loadChats();
       checkPolling();
+      loadPairings();
     }
   }, [hasToken]);
 
@@ -138,6 +156,28 @@ export default function Telegram() {
     setSending(false);
   };
 
+  const loadPairings = async () => {
+    const [pairs, sess] = await Promise.all([
+      ados.db.getTelegramPairings(),
+      ados.db.getSessions(),
+    ]);
+    setPairings(pairs);
+    setSessions(sess);
+  };
+
+  const handlePair = async () => {
+    if (!pairChat || !pairSession) return;
+    await ados.db.pairTelegram(pairChat, pairSession, pairDirection);
+    setPairChat(null);
+    setPairSession('');
+    loadPairings();
+  };
+
+  const handleUnpair = async (chatId: number, sessionId: string) => {
+    await ados.db.unpairTelegram(chatId, sessionId);
+    loadPairings();
+  };
+
   const filteredMessages = selectedChat
     ? messages.filter(m => m.chatId === selectedChat)
     : messages;
@@ -185,6 +225,14 @@ export default function Telegram() {
                 }`}
               >
                 Enviar
+              </button>
+              <button
+                onClick={() => setTab('pairings')}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  tab === 'pairings' ? 'bg-brand-600 text-white' : 'text-muted hover:text-secondary'
+                }`}
+              >
+                Pairings
               </button>
             </>
           )}
@@ -329,6 +377,73 @@ export default function Telegram() {
                 <div ref={messagesEndRef} />
               </div>
             </div>
+          </div>
+        )}
+
+        {tab === 'pairings' && (
+          <div className="max-w-2xl space-y-6 mt-4">
+            <div className="bg-surface-1 border border-default rounded-2xl p-6 space-y-4">
+              <h3 className="text-sm font-medium text-primary">Novo Pairing</h3>
+              <p className="text-xs text-muted">Vincule um chat do Telegram a uma sessão do AdOS para sincronização bidirecional.</p>
+              <div className="grid grid-cols-3 gap-3">
+                <select
+                  value={pairChat || ''}
+                  onChange={(e) => setPairChat(Number(e.target.value) || null)}
+                  className="bg-surface-0 border border-default rounded-lg px-3 py-2 text-sm text-primary outline-none"
+                >
+                  <option value="">Chat</option>
+                  {chats.map(c => <option key={c.id} value={c.id}>{c.title}</option>)}
+                </select>
+                <select
+                  value={pairSession}
+                  onChange={(e) => setPairSession(e.target.value)}
+                  className="bg-surface-0 border border-default rounded-lg px-3 py-2 text-sm text-primary outline-none"
+                >
+                  <option value="">Sessão</option>
+                  {sessions.map(s => <option key={s.id} value={s.id}>{s.title}</option>)}
+                </select>
+                <select
+                  value={pairDirection}
+                  onChange={(e) => setPairDirection(e.target.value)}
+                  className="bg-surface-0 border border-default rounded-lg px-3 py-2 text-sm text-primary outline-none"
+                >
+                  <option value="both">Bidirecional</option>
+                  <option value="tg-to-session">Telegram → Sessão</option>
+                  <option value="session-to-tg">Sessão → Telegram</option>
+                </select>
+              </div>
+              <button
+                onClick={handlePair}
+                disabled={!pairChat || !pairSession}
+                className="px-4 py-2 bg-brand-600 hover:bg-brand-700 disabled:bg-surface-3 disabled:text-muted rounded-lg text-sm font-medium text-white transition-all"
+              >
+                Vincular
+              </button>
+            </div>
+
+            {pairings.length === 0 ? (
+              <p className="text-sm text-muted text-center py-8">Nenhum pairing configurado.</p>
+            ) : (
+              <div className="space-y-2">
+                <h3 className="text-sm font-medium text-secondary">Pairings ativos</h3>
+                {pairings.map(p => (
+                  <div key={`${p.chatId}-${p.sessionId}`} className="bg-surface-1 border border-default rounded-xl px-4 py-3 flex items-center gap-3">
+                    <span className="text-sm text-primary font-medium">{chats.find(c => c.id === p.chatId)?.title || `Chat ${p.chatId}`}</span>
+                    <span className="text-xs text-muted">
+                      {p.direction === 'both' ? '↔' : p.direction === 'tg-to-session' ? '→' : '←'}
+                    </span>
+                    <span className="text-sm text-primary">{sessions.find(s => s.id === p.sessionId)?.title || 'Sessão'}</span>
+                    <span className="ml-auto text-[10px] text-muted">{p.direction}</span>
+                    <button
+                      onClick={() => handleUnpair(p.chatId, p.sessionId)}
+                      className="text-xs text-red-500 hover:text-red-400"
+                    >
+                      Remover
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         )}
 

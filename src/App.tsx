@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import NavRail, { NavPage } from './components/NavRail';
 import SessionPanel from './components/SessionPanel';
 import Chat from './pages/Chat';
@@ -8,8 +8,16 @@ import Automations from './pages/Automations';
 import Marketplace from './pages/Marketplace';
 import Brain from './pages/Brain';
 import TelegramPage from './pages/Telegram';
+import Labels from './pages/Labels';
+import Sharing from './pages/Sharing';
+import Preferences from './pages/Preferences';
+import Shortcuts from './pages/Shortcuts';
+import HealthCheck from './pages/HealthCheck';
+import Dashboards from './pages/Dashboards';
+import CloudSync from './pages/CloudSync';
 import SetupWizard from './components/SetupWizard';
 import TitleBar from './components/TitleBar';
+import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts';
 import BrowserPill from './components/BrowserPill';
 
 interface Session {
@@ -70,6 +78,13 @@ export default function App() {
   };
 
   const toggleTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark');
+
+  const shortcuts = useMemo(() => ({
+    'new-session': () => handleNewSession(),
+    'settings': () => setPage('settings'),
+    'toggle-theme': () => toggleTheme(),
+  }), []);
+  useKeyboardShortcuts(shortcuts);
 
   const handleNewSession = async () => {
     const id = crypto.randomUUID();
@@ -164,6 +179,11 @@ export default function App() {
         {page === 'marketplace' && <Marketplace />}
         {page === 'brain' && <Brain />}
         {page === 'telegram' && <TelegramPage />}
+        {page === 'labels' && <Labels />}
+        {page === 'sharing' && <Sharing />}
+        {page === 'dashboards' && <Dashboards />}
+        {page === 'health' && <HealthCheck />}
+        {page === 'cloud-sync' && <CloudSync />}
         {page === 'settings' && <Settings />}
       </div>
     </div>

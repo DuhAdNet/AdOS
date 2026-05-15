@@ -107,6 +107,33 @@ contextBridge.exposeInMainWorld('ados', {
       ipcRenderer.invoke('db:add-automation', id, name, description, schedule, sources),
     toggleAutomation: (id: string, enabled: boolean) => ipcRenderer.invoke('db:toggle-automation', id, enabled),
     deleteAutomation: (id: string) => ipcRenderer.invoke('db:delete-automation', id),
+    // Labels
+    getLabels: () => ipcRenderer.invoke('db:get-labels'),
+    addLabel: (id: string, name: string, color: string, parentId: string | null, autoPattern: string | null) =>
+      ipcRenderer.invoke('db:add-label', id, name, color, parentId, autoPattern),
+    updateLabel: (id: string, fields: any) => ipcRenderer.invoke('db:update-label', id, fields),
+    deleteLabel: (id: string) => ipcRenderer.invoke('db:delete-label', id),
+    getSessionLabels: (sessionId: string) => ipcRenderer.invoke('db:get-session-labels', sessionId),
+    setSessionLabels: (sessionId: string, labelIds: string[]) => ipcRenderer.invoke('db:set-session-labels', sessionId, labelIds),
+    // Preferences
+    getPreferences: () => ipcRenderer.invoke('db:get-preferences'),
+    setPreference: (key: string, value: string) => ipcRenderer.invoke('db:set-preference', key, value),
+    // Shortcuts
+    getShortcuts: () => ipcRenderer.invoke('db:get-shortcuts'),
+    setShortcut: (id: string, action: string, keys: string) => ipcRenderer.invoke('db:set-shortcut', id, action, keys),
+    // Shared Sessions
+    shareSession: (sessionId: string, publicId: string) => ipcRenderer.invoke('db:share-session', sessionId, publicId),
+    unshareSession: (sessionId: string) => ipcRenderer.invoke('db:unshare-session', sessionId),
+    getSharedSession: (sessionId: string) => ipcRenderer.invoke('db:get-shared-session', sessionId),
+    getSharedSessions: () => ipcRenderer.invoke('db:get-shared-sessions'),
+    // Telegram Pairings
+    getTelegramPairings: () => ipcRenderer.invoke('db:get-telegram-pairings'),
+    pairTelegram: (chatId: number, sessionId: string, direction: string) => ipcRenderer.invoke('db:pair-telegram', chatId, sessionId, direction),
+    unpairTelegram: (chatId: number, sessionId?: string) => ipcRenderer.invoke('db:unpair-telegram', chatId),
+    getDashboards: () => ipcRenderer.invoke('db:get-dashboards'),
+    createDashboard: (id: string, name: string, layout: string) => ipcRenderer.invoke('db:create-dashboard', id, name, layout),
+    updateDashboard: (id: string, layout: string) => ipcRenderer.invoke('db:update-dashboard', id, layout),
+    deleteDashboard: (id: string) => ipcRenderer.invoke('db:delete-dashboard', id),
   },
   browser: {
     open: (url: string) => ipcRenderer.invoke('browser:open', url),

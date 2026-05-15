@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import MessageBubble from '../components/MessageBubble';
 import ToolSteps from '../components/ToolSteps';
 import AutocompletePopup from '../components/AutocompletePopup';
+import VoiceInput from '../components/VoiceInput';
 
 interface Message {
   id: string;
@@ -327,6 +328,10 @@ export default function Chat({ sessionId, onUpdateTitle }: ChatProps) {
             placeholder="Digite sua mensagem... (/ para skills, @ para workflows)"
             rows={1}
             className="flex-1 bg-transparent text-sm text-primary placeholder-muted resize-none outline-none max-h-32 leading-relaxed"
+          />
+          <VoiceInput
+            onTranscript={(text) => setInput(prev => prev + text)}
+            disabled={loading}
           />
           <button
             onClick={sendMessage}

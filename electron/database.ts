@@ -120,6 +120,76 @@ export async function initDatabase() {
   `);
 
   db.run(`
+    CREATE TABLE IF NOT EXISTS labels (
+      id TEXT PRIMARY KEY,
+      name TEXT NOT NULL,
+      color TEXT NOT NULL DEFAULT '#6366f1',
+      parent_id TEXT,
+      sort_order INTEGER NOT NULL DEFAULT 0,
+      auto_pattern TEXT,
+      created_at TEXT NOT NULL DEFAULT (datetime('now'))
+    )
+  `);
+
+  db.run(`
+    CREATE TABLE IF NOT EXISTS session_labels (
+      session_id TEXT NOT NULL,
+      label_id TEXT NOT NULL,
+      PRIMARY KEY (session_id, label_id),
+      FOREIGN KEY (session_id) REFERENCES sessions(id),
+      FOREIGN KEY (label_id) REFERENCES labels(id)
+    )
+  `);
+
+  db.run(`
+    CREATE TABLE IF NOT EXISTS shortcuts (
+      id TEXT PRIMARY KEY,
+      action TEXT NOT NULL UNIQUE,
+      keys TEXT NOT NULL,
+      enabled INTEGER NOT NULL DEFAULT 1
+    )
+  `);
+
+  db.run(`
+    CREATE TABLE IF NOT EXISTS preferences (
+      key TEXT PRIMARY KEY,
+      value TEXT NOT NULL DEFAULT ''
+    )
+  `);
+
+  db.run(`
+    CREATE TABLE IF NOT EXISTS shared_sessions (
+      session_id TEXT PRIMARY KEY,
+      public_id TEXT NOT NULL UNIQUE,
+      published_at TEXT NOT NULL DEFAULT (datetime('now')),
+      updated_at TEXT NOT NULL DEFAULT (datetime('now')),
+      FOREIGN KEY (session_id) REFERENCES sessions(id)
+    )
+  `);
+
+  db.run(`
+    CREATE TABLE IF NOT EXISTS telegram_pairings (
+      chat_id INTEGER NOT NULL,
+      session_id TEXT NOT NULL,
+      chat_title TEXT NOT NULL DEFAULT '',
+      direction TEXT NOT NULL DEFAULT 'both',
+      paired_at TEXT NOT NULL DEFAULT (datetime('now')),
+      PRIMARY KEY (chat_id, session_id),
+      FOREIGN KEY (session_id) REFERENCES sessions(id)
+    )
+  `);
+
+  db.run(`
+    CREATE TABLE IF NOT EXISTS dashboards (
+      id TEXT PRIMARY KEY,
+      name TEXT NOT NULL,
+      layout TEXT NOT NULL DEFAULT '[]',
+      created_at TEXT NOT NULL DEFAULT (datetime('now')),
+      updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+    )
+  `);
+
+  db.run(`
     CREATE TABLE IF NOT EXISTS automations (
       id TEXT PRIMARY KEY,
       name TEXT NOT NULL,
@@ -395,6 +465,154 @@ export function registerDatabaseHandlers() {
 
   ipcMain.handle('db:set-setting', (_event, key: string, value: string) => {
     db.run('INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)', [key, value]);
+    saveDb();
+    return { success: true };
+  });
+
+  // Labels
+  ipcMain.handle('db:get-labels', () => {
+    const rows = db.exec('SELECT id, name, color, parent_id, sort_order, auto_pattern FROM labels ORDER BY sort_order');
+    if (!rows.length) return [];
+    return rows[0].values.map((r: any[]) => ({ id: r[0], name: r[1], color: r[2], parentId: r[3], sortOrder: r[4], autoPattern: r[5] }));
+  });
+
+  ipcMain.handle('db:add-label', (_event, id: string, name: string, color: string, parentId: string | null, autoPattern: string | null) => {
+    db.run('INSERT INTO labels (id, name, color, parent_id, auto_pattern) VALUES (?, ?, ?, ?, ?)', [id, name, color, parentId, autoPattern]);
+    saveDb();
+    return { success: true };
+  });
+
+  ipcMain.handle('db:update-label', (_event, id: string, fields: any) => {
+    const sets: string[] = [];
+    const vals: any[] = [];
+    if (fields.name !== undefined) { sets.push('name = ?'); vals.push(fields.name); }
+    if (fields.color !== undefined) { sets.push('color = ?'); vals.push(fields.color); }
+    if (fields.parentId !== undefined) { sets.push('parent_id = ?'); vals.push(fields.parentId); }
+    if (fields.autoPattern !== undefined) { sets.push('auto_pattern = ?'); vals.push(fields.autoPattern); }
+    if (fields.sortOrder !== undefined) { sets.push('sort_order = ?'); vals.push(fields.sortOrder); }
+    if (sets.length) {
+      vals.push(id);
+      db.run(`UPDATE labels SET ${sets.join(', ')} WHERE id = ?`, vals);
+      saveDb();
+    }
+    return { success: true };
+  });
+
+  ipcMain.handle('db:delete-label', (_event, id: string) => {
+    db.run('DELETE FROM session_labels WHERE label_id = ?', [id]);
+    db.run('DELETE FROM labels WHERE id = ?', [id]);
+    saveDb();
+    return { success: true };
+  });
+
+  ipcMain.handle('db:get-session-labels', (_event, sessionId: string) => {
+    const rows = db.exec('SELECT label_id FROM session_labels WHERE session_id = ?', [sessionId]);
+    if (!rows.length) return [];
+    return rows[0].values.map((r: any[]) => r[0]);
+  });
+
+  ipcMain.handle('db:set-session-labels', (_event, sessionId: string, labelIds: string[]) => {
+    db.run('DELETE FROM session_labels WHERE session_id = ?', [sessionId]);
+    for (const lid of labelIds) {
+      db.run('INSERT INTO session_labels (session_id, label_id) VALUES (?, ?)', [sessionId, lid]);
+    }
+    saveDb();
+    return { success: true };
+  });
+
+  // Preferences
+  ipcMain.handle('db:get-preferences', () => {
+    const rows = db.exec('SELECT key, value FROM preferences');
+    if (!rows.length) return {};
+    const prefs: Record<string, string> = {};
+    for (const r of rows[0].values) { prefs[r[0] as string] = r[1] as string; }
+    return prefs;
+  });
+
+  ipcMain.handle('db:set-preference', (_event, key: string, value: string) => {
+    db.run('INSERT OR REPLACE INTO preferences (key, value) VALUES (?, ?)', [key, value]);
+    saveDb();
+    return { success: true };
+  });
+
+  // Shortcuts
+  ipcMain.handle('db:get-shortcuts', () => {
+    const rows = db.exec('SELECT id, action, keys, enabled FROM shortcuts ORDER BY action');
+    if (!rows.length) return [];
+    return rows[0].values.map((r: any[]) => ({ id: r[0], action: r[1], keys: r[2], enabled: !!r[3] }));
+  });
+
+  ipcMain.handle('db:set-shortcut', (_event, id: string, action: string, keys: string) => {
+    db.run('INSERT OR REPLACE INTO shortcuts (id, action, keys) VALUES (?, ?, ?)', [id, action, keys]);
+    saveDb();
+    return { success: true };
+  });
+
+  // Shared Sessions (public sharing)
+  ipcMain.handle('db:share-session', (_event, sessionId: string, publicId: string) => {
+    db.run('INSERT OR REPLACE INTO shared_sessions (session_id, public_id, published_at, updated_at) VALUES (?, ?, datetime("now"), datetime("now"))', [sessionId, publicId]);
+    saveDb();
+    return { success: true, publicId };
+  });
+
+  ipcMain.handle('db:unshare-session', (_event, sessionId: string) => {
+    db.run('DELETE FROM shared_sessions WHERE session_id = ?', [sessionId]);
+    saveDb();
+    return { success: true };
+  });
+
+  ipcMain.handle('db:get-shared-session', (_event, sessionId: string) => {
+    const rows = db.exec('SELECT public_id, published_at, updated_at FROM shared_sessions WHERE session_id = ?', [sessionId]);
+    if (!rows.length || !rows[0].values.length) return null;
+    const r = rows[0].values[0];
+    return { publicId: r[0], publishedAt: r[1], updatedAt: r[2] };
+  });
+
+  ipcMain.handle('db:get-shared-sessions', () => {
+    const rows = db.exec('SELECT session_id, public_id, published_at, updated_at FROM shared_sessions ORDER BY updated_at DESC');
+    if (!rows.length) return [];
+    return rows[0].values.map((r: any[]) => ({ sessionId: r[0], publicId: r[1], publishedAt: r[2], updatedAt: r[3] }));
+  });
+
+  // Telegram Pairings
+  ipcMain.handle('db:get-telegram-pairings', () => {
+    const rows = db.exec('SELECT chat_id, session_id, direction, paired_at FROM telegram_pairings ORDER BY paired_at DESC');
+    if (!rows.length) return [];
+    return rows[0].values.map((r: any[]) => ({ chatId: r[0], sessionId: r[1], direction: r[2], createdAt: r[3] }));
+  });
+
+  ipcMain.handle('db:pair-telegram', (_event, chatId: number, sessionId: string, direction: string) => {
+    db.run('INSERT OR REPLACE INTO telegram_pairings (chat_id, session_id, direction) VALUES (?, ?, ?)', [chatId, sessionId, direction || 'both']);
+    saveDb();
+    return { success: true };
+  });
+
+  ipcMain.handle('db:unpair-telegram', (_event, chatId: number) => {
+    db.run('DELETE FROM telegram_pairings WHERE chat_id = ?', [chatId]);
+    saveDb();
+    return { success: true };
+  });
+
+  ipcMain.handle('db:get-dashboards', () => {
+    const rows = db.exec('SELECT id, name, layout, created_at, updated_at FROM dashboards ORDER BY created_at DESC');
+    if (!rows.length) return [];
+    return rows[0].values.map((r: any) => ({ id: r[0], name: r[1], layout: r[2], createdAt: r[3], updatedAt: r[4] }));
+  });
+
+  ipcMain.handle('db:create-dashboard', (_event, id: string, name: string, layout: string) => {
+    db.run('INSERT INTO dashboards (id, name, layout) VALUES (?, ?, ?)', [id, name, layout]);
+    saveDb();
+    return { success: true };
+  });
+
+  ipcMain.handle('db:update-dashboard', (_event, id: string, layout: string) => {
+    db.run("UPDATE dashboards SET layout = ?, updated_at = datetime('now') WHERE id = ?", [layout, id]);
+    saveDb();
+    return { success: true };
+  });
+
+  ipcMain.handle('db:delete-dashboard', (_event, id: string) => {
+    db.run('DELETE FROM dashboards WHERE id = ?', [id]);
     saveDb();
     return { success: true };
   });

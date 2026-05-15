@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-type SettingsTab = 'app' | 'appearance' | 'input' | 'workspace' | 'providers' | 'mcp' | 'model' | 'agents' | 'permissions' | 'preferences' | 'about';
+type SettingsTab = 'app' | 'appearance' | 'input' | 'workspace' | 'providers' | 'mcp' | 'model' | 'agents' | 'permissions' | 'preferences' | 'shortcuts' | 'about';
 
 const ados = (window as any).ados;
 
@@ -236,6 +236,7 @@ export default function Settings() {
     { id: 'agents', label: 'Agentes', section: 'SISTEMA' },
     { id: 'permissions', label: 'Permissões' },
     { id: 'preferences', label: 'Preferências' },
+    { id: 'shortcuts', label: 'Atalhos' },
     { id: 'about', label: 'Sobre' },
   ];
 
@@ -823,6 +824,10 @@ export default function Settings() {
           <PermissionsSection />
         )}
 
+        {activeTab === 'shortcuts' && (
+          <ShortcutsSection />
+        )}
+
         {activeTab === 'about' && (
           <div className="max-w-2xl">
             <h1 className="text-lg font-semibold text-primary mb-1">Sobre o AdOS</h1>
@@ -1006,6 +1011,36 @@ function AgentsSection() {
           </div>
         </div>
       )}
+    </div>
+  );
+}
+
+const SHORTCUTS_LIST = [
+  { action: 'new-session', label: 'Nova Sessão', keys: 'Ctrl+N' },
+  { action: 'search', label: 'Buscar', keys: 'Ctrl+K' },
+  { action: 'settings', label: 'Configurações', keys: 'Ctrl+,' },
+  { action: 'toggle-theme', label: 'Alternar Tema', keys: 'Ctrl+Shift+D' },
+  { action: 'send-message', label: 'Enviar Mensagem', keys: 'Enter' },
+  { action: 'new-line', label: 'Nova Linha', keys: 'Shift+Enter' },
+  { action: 'voice-input', label: 'Input por Voz', keys: 'Ctrl+Shift+V' },
+  { action: 'close-session', label: 'Fechar Sessão', keys: 'Ctrl+W' },
+  { action: 'next-session', label: 'Próxima Sessão', keys: 'Ctrl+Tab' },
+  { action: 'prev-session', label: 'Sessão Anterior', keys: 'Ctrl+Shift+Tab' },
+];
+
+function ShortcutsSection() {
+  return (
+    <div className="max-w-2xl">
+      <h1 className="text-lg font-semibold text-primary mb-1">Atalhos de Teclado</h1>
+      <p className="text-sm text-muted mb-6">Referência de shortcuts disponíveis.</p>
+      <div className="space-y-1">
+        {SHORTCUTS_LIST.map(s => (
+          <div key={s.action} className="flex items-center justify-between px-4 py-3 rounded-xl hover:bg-surface-1 transition-colors">
+            <span className="text-sm text-primary">{s.label}</span>
+            <kbd className="px-2.5 py-1 bg-surface-2 border border-default rounded-lg text-xs font-mono text-secondary">{s.keys}</kbd>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

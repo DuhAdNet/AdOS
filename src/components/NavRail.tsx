@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export type NavPage = 'sessions' | 'tools' | 'automations' | 'marketplace' | 'brain' | 'telegram' | 'settings';
+export type NavPage = 'sessions' | 'tools' | 'automations' | 'marketplace' | 'brain' | 'telegram' | 'labels' | 'sharing' | 'dashboards' | 'health' | 'cloud-sync' | 'settings';
 
 interface NavRailProps {
   active: NavPage;
@@ -14,6 +14,11 @@ const navItems: Array<{ id: NavPage; label: string; icon: string }> = [
   { id: 'marketplace', label: 'Marketplace', icon: 'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z' },
   { id: 'brain', label: 'Brain', icon: 'M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z' },
   { id: 'telegram', label: 'Telegram', icon: 'M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z' },
+  { id: 'labels', label: 'Labels', icon: 'M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82zM7 7h.01' },
+  { id: 'sharing', label: 'Compartilhar', icon: 'M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8M16 6l-4-4-4 4M12 2v13' },
+  { id: 'dashboards', label: 'Dashboards', icon: 'M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z' },
+  { id: 'health', label: 'Health Check', icon: 'M22 12h-4l-3 9L9 3l-3 9H2' },
+  { id: 'cloud-sync', label: 'Cloud Sync', icon: 'M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z' },
 ];
 
 export default function NavRail({ active, onNavigate }: NavRailProps) {
