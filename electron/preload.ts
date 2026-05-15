@@ -77,6 +77,14 @@ contextBridge.exposeInMainWorld('ados', {
       ipcRenderer.invoke('db:add-connection', id, name, type, config),
     updateConnection: (id: string, fields: any) => ipcRenderer.invoke('db:update-connection', id, fields),
     deleteConnection: (id: string) => ipcRenderer.invoke('db:delete-connection', id),
+    getSkills: () => ipcRenderer.invoke('db:get-skills'),
+    addSkill: (id: string, name: string, slug: string, description: string, instructions: string) =>
+      ipcRenderer.invoke('db:add-skill', id, name, slug, description, instructions),
+    deleteSkill: (id: string) => ipcRenderer.invoke('db:delete-skill', id),
+    getWorkflows: () => ipcRenderer.invoke('db:get-workflows'),
+    addWorkflow: (id: string, name: string, slug: string, description: string, instructions: string) =>
+      ipcRenderer.invoke('db:add-workflow', id, name, slug, description, instructions),
+    deleteWorkflow: (id: string) => ipcRenderer.invoke('db:delete-workflow', id),
   },
   browser: {
     open: (url: string) => ipcRenderer.invoke('browser:open', url),

@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import MessageBubble from '../components/MessageBubble';
 import ToolSteps from '../components/ToolSteps';
+import AutocompletePopup from '../components/AutocompletePopup';
 
 interface Message {
   id: string;
@@ -22,12 +23,29 @@ export default function Chat({ sessionId, onUpdateTitle }: ChatProps) {
   const [streamContent, setStreamContent] = useState('');
   const [toolSteps, setToolSteps] = useState<Array<{ name: string; timestamp: number }>>([]);
   const [toolStartTime, setToolStartTime] = useState(0);
+  const [autocomplete, setAutocomplete] = useState<{ trigger: '/' | '@'; query: string } | null>(null);
+  const [acItems, setAcItems] = useState<Array<{ slug: string; name: string; description: string; type: 'skill' | 'workflow' }>>([]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const isFirstMessage = useRef(true);
 
   useEffect(() => {
     loadMessages();
   }, [sessionId]);
+
+  useEffect(() => {
+    loadAcItems();
+  }, []);
+
+  const loadAcItems = async () => {
+    const [skills, workflows] = await Promise.all([
+      ados.db.getSkills(),
+      ados.db.getWorkflows(),
+    ]);
+    setAcItems([
+      ...skills.map((s: any) => ({ slug: s.slug, name: s.name, description: s.description, type: 'skill' as const })),
+      ...workflows.map((w: any) => ({ slug: w.slug, name: w.name, description: w.description, type: 'workflow' as const })),
+    ]);
+  };
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -126,7 +144,30 @@ export default function Chat({ sessionId, onUpdateTitle }: ChatProps) {
     }
   }, [input, loading, messages, sessionId, onUpdateTitle]);
 
+  const handleInputChange = (value: string) => {
+    setInput(value);
+    const match = value.match(/(?:^|\s)([/@])(\S*)$/);
+    if (match) {
+      const trigger = match[1] as '/' | '@';
+      const query = match[2];
+      setAutocomplete({ trigger, query });
+    } else {
+      setAutocomplete(null);
+    }
+  };
+
+  const handleAutocompleteSelect = (item: { slug: string; name: string; type: 'skill' | 'workflow' }) => {
+    const trigger = item.type === 'skill' ? '/' : '@';
+    const replaced = input.replace(/(?:^|\s)([/@])\S*$/, (m) => {
+      const prefix = m.startsWith(' ') ? ' ' : '';
+      return `${prefix}${trigger}${item.slug} `;
+    });
+    setInput(replaced);
+    setAutocomplete(null);
+  };
+
   const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (autocomplete) return;
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       sendMessage();
@@ -186,13 +227,22 @@ export default function Chat({ sessionId, onUpdateTitle }: ChatProps) {
         <div ref={messagesEndRef} />
       </div>
 
-      <div className="shrink-0 p-4 border-t border-default">
+      <div className="shrink-0 p-4 border-t border-default relative">
+        {autocomplete && (
+          <AutocompletePopup
+            trigger={autocomplete.trigger}
+            query={autocomplete.query}
+            items={acItems}
+            onSelect={handleAutocompleteSelect}
+            onClose={() => setAutocomplete(null)}
+          />
+        )}
         <div className="flex items-end gap-3 bg-surface-1 border border-default rounded-2xl px-4 py-3 shadow-card focus-within:shadow-card-hover focus-within:border-brand-500/50 transition-all">
           <textarea
             value={input}
-            onChange={(e) => setInput(e.target.value)}
+            onChange={(e) => handleInputChange(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Digite sua mensagem..."
+            placeholder="Digite sua mensagem... (/ para skills, @ para workflows)"
             rows={1}
             className="flex-1 bg-transparent text-sm text-primary placeholder-muted resize-none outline-none max-h-32 leading-relaxed"
           />

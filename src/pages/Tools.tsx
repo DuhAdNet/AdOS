@@ -12,44 +12,98 @@ interface Connection {
   updatedAt: string;
 }
 
+interface Skill {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  instructions: string;
+}
+
+interface Workflow {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  instructions: string;
+}
+
 const ados = (window as any).ados;
 
 export default function Tools() {
   const [tab, setTab] = useState<ToolsTab>('connections');
   const [connections, setConnections] = useState<Connection[]>([]);
+  const [skills, setSkills] = useState<Skill[]>([]);
+  const [workflows, setWorkflows] = useState<Workflow[]>([]);
   const [showAdd, setShowAdd] = useState(false);
-  const [form, setForm] = useState({ name: '', type: 'api_key', apiKey: '', baseUrl: '' });
+  const [connForm, setConnForm] = useState({ name: '', type: 'api_key', apiKey: '', baseUrl: '' });
+  const [skillForm, setSkillForm] = useState({ name: '', slug: '', description: '', instructions: '' });
+  const [workflowForm, setWorkflowForm] = useState({ name: '', slug: '', description: '', instructions: '' });
 
-  useEffect(() => { loadConnections(); }, []);
+  useEffect(() => { loadAll(); }, []);
 
-  const loadConnections = async () => {
-    const rows = await ados.db.getConnections();
-    setConnections(rows);
+  const loadAll = async () => {
+    const [conns, sk, wf] = await Promise.all([
+      ados.db.getConnections(),
+      ados.db.getSkills(),
+      ados.db.getWorkflows(),
+    ]);
+    setConnections(conns);
+    setSkills(sk);
+    setWorkflows(wf);
   };
 
-  const handleAdd = async () => {
+  const handleAddConnection = async () => {
     const id = crypto.randomUUID();
-    const config = JSON.stringify({ apiKey: form.apiKey, baseUrl: form.baseUrl });
-    await ados.db.addConnection(id, form.name, form.type, config);
-    setForm({ name: '', type: 'api_key', apiKey: '', baseUrl: '' });
+    const config = JSON.stringify({ apiKey: connForm.apiKey, baseUrl: connForm.baseUrl });
+    await ados.db.addConnection(id, connForm.name, connForm.type, config);
+    setConnForm({ name: '', type: 'api_key', apiKey: '', baseUrl: '' });
     setShowAdd(false);
-    loadConnections();
+    loadAll();
   };
 
-  const handleDelete = async (id: string) => {
+  const handleDeleteConnection = async (id: string) => {
     await ados.db.deleteConnection(id);
-    loadConnections();
+    loadAll();
   };
 
-  const handleTest = async (conn: Connection) => {
+  const handleTestConnection = async (conn: Connection) => {
     await ados.db.updateConnection(conn.id, { status: 'connected' });
-    loadConnections();
+    loadAll();
+  };
+
+  const handleAddSkill = async () => {
+    const id = crypto.randomUUID();
+    const slug = skillForm.slug || skillForm.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+    await ados.db.addSkill(id, skillForm.name, slug, skillForm.description, skillForm.instructions);
+    setSkillForm({ name: '', slug: '', description: '', instructions: '' });
+    setShowAdd(false);
+    loadAll();
+  };
+
+  const handleDeleteSkill = async (id: string) => {
+    await ados.db.deleteSkill(id);
+    loadAll();
+  };
+
+  const handleAddWorkflow = async () => {
+    const id = crypto.randomUUID();
+    const slug = workflowForm.slug || workflowForm.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+    await ados.db.addWorkflow(id, workflowForm.name, slug, workflowForm.description, workflowForm.instructions);
+    setWorkflowForm({ name: '', slug: '', description: '', instructions: '' });
+    setShowAdd(false);
+    loadAll();
+  };
+
+  const handleDeleteWorkflow = async (id: string) => {
+    await ados.db.deleteWorkflow(id);
+    loadAll();
   };
 
   const tabs: Array<{ id: ToolsTab; label: string; count: number }> = [
     { id: 'connections', label: 'Conexões', count: connections.length },
-    { id: 'skills', label: 'Skills', count: 0 },
-    { id: 'workflows', label: 'Workflows', count: 0 },
+    { id: 'skills', label: 'Skills', count: skills.length },
+    { id: 'workflows', label: 'Workflows', count: workflows.length },
     { id: 'dashboards', label: 'Dashboards', count: 0 },
   ];
 
@@ -64,22 +118,24 @@ export default function Tools() {
       <div className="shrink-0 px-8 pt-8 pb-4">
         <div className="flex items-center justify-between mb-1">
           <h1 className="text-2xl font-bold text-primary">Ferramentas</h1>
-          <button
-            onClick={() => setShowAdd(true)}
-            className="px-3 py-1.5 bg-brand-600 hover:bg-brand-700 rounded-lg text-xs text-white font-medium transition-colors"
-          >
-            + Adicionar
-          </button>
+          {tab !== 'dashboards' && (
+            <button
+              onClick={() => setShowAdd(true)}
+              className="px-3 py-1.5 bg-brand-600 hover:bg-brand-700 rounded-lg text-xs text-white font-medium transition-colors"
+            >
+              + Adicionar
+            </button>
+          )}
         </div>
         <p className="text-sm text-muted mb-4">
-          {connections.length} conexões, 0 skills, 0 workflows, 0 dashboards
+          {connections.length} conexões, {skills.length} skills, {workflows.length} workflows, 0 dashboards
         </p>
 
         <div className="flex gap-1 bg-surface-1 rounded-xl p-1 w-fit">
           {tabs.map(t => (
             <button
               key={t.id}
-              onClick={() => setTab(t.id)}
+              onClick={() => { setTab(t.id); setShowAdd(false); }}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                 tab === t.id ? 'bg-surface-3 text-primary' : 'text-muted hover:text-secondary'
               }`}
@@ -91,6 +147,7 @@ export default function Tools() {
       </div>
 
       <div className="flex-1 min-h-0 overflow-y-auto px-8 pb-8">
+        {/* CONNECTIONS TAB */}
         {tab === 'connections' && (
           <>
             {showAdd && (
@@ -100,13 +157,13 @@ export default function Tools() {
                   <div className="flex gap-3">
                     <input
                       placeholder="Nome (ex: Gmail, GitHub, Notion)"
-                      value={form.name}
-                      onChange={(e) => setForm({ ...form, name: e.target.value })}
+                      value={connForm.name}
+                      onChange={(e) => setConnForm({ ...connForm, name: e.target.value })}
                       className="flex-1 bg-surface-0 border border-default rounded-xl px-4 py-2.5 text-sm text-primary placeholder-muted outline-none focus:border-brand-500/50"
                     />
                     <select
-                      value={form.type}
-                      onChange={(e) => setForm({ ...form, type: e.target.value })}
+                      value={connForm.type}
+                      onChange={(e) => setConnForm({ ...connForm, type: e.target.value })}
                       className="bg-surface-0 border border-default rounded-xl px-4 py-2.5 text-sm text-primary outline-none"
                     >
                       <option value="api_key">API Key</option>
@@ -114,30 +171,28 @@ export default function Tools() {
                       <option value="mcp">MCP</option>
                     </select>
                   </div>
-                  {form.type === 'api_key' && (
+                  {connForm.type === 'api_key' && (
                     <input
                       type="password"
                       placeholder="API Key"
-                      value={form.apiKey}
-                      onChange={(e) => setForm({ ...form, apiKey: e.target.value })}
+                      value={connForm.apiKey}
+                      onChange={(e) => setConnForm({ ...connForm, apiKey: e.target.value })}
                       className="w-full bg-surface-0 border border-default rounded-xl px-4 py-2.5 text-sm text-primary placeholder-muted outline-none focus:border-brand-500/50"
                     />
                   )}
-                  {(form.type === 'mcp' || form.type === 'oauth') && (
+                  {(connForm.type === 'mcp' || connForm.type === 'oauth') && (
                     <input
-                      placeholder={form.type === 'mcp' ? 'URL do servidor MCP' : 'URL de autorização OAuth'}
-                      value={form.baseUrl}
-                      onChange={(e) => setForm({ ...form, baseUrl: e.target.value })}
+                      placeholder={connForm.type === 'mcp' ? 'URL do servidor MCP' : 'URL de autorização OAuth'}
+                      value={connForm.baseUrl}
+                      onChange={(e) => setConnForm({ ...connForm, baseUrl: e.target.value })}
                       className="w-full bg-surface-0 border border-default rounded-xl px-4 py-2.5 text-sm text-primary placeholder-muted outline-none focus:border-brand-500/50"
                     />
                   )}
                   <div className="flex justify-end gap-2">
-                    <button onClick={() => setShowAdd(false)} className="px-4 py-2 rounded-xl text-sm text-secondary hover:bg-surface-2">
-                      Cancelar
-                    </button>
+                    <button onClick={() => setShowAdd(false)} className="px-4 py-2 rounded-xl text-sm text-secondary hover:bg-surface-2">Cancelar</button>
                     <button
-                      onClick={handleAdd}
-                      disabled={!form.name}
+                      onClick={handleAddConnection}
+                      disabled={!connForm.name}
                       className="px-5 py-2 bg-brand-600 hover:bg-brand-700 disabled:bg-surface-3 disabled:text-muted rounded-xl text-sm font-medium text-white"
                     >
                       Adicionar
@@ -165,27 +220,15 @@ export default function Tools() {
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-sm font-medium text-primary">{conn.name}</span>
                     <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full ${
-                      conn.status === 'connected'
-                        ? 'bg-green-500/10 text-green-500'
-                        : 'bg-surface-3 text-muted'
+                      conn.status === 'connected' ? 'bg-green-500/10 text-green-500' : 'bg-surface-3 text-muted'
                     }`}>
                       {conn.status === 'connected' ? 'Conectado' : 'Desconectado'}
                     </span>
                   </div>
                   <p className="text-xs text-muted mb-3">{typeLabels[conn.type] || conn.type}</p>
                   <div className="flex gap-2">
-                    <button
-                      onClick={() => handleTest(conn)}
-                      className="px-3 py-1 rounded-lg text-xs bg-brand-600/10 text-brand-500 hover:bg-brand-600/20 transition-colors"
-                    >
-                      Testar
-                    </button>
-                    <button
-                      onClick={() => handleDelete(conn.id)}
-                      className="px-3 py-1 rounded-lg text-xs text-red-500 hover:bg-red-500/10 transition-colors"
-                    >
-                      Remover
-                    </button>
+                    <button onClick={() => handleTestConnection(conn)} className="px-3 py-1 rounded-lg text-xs bg-brand-600/10 text-brand-500 hover:bg-brand-600/20 transition-colors">Testar</button>
+                    <button onClick={() => handleDeleteConnection(conn.id)} className="px-3 py-1 rounded-lg text-xs text-red-500 hover:bg-red-500/10 transition-colors">Remover</button>
                   </div>
                 </div>
               ))}
@@ -193,24 +236,173 @@ export default function Tools() {
           </>
         )}
 
+        {/* SKILLS TAB */}
         {tab === 'skills' && (
-          <div className="flex flex-col items-center justify-center h-full text-center">
-            <p className="text-sm text-muted">Nenhuma skill cadastrada.</p>
-            <p className="text-xs text-muted mt-1">Skills serão acionadas com "/" no chat.</p>
-          </div>
+          <>
+            {showAdd && (
+              <div className="bg-surface-1 border border-brand-500/30 rounded-2xl p-6 mb-6 shadow-card">
+                <h3 className="text-sm font-medium text-primary mb-4">Nova Skill</h3>
+                <div className="space-y-3">
+                  <div className="flex gap-3">
+                    <input
+                      placeholder="Nome da skill"
+                      value={skillForm.name}
+                      onChange={(e) => setSkillForm({ ...skillForm, name: e.target.value })}
+                      className="flex-1 bg-surface-0 border border-default rounded-xl px-4 py-2.5 text-sm text-primary placeholder-muted outline-none focus:border-brand-500/50"
+                    />
+                    <input
+                      placeholder="Slug (auto)"
+                      value={skillForm.slug}
+                      onChange={(e) => setSkillForm({ ...skillForm, slug: e.target.value })}
+                      className="w-40 bg-surface-0 border border-default rounded-xl px-4 py-2.5 text-sm text-primary placeholder-muted outline-none focus:border-brand-500/50"
+                    />
+                  </div>
+                  <input
+                    placeholder="Descrição curta"
+                    value={skillForm.description}
+                    onChange={(e) => setSkillForm({ ...skillForm, description: e.target.value })}
+                    className="w-full bg-surface-0 border border-default rounded-xl px-4 py-2.5 text-sm text-primary placeholder-muted outline-none focus:border-brand-500/50"
+                  />
+                  <textarea
+                    placeholder="Instruções (prompt da skill)"
+                    value={skillForm.instructions}
+                    onChange={(e) => setSkillForm({ ...skillForm, instructions: e.target.value })}
+                    rows={4}
+                    className="w-full bg-surface-0 border border-default rounded-xl px-4 py-2.5 text-sm text-primary placeholder-muted outline-none focus:border-brand-500/50 resize-none"
+                  />
+                  <div className="flex justify-end gap-2">
+                    <button onClick={() => setShowAdd(false)} className="px-4 py-2 rounded-xl text-sm text-secondary hover:bg-surface-2">Cancelar</button>
+                    <button
+                      onClick={handleAddSkill}
+                      disabled={!skillForm.name}
+                      className="px-5 py-2 bg-brand-600 hover:bg-brand-700 disabled:bg-surface-3 disabled:text-muted rounded-xl text-sm font-medium text-white"
+                    >
+                      Criar Skill
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {skills.length === 0 && !showAdd && (
+              <div className="flex flex-col items-center justify-center h-full text-center">
+                <div className="w-12 h-12 rounded-2xl bg-surface-2 flex items-center justify-center mb-4">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-muted">
+                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </div>
+                <p className="text-sm font-medium text-secondary mb-1">Nenhuma skill cadastrada</p>
+                <p className="text-xs text-muted">Skills são acionadas com "/" no chat. Clique em "+ Adicionar" para criar.</p>
+              </div>
+            )}
+
+            <div className="grid grid-cols-2 gap-3">
+              {skills.map((skill) => (
+                <div key={skill.id} className="bg-surface-1 border border-default rounded-2xl p-5 shadow-card hover:shadow-card-hover transition-shadow">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-medium text-primary">{skill.name}</span>
+                    <span className="text-[10px] font-mono text-muted bg-surface-2 px-2 py-0.5 rounded-full">/{skill.slug}</span>
+                  </div>
+                  <p className="text-xs text-muted mb-3 line-clamp-2">{skill.description || 'Sem descrição'}</p>
+                  <div className="flex gap-2">
+                    <button onClick={() => handleDeleteSkill(skill.id)} className="px-3 py-1 rounded-lg text-xs text-red-500 hover:bg-red-500/10 transition-colors">Remover</button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
         )}
 
+        {/* WORKFLOWS TAB */}
         {tab === 'workflows' && (
-          <div className="flex flex-col items-center justify-center h-full text-center">
-            <p className="text-sm text-muted">Nenhum workflow cadastrado.</p>
-            <p className="text-xs text-muted mt-1">Workflows serão acionados com "@" no chat.</p>
-          </div>
+          <>
+            {showAdd && (
+              <div className="bg-surface-1 border border-brand-500/30 rounded-2xl p-6 mb-6 shadow-card">
+                <h3 className="text-sm font-medium text-primary mb-4">Novo Workflow</h3>
+                <div className="space-y-3">
+                  <div className="flex gap-3">
+                    <input
+                      placeholder="Nome do workflow"
+                      value={workflowForm.name}
+                      onChange={(e) => setWorkflowForm({ ...workflowForm, name: e.target.value })}
+                      className="flex-1 bg-surface-0 border border-default rounded-xl px-4 py-2.5 text-sm text-primary placeholder-muted outline-none focus:border-brand-500/50"
+                    />
+                    <input
+                      placeholder="Slug (auto)"
+                      value={workflowForm.slug}
+                      onChange={(e) => setWorkflowForm({ ...workflowForm, slug: e.target.value })}
+                      className="w-40 bg-surface-0 border border-default rounded-xl px-4 py-2.5 text-sm text-primary placeholder-muted outline-none focus:border-brand-500/50"
+                    />
+                  </div>
+                  <input
+                    placeholder="Descrição curta"
+                    value={workflowForm.description}
+                    onChange={(e) => setWorkflowForm({ ...workflowForm, description: e.target.value })}
+                    className="w-full bg-surface-0 border border-default rounded-xl px-4 py-2.5 text-sm text-primary placeholder-muted outline-none focus:border-brand-500/50"
+                  />
+                  <textarea
+                    placeholder="Instruções (prompt do workflow)"
+                    value={workflowForm.instructions}
+                    onChange={(e) => setWorkflowForm({ ...workflowForm, instructions: e.target.value })}
+                    rows={4}
+                    className="w-full bg-surface-0 border border-default rounded-xl px-4 py-2.5 text-sm text-primary placeholder-muted outline-none focus:border-brand-500/50 resize-none"
+                  />
+                  <div className="flex justify-end gap-2">
+                    <button onClick={() => setShowAdd(false)} className="px-4 py-2 rounded-xl text-sm text-secondary hover:bg-surface-2">Cancelar</button>
+                    <button
+                      onClick={handleAddWorkflow}
+                      disabled={!workflowForm.name}
+                      className="px-5 py-2 bg-brand-600 hover:bg-brand-700 disabled:bg-surface-3 disabled:text-muted rounded-xl text-sm font-medium text-white"
+                    >
+                      Criar Workflow
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {workflows.length === 0 && !showAdd && (
+              <div className="flex flex-col items-center justify-center h-full text-center">
+                <div className="w-12 h-12 rounded-2xl bg-surface-2 flex items-center justify-center mb-4">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-muted">
+                    <path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </div>
+                <p className="text-sm font-medium text-secondary mb-1">Nenhum workflow cadastrado</p>
+                <p className="text-xs text-muted">Workflows são acionados com "@" no chat. Clique em "+ Adicionar" para criar.</p>
+              </div>
+            )}
+
+            <div className="grid grid-cols-2 gap-3">
+              {workflows.map((wf) => (
+                <div key={wf.id} className="bg-surface-1 border border-default rounded-2xl p-5 shadow-card hover:shadow-card-hover transition-shadow">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-medium text-primary">{wf.name}</span>
+                    <span className="text-[10px] font-mono text-muted bg-surface-2 px-2 py-0.5 rounded-full">@{wf.slug}</span>
+                  </div>
+                  <p className="text-xs text-muted mb-3 line-clamp-2">{wf.description || 'Sem descrição'}</p>
+                  <div className="flex gap-2">
+                    <button onClick={() => handleDeleteWorkflow(wf.id)} className="px-3 py-1 rounded-lg text-xs text-red-500 hover:bg-red-500/10 transition-colors">Remover</button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
         )}
 
+        {/* DASHBOARDS TAB */}
         {tab === 'dashboards' && (
           <div className="flex flex-col items-center justify-center h-full text-center">
-            <p className="text-sm text-muted">Nenhum dashboard encontrado.</p>
-            <p className="text-xs text-muted mt-1">Peça à IA para criar um dashboard e ele aparecerá aqui.</p>
+            <div className="w-12 h-12 rounded-2xl bg-surface-2 flex items-center justify-center mb-4">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-muted">
+                <rect x="3" y="3" width="7" height="7" rx="1" strokeLinecap="round" strokeLinejoin="round" />
+                <rect x="14" y="3" width="7" height="4" rx="1" strokeLinecap="round" strokeLinejoin="round" />
+                <rect x="14" y="10" width="7" height="11" rx="1" strokeLinecap="round" strokeLinejoin="round" />
+                <rect x="3" y="13" width="7" height="8" rx="1" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </div>
+            <p className="text-sm font-medium text-secondary mb-1">Nenhum dashboard encontrado</p>
+            <p className="text-xs text-muted">Peça à IA para criar um dashboard e ele aparecerá aqui.</p>
           </div>
         )}
       </div>

@@ -60,6 +60,28 @@ export async function initDatabase() {
     )
   `);
 
+  db.run(`
+    CREATE TABLE IF NOT EXISTS skills (
+      id TEXT PRIMARY KEY,
+      name TEXT NOT NULL,
+      slug TEXT NOT NULL UNIQUE,
+      description TEXT NOT NULL DEFAULT '',
+      instructions TEXT NOT NULL DEFAULT '',
+      created_at TEXT NOT NULL DEFAULT (datetime('now'))
+    )
+  `);
+
+  db.run(`
+    CREATE TABLE IF NOT EXISTS workflows (
+      id TEXT PRIMARY KEY,
+      name TEXT NOT NULL,
+      slug TEXT NOT NULL UNIQUE,
+      description TEXT NOT NULL DEFAULT '',
+      instructions TEXT NOT NULL DEFAULT '',
+      created_at TEXT NOT NULL DEFAULT (datetime('now'))
+    )
+  `);
+
   saveDb();
 }
 
@@ -124,6 +146,42 @@ export function registerDatabaseHandlers() {
       content: r[2],
       createdAt: r[3],
     }));
+  });
+
+  ipcMain.handle('db:get-skills', () => {
+    const rows = db.exec('SELECT id, name, slug, description, instructions FROM skills ORDER BY name');
+    if (!rows.length) return [];
+    return rows[0].values.map((r: any[]) => ({ id: r[0], name: r[1], slug: r[2], description: r[3], instructions: r[4] }));
+  });
+
+  ipcMain.handle('db:add-skill', (_event, id: string, name: string, slug: string, description: string, instructions: string) => {
+    db.run('INSERT INTO skills (id, name, slug, description, instructions) VALUES (?, ?, ?, ?, ?)', [id, name, slug, description, instructions]);
+    saveDb();
+    return { success: true };
+  });
+
+  ipcMain.handle('db:delete-skill', (_event, id: string) => {
+    db.run('DELETE FROM skills WHERE id = ?', [id]);
+    saveDb();
+    return { success: true };
+  });
+
+  ipcMain.handle('db:get-workflows', () => {
+    const rows = db.exec('SELECT id, name, slug, description, instructions FROM workflows ORDER BY name');
+    if (!rows.length) return [];
+    return rows[0].values.map((r: any[]) => ({ id: r[0], name: r[1], slug: r[2], description: r[3], instructions: r[4] }));
+  });
+
+  ipcMain.handle('db:add-workflow', (_event, id: string, name: string, slug: string, description: string, instructions: string) => {
+    db.run('INSERT INTO workflows (id, name, slug, description, instructions) VALUES (?, ?, ?, ?, ?)', [id, name, slug, description, instructions]);
+    saveDb();
+    return { success: true };
+  });
+
+  ipcMain.handle('db:delete-workflow', (_event, id: string) => {
+    db.run('DELETE FROM workflows WHERE id = ?', [id]);
+    saveDb();
+    return { success: true };
   });
 
   ipcMain.handle('db:get-connections', () => {
