@@ -139,10 +139,10 @@ export default function SetupWizard({ onComplete }: SetupWizardProps) {
         {step === 'provider' && (
           <div className="space-y-6">
             <div className="text-center mb-8">
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center mx-auto mb-5 shadow-glow">
-                <span className="text-2xl font-bold text-white">A</span>
+              <div className="w-14 h-14 rounded-xl bg-surface-2 border border-default flex items-center justify-center mx-auto mb-5">
+                <span className="text-xl font-semibold text-secondary">A</span>
               </div>
-              <h1 className="text-2xl font-bold text-primary">Configurar AdOS</h1>
+              <h1 className="text-xl font-semibold text-primary">Configurar AdOS</h1>
               <p className="text-sm text-muted mt-2">Escolha seu provider de IA para começar</p>
             </div>
 
@@ -241,7 +241,11 @@ export default function SetupWizard({ onComplete }: SetupWizardProps) {
                     onClick={() => setShowKey(!showKey)}
                     className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-primary"
                   >
-                    {showKey ? '🙈' : '👁'}
+                    {showKey ? (
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                    ) : (
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                    )}
                   </button>
                 </div>
               </div>
@@ -334,7 +338,7 @@ export default function SetupWizard({ onComplete }: SetupWizardProps) {
             </div>
             <button
               onClick={onComplete}
-              className="px-8 py-3 bg-brand-600 hover:bg-brand-700 rounded-xl text-sm font-medium text-white transition-all shadow-glow"
+              className="px-8 py-3 bg-brand-600 hover:bg-brand-700 rounded-xl text-sm font-medium text-white transition-all shadow-card"
             >
               Começar a usar
             </button>

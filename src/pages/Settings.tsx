@@ -289,7 +289,7 @@ export default function Settings() {
                   className={`px-5 py-2.5 rounded-xl text-sm font-medium transition-all ${
                     pathSaved
                       ? 'bg-green-500/10 text-green-500 border border-green-500/20'
-                      : 'bg-brand-600 hover:bg-brand-700 text-white hover:shadow-glow disabled:bg-surface-3 disabled:text-muted'
+                      : 'bg-brand-600 hover:bg-brand-700 text-white hover:shadow-card disabled:bg-surface-3 disabled:text-muted'
                   }`}
                 >
                   {pathSaved ? '✓ Salvo' : 'Salvar'}
@@ -316,7 +316,7 @@ export default function Settings() {
                   className={`px-5 py-2.5 rounded-xl text-sm font-medium transition-all ${
                     promptSaved
                       ? 'bg-green-500/10 text-green-500 border border-green-500/20'
-                      : 'bg-brand-600 hover:bg-brand-700 text-white hover:shadow-glow'
+                      : 'bg-brand-600 hover:bg-brand-700 text-white hover:shadow-card'
                   }`}
                 >
                   {promptSaved ? '✓ Salvo' : 'Salvar'}
@@ -354,7 +354,7 @@ export default function Settings() {
                       placeholder={p.hasKey ? '••••••••••••••••' : (p.apiKeyPlaceholder || 'API Key')}
                       value={keyInputs[p.id] || ''}
                       onChange={(e) => setKeyInputs({ ...keyInputs, [p.id]: e.target.value })}
-                      className="flex-1 bg-surface-0 border border-default rounded-xl px-4 py-2.5 text-sm text-primary placeholder-muted outline-none focus:border-brand-500/50 focus:shadow-glow transition-all"
+                      className="flex-1 bg-surface-0 border border-default rounded-xl px-4 py-2.5 text-sm text-primary placeholder-muted outline-none focus:border-brand-500/50 focus:shadow-card transition-all"
                     />
                     <button
                       onClick={() => handleSaveKey(p.id)}
@@ -362,7 +362,7 @@ export default function Settings() {
                       className={`px-5 py-2.5 rounded-xl text-sm font-medium transition-all ${
                         keyStatus[p.id] === 'saved' ? 'bg-green-500/10 text-green-500 border border-green-500/20' :
                         keyStatus[p.id] === 'error' ? 'bg-red-500/10 text-red-500 border border-red-500/20' :
-                        'bg-brand-600 hover:bg-brand-700 text-white hover:shadow-glow disabled:bg-surface-3 disabled:text-muted'
+                        'bg-brand-600 hover:bg-brand-700 text-white hover:shadow-card disabled:bg-surface-3 disabled:text-muted'
                       }`}
                     >
                       {getKeyButtonLabel(p.id)}
@@ -385,7 +385,7 @@ export default function Settings() {
               </div>
               <button
                 onClick={() => setShowAddMcp(true)}
-                className="px-4 py-2.5 bg-brand-600 hover:bg-brand-700 rounded-xl text-sm font-medium text-white transition-all hover:shadow-glow flex items-center gap-2"
+                className="px-4 py-2.5 bg-brand-600 hover:bg-brand-700 rounded-xl text-sm font-medium text-white transition-all hover:shadow-card flex items-center gap-2"
               >
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                   <path d="M7 1v12M1 7h12"/>
@@ -450,7 +450,7 @@ export default function Settings() {
                     <button
                       onClick={handleAddMcpServer}
                       disabled={!mcpForm.name || (mcpForm.transport === 'stdio' ? !mcpForm.command : !mcpForm.url)}
-                      className="px-5 py-2 bg-brand-600 hover:bg-brand-700 disabled:bg-surface-3 disabled:text-muted rounded-xl text-sm font-medium text-white transition-all hover:shadow-glow"
+                      className="px-5 py-2 bg-brand-600 hover:bg-brand-700 disabled:bg-surface-3 disabled:text-muted rounded-xl text-sm font-medium text-white transition-all hover:shadow-card"
                     >
                       Adicionar
                     </button>
@@ -581,7 +581,7 @@ export default function Settings() {
                         themeMode === m ? 'bg-surface-3 text-primary' : 'text-muted hover:text-secondary'
                       }`}
                     >
-                      {m === 'system' ? '💻 Sistema' : m === 'light' ? '☀️ Claro' : '🌙 Escuro'}
+                      {m === 'system' ? 'Sistema' : m === 'light' ? 'Claro' : 'Escuro'}
                     </button>
                   ))}
                 </div>
@@ -789,8 +789,8 @@ export default function Settings() {
 
             <div className="bg-surface-1 border border-default rounded-2xl p-6 shadow-card">
               <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center shadow-glow">
-                  <span className="text-xl font-bold text-white">A</span>
+                <div className="w-12 h-12 rounded-2xl bg-surface-2 border border-default flex items-center justify-center">
+                  <span className="text-xl font-semibold text-secondary">A</span>
                 </div>
                 <div>
                   <h3 className="text-base font-semibold text-primary">AdOS</h3>

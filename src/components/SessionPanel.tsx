@@ -47,7 +47,7 @@ export default function SessionPanel({ sessions, activeSession, onSelectSession,
       <div className="p-3">
         <button
           onClick={onNewSession}
-          className="w-full py-2.5 px-4 bg-brand-600 hover:bg-brand-700 rounded-xl text-sm font-medium text-white transition-all hover:shadow-glow flex items-center justify-center gap-2"
+          className="w-full py-2.5 px-4 bg-brand-600 hover:bg-brand-700 rounded-xl text-sm font-medium text-white transition-colors flex items-center justify-center gap-2"
         >
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
             <path d="M7 1v12M1 7h12" />
@@ -109,7 +109,11 @@ export default function SessionPanel({ sessions, activeSession, onSelectSession,
               <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
             </svg>
             <span className="truncate flex-1">{session.title}</span>
-            {session.favorite && <span className="text-[10px]">⭐</span>}
+            {session.favorite && (
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" className="text-brand-400 shrink-0">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+              </svg>
+            )}
           </button>
         ))}
       </div>

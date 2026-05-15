@@ -30,7 +30,7 @@ export default function Sidebar({ sessions, activeSession, onSelectSession, onNe
       <div className="p-3">
         <button
           onClick={onNewSession}
-          className="w-full py-2.5 px-4 bg-brand-600 hover:bg-brand-700 rounded-xl text-sm font-medium text-white transition-all hover:shadow-glow flex items-center justify-center gap-2"
+          className="w-full py-2.5 px-4 bg-brand-600 hover:bg-brand-700 rounded-xl text-sm font-medium text-white transition-all hover:shadow-card flex items-center justify-center gap-2"
         >
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
             <path d="M7 1v12M1 7h12"/>

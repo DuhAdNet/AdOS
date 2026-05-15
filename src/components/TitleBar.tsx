@@ -10,10 +10,10 @@ export default function TitleBar({ theme, onToggleTheme }: TitleBarProps) {
       style={{ WebkitAppRegion: 'drag' } as React.CSSProperties}
     >
       <div className="flex items-center gap-2.5">
-        <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center">
-          <span className="text-[10px] font-bold text-white">A</span>
+        <div className="w-6 h-6 rounded-md bg-surface-2 border border-default flex items-center justify-center">
+          <span className="text-[10px] font-semibold text-secondary">A</span>
         </div>
-        <span className="text-xs font-semibold text-secondary tracking-wide">AdOS</span>
+        <span className="text-xs font-medium text-secondary tracking-wide">AdOS</span>
       </div>
 
       <div className="flex items-center gap-1" style={{ WebkitAppRegion: 'no-drag' } as React.CSSProperties}>

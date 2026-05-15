@@ -255,12 +255,14 @@ export default function Chat({ sessionId, onUpdateTitle }: ChatProps) {
         {messages.length === 0 && !loading && (
           <div className="flex-1 flex items-center justify-center h-full">
             <div className="text-center">
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center mx-auto mb-5 shadow-glow">
-                <span className="text-2xl font-bold text-white">A</span>
+              <div className="w-12 h-12 rounded-xl bg-surface-2 border border-default flex items-center justify-center mx-auto mb-4">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" className="text-muted">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                </svg>
               </div>
-              <h2 className="text-xl font-semibold text-primary mb-2">Olá! Como posso ajudar?</h2>
-              <p className="text-sm text-muted max-w-sm">
-                Pergunte qualquer coisa, peça para navegar na web, automatizar tarefas ou analisar dados.
+              <h2 className="text-base font-medium text-primary mb-1">Nova conversa</h2>
+              <p className="text-xs text-muted max-w-xs">
+                Use / para skills, @ para workflows, ou digite livremente.
               </p>
             </div>
           </div>
@@ -329,7 +331,7 @@ export default function Chat({ sessionId, onUpdateTitle }: ChatProps) {
           <button
             onClick={sendMessage}
             disabled={!input.trim() || loading}
-            className="p-2 bg-brand-600 hover:bg-brand-700 disabled:bg-surface-3 disabled:text-muted rounded-xl text-white transition-all hover:shadow-glow disabled:shadow-none"
+            className="p-2 bg-brand-600 hover:bg-brand-700 disabled:bg-surface-3 disabled:text-muted rounded-xl text-white transition-all hover:shadow-card disabled:shadow-none"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
