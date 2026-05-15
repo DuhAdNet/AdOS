@@ -58,6 +58,10 @@ export default function Settings() {
   const [pathSaved, setPathSaved] = useState(false);
   const [systemPrompt, setSystemPrompt] = useState('');
   const [promptSaved, setPromptSaved] = useState(false);
+  const [workspaceName, setWorkspaceName] = useState('AdOS');
+  const [editingWorkspaceName, setEditingWorkspaceName] = useState(false);
+  const [permissionMode, setPermissionMode] = useState('execute');
+  const [mcpLocalEnabled, setMcpLocalEnabled] = useState(true);
 
   useEffect(() => {
     loadProviders();
@@ -68,7 +72,17 @@ export default function Settings() {
     loadAppearanceSettings();
     loadInputSettings();
     loadPreferences();
+    loadWorkspaceSettings();
   }, []);
+
+  const loadWorkspaceSettings = async () => {
+    const savedName = await ados.db.getSetting('workspace_name');
+    if (savedName) setWorkspaceName(savedName);
+    const savedMode = await ados.db.getSetting('permission_mode');
+    if (savedMode) setPermissionMode(savedMode);
+    const savedMcp = await ados.db.getSetting('mcp_local_enabled');
+    if (savedMcp !== null) setMcpLocalEnabled(savedMcp !== 'false');
+  };
 
   const loadAppearanceSettings = async () => {
     const savedTheme = await ados.db.getSetting('theme_mode');
@@ -663,31 +677,55 @@ export default function Settings() {
 
         {activeTab === 'workspace' && (
           <div className="max-w-2xl">
-            <h1 className="text-lg font-semibold text-primary mb-1">Configurações do Workspace</h1>
-            <p className="text-sm text-muted mb-6">Nome, ícone, permissões e fontes padrão.</p>
+            <h1 className="text-lg font-semibold text-primary mb-1">Workspace</h1>
+            <p className="text-sm text-muted mb-6">Nome, permissoes e configuracoes avancadas.</p>
 
             <div className="bg-surface-1 border border-default rounded-2xl p-5 shadow-card mb-4">
-              <h3 className="text-sm font-medium text-primary mb-4">Informações do Workspace</h3>
+              <h3 className="text-sm font-medium text-primary mb-4">Informacoes</h3>
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-secondary">Nome</span>
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm text-primary font-medium">AdOS</span>
-                    <button className="text-xs text-brand-500">Editar</button>
-                  </div>
+                  {editingWorkspaceName ? (
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="text"
+                        value={workspaceName}
+                        onChange={(e) => setWorkspaceName(e.target.value)}
+                        className="bg-surface-0 border border-default rounded-lg px-2.5 py-1 text-sm text-primary outline-none w-40"
+                        autoFocus
+                      />
+                      <button
+                        onClick={async () => { await ados.db.setSetting('workspace_name', workspaceName); setEditingWorkspaceName(false); }}
+                        className="text-xs text-brand-500 font-medium"
+                      >Salvar</button>
+                      <button
+                        onClick={() => setEditingWorkspaceName(false)}
+                        className="text-xs text-muted"
+                      >Cancelar</button>
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm text-primary font-medium">{workspaceName}</span>
+                      <button onClick={() => setEditingWorkspaceName(true)} className="text-xs text-brand-500">Editar</button>
+                    </div>
+                  )}
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-secondary">Diretório de trabalho</span>
-                  <span className="text-xs text-muted font-mono">~/Documents/AdOS</span>
+                  <span className="text-sm text-secondary">Diretorio de trabalho</span>
+                  <span className="text-xs text-muted font-mono">{documentsPath || '~/Documents/AdOS'}</span>
                 </div>
               </div>
             </div>
 
             <div className="bg-surface-1 border border-default rounded-2xl p-5 shadow-card mb-4">
-              <h3 className="text-sm font-medium text-primary mb-4">Permissões</h3>
+              <h3 className="text-sm font-medium text-primary mb-4">Permissoes</h3>
               <div className="flex items-center justify-between">
-                <span className="text-sm text-secondary">Modo padrão</span>
-                <select className="bg-surface-2 border border-default rounded-lg px-3 py-1.5 text-xs text-primary outline-none">
+                <span className="text-sm text-secondary">Modo padrao</span>
+                <select
+                  value={permissionMode}
+                  onChange={async (e) => { const v = e.target.value; setPermissionMode(v); await ados.db.setSetting('permission_mode', v); }}
+                  className="bg-surface-2 border border-default rounded-lg px-3 py-1.5 text-xs text-primary outline-none"
+                >
                   <option value="execute">Executar</option>
                   <option value="ask">Perguntar antes de editar</option>
                   <option value="explore">Explorar</option>
@@ -696,16 +734,19 @@ export default function Settings() {
             </div>
 
             <div className="bg-surface-1 border border-default rounded-2xl p-5 shadow-card">
-              <h3 className="text-sm font-medium text-primary mb-4">Avançado</h3>
+              <h3 className="text-sm font-medium text-primary mb-4">Avancado</h3>
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-secondary">Servidores MCP Locais</p>
                     <p className="text-xs text-muted">Habilitar servidores de subprocesso stdio.</p>
                   </div>
-                  <div className="w-10 h-5 rounded-full bg-brand-600">
-                    <div className="w-4 h-4 rounded-full bg-white translate-x-5" />
-                  </div>
+                  <button
+                    onClick={async () => { const v = !mcpLocalEnabled; setMcpLocalEnabled(v); await ados.db.setSetting('mcp_local_enabled', String(v)); }}
+                    className={`w-10 h-5 rounded-full transition-colors ${mcpLocalEnabled ? 'bg-brand-600' : 'bg-surface-3'}`}
+                  >
+                    <div className={`w-4 h-4 rounded-full bg-white transition-transform ${mcpLocalEnabled ? 'translate-x-5' : 'translate-x-0.5'}`} />
+                  </button>
                 </div>
               </div>
             </div>
