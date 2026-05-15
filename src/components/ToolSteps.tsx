@@ -11,6 +11,25 @@ interface ToolStepsProps {
   startTime: number;
 }
 
+const toolIcons: Record<string, string> = {
+  read: '📄', file: '📄', write: '✏️', edit: '✏️',
+  bash: '💻', shell: '💻', exec: '💻',
+  search: '🔍', grep: '🔍', find: '🔍',
+  web: '🌐', fetch: '🌐', browse: '🌐', navigate: '🌐',
+  gmail: '📧', email: '📧', mail: '📧',
+  slack: '💬', message: '💬',
+  github: '🐙', git: '🐙',
+  drive: '📁', folder: '📁',
+};
+
+function getToolIcon(name: string): string {
+  const lower = name.toLowerCase();
+  for (const [key, icon] of Object.entries(toolIcons)) {
+    if (lower.includes(key)) return icon;
+  }
+  return '⚙️';
+}
+
 export default function ToolSteps({ steps, isRunning, startTime }: ToolStepsProps) {
   const [elapsed, setElapsed] = useState(0);
   const [expanded, setExpanded] = useState(false);
@@ -50,21 +69,14 @@ export default function ToolSteps({ steps, isRunning, startTime }: ToolStepsProp
           {isRunning ? `Executando... ${steps.length} etapas` : `${steps.length} etapas concluídas`}
         </span>
         <div className="flex gap-0.5 mx-1">
-          {steps.slice(-8).map((_, i) => (
-            <span key={i} className="w-1 h-1 rounded-full bg-green-500" />
+          {steps.slice(-8).map((step, i) => (
+            <span key={i} className="text-[8px]">{getToolIcon(step.name)}</span>
           ))}
           {isRunning && <span className="w-1 h-1 rounded-full bg-brand-500 animate-pulse" />}
         </div>
         <span className="text-[10px] text-muted ml-auto">{formatTime(elapsed)}</span>
         <svg
-          width="12"
-          height="12"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
+          width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
           className={`text-muted transition-transform ${expanded ? 'rotate-180' : ''}`}
         >
           <polyline points="6 9 12 15 18 9"/>
@@ -75,12 +87,11 @@ export default function ToolSteps({ steps, isRunning, startTime }: ToolStepsProp
         <div className="space-y-0.5 pl-6 mt-1 max-h-40 overflow-y-auto">
           {steps.map((step, i) => (
             <div key={i} className="flex items-center gap-2 text-[11px] py-0.5">
-              <span className="w-3 h-3 rounded-full bg-green-500/20 flex items-center justify-center shrink-0">
-                <svg width="7" height="7" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="20 6 9 17 4 12"/>
-                </svg>
+              <span className="text-[10px]">{getToolIcon(step.name)}</span>
+              <span className="text-muted font-medium">{formatToolName(step.name)}</span>
+              <span className="text-muted/50 ml-auto text-[9px]">
+                {i > 0 ? `+${Math.round((step.timestamp - steps[i-1].timestamp) / 1000)}s` : '0s'}
               </span>
-              <span className="text-muted">{formatToolName(step.name)}</span>
             </div>
           ))}
         </div>

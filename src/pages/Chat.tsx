@@ -25,6 +25,8 @@ export default function Chat({ sessionId, onUpdateTitle }: ChatProps) {
   const [toolStartTime, setToolStartTime] = useState(0);
   const [autocomplete, setAutocomplete] = useState<{ trigger: '/' | '@'; query: string } | null>(null);
   const [acItems, setAcItems] = useState<Array<{ slug: string; name: string; description: string; type: 'skill' | 'workflow' }>>([]);
+  const [models, setModels] = useState<Array<{ id: string; name: string }>>([]);
+  const [selectedModel, setSelectedModel] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const isFirstMessage = useRef(true);
 
@@ -34,7 +36,20 @@ export default function Chat({ sessionId, onUpdateTitle }: ChatProps) {
 
   useEffect(() => {
     loadAcItems();
+    loadModels();
   }, []);
+
+  const loadModels = async () => {
+    const modelsList = await ados.providers.listModels();
+    setModels(modelsList || []);
+    const defaultModel = await ados.providers.getDefaultModel();
+    setSelectedModel(defaultModel || '');
+  };
+
+  const handleModelChange = async (modelId: string) => {
+    setSelectedModel(modelId);
+    await ados.providers.setDefaultModel(modelId);
+  };
 
   const loadAcItems = async () => {
     const [skills, workflows] = await Promise.all([
@@ -176,6 +191,25 @@ export default function Chat({ sessionId, onUpdateTitle }: ChatProps) {
 
   return (
     <div className="flex-1 flex flex-col overflow-hidden bg-surface-0" data-session={sessionId}>
+      {models.length > 0 && (
+        <div className="shrink-0 px-6 py-2 border-b border-default flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <select
+              value={selectedModel}
+              onChange={(e) => handleModelChange(e.target.value)}
+              className="bg-surface-1 border border-default rounded-lg px-3 py-1.5 text-xs text-primary outline-none"
+            >
+              {models.map((m) => (
+                <option key={m.id} value={m.id}>{m.name || m.id}</option>
+              ))}
+            </select>
+            <span className="text-[10px] text-muted">Modelo ativo</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-[10px] text-muted">{messages.length} msgs</span>
+          </div>
+        </div>
+      )}
       <div className="flex-1 min-h-0 overflow-y-auto px-6 py-6">
         {messages.length === 0 && !loading && (
           <div className="flex-1 flex items-center justify-center h-full">
