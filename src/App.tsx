@@ -15,6 +15,8 @@ import BrowserPill from './components/BrowserPill';
 interface Session {
   id: string;
   title: string;
+  favorite: boolean;
+  archived: boolean;
   createdAt: string;
   updatedAt: string;
 }
@@ -59,7 +61,7 @@ export default function App() {
     if (rows.length === 0) {
       const id = crypto.randomUUID();
       await ados.db.createSession(id, 'Nova Sessão');
-      setSessions([{ id, title: 'Nova Sessão', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() }]);
+      setSessions([{ id, title: 'Nova Sessão', favorite: false, archived: false, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() }]);
       setActiveSession(id);
     } else {
       setSessions(rows);

@@ -140,7 +140,8 @@ export default function Marketplace() {
   };
 
   const filtered = catalog.filter(item => {
-    if (item.type !== tab) return false;
+    const tabType = tab === 'skills' ? 'skill' : 'workflow';
+    if (item.type !== tabType) return false;
     if (activeCategory && item.category !== activeCategory) return false;
     if (search && !item.name.toLowerCase().includes(search.toLowerCase()) && !item.description.toLowerCase().includes(search.toLowerCase())) return false;
     return true;
