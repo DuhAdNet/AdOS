@@ -82,6 +82,19 @@ export async function initDatabase() {
     )
   `);
 
+  db.run(`
+    CREATE TABLE IF NOT EXISTS automations (
+      id TEXT PRIMARY KEY,
+      name TEXT NOT NULL,
+      description TEXT NOT NULL DEFAULT '',
+      schedule TEXT NOT NULL DEFAULT '',
+      sources TEXT NOT NULL DEFAULT '[]',
+      enabled INTEGER NOT NULL DEFAULT 0,
+      last_run TEXT,
+      created_at TEXT NOT NULL DEFAULT (datetime('now'))
+    )
+  `);
+
   saveDb();
 }
 
@@ -214,6 +227,33 @@ export function registerDatabaseHandlers() {
 
   ipcMain.handle('db:delete-connection', (_event, id: string) => {
     db.run('DELETE FROM connections WHERE id = ?', [id]);
+    saveDb();
+    return { success: true };
+  });
+
+  ipcMain.handle('db:get-automations', () => {
+    const rows = db.exec('SELECT id, name, description, schedule, sources, enabled, last_run, created_at FROM automations ORDER BY created_at DESC');
+    if (!rows.length) return [];
+    return rows[0].values.map((r: any[]) => ({
+      id: r[0], name: r[1], description: r[2], schedule: r[3],
+      sources: JSON.parse(r[4] || '[]'), enabled: !!r[5], lastRun: r[6], createdAt: r[7],
+    }));
+  });
+
+  ipcMain.handle('db:add-automation', (_event, id: string, name: string, description: string, schedule: string, sources: string) => {
+    db.run('INSERT INTO automations (id, name, description, schedule, sources) VALUES (?, ?, ?, ?, ?)', [id, name, description, schedule, sources]);
+    saveDb();
+    return { success: true };
+  });
+
+  ipcMain.handle('db:toggle-automation', (_event, id: string, enabled: boolean) => {
+    db.run('UPDATE automations SET enabled = ? WHERE id = ?', [enabled ? 1 : 0, id]);
+    saveDb();
+    return { success: true };
+  });
+
+  ipcMain.handle('db:delete-automation', (_event, id: string) => {
+    db.run('DELETE FROM automations WHERE id = ?', [id]);
     saveDb();
     return { success: true };
   });

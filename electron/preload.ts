@@ -85,6 +85,11 @@ contextBridge.exposeInMainWorld('ados', {
     addWorkflow: (id: string, name: string, slug: string, description: string, instructions: string) =>
       ipcRenderer.invoke('db:add-workflow', id, name, slug, description, instructions),
     deleteWorkflow: (id: string) => ipcRenderer.invoke('db:delete-workflow', id),
+    getAutomations: () => ipcRenderer.invoke('db:get-automations'),
+    addAutomation: (id: string, name: string, description: string, schedule: string, sources: string) =>
+      ipcRenderer.invoke('db:add-automation', id, name, description, schedule, sources),
+    toggleAutomation: (id: string, enabled: boolean) => ipcRenderer.invoke('db:toggle-automation', id, enabled),
+    deleteAutomation: (id: string) => ipcRenderer.invoke('db:delete-automation', id),
   },
   browser: {
     open: (url: string) => ipcRenderer.invoke('browser:open', url),
