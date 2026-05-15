@@ -92,11 +92,6 @@ contextBridge.exposeInMainWorld('ados', {
       ipcRenderer.invoke('db:add-permission', id, pattern, type, access, comment),
     updatePermission: (id: string, access: string) => ipcRenderer.invoke('db:update-permission', id, access),
     deletePermission: (id: string) => ipcRenderer.invoke('db:delete-permission', id),
-    getDashboards: () => ipcRenderer.invoke('db:get-dashboards'),
-    addDashboard: (id: string, name: string, slug: string, html: string) =>
-      ipcRenderer.invoke('db:add-dashboard', id, name, slug, html),
-    updateDashboard: (id: string, html: string) => ipcRenderer.invoke('db:update-dashboard', id, html),
-    deleteDashboard: (id: string) => ipcRenderer.invoke('db:delete-dashboard', id),
     getMemories: () => ipcRenderer.invoke('db:get-memories'),
     addMemory: (id: string, content: string, category: string) =>
       ipcRenderer.invoke('db:add-memory', id, content, category),

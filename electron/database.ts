@@ -109,17 +109,6 @@ export async function initDatabase() {
   `);
 
   db.run(`
-    CREATE TABLE IF NOT EXISTS dashboards (
-      id TEXT PRIMARY KEY,
-      name TEXT NOT NULL,
-      slug TEXT NOT NULL UNIQUE,
-      html TEXT NOT NULL DEFAULT '',
-      created_at TEXT NOT NULL DEFAULT (datetime('now')),
-      updated_at TEXT NOT NULL DEFAULT (datetime('now'))
-    )
-  `);
-
-  db.run(`
     CREATE TABLE IF NOT EXISTS labels (
       id TEXT PRIMARY KEY,
       name TEXT NOT NULL,
@@ -378,30 +367,6 @@ export function registerDatabaseHandlers() {
 
   ipcMain.handle('db:delete-permission', (_event, id: string) => {
     db.run('DELETE FROM permissions WHERE id = ?', [id]);
-    saveDb();
-    return { success: true };
-  });
-
-  ipcMain.handle('db:get-dashboards', () => {
-    const rows = db.exec('SELECT id, name, slug, html, created_at, updated_at FROM dashboards ORDER BY updated_at DESC');
-    if (!rows.length) return [];
-    return rows[0].values.map((r: any[]) => ({ id: r[0], name: r[1], slug: r[2], html: r[3], createdAt: r[4], updatedAt: r[5] }));
-  });
-
-  ipcMain.handle('db:add-dashboard', (_event, id: string, name: string, slug: string, html: string) => {
-    db.run('INSERT INTO dashboards (id, name, slug, html) VALUES (?, ?, ?, ?)', [id, name, slug, html]);
-    saveDb();
-    return { success: true };
-  });
-
-  ipcMain.handle('db:update-dashboard', (_event, id: string, html: string) => {
-    db.run('UPDATE dashboards SET html = ?, updated_at = datetime("now") WHERE id = ?', [html, id]);
-    saveDb();
-    return { success: true };
-  });
-
-  ipcMain.handle('db:delete-dashboard', (_event, id: string) => {
-    db.run('DELETE FROM dashboards WHERE id = ?', [id]);
     saveDb();
     return { success: true };
   });
