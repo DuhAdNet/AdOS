@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>AdOS — Brand Guidelines</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: #09090b;
+  color: #e4e4e7;
+  line-height: 1.6;
+}
+
+.page {
+  width: 210mm;
+  min-height: 297mm;
+  margin: 0 auto;
+  padding: 60px;
+  page-break-after: always;
+  position: relative;
+}
+
+@media print {
+  body { background: #09090b; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .page { margin: 0; padding: 40px 50px; }
+}
+
+/* Cover */
+.cover {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 297mm;
+}
+
+.cover h1 {
+  font-size: 48px;
+  font-weight: 200;
+  letter-spacing: 12px;
+  color: #ffffff;
+  margin-top: 48px;
+  margin-bottom: 12px;
+}
+
+.cover .subtitle {
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+}
+
+.cover .version {
+  position: absolute;
+  bottom: 60px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.2);
+  letter-spacing: 2px;
+}
+
+/* Section headers */
+h2 {
+  font-size: 24px;
+  font-weight: 300;
+  margin-bottom: 8px;
+  color: #ffffff;
+  letter-spacing: 1px;
+}
+
+h3 {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 16px;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.section-num {
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 8px;
+}
+
+p {
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 16px;
+  max-width: 540px;
+  font-weight: 300;
+}
+
+.divider {
+  width: 40px;
+  height: 1px;
+  background: rgba(255,255,255,0.15);
+  margin: 24px 0;
+}
+
+/* Color Palette */
+.palette-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.color-card {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.color-swatch {
+  height: 80px;
+  width: 100%;
+}
+
+.color-info {
+  padding: 14px;
+  background: rgba(255,255,255,0.02);
+}
+
+.color-name {
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 4px;
+  color: #fff;
+}
+
+.color-hex {
+  font-size: 11px;
+  font-family: 'SF Mono', 'JetBrains Mono', monospace;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 2px;
+}
+
+.color-use {
+  font-size: 10px;
+  color: rgba(255,255,255,0.25);
+  margin-top: 4px;
+}
+
+/* Logo Section */
+.logo-display {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+  margin: 24px 0;
+  padding: 40px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.logo-display.on-dark {
+  background: #09090b;
+}
+
+.logo-display.on-mid {
+  background: #18181b;
+}
+
+.logo-display img, .logo-display svg {
+  height: 100px;
+  width: auto;
+}
+
+/* Typography */
+.type-sample {
+  margin: 16px 0;
+  padding: 20px;
+  background: rgba(255,255,255,0.02);
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.04);
+}
+
+.type-sample h4 {
+  font-size: 10px;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  font-weight: 400;
+}
+
+/* Rules */
+.rules-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.rule-card {
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.rule-card.do { border-color: rgba(34, 197, 94, 0.2); }
+.rule-card.dont { border-color: rgba(239, 68, 68, 0.15); }
+
+.rule-card h4 {
+  font-size: 11px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+
+.rule-card.do h4 { color: #4ade80; }
+.rule-card.dont h4 { color: #f87171; }
+
+.rule-card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.rule-card li {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  padding: 3px 0 3px 14px;
+  position: relative;
+  font-weight: 300;
+}
+
+.rule-card li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: rgba(255,255,255,0.2);
+}
+
+/* Footer */
+.page-footer {
+  position: absolute;
+  bottom: 40px;
+  left: 60px;
+  right: 60px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: rgba(255,255,255,0.15);
+  border-top: 1px solid rgba(255,255,255,0.05);
+  padding-top: 12px;
+}
+</style>
+</head>
+<body>
+
+<!-- PAGE 1: COVER -->
+<div class="page cover">
+  <svg viewBox="0 0 256 256" width="160" height="160" fill="none">
+    <circle cx="128" cy="128" r="100" stroke="#ffffff" stroke-width="1.5" opacity="0.15"/>
+    <line x1="80" y1="192" x2="128" y2="64" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="176" y1="192" x2="128" y2="64" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="96" y1="148" x2="160" y2="148" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="128" cy="64" r="3" stroke="#ffffff" stroke-width="1.5"/>
+    <circle cx="96" cy="148" r="2.5" stroke="#ffffff" stroke-width="1.5"/>
+    <circle cx="160" cy="148" r="2.5" stroke="#ffffff" stroke-width="1.5"/>
+    <circle cx="80" cy="192" r="2.5" stroke="#ffffff" stroke-width="1.5"/>
+    <circle cx="176" cy="192" r="2.5" stroke="#ffffff" stroke-width="1.5"/>
+    <line x1="128" y1="64" x2="160" y2="148" stroke="#ffffff" stroke-width="1" opacity="0.3" stroke-linecap="round"/>
+    <line x1="128" y1="64" x2="96" y2="148" stroke="#ffffff" stroke-width="1" opacity="0.3" stroke-linecap="round"/>
+    <line x1="96" y1="148" x2="176" y2="192" stroke="#ffffff" stroke-width="1" opacity="0.3" stroke-linecap="round"/>
+    <line x1="160" y1="148" x2="80" y2="192" stroke="#ffffff" stroke-width="1" opacity="0.3" stroke-linecap="round"/>
+    <circle cx="128" cy="128" r="4" stroke="#ffffff" stroke-width="2"/>
+    <line x1="128" y1="118" x2="128" y2="108" stroke="#ffffff" stroke-width="1.5" opacity="0.4" stroke-linecap="round"/>
+    <line x1="138" y1="128" x2="148" y2="128" stroke="#ffffff" stroke-width="1.5" opacity="0.4" stroke-linecap="round"/>
+    <line x1="118" y1="128" x2="108" y2="128" stroke="#ffffff" stroke-width="1.5" opacity="0.4" stroke-linecap="round"/>
+  </svg>
+  <h1>AdOS</h1>
+  <div class="subtitle">Brand Guidelines</div>
+  <div class="version">v2.0 — Maio 2026</div>
+</div>
+
+<!-- PAGE 2: CONCEITO -->
+<div class="page">
+  <div class="section-num">01 — Conceito</div>
+  <h2>Identidade Visual</h2>
+  <div class="divider"></div>
+
+  <p>AdOS — AI Desktop Operating System. A marca é definida por linhas, não preenchimentos. Cada traço carrega intenção: a estrutura de um "A" geométrico comunica precisão, enquanto os nós e conexões neurais representam inteligência distribuída.</p>
+
+  <h3>Princípios</h3>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px;">
+    <div style="padding: 16px; border: 1px solid rgba(255,255,255,0.06); border-radius: 8px;">
+      <div style="font-size: 12px; font-weight: 500; color: #fff;">Stroke-only</div>
+      <div style="font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 4px;">Sem fills, sem gradientes. Apenas traços.</div>
+    </div>
+    <div style="padding: 16px; border: 1px solid rgba(255,255,255,0.06); border-radius: 8px;">
+      <div style="font-size: 12px; font-weight: 500; color: #fff;">Monocromático</div>
+      <div style="font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 4px;">Branco sobre escuro. Sem cores extras.</div>
+    </div>
+    <div style="padding: 16px; border: 1px solid rgba(255,255,255,0.06); border-radius: 8px;">
+      <div style="font-size: 12px; font-weight: 500; color: #fff;">Geométrico</div>
+      <div style="font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 4px;">Linhas retas, nós circulares, ângulos intencionais.</div>
+    </div>
+    <div style="padding: 16px; border: 1px solid rgba(255,255,255,0.06); border-radius: 8px;">
+      <div style="font-size: 12px; font-weight: 500; color: #fff;">Respirável</div>
+      <div style="font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 4px;">Espaço negativo é parte do design.</div>
+    </div>
+  </div>
+
+  <h3 style="margin-top: 32px;">Construção do Símbolo</h3>
+  <p>A letra "A" formada por duas linhas convergentes no vértice superior. Crossbar horizontal nos 60% da altura. Nós nos vértices representam pontos de processamento. Conexões cruzadas sutis (30% opacidade) sugerem rede neural. Centro pulsante irradia para indicar atividade.</p>
+
+  <div class="page-footer">
+    <span>AdOS Brand Guidelines v2.0</span>
+    <span>02</span>
+  </div>
+</div>
+
+<!-- PAGE 3: PALETA DE CORES -->
+<div class="page">
+  <div class="section-num">02 — Paleta de Cores</div>
+  <h2>Sistema Cromático</h2>
+  <div class="divider"></div>
+
+  <p>A paleta é intencionalmente restrita. Branco em múltiplas opacidades cria hierarquia sem introduzir cor.</p>
+
+  <h3>Primárias</h3>
+  <div class="palette-grid">
+    <div class="color-card">
+      <div class="color-swatch" style="background: #ffffff;"></div>
+      <div class="color-info">
+        <div class="color-name">White</div>
+        <div class="color-hex">#FFFFFF</div>
+        <div class="color-use">Traços principais, texto primário</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="color-swatch" style="background: #09090b;"></div>
+      <div class="color-info">
+        <div class="color-name">Background</div>
+        <div class="color-hex">#09090B</div>
+        <div class="color-use">Fundo principal da aplicação</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="color-swatch" style="background: #18181b;"></div>
+      <div class="color-info">
+        <div class="color-name">Surface</div>
+        <div class="color-hex">#18181B</div>
+        <div class="color-use">Cards, containers elevados</div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Hierarquia por Opacidade</h3>
+  <div style="background: rgba(255,255,255,0.02); border-radius: 8px; padding: 20px; border: 1px solid rgba(255,255,255,0.04);">
+    <div style="display: grid; grid-template-columns: 80px 1fr auto; gap: 10px; align-items: center;">
+      <div style="font-size: 11px; color: rgba(255,255,255,0.3);">100%</div>
+      <div style="height: 2px; background: rgba(255,255,255,1); border-radius: 1px;"></div>
+      <div style="font-size: 10px; color: rgba(255,255,255,0.35);">Traços primários, texto principal</div>
+
+      <div style="font-size: 11px; color: rgba(255,255,255,0.3);">60%</div>
+      <div style="height: 2px; background: rgba(255,255,255,0.6); border-radius: 1px;"></div>
+      <div style="font-size: 10px; color: rgba(255,255,255,0.35);">Texto secundário, labels</div>
+
+      <div style="font-size: 11px; color: rgba(255,255,255,0.3);">40%</div>
+      <div style="height: 2px; background: rgba(255,255,255,0.4); border-radius: 1px;"></div>
+      <div style="font-size: 10px; color: rgba(255,255,255,0.35);">Pulsos, detalhes terciários</div>
+
+      <div style="font-size: 11px; color: rgba(255,255,255,0.3);">30%</div>
+      <div style="height: 2px; background: rgba(255,255,255,0.3); border-radius: 1px;"></div>
+      <div style="font-size: 10px; color: rgba(255,255,255,0.35);">Conexões neurais subtis</div>
+
+      <div style="font-size: 11px; color: rgba(255,255,255,0.3);">15%</div>
+      <div style="height: 2px; background: rgba(255,255,255,0.15); border-radius: 1px;"></div>
+      <div style="font-size: 10px; color: rgba(255,255,255,0.35);">Círculo de contorno, bordas</div>
+
+      <div style="font-size: 11px; color: rgba(255,255,255,0.3);">6%</div>
+      <div style="height: 2px; background: rgba(255,255,255,0.06); border-radius: 1px;"></div>
+      <div style="font-size: 10px; color: rgba(255,255,255,0.35);">Separadores, borders de cards</div>
+    </div>
+  </div>
+
+  <h3 style="margin-top: 28px;">Cor de Acento (Opcional)</h3>
+  <div class="palette-grid" style="grid-template-columns: 1fr 1fr;">
+    <div class="color-card">
+      <div class="color-swatch" style="background: #3b82f6;"></div>
+      <div class="color-info">
+        <div class="color-name">Accent Blue</div>
+        <div class="color-hex">#3B82F6</div>
+        <div class="color-use">Links, estados ativos, foco (uso mínimo)</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="color-swatch" style="background: #22c55e;"></div>
+      <div class="color-info">
+        <div class="color-name">Status Green</div>
+        <div class="color-hex">#22C55E</div>
+        <div class="color-use">Conectado, sucesso, online</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>AdOS Brand Guidelines v2.0</span>
+    <span>03</span>
+  </div>
+</div>
+
+<!-- PAGE 4: LOGO -->
+<div class="page">
+  <div class="section-num">03 — Logo</div>
+  <h2>Versões do Logo</h2>
+  <div class="divider"></div>
+
+  <h3>Ícone (Symbol Mark)</h3>
+  <div class="logo-display on-dark">
+    <svg viewBox="0 0 256 256" width="120" height="120" fill="none">
+      <circle cx="128" cy="128" r="100" stroke="#ffffff" stroke-width="1.5" opacity="0.15"/>
+      <line x1="80" y1="192" x2="128" y2="64" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="176" y1="192" x2="128" y2="64" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="96" y1="148" x2="160" y2="148" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="128" cy="64" r="3" stroke="#ffffff" stroke-width="1.5"/>
+      <circle cx="96" cy="148" r="2.5" stroke="#ffffff" stroke-width="1.5"/>
+      <circle cx="160" cy="148" r="2.5" stroke="#ffffff" stroke-width="1.5"/>
+      <circle cx="80" cy="192" r="2.5" stroke="#ffffff" stroke-width="1.5"/>
+      <circle cx="176" cy="192" r="2.5" stroke="#ffffff" stroke-width="1.5"/>
+      <line x1="128" y1="64" x2="160" y2="148" stroke="#ffffff" stroke-width="1" opacity="0.3" stroke-linecap="round"/>
+      <line x1="128" y1="64" x2="96" y2="148" stroke="#ffffff" stroke-width="1" opacity="0.3" stroke-linecap="round"/>
+      <line x1="96" y1="148" x2="176" y2="192" stroke="#ffffff" stroke-width="1" opacity="0.3" stroke-linecap="round"/>
+      <line x1="160" y1="148" x2="80" y2="192" stroke="#ffffff" stroke-width="1" opacity="0.3" stroke-linecap="round"/>
+      <circle cx="128" cy="128" r="4" stroke="#ffffff" stroke-width="2"/>
+      <line x1="128" y1="118" x2="128" y2="108" stroke="#ffffff" stroke-width="1.5" opacity="0.4" stroke-linecap="round"/>
+      <line x1="138" y1="128" x2="148" y2="128" stroke="#ffffff" stroke-width="1.5" opacity="0.4" stroke-linecap="round"/>
+      <line x1="118" y1="128" x2="108" y2="128" stroke="#ffffff" stroke-width="1.5" opacity="0.4" stroke-linecap="round"/>
+    </svg>
+    <div>
+      <div style="font-size: 12px; font-weight: 500; color: #fff;">Symbol Mark</div>
+      <div style="font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 4px;">Favicon, tray icon, notificações, avatar</div>
+      <div style="font-size: 10px; color: rgba(255,255,255,0.2); margin-top: 6px;">icon-ados.svg — 256×256</div>
+    </div>
+  </div>
+
+  <h3>Logo Completo (Wordmark)</h3>
+  <div class="logo-display on-mid">
+    <svg viewBox="0 0 512 200" width="280" height="110" fill="none">
+      <g transform="translate(40, 10) scale(0.7)">
+        <circle cx="128" cy="128" r="100" stroke="#ffffff" stroke-width="1.5" opacity="0.15"/>
+        <line x1="80" y1="192" x2="128" y2="64" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="176" y1="192" x2="128" y2="64" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="96" y1="148" x2="160" y2="148" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="128" cy="64" r="3" stroke="#ffffff" stroke-width="1.5"/>
+        <circle cx="96" cy="148" r="2.5" stroke="#ffffff" stroke-width="1.5"/>
+        <circle cx="160" cy="148" r="2.5" stroke="#ffffff" stroke-width="1.5"/>
+        <circle cx="80" cy="192" r="2.5" stroke="#ffffff" stroke-width="1.5"/>
+        <circle cx="176" cy="192" r="2.5" stroke="#ffffff" stroke-width="1.5"/>
+        <line x1="128" y1="64" x2="160" y2="148" stroke="#ffffff" stroke-width="1" opacity="0.3" stroke-linecap="round"/>
+        <line x1="128" y1="64" x2="96" y2="148" stroke="#ffffff" stroke-width="1" opacity="0.3" stroke-linecap="round"/>
+        <line x1="96" y1="148" x2="176" y2="192" stroke="#ffffff" stroke-width="1" opacity="0.3" stroke-linecap="round"/>
+        <line x1="160" y1="148" x2="80" y2="192" stroke="#ffffff" stroke-width="1" opacity="0.3" stroke-linecap="round"/>
+        <circle cx="128" cy="128" r="4" stroke="#ffffff" stroke-width="2"/>
+        <line x1="128" y1="118" x2="128" y2="108" stroke="#ffffff" stroke-width="1.5" opacity="0.4" stroke-linecap="round"/>
+        <line x1="138" y1="128" x2="148" y2="128" stroke="#ffffff" stroke-width="1.5" opacity="0.4" stroke-linecap="round"/>
+        <line x1="118" y1="128" x2="108" y2="128" stroke="#ffffff" stroke-width="1.5" opacity="0.4" stroke-linecap="round"/>
+      </g>
+      <text x="230" y="118" font-family="Inter, -apple-system, sans-serif" font-size="56" font-weight="200" letter-spacing="6" fill="#ffffff">AdOS</text>
+      <text x="232" y="148" font-family="Inter, -apple-system, sans-serif" font-size="12" font-weight="300" letter-spacing="4" fill="#ffffff" opacity="0.4">AI DESKTOP OPERATING SYSTEM</text>
+    </svg>
+    <div>
+      <div style="font-size: 12px; font-weight: 500; color: #fff;">Full Wordmark</div>
+      <div style="font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 4px;">Splash screen, about, documentação</div>
+      <div style="font-size: 10px; color: rgba(255,255,255,0.2); margin-top: 6px;">logo-ados.svg — 512×200</div>
+    </div>
+  </div>
+
+  <h3>Especificações de Traço</h3>
+  <div style="background: rgba(255,255,255,0.02); border-radius: 8px; padding: 20px; border: 1px solid rgba(255,255,255,0.04);">
+    <div style="display: grid; grid-template-columns: auto 1fr; gap: 8px 20px; font-size: 11px;">
+      <span style="color: rgba(255,255,255,0.5); font-weight: 500;">Linhas principais</span>
+      <span style="color: rgba(255,255,255,0.35);">stroke-width: 2.5 / linecap: round</span>
+      <span style="color: rgba(255,255,255,0.5); font-weight: 500;">Crossbar</span>
+      <span style="color: rgba(255,255,255,0.35);">stroke-width: 2 / linecap: round</span>
+      <span style="color: rgba(255,255,255,0.5); font-weight: 500;">Conexões neurais</span>
+      <span style="color: rgba(255,255,255,0.35);">stroke-width: 1 / opacity: 0.3</span>
+      <span style="color: rgba(255,255,255,0.5); font-weight: 500;">Pulsos</span>
+      <span style="color: rgba(255,255,255,0.35);">stroke-width: 1.5 / opacity: 0.4</span>
+      <span style="color: rgba(255,255,255,0.5); font-weight: 500;">Nós (vértices)</span>
+      <span style="color: rgba(255,255,255,0.35);">r: 2.5–3 / stroke-width: 1.5</span>
+      <span style="color: rgba(255,255,255,0.5); font-weight: 500;">Centro</span>
+      <span style="color: rgba(255,255,255,0.35);">r: 4 / stroke-width: 2</span>
+      <span style="color: rgba(255,255,255,0.5); font-weight: 500;">Contorno externo</span>
+      <span style="color: rgba(255,255,255,0.35);">r: 100 / stroke-width: 1.5 / opacity: 0.15</span>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>AdOS Brand Guidelines v2.0</span>
+    <span>04</span>
+  </div>
+</div>
+
+<!-- PAGE 5: TIPOGRAFIA -->
+<div class="page">
+  <div class="section-num">04 — Tipografia</div>
+  <h2>Fontes</h2>
+  <div class="divider"></div>
+
+  <p>Inter é a única família tipográfica. Peso 200 (ExtraLight) para display, 300 para corpo, 500 para emphasis. Sem bold pesado — consistente com a leveza da marca.</p>
+
+  <div class="type-sample">
+    <h4>Display</h4>
+    <div style="font-size: 36px; font-weight: 200; color: #fff; letter-spacing: 4px;">Inter ExtraLight 200</div>
+    <div style="font-size: 10px; color: rgba(255,255,255,0.3); margin-top: 8px;">Títulos, nome do app, splash</div>
+  </div>
+
+  <div class="type-sample">
+    <h4>Interface / Body</h4>
+    <div style="font-size: 14px; font-weight: 300; color: rgba(255,255,255,0.7);">Inter Light 300 — Texto corrido, parágrafos, descrições. Mantém a leveza do sistema sem sacrificar legibilidade.</div>
+    <div style="font-size: 10px; color: rgba(255,255,255,0.3); margin-top: 8px;">Corpo de texto, chat messages, labels</div>
+  </div>
+
+  <div class="type-sample">
+    <h4>Emphasis</h4>
+    <div style="font-size: 14px; font-weight: 500; color: #fff;">Inter Medium 500 — Destaques, seções ativas, nomes</div>
+    <div style="font-size: 10px; color: rgba(255,255,255,0.3); margin-top: 8px;">Headers de seção, menu ativo, badges</div>
+  </div>
+
+  <h3 style="margin-top: 28px;">Escala</h3>
+  <div style="background: rgba(255,255,255,0.02); border-radius: 8px; padding: 20px; border: 1px solid rgba(255,255,255,0.04);">
+    <div style="display: grid; grid-template-columns: 60px 1fr 80px; gap: 10px; align-items: baseline;">
+      <div style="font-size: 10px; color: rgba(255,255,255,0.3);">Display</div>
+      <div style="font-size: 32px; font-weight: 200; color: #fff;">36–48px</div>
+      <div style="font-size: 10px; color: rgba(255,255,255,0.2);">weight 200</div>
+
+      <div style="font-size: 10px; color: rgba(255,255,255,0.3);">H1</div>
+      <div style="font-size: 24px; font-weight: 300; color: #fff;">24px</div>
+      <div style="font-size: 10px; color: rgba(255,255,255,0.2);">weight 300</div>
+
+      <div style="font-size: 10px; color: rgba(255,255,255,0.3);">H2</div>
+      <div style="font-size: 18px; font-weight: 300; color: #fff;">18px</div>
+      <div style="font-size: 10px; color: rgba(255,255,255,0.2);">weight 300</div>
+
+      <div style="font-size: 10px; color: rgba(255,255,255,0.3);">Body</div>
+      <div style="font-size: 14px; font-weight: 300; color: rgba(255,255,255,0.7);">14px</div>
+      <div style="font-size: 10px; color: rgba(255,255,255,0.2);">weight 300</div>
+
+      <div style="font-size: 10px; color: rgba(255,255,255,0.3);">Caption</div>
+      <div style="font-size: 11px; font-weight: 300; color: rgba(255,255,255,0.5);">11–12px</div>
+      <div style="font-size: 10px; color: rgba(255,255,255,0.2);">weight 300</div>
+    </div>
+  </div>
+
+  <h3 style="margin-top: 28px;">Wordmark "AdOS"</h3>
+  <p>Sempre em Inter weight 200, letter-spacing: 6px. O "A" maiúsculo, "d" minúsculo, "OS" maiúsculo. Nunca em all-caps, nunca em bold.</p>
+
+  <div class="page-footer">
+    <span>AdOS Brand Guidelines v2.0</span>
+    <span>05</span>
+  </div>
+</div>
+
+<!-- PAGE 6: REGRAS -->
+<div class="page">
+  <div class="section-num">05 — Regras de Uso</div>
+  <h2>Diretrizes</h2>
+  <div class="divider"></div>
+
+  <div class="rules-grid">
+    <div class="rule-card do">
+      <h4>FAÇA</h4>
+      <ul>
+        <li>Use sobre fundos escuros (#09090b a #18181b)</li>
+        <li>Mantenha área de proteção de 1× o raio do ícone</li>
+        <li>Use strokes brancos sem preenchimento</li>
+        <li>Mantenha proporções originais (não distorça)</li>
+        <li>Use Inter ExtraLight para o wordmark</li>
+        <li>Permita transparência no background</li>
+      </ul>
+    </div>
+    <div class="rule-card dont">
+      <h4>NÃO FAÇA</h4>
+      <ul>
+        <li>Não adicione fills, gradientes ou sombras</li>
+        <li>Não use cores no ícone (é monocromático)</li>
+        <li>Não use sobre fundos claros sem inverter</li>
+        <li>Não aumente o stroke-width além do especificado</li>
+        <li>Não remova nós ou conexões neurais</li>
+        <li>Não use fontes bold no wordmark</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="margin-top: 28px;">Tamanhos Mínimos</h3>
+  <div style="display: flex; align-items: flex-end; gap: 40px; margin-top: 16px;">
+    <div style="text-align: center;">
+      <svg viewBox="0 0 256 256" width="64" height="64" fill="none">
+        <circle cx="128" cy="128" r="100" stroke="#ffffff" stroke-width="1.5" opacity="0.15"/>
+        <line x1="80" y1="192" x2="128" y2="64" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="176" y1="192" x2="128" y2="64" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="96" y1="148" x2="160" y2="148" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="128" cy="64" r="3" stroke="#ffffff" stroke-width="1.5"/>
+        <circle cx="128" cy="128" r="4" stroke="#ffffff" stroke-width="2"/>
+      </svg>
+      <div style="font-size: 10px; color: rgba(255,255,255,0.3); margin-top: 8px;">64px — App icon</div>
+    </div>
+    <div style="text-align: center;">
+      <svg viewBox="0 0 256 256" width="32" height="32" fill="none">
+        <line x1="80" y1="192" x2="128" y2="64" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+        <line x1="176" y1="192" x2="128" y2="64" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+        <line x1="96" y1="148" x2="160" y2="148" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="128" cy="128" r="4" stroke="#ffffff" stroke-width="2.5"/>
+      </svg>
+      <div style="font-size: 10px; color: rgba(255,255,255,0.3); margin-top: 8px;">32px — Tray</div>
+    </div>
+    <div style="text-align: center;">
+      <svg viewBox="0 0 256 256" width="16" height="16" fill="none">
+        <line x1="80" y1="192" x2="128" y2="64" stroke="#ffffff" stroke-width="5" stroke-linecap="round"/>
+        <line x1="176" y1="192" x2="128" y2="64" stroke="#ffffff" stroke-width="5" stroke-linecap="round"/>
+        <line x1="96" y1="148" x2="160" y2="148" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+      </svg>
+      <div style="font-size: 10px; color: rgba(255,255,255,0.3); margin-top: 8px;">16px — Favicon</div>
+    </div>
+  </div>
+  <p style="margin-top: 16px;">Em tamanhos menores, simplificar: remover conexões neurais e pulsos. Manter apenas a estrutura "A" + crossbar. Em 16px, apenas as 3 linhas essenciais.</p>
+
+  <h3 style="margin-top: 28px;">Inversão (Light Mode)</h3>
+  <div class="logo-display" style="background: #f4f4f5; border-color: rgba(0,0,0,0.08);">
+    <svg viewBox="0 0 256 256" width="80" height="80" fill="none">
+      <circle cx="128" cy="128" r="100" stroke="#09090b" stroke-width="1.5" opacity="0.1"/>
+      <line x1="80" y1="192" x2="128" y2="64" stroke="#09090b" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="176" y1="192" x2="128" y2="64" stroke="#09090b" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="96" y1="148" x2="160" y2="148" stroke="#09090b" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="128" cy="64" r="3" stroke="#09090b" stroke-width="1.5"/>
+      <circle cx="96" cy="148" r="2.5" stroke="#09090b" stroke-width="1.5"/>
+      <circle cx="160" cy="148" r="2.5" stroke="#09090b" stroke-width="1.5"/>
+      <circle cx="128" cy="128" r="4" stroke="#09090b" stroke-width="2"/>
+    </svg>
+    <div>
+      <div style="font-size: 12px; font-weight: 500; color: #09090b;">Versão invertida</div>
+      <div style="font-size: 11px; color: rgba(0,0,0,0.5); margin-top: 4px;">Stroke #09090B sobre fundo claro. Mesmas regras de opacidade.</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>AdOS Brand Guidelines v2.0</span>
+    <span>06</span>
+  </div>
+</div>
+
+<!-- PAGE 7: TOKENS -->
+<div class="page">
+  <div class="section-num">06 — Tokens de Design</div>
+  <h2>CSS Variables</h2>
+  <div class="divider"></div>
+
+  <div style="background: rgba(255,255,255,0.02); border-radius: 8px; padding: 24px; font-family: 'SF Mono', 'JetBrains Mono', monospace; font-size: 12px; border: 1px solid rgba(255,255,255,0.04); line-height: 2;">
+    <div style="color: rgba(255,255,255,0.3);">:root {</div>
+    <div style="color: rgba(255,255,255,0.6); padding-left: 20px;">--bg: #09090b;</div>
+    <div style="color: rgba(255,255,255,0.6); padding-left: 20px;">--surface: #18181b;</div>
+    <div style="color: rgba(255,255,255,0.6); padding-left: 20px;">--surface-elevated: #27272a;</div>
+    <div style="color: rgba(255,255,255,0.6); padding-left: 20px;">--border: rgba(255, 255, 255, 0.06);</div>
+    <div style="color: rgba(255,255,255,0.6); padding-left: 20px;">--text-primary: #ffffff;</div>
+    <div style="color: rgba(255,255,255,0.6); padding-left: 20px;">--text-secondary: rgba(255, 255, 255, 0.6);</div>
+    <div style="color: rgba(255,255,255,0.6); padding-left: 20px;">--text-tertiary: rgba(255, 255, 255, 0.4);</div>
+    <div style="color: rgba(255,255,255,0.6); padding-left: 20px;">--text-muted: rgba(255, 255, 255, 0.15);</div>
+    <div style="color: rgba(255,255,255,0.6); padding-left: 20px;">--accent: #3b82f6;</div>
+    <div style="color: rgba(255,255,255,0.6); padding-left: 20px;">--success: #22c55e;</div>
+    <div style="color: rgba(255,255,255,0.6); padding-left: 20px;">--warning: #f59e0b;</div>
+    <div style="color: rgba(255,255,255,0.6); padding-left: 20px;">--error: #ef4444;</div>
+    <div style="color: rgba(255,255,255,0.6); padding-left: 20px;">--radius-sm: 6px;</div>
+    <div style="color: rgba(255,255,255,0.6); padding-left: 20px;">--radius-md: 8px;</div>
+    <div style="color: rgba(255,255,255,0.6); padding-left: 20px;">--radius-lg: 12px;</div>
+    <div style="color: rgba(255,255,255,0.3);">}</div>
+  </div>
+
+  <h3 style="margin-top: 28px;">Aplicações no App</h3>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px;">
+    <div style="padding: 16px; border: 1px solid rgba(255,255,255,0.06); border-radius: 8px;">
+      <div style="font-size: 11px; color: rgba(255,255,255,0.4); margin-bottom: 4px;">Title Bar</div>
+      <div style="font-size: 11px; color: rgba(255,255,255,0.6);">Ícone 16px simplificado + "AdOS" Inter 200</div>
+    </div>
+    <div style="padding: 16px; border: 1px solid rgba(255,255,255,0.06); border-radius: 8px;">
+      <div style="font-size: 11px; color: rgba(255,255,255,0.4); margin-bottom: 4px;">Splash Screen</div>
+      <div style="font-size: 11px; color: rgba(255,255,255,0.6);">Ícone completo 120px centralizado</div>
+    </div>
+    <div style="padding: 16px; border: 1px solid rgba(255,255,255,0.06); border-radius: 8px;">
+      <div style="font-size: 11px; color: rgba(255,255,255,0.4); margin-bottom: 4px;">System Tray</div>
+      <div style="font-size: 11px; color: rgba(255,255,255,0.6);">Ícone 24px (apenas A + crossbar + centro)</div>
+    </div>
+    <div style="padding: 16px; border: 1px solid rgba(255,255,255,0.06); border-radius: 8px;">
+      <div style="font-size: 11px; color: rgba(255,255,255,0.4); margin-bottom: 4px;">Loading States</div>
+      <div style="font-size: 11px; color: rgba(255,255,255,0.6);">Pulsos animados (opacity pulse 0.2→0.6)</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>AdOS Brand Guidelines v2.0</span>
+    <span>07</span>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JVOS & JvosSys — Documentação Técnica</title>
+  <style>
+    :root {
+      --bg: #0a0e17;
+      --surface-1: #111827;
+      --surface-2: #1f2937;
+      --surface-3: #374151;
+      --text: #f9fafb;
+      --text-2: #d1d5db;
+      --text-3: #6b7280;
+      --brand: #6366f1;
+      --brand-light: #818cf8;
+      --green: #10b981;
+      --red: #ef4444;
+      --yellow: #f59e0b;
+      --blue: #3b82f6;
+      --purple: #8b5cf6;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 0;
+    }
+    .container { max-width: 1100px; margin: 0 auto; padding: 3rem 2rem; }
+
+    /* Header */
+    .header {
+      text-align: center;
+      padding: 4rem 2rem;
+      background: linear-gradient(135deg, #1e1b4b 0%, #0a0e17 50%, #1e3a5f 100%);
+      border-bottom: 1px solid var(--surface-2);
+      margin-bottom: 3rem;
+    }
+    .header h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--brand-light), var(--brand));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+    }
+    .header .subtitle { color: var(--text-3); font-size: 1rem; }
+    .header .meta { color: var(--text-3); font-size: 0.8rem; margin-top: 1rem; }
+
+    /* TOC */
+    .toc {
+      background: var(--surface-1);
+      border: 1px solid var(--surface-2);
+      border-radius: 1rem;
+      padding: 2rem;
+      margin-bottom: 3rem;
+    }
+    .toc h2 { font-size: 1.2rem; margin-bottom: 1rem; color: var(--brand-light); }
+    .toc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+    .toc a {
+      color: var(--text-2);
+      text-decoration: none;
+      font-size: 0.85rem;
+      padding: 0.3rem 0;
+      transition: color 0.2s;
+    }
+    .toc a:hover { color: var(--brand-light); }
+    .toc a::before { content: '→ '; color: var(--text-3); }
+
+    /* Sections */
+    section { margin-bottom: 3rem; }
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--surface-2);
+    }
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-2);
+      margin: 1.5rem 0 0.75rem;
+    }
+    p { color: var(--text-2); margin-bottom: 1rem; font-size: 0.9rem; }
+
+    /* Cards */
+    .card {
+      background: var(--surface-1);
+      border: 1px solid var(--surface-2);
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+    .stat-card {
+      background: var(--surface-1);
+      border: 1px solid var(--surface-2);
+      border-radius: 0.75rem;
+      padding: 1.25rem;
+      text-align: center;
+    }
+    .stat-card .label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-3); }
+    .stat-card .value { font-size: 1.8rem; font-weight: 800; color: var(--text); margin: 0.25rem 0; }
+    .stat-card .detail { font-size: 0.75rem; color: var(--text-3); }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      font-size: 0.85rem;
+    }
+    th {
+      background: var(--surface-2);
+      color: var(--text);
+      font-weight: 600;
+      padding: 0.75rem 1rem;
+      text-align: left;
+    }
+    td {
+      padding: 0.6rem 1rem;
+      border-bottom: 1px solid var(--surface-2);
+      color: var(--text-2);
+    }
+    tr:hover td { background: var(--surface-1); }
+
+    /* Code */
+    pre {
+      background: var(--surface-2);
+      border: 1px solid var(--surface-3);
+      border-radius: 0.5rem;
+      padding: 1rem;
+      overflow-x: auto;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      margin: 1rem 0;
+    }
+    code {
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      color: var(--brand-light);
+    }
+    pre code { color: var(--text-2); }
+
+    /* Badges */
+    .badge {
+      display: inline-block;
+      padding: 0.15rem 0.5rem;
+      border-radius: 9999px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+    .badge-green { background: rgba(16,185,129,0.1); color: var(--green); }
+    .badge-red { background: rgba(239,68,68,0.1); color: var(--red); }
+    .badge-yellow { background: rgba(245,158,11,0.1); color: var(--yellow); }
+    .badge-blue { background: rgba(59,130,246,0.1); color: var(--blue); }
+    .badge-purple { background: rgba(139,92,246,0.1); color: var(--purple); }
+
+    /* Architecture diagram */
+    .diagram {
+      background: var(--surface-1);
+      border: 1px solid var(--surface-2);
+      border-radius: 1rem;
+      padding: 2rem;
+      text-align: center;
+      margin: 1.5rem 0;
+    }
+    .diagram-row { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin: 1rem 0; }
+    .diagram-box {
+      background: var(--surface-2);
+      border: 1px solid var(--surface-3);
+      border-radius: 0.75rem;
+      padding: 1rem 1.5rem;
+      min-width: 120px;
+    }
+    .diagram-box.primary {
+      background: rgba(99,102,241,0.15);
+      border-color: rgba(99,102,241,0.3);
+    }
+    .diagram-box .name { font-weight: 600; font-size: 0.9rem; color: var(--text); }
+    .diagram-box .model { font-size: 0.7rem; color: var(--text-3); margin-top: 0.25rem; }
+    .diagram-connector { color: var(--text-3); font-size: 1.5rem; }
+
+    /* Flow */
+    .flow { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin: 1rem 0; }
+    .flow-step {
+      background: var(--surface-2);
+      border-radius: 0.5rem;
+      padding: 0.4rem 0.8rem;
+      font-size: 0.8rem;
+      color: var(--text-2);
+    }
+    .flow-arrow { color: var(--brand-light); }
+
+    /* Checklist */
+    .checklist { list-style: none; padding: 0; }
+    .checklist li {
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--surface-2);
+      font-size: 0.85rem;
+      color: var(--text-2);
+    }
+    .checklist li::before { content: '✓ '; color: var(--green); font-weight: bold; }
+    .checklist li.pending::before { content: '○ '; color: var(--text-3); }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid var(--surface-2);
+      color: var(--text-3);
+      font-size: 0.8rem;
+    }
+
+    @media (max-width: 768px) {
+      .toc-grid { grid-template-columns: 1fr; }
+      .card-grid { grid-template-columns: 1fr; }
+      .header h1 { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <h1>JVOS & JvosSys</h1>
+  <p class="subtitle">Documentação Técnica Completa — Sistema Desktop AI para Empresas</p>
+  <p class="meta">v1.0.0 • 16/05/2026 • AdNet Monetize</p>
+</div>
+
+<div class="container">
+
+<!-- TOC -->
+<div class="toc">
+  <h2>Índice</h2>
+  <div class="toc-grid">
+    <a href="#visao">Visão Geral</a>
+    <a href="#stack">Stack Tecnológica</a>
+    <a href="#ados-estrutura">JVOS — Estrutura</a>
+    <a href="#jvossys-estrutura">JvosSys — Estrutura</a>
+    <a href="#banco-ados">Banco de Dados (JVOS)</a>
+    <a href="#banco-jvossys">Banco de Dados (JvosSys)</a>
+    <a href="#agentes">Sistema de Agentes</a>
+    <a href="#streaming">Streaming Multi-Provider</a>
+    <a href="#features">Features Implementadas</a>
+    <a href="#bugs">Bug Fixes</a>
+    <a href="#ipc">IPC Bridge</a>
+    <a href="#integracao">Integração JVOS ↔ JvosSys</a>
+    <a href="#deploy">Compilação e Deploy</a>
+    <a href="#roadmap">Roadmap</a>
+  </div>
+</div>
+
+<!-- Visão Geral -->
+<section id="visao">
+  <h2>1. Visão Geral</h2>
+  <p>O sistema é composto por <strong>dois programas Electron</strong> que trabalham juntos:</p>
+
+  <div class="card-grid">
+    <div class="stat-card">
+      <div class="label">JVOS</div>
+      <div class="value" style="font-size:1.2rem">App de Chat</div>
+      <div class="detail">Chat + Tools + Automações para o usuário final</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">JvosSys</div>
+      <div class="value" style="font-size:1.2rem">Painel Admin</div>
+      <div class="detail">Bots, prompts, modelos e regras de delegação</div>
+    </div>
+  </div>
+
+  <div class="diagram">
+    <div class="diagram-row">
+      <div class="diagram-box primary">
+        <div class="name">JvosSys (Admin)</div>
+        <div class="model">Define bots, prompts, rules</div>
+      </div>
+      <div class="diagram-connector">→ jvossys-config.db →</div>
+      <div class="diagram-box primary">
+        <div class="name">JVOS (App)</div>
+        <div class="model">Chat, streaming, tools</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stack -->
+<section id="stack">
+  <h2>2. Stack Tecnológica</h2>
+  <table>
+    <tr><th>Camada</th><th>Tecnologia</th><th>Versão</th></tr>
+    <tr><td>Desktop Framework</td><td>Electron</td><td>33.0</td></tr>
+    <tr><td>Frontend</td><td>React + Vite</td><td>19.0 + 6.0</td></tr>
+    <tr><td>Linguagem</td><td>TypeScript</td><td>5.7</td></tr>
+    <tr><td>Estilização</td><td>Tailwind CSS</td><td>3.4</td></tr>
+    <tr><td>Banco de Dados</td><td>SQLite (sql.js)</td><td>1.11</td></tr>
+    <tr><td>LLM Providers</td><td>OpenAI, Anthropic, Google, OpenRouter</td><td>—</td></tr>
+    <tr><td>Protocolo de Tools</td><td>MCP (Model Context Protocol)</td><td>1.29</td></tr>
+    <tr><td>Build/Packaging</td><td>electron-builder</td><td>25.1</td></tr>
+    <tr><td>Plataformas</td><td>Windows + Linux</td><td>—</td></tr>
+  </table>
+</section>
+
+<!-- JVOS Estrutura -->
+<section id="ados-estrutura">
+  <h2>3. JVOS — Estrutura do Projeto</h2>
+
+  <h3>Electron (Backend)</h3>
+  <table>
+    <tr><th>Arquivo</th><th>Linhas</th><th>Função</th></tr>
+    <tr><td><code>main.ts</code></td><td>84</td><td>Lifecycle, janela, registro de handlers</td></tr>
+    <tr><td><code>preload.ts</code></td><td>267</td><td>Bridge IPC (window.ados)</td></tr>
+    <tr><td><code>database.ts</code></td><td>671</td><td>SQLite: 16 tabelas, 48 handlers</td></tr>
+    <tr><td><code>llm.ts</code></td><td>~770</td><td>Multi-provider streaming + tool loop</td></tr>
+    <tr><td><code>agents.ts</code></td><td>688</td><td>Routing, tiers, pipelines</td></tr>
+    <tr><td><code>tools.ts</code></td><td>554</td><td>Builtin tools + MCP execution</td></tr>
+    <tr><td><code>mcp-manager.ts</code></td><td>271</td><td>Lifecycle MCP servers</td></tr>
+    <tr><td><code>auto-memory.ts</code></td><td>~80</td><td><span class="badge badge-green">NEW</span> Brain automático</td></tr>
+    <tr><td><code>jvossys-bridge.ts</code></td><td>~100</td><td><span class="badge badge-green">NEW</span> Leitura do JvosSys</td></tr>
+    <tr><td><code>notifications.ts</code></td><td>~35</td><td><span class="badge badge-green">NEW</span> Desktop notifications</td></tr>
+    <tr><td><code>scheduler.ts</code></td><td>106</td><td>Cron de automações</td></tr>
+    <tr><td><code>providers.ts</code></td><td>218</td><td>API keys e modelos</td></tr>
+    <tr><td><code>browser.ts</code></td><td>213</td><td>Browser automation</td></tr>
+    <tr><td><code>telegram.ts</code></td><td>362</td><td>Bot Telegram</td></tr>
+  </table>
+
+  <h3>Frontend (15 páginas + 11 componentes)</h3>
+  <div class="flow">
+    <span class="flow-step">Chat</span><span class="flow-arrow">•</span>
+    <span class="flow-step">Brain</span><span class="flow-arrow">•</span>
+    <span class="flow-step">Tools</span><span class="flow-arrow">•</span>
+    <span class="flow-step">Automations</span><span class="flow-arrow">•</span>
+    <span class="flow-step">Marketplace</span><span class="flow-arrow">•</span>
+    <span class="flow-step">Telegram</span><span class="flow-arrow">•</span>
+    <span class="flow-step">Labels</span><span class="flow-arrow">•</span>
+    <span class="flow-step">Dashboards</span><span class="flow-arrow">•</span>
+    <span class="flow-step">Settings</span>
+  </div>
+</section>
+
+<!-- JvosSys Estrutura -->
+<section id="jvossys-estrutura">
+  <h2>4. JvosSys — Estrutura do Projeto</h2>
+
+  <table>
+    <tr><th>Arquivo</th><th>Função</th></tr>
+    <tr><td><code>electron/main.ts</code></td><td>Window 1200×800, frameless, dark</td></tr>
+    <tr><td><code>electron/preload.ts</code></td><td>Bridge com 8 namespaces</td></tr>
+    <tr><td><code>electron/database.ts</code></td><td>9 tabelas + seed + 30+ handlers</td></tr>
+    <tr><td><code>src/pages/Dashboard.tsx</code></td><td>KPIs + hierarquia visual</td></tr>
+    <tr><td><code>src/pages/Bots.tsx</code></td><td>CRUD + editor de prompt</td></tr>
+    <tr><td><code>src/pages/Prompts.tsx</code></td><td>Editor com versionamento</td></tr>
+    <tr><td><code>src/pages/Delegation.tsx</code></td><td>Regras visuais + teste</td></tr>
+    <tr><td><code>src/pages/Providers.tsx</code></td><td>API keys + modelos + fallbacks</td></tr>
+    <tr><td><code>src/pages/Usage.tsx</code></td><td>Custos por bot/dia</td></tr>
+    <tr><td><code>src/pages/Config.tsx</code></td><td>Global config + feature flags</td></tr>
+  </table>
+</section>
+
+<!-- Banco JVOS -->
+<section id="banco-ados">
+  <h2>5. Banco de Dados — JVOS</h2>
+  <p>Arquivo: <code>ados.db</code> (SQLite, 16 tabelas)</p>
+  <table>
+    <tr><th>Tabela</th><th>Função</th><th>Relações</th></tr>
+    <tr><td>sessions</td><td>Sessões de chat</td><td>→ messages, session_settings, session_labels</td></tr>
+    <tr><td>messages</td><td>Mensagens</td><td>← sessions</td></tr>
+    <tr><td>memories</td><td>Brain (manual + auto)</td><td>—</td></tr>
+    <tr><td>skills</td><td>Slash commands</td><td>—</td></tr>
+    <tr><td>workflows</td><td>Multi-step</td><td>—</td></tr>
+    <tr><td>automations</td><td>Agendamentos</td><td>—</td></tr>
+    <tr><td>connections</td><td>MCP servers</td><td>—</td></tr>
+    <tr><td>labels</td><td>Etiquetas</td><td>→ session_labels</td></tr>
+    <tr><td>settings</td><td>Key-value global</td><td>—</td></tr>
+    <tr><td>preferences</td><td>Preferências usuário</td><td>—</td></tr>
+  </table>
+</section>
+
+<!-- Banco JvosSys -->
+<section id="banco-jvossys">
+  <h2>6. Banco de Dados — JvosSys</h2>
+  <p>Arquivo: <code>jvossys-config.db</code> (SQLite, 9 tabelas)</p>
+  <table>
+    <tr><th>Tabela</th><th>Função</th><th>Registros (seed)</th></tr>
+    <tr><td>bots</td><td>Definição de bots</td><td>7 bots</td></tr>
+    <tr><td>delegation_rules</td><td>Regras de routing</td><td>6 regras</td></tr>
+    <tr><td>prompt_versions</td><td>Histórico de prompts</td><td>—</td></tr>
+    <tr><td>providers</td><td>LLM providers</td><td>4 providers</td></tr>
+    <tr><td>models</td><td>Modelos + custos</td><td>11 modelos</td></tr>
+    <tr><td>fallback_chains</td><td>Fallback entre modelos</td><td>—</td></tr>
+    <tr><td>usage_log</td><td>Log de uso</td><td>—</td></tr>
+    <tr><td>global_config</td><td>Configs globais</td><td>8 configs</td></tr>
+    <tr><td>feature_flags</td><td>Feature on/off</td><td>6 flags</td></tr>
+  </table>
+</section>
+
+<!-- Agentes -->
+<section id="agentes">
+  <h2>7. Sistema de Agentes</h2>
+
+  <div class="diagram">
+    <p style="color:var(--text-3); font-size:0.8rem; margin-bottom:1rem;">Fluxo de routing</p>
+    <div class="diagram-row">
+      <div class="diagram-box primary">
+        <div class="name">Router</div>
+        <div class="model">gpt-4.1-nano</div>
+      </div>
+    </div>
+    <div class="diagram-connector" style="margin:0.5rem 0;">↓</div>
+    <div class="diagram-row">
+      <div class="diagram-box">
+        <div class="name">Summarizer</div>
+        <div class="model">nano • fast</div>
+      </div>
+      <div class="diagram-box">
+        <div class="name">Writer</div>
+        <div class="model">mini • balanced</div>
+      </div>
+      <div class="diagram-box">
+        <div class="name">Coder</div>
+        <div class="model">codex • balanced</div>
+      </div>
+      <div class="diagram-box">
+        <div class="name">Researcher</div>
+        <div class="model">mini • balanced</div>
+      </div>
+      <div class="diagram-box">
+        <div class="name">Analyst</div>
+        <div class="model">gpt-4.1 • power</div>
+      </div>
+      <div class="diagram-box">
+        <div class="name">Executor</div>
+        <div class="model">mini • balanced</div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Tiers de Custo</h3>
+  <table>
+    <tr><th>Tier</th><th>Multiplicador</th><th>Uso</th></tr>
+    <tr><td><span class="badge badge-yellow">Router</span></td><td>0.1x</td><td>Classificação rápida</td></tr>
+    <tr><td><span class="badge badge-green">Fast</span></td><td>0.2x</td><td>Tarefas simples</td></tr>
+    <tr><td><span class="badge badge-blue">Balanced</span></td><td>1.0x</td><td>Maioria das tarefas</td></tr>
+    <tr><td><span class="badge badge-purple">Power</span></td><td>5.0x</td><td>Análise complexa</td></tr>
+  </table>
+</section>
+
+<!-- Streaming -->
+<section id="streaming">
+  <h2>8. Streaming Multi-Provider</h2>
+
+  <div class="card-grid">
+    <div class="card">
+      <h3 style="color:var(--green); margin-top:0">OpenAI</h3>
+      <p style="margin-bottom:0.5rem">Responses API + Chat Completions</p>
+      <p style="font-size:0.8rem; color:var(--text-3)">gpt-5.5, gpt-4.1, gpt-4.1-mini, gpt-4.1-nano, codex-mini, o3-mini, o4-mini</p>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--yellow); margin-top:0">Anthropic</h3>
+      <p style="margin-bottom:0.5rem">Messages API com SSE</p>
+      <p style="font-size:0.8rem; color:var(--text-3)">claude-opus-4-7, claude-sonnet-4-6, claude-haiku-4-5</p>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--blue); margin-top:0">Google</h3>
+      <p style="margin-bottom:0.5rem">Generative AI SSE</p>
+      <p style="font-size:0.8rem; color:var(--text-3)">gemini-2.5-pro, gemini-2.5-flash</p>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--purple); margin-top:0">OpenRouter</h3>
+      <p style="margin-bottom:0.5rem">Chat Completions (qualquer modelo)</p>
+      <p style="font-size:0.8rem; color:var(--text-3)">DeepSeek, Mistral, Llama, etc.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Features -->
+<section id="features">
+  <h2>9. Features Implementadas</h2>
+
+  <div class="card">
+    <h3 style="margin-top:0">🧠 Auto-Memory (Brain Automático)</h3>
+    <p>Após conversas com ≥4 mensagens, gpt-4.1-nano extrai insights e salva no Brain automaticamente.</p>
+    <ul style="color:var(--text-2); font-size:0.85rem; padding-left:1.5rem;">
+      <li>Máximo 3 memórias por sessão</li>
+      <li>Deduplicação >80% match</li>
+      <li>Categorias: user, project, feedback, reference</li>
+      <li>Custo: ~$0.0001 por extração</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">🔄 Fallback de Modelos</h3>
+    <p>Se o modelo principal falha (timeout, rate limit, 5xx), tenta automaticamente o modelo alternativo configurado no JvosSys.</p>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">🔔 Notificações Desktop</h3>
+    <p>Notificações nativas para: automação concluída, sessão background finalizada, agente precisa de input, alerta de uso.</p>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">⚠️ Stop Warning</h3>
+    <p>Warning visual ao atingir 10 tool calls: "Limite de ações atingido. Envie outra mensagem para continuar."</p>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">🤖 Hierarquia de Bots (JvosSys)</h3>
+    <p>Interface admin para criar bots, definir regras de delegação, testar routing e versionar prompts.</p>
+  </div>
+</section>
+
+<!-- Bugs -->
+<section id="bugs">
+  <h2>10. Bug Fixes Aplicados</h2>
+  <table>
+    <tr><th>#</th><th>Bug</th><th>Severidade</th><th>Fix</th></tr>
+    <tr><td>1</td><td>AbortController não passa para Anthropic/Google</td><td><span class="badge badge-red">Alto</span></td><td>Signal como parâmetro</td></tr>
+    <tr><td>2</td><td><code>new File()</code> não existe em Node.js</td><td><span class="badge badge-red">Crítico</span></td><td><code>toFile()</code> do OpenAI SDK</td></tr>
+    <tr><td>3</td><td>System prompt ausente sem OAuth</td><td><span class="badge badge-red">Alto</span></td><td><code>params.instructions</code> sempre setado</td></tr>
+    <tr><td>4</td><td><code>getFocusedWindow()</code> retorna null</td><td><span class="badge badge-red">Alto</span></td><td>Fallback <code>getAllWindows()[0]</code></td></tr>
+    <tr><td>5</td><td>Tool loop sem aviso ao atingir limite</td><td><span class="badge badge-yellow">Médio</span></td><td>Warning no último iteration</td></tr>
+    <tr><td>6</td><td>Mensagem vazia não salva steps</td><td><span class="badge badge-yellow">Médio</span></td><td>Salva <code>[tool1 → tool2]</code></td></tr>
+    <tr><td>7</td><td>Race condition ao remover listeners</td><td><span class="badge badge-yellow">Médio</span></td><td><code>stop()</code> + delay</td></tr>
+    <tr><td>8</td><td>Scheduler não usa campos novos</td><td><span class="badge badge-blue">Baixo</span></td><td>Query + interface atualizados</td></tr>
+    <tr><td>9</td><td>VoiceInput stack overflow</td><td><span class="badge badge-red">Alto</span></td><td>Base64 em chunks de 8192</td></tr>
+    <tr><td>10</td><td>API key Google exposta na URL</td><td><span class="badge badge-yellow">Médio</span></td><td>Header <code>x-goog-api-key</code></td></tr>
+  </table>
+</section>
+
+<!-- IPC -->
+<section id="ipc">
+  <h2>11. IPC Bridge</h2>
+
+  <h3>JVOS (window.ados)</h3>
+  <div class="flow">
+    <span class="flow-step">window</span><span class="flow-arrow">•</span>
+    <span class="flow-step">llm</span><span class="flow-arrow">•</span>
+    <span class="flow-step">mcp</span><span class="flow-arrow">•</span>
+    <span class="flow-step">providers</span><span class="flow-arrow">•</span>
+    <span class="flow-step">db</span><span class="flow-arrow">•</span>
+    <span class="flow-step">browser</span><span class="flow-arrow">•</span>
+    <span class="flow-step">tools</span><span class="flow-arrow">•</span>
+    <span class="flow-step">agents</span><span class="flow-arrow">•</span>
+    <span class="flow-step">oauth</span><span class="flow-arrow">•</span>
+    <span class="flow-step">integrations</span><span class="flow-arrow">•</span>
+    <span class="flow-step">telegram</span>
+  </div>
+
+  <h3>JvosSys (window.jvossys)</h3>
+  <div class="flow">
+    <span class="flow-step">window</span><span class="flow-arrow">•</span>
+    <span class="flow-step">bots</span><span class="flow-arrow">•</span>
+    <span class="flow-step">rules</span><span class="flow-arrow">•</span>
+    <span class="flow-step">prompts</span><span class="flow-arrow">•</span>
+    <span class="flow-step">providers</span><span class="flow-arrow">•</span>
+    <span class="flow-step">models</span><span class="flow-arrow">•</span>
+    <span class="flow-step">fallbacks</span><span class="flow-arrow">•</span>
+    <span class="flow-step">config</span><span class="flow-arrow">•</span>
+    <span class="flow-step">flags</span><span class="flow-arrow">•</span>
+    <span class="flow-step">usage</span>
+  </div>
+</section>
+
+<!-- Integração -->
+<section id="integracao">
+  <h2>12. Integração JVOS ↔ JvosSys</h2>
+
+  <div class="card">
+    <h3 style="margin-top:0">Módulo: <code>jvossys-bridge.ts</code></h3>
+    <table>
+      <tr><th>Função</th><th>Retorno</th><th>Uso</th></tr>
+      <tr><td><code>getJvosSysBots()</code></td><td>Bot[]</td><td>Carregar bots configurados</td></tr>
+      <tr><td><code>getJvosSysRules()</code></td><td>Rule[]</td><td>Carregar regras de delegação</td></tr>
+      <tr><td><code>getJvosSysConfig(key)</code></td><td>string|null</td><td>Ler config global</td></tr>
+      <tr><td><code>getJvosSysFlag(key)</code></td><td>boolean</td><td>Verificar feature flag</td></tr>
+      <tr><td><code>getFallbackModel(model)</code></td><td>string|null</td><td>Obter modelo fallback</td></tr>
+      <tr><td><code>logUsage(...)</code></td><td>void</td><td>Registrar uso</td></tr>
+      <tr><td><code>hasConfigChanged()</code></td><td>boolean</td><td>Detectar mudanças (30s)</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- Deploy -->
+<section id="deploy">
+  <h2>13. Compilação e Deploy</h2>
+
+  <h3>Windows</h3>
+  <pre><code>cd JVOS && npm install && npm run build && npm run package
+# → dist/JVOS-Setup.exe
+
+cd JvosSys && npm install && npm run build && npm run package
+# → dist/JvosSys-Setup.exe</code></pre>
+
+  <h3>Linux</h3>
+  <pre><code>cd JVOS && npm install && npm run build && npm run package:linux
+# → dist/JVOS.AppImage + dist/ados_1.0.0_amd64.deb
+
+cd JvosSys && npm install && npm run build && npm run package:linux
+# → dist/JvosSys.AppImage + dist/jvossys_1.0.0_amd64.deb</code></pre>
+
+  <h3>Requisitos</h3>
+  <ul class="checklist">
+    <li>Node.js 20+</li>
+    <li>npm 10+</li>
+    <li>Git (para git bash no Windows)</li>
+    <li>~500MB RAM por app rodando</li>
+    <li>Linux: libgtk-3, libnss3, libgbm (para Electron)</li>
+  </ul>
+</section>
+
+<!-- Roadmap -->
+<section id="roadmap">
+  <h2>14. Roadmap</h2>
+
+  <h3>Sprint 2 (próxima semana)</h3>
+  <ul class="checklist">
+    <li class="pending">Permission Modes (Consulta / Assistido / Autônomo)</li>
+    <li class="pending">Session Persistence (contexto resumido ao reabrir)</li>
+    <li class="pending">Custo por mensagem (widget no footer)</li>
+  </ul>
+
+  <h3>Sprint 3</h3>
+  <ul class="checklist">
+    <li class="pending">Background Sessions (worker paralelo)</li>
+    <li class="pending">Sub-Agents (delegação paralela)</li>
+    <li class="pending">Hooks (ações pré/pós automáticas)</li>
+  </ul>
+
+  <h3>VPS Linux</h3>
+  <ul class="checklist">
+    <li class="pending">Deploy JvosSys como web admin (domínio próprio)</li>
+    <li class="pending">API REST para sync remoto</li>
+    <li class="pending">Multi-tenant (vários workspaces)</li>
+  </ul>
+</section>
+
+</div>
+
+<div class="footer">
+  <p>JVOS & JvosSys — AdNet Monetize © 2026</p>
+  <p>Documentação gerada em 16/05/2026 por G4 OS</p>
+</div>
+
+</body>
+</html>

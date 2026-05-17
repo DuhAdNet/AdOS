@@ -1,4 +1,4 @@
-export type NavPage = 'sessions' | 'tools' | 'automations' | 'marketplace' | 'brain' | 'telegram' | 'labels' | 'sharing' | 'dashboards' | 'health' | 'cloud-sync' | 'settings';
+export type NavPage = 'sessions' | 'tools' | 'automations' | 'actions' | 'marketplace' | 'brain' | 'telegram' | 'labels' | 'sharing' | 'dashboards' | 'health' | 'cloud-sync' | 'settings';
 
 interface NavRailProps {
   active: NavPage;
@@ -11,8 +11,9 @@ const navItems: Array<{ id: NavPage; label: string; icon: string }> = [
   { id: 'sessions', label: 'Sessões', icon: 'M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z' },
   { id: 'tools', label: 'Ferramentas', icon: 'M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z' },
   { id: 'automations', label: 'Automações', icon: 'M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83' },
+  { id: 'actions', label: 'Actions', icon: 'M13 2L3 14h9l-1 10 10-12h-9l1-10z' },
   { id: 'marketplace', label: 'Marketplace', icon: 'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z' },
-  { id: 'brain', label: 'Brain', icon: 'M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z' },
+  { id: 'brain', label: 'Brain', icon: 'M12 2C8.7 2 6 4.7 6 8c0 2.4 1.5 4.5 3.6 5.3.4.2.4.5.4.9V16h4v-1.8c0-.4 0-.7.4-.9C16.5 12.5 18 10.4 18 8c0-3.3-2.7-6-6-6zM10 20h4M10 18h4' },
   { id: 'telegram', label: 'Telegram', icon: 'M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z' },
   { id: 'labels', label: 'Labels', icon: 'M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82zM7 7h.01' },
   { id: 'sharing', label: 'Compartilhar', icon: 'M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8M16 6l-4-4-4 4M12 2v13' },
@@ -23,7 +24,7 @@ const navItems: Array<{ id: NavPage; label: string; icon: string }> = [
 
 export default function NavRail({ active, onNavigate, collapsed, onToggleCollapse }: NavRailProps) {
   return (
-    <nav className={`${collapsed ? 'w-[52px]' : 'w-[180px]'} bg-surface-1 border-r border-default flex flex-col py-3 gap-0.5 shrink-0 transition-all duration-200`}>
+    <nav className={`${collapsed ? 'w-[52px]' : 'w-[180px]'} bg-surface-1 border-r border-default flex flex-col py-3 gap-0.5 shrink-0 transition-all duration-200 overflow-y-auto overflow-x-hidden`}>
       <button
         onClick={onToggleCollapse}
         className="mx-auto mb-2 w-9 h-7 rounded-lg flex items-center justify-center text-muted hover:bg-surface-2 hover:text-secondary transition-colors"
@@ -39,10 +40,10 @@ export default function NavRail({ active, onNavigate, collapsed, onToggleCollaps
           key={item.id}
           onClick={() => onNavigate(item.id)}
           title={collapsed ? item.label : undefined}
-          className={`mx-2 ${collapsed ? 'w-9 h-9 justify-center' : 'h-9 px-3 gap-2.5 justify-start'} rounded-xl flex items-center transition-all ${
+          className={`mx-2 ${collapsed ? 'w-9 h-9 justify-center' : 'h-9 px-3 gap-2.5 justify-start'} rounded-xl flex items-center transition-all duration-150 ${
             active === item.id
-              ? 'bg-brand-600/15 text-brand-500'
-              : 'text-muted hover:bg-surface-2 hover:text-secondary'
+              ? 'bg-brand-600/15 text-brand-500 scale-[1.03]'
+              : 'text-muted hover:bg-surface-2 hover:text-secondary hover:scale-[1.02]'
           }`}
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">

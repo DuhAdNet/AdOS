@@ -60,7 +60,7 @@ function saveConfig(servers: McpServerConfig[]): void {
 }
 
 async function connectServer(config: McpServerConfig): Promise<McpSession> {
-  const client = new Client({ name: 'ados', version: '0.2.0' }, { capabilities: {} });
+  const client = new Client({ name: 'jvos', version: '0.2.0' }, { capabilities: {} });
 
   let transport: any;
   let childProcess: ChildProcess | undefined;

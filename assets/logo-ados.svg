@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 200" width="512" height="200" fill="none">
+  <!-- Icon (brain + A split silver/gold) scaled -->
+  <g transform="translate(30, 10) scale(0.7)">
+    <!-- Left half: Silver -->
+    <g clip-path="url(#logo-left)">
+      <path d="M128 60 C95 60 70 85 65 110 C60 135 65 155 75 170 C85 185 95 195 100 210" stroke="#C0C0C0" stroke-width="2" stroke-linecap="round" fill="none"/>
+      <path d="M128 75 C105 78 88 95 85 115 C82 135 90 152 100 165" stroke="#C0C0C0" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.7"/>
+      <path d="M128 95 C112 98 100 110 98 125 C96 140 102 152 110 160" stroke="#C0C0C0" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="0.5"/>
+      <line x1="128" y1="50" x2="78" y2="206" stroke="#C0C0C0" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="95" y1="155" x2="128" y2="155" stroke="#C0C0C0" stroke-width="2" stroke-linecap="round"/>
+    </g>
+
+    <!-- Right half: Gold -->
+    <g clip-path="url(#logo-right)">
+      <path d="M128 60 C161 60 186 85 191 110 C196 135 191 155 181 170 C171 185 161 195 156 210" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" fill="none"/>
+      <path d="M128 75 C151 78 168 95 171 115 C174 135 166 152 156 165" stroke="#D4AF37" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.7"/>
+      <path d="M128 95 C144 98 156 110 158 125 C160 140 154 152 146 160" stroke="#D4AF37" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="0.5"/>
+      <line x1="128" y1="50" x2="178" y2="206" stroke="#D4AF37" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="128" y1="155" x2="161" y2="155" stroke="#D4AF37" stroke-width="2" stroke-linecap="round"/>
+    </g>
+
+    <line x1="128" y1="45" x2="128" y2="215" stroke="#ffffff" stroke-width="0.5" opacity="0.15"/>
+
+    <defs>
+      <clipPath id="logo-left">
+        <rect x="0" y="0" width="128" height="256"/>
+      </clipPath>
+      <clipPath id="logo-right">
+        <rect x="128" y="0" width="128" height="256"/>
+      </clipPath>
+    </defs>
+  </g>
+
+  <!-- Wordmark -->
+  <text x="225" y="112" font-family="'Inter', 'SF Pro Display', -apple-system, sans-serif" font-size="52" font-weight="200" letter-spacing="6" fill="#ffffff">AdOS</text>
+  <text x="227" y="142" font-family="'Inter', 'SF Pro Display', -apple-system, sans-serif" font-size="11" font-weight="300" letter-spacing="4" fill="#ffffff" opacity="0.35">AI DESKTOP OPERATING SYSTEM</text>
+</svg>

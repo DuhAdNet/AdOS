@@ -142,7 +142,7 @@ export default function SetupWizard({ onComplete }: SetupWizardProps) {
               <div className="w-14 h-14 rounded-xl bg-surface-2 border border-default flex items-center justify-center mx-auto mb-5">
                 <span className="text-xl font-semibold text-secondary">A</span>
               </div>
-              <h1 className="text-xl font-semibold text-primary">Configurar AdOS</h1>
+              <h1 className="text-xl font-semibold text-primary">Configurar JVOS</h1>
               <p className="text-sm text-muted mt-2">Escolha seu provider de IA para começar</p>
             </div>
 

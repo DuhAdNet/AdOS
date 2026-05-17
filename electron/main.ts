@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { app, BrowserWindow, ipcMain, session, systemPreferences, shell } from 'electron';
 import path from 'path';
 import { registerBrowserHandlers } from './browser';
 import { registerLLMHandlers } from './llm';
@@ -14,6 +14,8 @@ import { registerAgentHandlers } from './agents';
 import { registerTelegramHandlers } from './telegram';
 import { getSetting, getDb } from './database';
 import { startScheduler } from './scheduler';
+import { registerActionsEngineHandlers, initActionsSchema } from './actions-engine';
+import { registerListenerHandlers, initListenersSchema, startListeners } from './listeners';
 
 app.disableHardwareAcceleration();
 app.commandLine.appendSwitch('disable-gpu');
@@ -47,6 +49,21 @@ async function createWindow() {
     mainWindow = null;
   });
 
+  // Grant microphone/camera permissions for voice input
+  session.defaultSession.setPermissionRequestHandler((_webContents, permission, callback) => {
+    const allowed = ['media', 'mediaKeySystem', 'clipboard-read', 'clipboard-sanitized-write'];
+    callback(allowed.includes(permission));
+  });
+  session.defaultSession.setPermissionCheckHandler((_webContents, permission) => {
+    const allowed = ['media', 'mediaKeySystem', 'clipboard-read', 'clipboard-sanitized-write'];
+    return allowed.includes(permission);
+  });
+
+  // On macOS, request microphone access at OS level
+  if (process.platform === 'darwin') {
+    systemPreferences.askForMediaAccess('microphone').catch(() => {});
+  }
+
   await initDatabase();
   registerDatabaseHandlers();
 
@@ -64,7 +81,12 @@ async function createWindow() {
   registerIntegrationHandlers();
   registerAgentHandlers();
   registerTelegramHandlers(mainWindow);
+  initActionsSchema();
+  initListenersSchema();
+  registerActionsEngineHandlers(mainWindow);
+  registerListenerHandlers(mainWindow);
   startScheduler(getDb(), mainWindow);
+  startListeners(mainWindow);
 }
 
 app.on('ready', createWindow);
@@ -82,3 +104,6 @@ ipcMain.handle('window:maximize', () => {
   }
 });
 ipcMain.handle('window:close', () => mainWindow?.close());
+ipcMain.handle('shell:open-external', (_event, url: string) => {
+  shell.openExternal(url);
+});

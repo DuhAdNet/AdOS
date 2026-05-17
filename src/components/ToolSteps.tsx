@@ -12,6 +12,8 @@ interface ToolStepsProps {
 }
 
 const toolCategories: Record<string, string> = {
+  thinking: 'thinking',
+  'delegated:': 'agent',
   read: 'file', file: 'file', write: 'file', edit: 'file',
   bash: 'terminal', shell: 'terminal', exec: 'terminal', run: 'terminal', command: 'terminal',
   search: 'search', grep: 'search', find: 'search',
@@ -33,6 +35,10 @@ function getToolCategory(name: string): string {
 function ToolIcon({ category }: { category: string }) {
   const cls = "w-3 h-3 text-muted shrink-0";
   switch (category) {
+    case 'thinking':
+      return <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M12 2l1.09 3.26L16.35 6l-3.26 1.09L12 10.35l-1.09-3.26L7.65 6l3.26-1.09L12 2z"/><path d="M18 12l.72 2.18L20.9 15l-2.18.72L18 17.9l-.72-2.18L15.1 15l2.18-.72L18 12z"/><path d="M6 15l.72 2.18L8.9 18l-2.18.72L6 20.9l-.72-2.18L3.1 18l2.18-.72L6 15z"/></svg>;
+    case 'agent':
+      return <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>;
     case 'file':
       return <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>;
     case 'terminal':
@@ -90,7 +96,11 @@ export default function ToolSteps({ steps, isRunning, startTime }: ToolStepsProp
           </span>
         )}
         <span className="text-xs font-medium text-secondary">
-          {isRunning ? `Executando... ${steps.length} etapas` : `${steps.length} etapas concluidas`}
+          {isRunning
+            ? steps.length === 1 && steps[0].name === 'thinking'
+              ? 'Pensando...'
+              : `Executando... ${steps.length} ${steps.length === 1 ? 'etapa' : 'etapas'}`
+            : `${steps.length} ${steps.length === 1 ? 'etapa concluída' : 'etapas concluídas'}`}
         </span>
         <div className="flex gap-1 mx-1 items-center">
           {steps.slice(-6).map((step, i) => (
@@ -125,5 +135,7 @@ export default function ToolSteps({ steps, isRunning, startTime }: ToolStepsProp
 }
 
 function formatToolName(name: string): string {
+  if (name === 'thinking') return 'Pensando...';
+  if (name.startsWith('delegated:')) return `Delegado → ${name.slice(10)}`;
   return name.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
 }

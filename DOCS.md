@@ -1,8 +1,8 @@
-# AdOS — Documentação Técnica e Regras de Negócio
+# JVOS — Documentação Técnica e Regras de Negócio
 
 ## 1. Visão Geral
 
-**AdOS** é a plataforma de agente IA desktop da AdNet Monetize.
+**JVOS** é a plataforma de agente IA desktop da Juviall.
 
 Um programa Windows que abre e fecha como qualquer aplicativo. Sem serviços em background, sem startup automático, sem daemon. Clicou no X = tudo morre.
 
@@ -220,7 +220,7 @@ Sistema de memória persistente com visualização em grafo interativo e sync en
 
 ### 2.14 Marketplace
 
-Loja de skills/workflows compartilhados entre usuários do AdOS.
+Loja de skills/workflows compartilhados entre usuários do JVOS.
 
 | Regra | Descrição |
 |-------|-----------|
@@ -484,7 +484,7 @@ Main Process → Telemetria (hasheada, sem conteúdo)
 ## 5. Estrutura do Repositório
 
 ```
-AdOS/
+JVOS/
 ├── package.json           — dependências e scripts
 ├── index.html             — entry HTML (Vite)
 ├── vite.config.ts         — config Vite
@@ -554,16 +554,16 @@ AdOS/
 
 ## 8. Deep Links
 
-O AdOS suporta deep links para navegação direta:
+O JVOS suporta deep links para navegação direta:
 
 | Link | Destino |
 |------|---------|
-| `ados://workflows` | Lista de workflows |
-| `ados://skills` | Lista de skills |
-| `ados://dashboards` | Painéis salvos |
-| `ados://settings/usage` | Consumo de créditos |
-| `ados://settings/workspace` | Configuração workspace |
-| `ados://settings/api-keys` | Cadastro de chaves |
+| `jvos://workflows` | Lista de workflows |
+| `jvos://skills` | Lista de skills |
+| `jvos://dashboards` | Painéis salvos |
+| `jvos://settings/usage` | Consumo de créditos |
+| `jvos://settings/workspace` | Configuração workspace |
+| `jvos://settings/api-keys` | Cadastro de chaves |
 
 ---
 
@@ -629,5 +629,5 @@ O AdOS suporta deep links para navegação direta:
 *Versão: 0.2.0*
 *Criado: 2026-05-13*
 *Atualizado: 2026-05-14*
-*Repo: github.com/PM-ADNET/AdOS*
+*Repo: github.com/PM-ADNET/JVOS*
 *Referência: docs completas do G4 OS (docsg4os.g4business.com)*

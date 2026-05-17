@@ -6,6 +6,9 @@ contextBridge.exposeInMainWorld('ados', {
     maximize: () => ipcRenderer.invoke('window:maximize'),
     close: () => ipcRenderer.invoke('window:close'),
   },
+  shell: {
+    openExternal: (url: string) => ipcRenderer.invoke('shell:open-external', url),
+  },
   llm: {
     chat: (messages: Array<{ role: string; content: string }>, model: string) =>
       ipcRenderer.invoke('llm:chat', messages, model),
@@ -23,6 +26,7 @@ contextBridge.exposeInMainWorld('ados', {
     onToolCall: (callback: (data: any) => void) => {
       ipcRenderer.on('llm:tool-call', (_e, data) => callback(data));
     },
+    stop: () => ipcRenderer.invoke('llm:stop'),
     removeStreamListeners: () => {
       ipcRenderer.removeAllListeners('llm:stream-chunk');
       ipcRenderer.removeAllListeners('llm:stream-end');
@@ -35,6 +39,8 @@ contextBridge.exposeInMainWorld('ados', {
       ipcRenderer.invoke('llm:test-key', provider, key),
     hasKey: (provider: string) =>
       ipcRenderer.invoke('llm:has-key', provider),
+    transcribe: (audioBase64: string, mimeType: string) =>
+      ipcRenderer.invoke('llm:transcribe', audioBase64, mimeType),
   },
   mcp: {
     listServers: () => ipcRenderer.invoke('mcp:list-servers'),
@@ -74,6 +80,8 @@ contextBridge.exposeInMainWorld('ados', {
     getMessages: (sessionId: string) => ipcRenderer.invoke('db:get-messages', sessionId),
     getSetting: (key: string) => ipcRenderer.invoke('db:get-setting', key),
     setSetting: (key: string, value: string) => ipcRenderer.invoke('db:set-setting', key, value),
+    getSessionSetting: (sessionId: string, key: string) => ipcRenderer.invoke('db:get-session-setting', sessionId, key),
+    setSessionSetting: (sessionId: string, key: string, value: string) => ipcRenderer.invoke('db:set-session-setting', sessionId, key, value),
     getConnections: () => ipcRenderer.invoke('db:get-connections'),
     addConnection: (id: string, name: string, type: string, config: string) =>
       ipcRenderer.invoke('db:add-connection', id, name, type, config),
@@ -101,6 +109,8 @@ contextBridge.exposeInMainWorld('ados', {
     addAutomation: (id: string, name: string, description: string, schedule: string, sources: string) =>
       ipcRenderer.invoke('db:add-automation', id, name, description, schedule, sources),
     toggleAutomation: (id: string, enabled: boolean) => ipcRenderer.invoke('db:toggle-automation', id, enabled),
+    updateAutomation: (id: string, name: string, description: string, schedule: string, sources: string, extra?: any) =>
+      ipcRenderer.invoke('db:update-automation', id, name, description, schedule, sources, extra),
     deleteAutomation: (id: string) => ipcRenderer.invoke('db:delete-automation', id),
     // Labels
     getLabels: () => ipcRenderer.invoke('db:get-labels'),
@@ -131,21 +141,25 @@ contextBridge.exposeInMainWorld('ados', {
     deleteDashboard: (id: string) => ipcRenderer.invoke('db:delete-dashboard', id),
   },
   browser: {
-    open: (url: string) => ipcRenderer.invoke('browser:open', url),
-    navigate: (url: string) => ipcRenderer.invoke('browser:navigate', url),
-    back: () => ipcRenderer.invoke('browser:back'),
-    forward: () => ipcRenderer.invoke('browser:forward'),
-    reload: () => ipcRenderer.invoke('browser:reload'),
-    screenshot: () => ipcRenderer.invoke('browser:screenshot'),
-    getUrl: () => ipcRenderer.invoke('browser:get-url'),
-    getTitle: () => ipcRenderer.invoke('browser:get-title'),
-    executeJs: (code: string) => ipcRenderer.invoke('browser:execute-js', code),
-    close: () => ipcRenderer.invoke('browser:close'),
-    hide: () => ipcRenderer.invoke('browser:hide'),
-    show: () => ipcRenderer.invoke('browser:show'),
-    isOpen: () => ipcRenderer.invoke('browser:is-open'),
-    resize: (bounds: { x: number; y: number; width: number; height: number }) =>
-      ipcRenderer.invoke('browser:resize', bounds),
+    open: (url: string, sessionId?: string) => ipcRenderer.invoke('browser:open', url, sessionId),
+    navigate: (url: string, sessionId?: string) => ipcRenderer.invoke('browser:navigate', url, sessionId),
+    back: (sessionId?: string) => ipcRenderer.invoke('browser:back', sessionId),
+    forward: (sessionId?: string) => ipcRenderer.invoke('browser:forward', sessionId),
+    reload: (sessionId?: string) => ipcRenderer.invoke('browser:reload', sessionId),
+    screenshot: (sessionId?: string) => ipcRenderer.invoke('browser:screenshot', sessionId),
+    getUrl: (sessionId?: string) => ipcRenderer.invoke('browser:get-url', sessionId),
+    getTitle: (sessionId?: string) => ipcRenderer.invoke('browser:get-title', sessionId),
+    executeJs: (code: string, sessionId?: string) => ipcRenderer.invoke('browser:execute-js', code, sessionId),
+    close: (sessionId?: string) => ipcRenderer.invoke('browser:close', sessionId),
+    hide: (sessionId?: string) => ipcRenderer.invoke('browser:hide', sessionId),
+    show: (sessionId?: string) => ipcRenderer.invoke('browser:show', sessionId),
+    isOpen: (sessionId?: string) => ipcRenderer.invoke('browser:is-open', sessionId),
+    resize: (bounds: { x: number; y: number; width: number; height: number }, sessionId?: string) =>
+      ipcRenderer.invoke('browser:resize', bounds, sessionId),
+    history: (sessionId?: string) => ipcRenderer.invoke('browser:history', sessionId),
+    screenshotToChat: (sessionId?: string) => ipcRenderer.invoke('browser:screenshot-to-chat', sessionId),
+    getSelection: (sessionId?: string) => ipcRenderer.invoke('browser:get-selection', sessionId),
+    pip: (sessionId?: string) => ipcRenderer.invoke('browser:pip', sessionId),
     onStateChanged: (callback: (state: any) => void) => {
       ipcRenderer.on('browser:state-changed', (_e, state) => callback(state));
     },
@@ -248,15 +262,62 @@ contextBridge.exposeInMainWorld('ados', {
     setWebhook: (url: string) => ipcRenderer.invoke('telegram:set-webhook', url),
     deleteWebhook: () => ipcRenderer.invoke('telegram:delete-webhook'),
     getWebhookInfo: () => ipcRenderer.invoke('telegram:get-webhook-info'),
+    generatePairCode: (sessionId: string) => ipcRenderer.invoke('telegram:generate-pair-code', sessionId),
+    onPairSuccess: (callback: (data: any) => void) => {
+      ipcRenderer.on('telegram:pair-success', (_e, data) => callback(data));
+    },
     onMessage: (callback: (msg: any) => void) => {
       ipcRenderer.on('telegram:message', (_e, msg) => callback(msg));
     },
     onError: (callback: (error: string) => void) => {
       ipcRenderer.on('telegram:error', (_e, error) => callback(error));
     },
+    onPairingUpdated: (callback: () => void) => {
+      ipcRenderer.on('telegram:pairing-updated', () => callback());
+    },
     removeListeners: () => {
       ipcRenderer.removeAllListeners('telegram:message');
       ipcRenderer.removeAllListeners('telegram:error');
+      ipcRenderer.removeAllListeners('telegram:pairing-updated');
+    },
+  },
+  actions: {
+    listFlows: () => ipcRenderer.invoke('actions:list-flows'),
+    getFlow: (id: string) => ipcRenderer.invoke('actions:get-flow', id),
+    createFlow: (data: any) => ipcRenderer.invoke('actions:create-flow', data),
+    updateFlow: (id: string, updates: any) => ipcRenderer.invoke('actions:update-flow', id, updates),
+    deleteFlow: (id: string) => ipcRenderer.invoke('actions:delete-flow', id),
+    executeFlow: (id: string, data?: any) => ipcRenderer.invoke('actions:execute-flow', id, data),
+    getLogs: (flowId: string, limit?: number) => ipcRenderer.invoke('actions:get-logs', flowId, limit),
+    listActionTypes: () => ipcRenderer.invoke('actions:list-action-types'),
+    onFlowCompleted: (callback: (data: any) => void) => {
+      ipcRenderer.on('actions:flow-completed', (_e, data) => callback(data));
+    },
+    onNodeExecuted: (callback: (data: any) => void) => {
+      ipcRenderer.on('actions:node-executed', (_e, data) => callback(data));
+    },
+    onNotification: (callback: (data: any) => void) => {
+      ipcRenderer.on('actions:notification', (_e, data) => callback(data));
+    },
+    removeListeners: () => {
+      ipcRenderer.removeAllListeners('actions:flow-completed');
+      ipcRenderer.removeAllListeners('actions:node-executed');
+      ipcRenderer.removeAllListeners('actions:notification');
+    },
+  },
+  listeners: {
+    list: () => ipcRenderer.invoke('listeners:list'),
+    create: (data: any) => ipcRenderer.invoke('listeners:create', data),
+    update: (id: string, updates: any) => ipcRenderer.invoke('listeners:update', id, updates),
+    delete: (id: string) => ipcRenderer.invoke('listeners:delete', id),
+    toggle: (id: string, enabled: boolean) => ipcRenderer.invoke('listeners:toggle', id, enabled),
+    getEvents: (listenerId: string, limit?: number) => ipcRenderer.invoke('listeners:events', listenerId, limit),
+    recentEvents: (limit?: number) => ipcRenderer.invoke('listeners:recent-events', limit),
+    onListenerEvent: (callback: (data: any) => void) => {
+      ipcRenderer.on('listener:events', (_e, data) => callback(data));
+    },
+    removeListeners: () => {
+      ipcRenderer.removeAllListeners('listener:events');
     },
   },
 });

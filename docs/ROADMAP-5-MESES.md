@@ -1,4 +1,4 @@
-# AdOS — Roadmap de 5 Meses (150 dias)
+# JVOS — Roadmap de 5 Meses (150 dias)
 
 ## Objetivo
 
@@ -21,7 +21,7 @@ Entregar funcionalidades a cada 5 dias que **encantem empresários** e substitua
 | 9 | Gemma 3 27B | Google / OpenRouter | $0.10 | $0.10 | ⚠️ Parcial | Baratíssimo mas tool calling limitado |
 | 10 | Phi-4 | Microsoft / Fireworks | $0.07 | $0.07 | ⚠️ Parcial | Micro-modelo, bom para tasks simples |
 
-### Recomendação para AdOS Cloud
+### Recomendação para JVOS Cloud
 
 | Tier | Modelo primário | Fallback | Custo médio/msg |
 |------|----------------|----------|-----------------|
@@ -36,7 +36,7 @@ Entregar funcionalidades a cada 5 dias que **encantem empresários** e substitua
 ## Cargos-Alvo e Features por Cargo
 
 ### FINANCEIRO
-| Cargo | Dor | Feature AdOS |
+| Cargo | Dor | Feature JVOS |
 |-------|-----|-------------|
 | Analista Financeiro | Consolidar DRE, fluxo de caixa manual | Dashboard financeiro automático + alertas |
 | Controller | Reconciliação bancária lenta | Importar OFX/CSV + classificação automática |
@@ -44,29 +44,29 @@ Entregar funcionalidades a cada 5 dias que **encantem empresários** e substitua
 | Tesoureiro | Controle de caixa em planilha | Projeção de caixa com cenários |
 
 ### ATENDIMENTO
-| Cargo | Dor | Feature AdOS |
+| Cargo | Dor | Feature JVOS |
 |-------|-----|-------------|
 | Atendente SAC | Respostas repetitivas | Bot de resposta automática multi-canal |
 | Supervisor CS | Não sabe qualidade do atendimento | Análise de sentimento + score automático |
 | Head de CX | NPS baixo, não sabe por quê | Dashboard de voz do cliente + insights |
 
 ### DESIGN & CRIATIVO
-| Cargo | Dor | Feature AdOS |
+| Cargo | Dor | Feature JVOS |
 |-------|-----|-------------|
 | Designer Gráfico | Briefings vagos, retrabalho | Geração de criativos via prompt (GPT Image) |
 | Social Media Designer | Volume alto, pouca variação | Batch de criativos com variações automáticas |
 | Brand Manager | Consistência visual | Style guide enforcer + review automático |
 
 ### REDES SOCIAIS & MARKETING
-| Cargo | Dor | Feature AdOS |
+| Cargo | Dor | Feature JVOS |
 |-------|-----|-------------|
 | Social Media Manager | Postar manualmente em 5 canais | Agendamento multi-plataforma (IG, FB, LinkedIn) |
 | Community Manager | Responder DMs/comentários | Bot de engajamento com tom da marca |
 | Gestor de Tráfego (Media Buyer) | Otimização manual de campanhas | Alerta de campanhas ruins + sugestão de ação |
 | Growth Hacker | Testar hipóteses leva dias | A/B test automático de copies e criativos |
 
-### DADOS & BI
-| Cargo | Dor | Feature AdOS |
+### DJVOS & BI
+| Cargo | Dor | Feature JVOS |
 |-------|-----|-------------|
 | Analista de Dados | SQL manual, tempo em queries | NL-to-SQL + visualização automática |
 | BI Analyst | Dashboards demoram para criar | Dashboard builder por linguagem natural |
@@ -74,7 +74,7 @@ Entregar funcionalidades a cada 5 dias que **encantem empresários** e substitua
 | CDO | Dados espalhados, sem single source | Conector universal (Sheets, Notion, DB, APIs) |
 
 ### C-LEVEL
-| Cargo | Dor | Feature AdOS |
+| Cargo | Dor | Feature JVOS |
 |-------|-----|-------------|
 | CEO | Informação fragmentada, reuniões longas | Briefing diário automático + decision support |
 | COO | Processos ineficientes, sem visibilidade | Process mining + alertas operacionais |
@@ -83,7 +83,7 @@ Entregar funcionalidades a cada 5 dias que **encantem empresários** e substitua
 | CMO | ROI de marketing obscuro | Attribution dashboard + recomendações |
 
 ### MERCADO FINANCEIRO
-| Cargo | Dor | Feature AdOS |
+| Cargo | Dor | Feature JVOS |
 |-------|-----|-------------|
 | Trader | Muita informação, pouco tempo | News digest + sentiment analysis real-time |
 | Gestor de Ações | Portfólio em planilha | Portfolio tracker + alertas de threshold |
@@ -91,13 +91,13 @@ Entregar funcionalidades a cada 5 dias que **encantem empresários** e substitua
 | Quant | Backtesting complexo | Python sandbox + data feeds via MCP |
 
 ### JURÍDICO
-| Cargo | Dor | Feature AdOS |
+| Cargo | Dor | Feature JVOS |
 |-------|-----|-------------|
 | Advogado | Revisão de contratos demorada | Contract review + highlight de cláusulas de risco |
 | Paralegal | Pesquisa jurisprudencial manual | Search + resumo de decisões |
 
 ### RH & PEOPLE
-| Cargo | Dor | Feature AdOS |
+| Cargo | Dor | Feature JVOS |
 |-------|-----|-------------|
 | Recrutador | Triagem de CVs manual | CV scoring + fit analysis automático |
 | HRBP | Pesquisa de clima lenta | Análise de sentimento + sugestões |
@@ -129,7 +129,7 @@ Entregar funcionalidades a cada 5 dias que **encantem empresários** e substitua
 | 11 | D51-D55 | **Copy Generator + A/B** — gerar copies, testar variações, report de winner | Growth Hacker |
 | 12 | D56-D60 | **Multi-Platform Publisher** — postar simultâneo IG + FB + LinkedIn + X | Social Media Manager |
 
-### MÊS 3: DADOS + BI + C-LEVEL (Sprints 13-18)
+### MÊS 3: DJVOS + BI + C-LEVEL (Sprints 13-18)
 
 | Sprint | Dias | Feature | Cargo-alvo |
 |--------|------|---------|-----------|
@@ -223,7 +223,7 @@ ados-cloud/
 
 ## Diferencial vs Concorrência
 
-| Concorrente | Fraqueza | AdOS resolve |
+| Concorrente | Fraqueza | JVOS resolve |
 |-------------|----------|-------------|
 | ChatGPT | Genérico, sem integração real | Tool calling + MCP + browser automation |
 | n8n | Técnico demais para empresário | Interface de chat, zero-code |
@@ -236,6 +236,6 @@ ados-cloud/
 
 ## Conclusão
 
-O AdOS se posiciona como o **"funcionário de IA all-in-one"** que substitui operações repetitivas em qualquer departamento. O modelo managed (tokens conosco) elimina a barreira técnica e cria receita recorrente previsível.
+O JVOS se posiciona como o **"funcionário de IA all-in-one"** que substitui operações repetitivas em qualquer departamento. O modelo managed (tokens conosco) elimina a barreira técnica e cria receita recorrente previsível.
 
 **Meta de 5 meses:** 500 usuários, MRR R$15k+, 30 features entregues, cobrindo 15+ cargos empresariais.

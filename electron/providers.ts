@@ -33,6 +33,7 @@ const DEFAULT_PROVIDERS: ProviderConfig[] = [
     baseUrl: 'https://api.openai.com/v1',
     apiKeyPlaceholder: 'sk-...',
     models: [
+      { id: 'gpt-5.5', name: 'GPT-5.5', providerId: 'openai', api: 'responses', contextWindow: 1000000, maxTokens: 65536, supportsStreaming: true, supportsTools: true, description: 'Modelo mais inteligente — máxima qualidade' },
       { id: 'codex-mini-latest', name: 'Codex Mini', providerId: 'openai', api: 'responses', contextWindow: 192000, maxTokens: 100000, supportsStreaming: true, supportsTools: true, description: 'Agente de código — rápido e inteligente' },
       { id: 'o3-mini', name: 'O3 Mini', providerId: 'openai', api: 'responses', contextWindow: 200000, maxTokens: 100000, supportsStreaming: true, supportsTools: true, description: 'Raciocínio avançado' },
       { id: 'o4-mini', name: 'O4 Mini', providerId: 'openai', api: 'responses', contextWindow: 200000, maxTokens: 100000, supportsStreaming: true, supportsTools: true, description: 'Raciocínio de última geração' },
@@ -64,6 +65,16 @@ const DEFAULT_PROVIDERS: ProviderConfig[] = [
     models: [
       { id: 'gemini-2.5-pro', name: 'Gemini 2.5 Pro', providerId: 'google', api: 'google-generative', contextWindow: 1000000, maxTokens: 65536, supportsStreaming: true, supportsTools: true, description: 'Raciocínio avançado com 1M context' },
       { id: 'gemini-2.5-flash', name: 'Gemini 2.5 Flash', providerId: 'google', api: 'google-generative', contextWindow: 1000000, maxTokens: 65536, supportsStreaming: true, supportsTools: true, description: 'Ultra-rápido, bom custo-benefício' },
+    ],
+  },
+  {
+    id: 'groq',
+    name: 'Groq',
+    type: 'openai' as const,
+    baseUrl: 'https://api.groq.com/openai/v1',
+    apiKeyPlaceholder: 'gsk_...',
+    models: [
+      { id: 'llama-3.3-70b-versatile', name: 'Llama 3.3 70B', providerId: 'groq', api: 'chat-completions' as const, contextWindow: 128000, maxTokens: 32768, supportsStreaming: true, supportsTools: true, description: 'Rápido — ideal para tarefas gerais' },
     ],
   },
   {

@@ -1,9 +1,9 @@
-# AdOS — Changelog Completo (15/05/2026)
+# JVOS — Changelog Completo (15/05/2026)
 
 ## Sessão de Desenvolvimento
 
 **Data:** 15 de maio de 2026, 00:00–01:07 (GMT-3)
-**Commits:** 5 commits pushados para `DuhAdNet/AdOS` (main)
+**Commits:** 5 commits pushados para `DuhAdNet/JVOS` (main)
 
 ---
 
@@ -159,7 +159,7 @@
 ## Estado Final do Repositório
 
 ```
-AdOS/
+JVOS/
 ├── docs/
 │   ├── README.md              — Documentação técnica
 │   ├── PLANO-COMERCIAL.md     — Plano de negócios SaaS
@@ -213,4 +213,4 @@ AdOS/
 ```
 
 **Build status:** ✅ Zero erros TypeScript, Vite build OK, esbuild electron OK
-**Git status:** Limpo, tudo commitado e pushado para `DuhAdNet/AdOS` (main)
+**Git status:** Limpo, tudo commitado e pushado para `DuhAdNet/JVOS` (main)

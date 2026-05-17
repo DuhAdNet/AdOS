@@ -179,6 +179,16 @@ export async function initDatabase() {
   `);
 
   db.run(`
+    CREATE TABLE IF NOT EXISTS session_settings (
+      session_id TEXT NOT NULL,
+      key TEXT NOT NULL,
+      value TEXT NOT NULL DEFAULT '',
+      PRIMARY KEY (session_id, key),
+      FOREIGN KEY (session_id) REFERENCES sessions(id)
+    )
+  `);
+
+  db.run(`
     CREATE TABLE IF NOT EXISTS automations (
       id TEXT PRIMARY KEY,
       name TEXT NOT NULL,
@@ -187,14 +197,39 @@ export async function initDatabase() {
       sources TEXT NOT NULL DEFAULT '[]',
       enabled INTEGER NOT NULL DEFAULT 0,
       last_run TEXT,
-      created_at TEXT NOT NULL DEFAULT (datetime('now'))
+      created_at TEXT NOT NULL DEFAULT (datetime('now')),
+      action_type TEXT NOT NULL DEFAULT 'new_session',
+      skill_slug TEXT NOT NULL DEFAULT '',
+      prompt TEXT NOT NULL DEFAULT '',
+      working_dir TEXT NOT NULL DEFAULT '',
+      schedule_type TEXT NOT NULL DEFAULT 'schedule',
+      schedule_days TEXT NOT NULL DEFAULT '[]',
+      schedule_time TEXT NOT NULL DEFAULT '08:00',
+      selected_skills TEXT NOT NULL DEFAULT '[]'
     )
   `);
+
+  // Migrations: add columns that may be missing from older databases
+  const migrateCols = [
+    { col: 'action_type', def: "TEXT NOT NULL DEFAULT 'new_session'" },
+    { col: 'skill_slug', def: "TEXT NOT NULL DEFAULT ''" },
+    { col: 'prompt', def: "TEXT NOT NULL DEFAULT ''" },
+    { col: 'working_dir', def: "TEXT NOT NULL DEFAULT ''" },
+    { col: 'schedule_type', def: "TEXT NOT NULL DEFAULT 'schedule'" },
+    { col: 'schedule_days', def: "TEXT NOT NULL DEFAULT '[]'" },
+    { col: 'schedule_time', def: "TEXT NOT NULL DEFAULT '08:00'" },
+    { col: 'selected_skills', def: "TEXT NOT NULL DEFAULT '[]'" },
+  ];
+  for (const { col, def } of migrateCols) {
+    try {
+      db.run(`ALTER TABLE automations ADD COLUMN ${col} ${def}`);
+    } catch { /* column already exists */ }
+  }
 
   saveDb();
 }
 
-function saveDb() {
+export function saveDb() {
   if (!db) return;
   const data = db.export();
   const buffer = Buffer.from(data);
@@ -289,6 +324,9 @@ export function registerDatabaseHandlers() {
 
   ipcMain.handle('db:delete-session', (_event, id: string) => {
     db.run('DELETE FROM messages WHERE session_id = ?', [id]);
+    db.run('DELETE FROM session_settings WHERE session_id = ?', [id]);
+    db.run('DELETE FROM session_labels WHERE session_id = ?', [id]);
+    db.run('DELETE FROM telegram_pairings WHERE session_id = ?', [id]);
     db.run('DELETE FROM sessions WHERE id = ?', [id]);
     saveDb();
     return { success: true };
@@ -431,16 +469,54 @@ export function registerDatabaseHandlers() {
   });
 
   ipcMain.handle('db:get-automations', () => {
-    const rows = db.exec('SELECT id, name, description, schedule, sources, enabled, last_run, created_at FROM automations ORDER BY created_at DESC');
+    const rows = db.exec('SELECT id, name, description, schedule, sources, enabled, last_run, created_at, action_type, skill_slug, prompt, working_dir, schedule_type, schedule_days, schedule_time, selected_skills FROM automations ORDER BY created_at DESC');
     if (!rows.length) return [];
     return rows[0].values.map((r: any[]) => ({
       id: r[0], name: r[1], description: r[2], schedule: r[3],
       sources: JSON.parse(r[4] || '[]'), enabled: !!r[5], lastRun: r[6], createdAt: r[7],
+      actionType: r[8] || 'new_session', skillSlug: r[9] || '', prompt: r[10] || '',
+      workingDir: r[11] || '', scheduleType: r[12] || 'schedule',
+      scheduleDays: JSON.parse(r[13] || '[]'), scheduleTime: r[14] || '08:00',
+      selectedSkills: JSON.parse(r[15] || '[]'),
     }));
   });
 
-  ipcMain.handle('db:add-automation', (_event, id: string, name: string, description: string, schedule: string, sources: string) => {
-    db.run('INSERT INTO automations (id, name, description, schedule, sources) VALUES (?, ?, ?, ?, ?)', [id, name, description, schedule, sources]);
+  ipcMain.handle('db:add-automation', (_event, id: string, name: string, description: string, schedule: string, sources: string, extra?: any) => {
+    if (extra) {
+      db.run(`INSERT INTO automations (id, name, description, schedule, sources, action_type, skill_slug, prompt, working_dir, schedule_type, schedule_days, schedule_time, selected_skills)
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        [id, name, description, schedule, sources,
+         extra.action_type || 'new_session',
+         extra.skill_slug || '',
+         extra.prompt || '',
+         extra.working_dir || '',
+         extra.schedule_type || 'schedule',
+         extra.schedule_days || '[]',
+         extra.schedule_time || '08:00',
+         extra.selected_skills || '[]']);
+    } else {
+      db.run('INSERT INTO automations (id, name, description, schedule, sources) VALUES (?, ?, ?, ?, ?)', [id, name, description, schedule, sources]);
+    }
+    saveDb();
+    return { success: true };
+  });
+
+  ipcMain.handle('db:update-automation', (_event, id: string, name: string, description: string, schedule: string, sources: string, extra?: any) => {
+    if (extra) {
+      db.run(`UPDATE automations SET name=?, description=?, schedule=?, sources=?, action_type=?, skill_slug=?, prompt=?, working_dir=?, schedule_type=?, schedule_days=?, schedule_time=?, selected_skills=? WHERE id=?`,
+        [name, description, schedule, sources,
+         extra.action_type || 'new_session',
+         extra.skill_slug || '',
+         extra.prompt || '',
+         extra.working_dir || '',
+         extra.schedule_type || 'schedule',
+         extra.schedule_days || '[]',
+         extra.schedule_time || '08:00',
+         extra.selected_skills || '[]',
+         id]);
+    } else {
+      db.run('UPDATE automations SET name=?, description=?, schedule=?, sources=? WHERE id=?', [name, description, schedule, sources, id]);
+    }
     saveDb();
     return { success: true };
   });
@@ -465,6 +541,19 @@ export function registerDatabaseHandlers() {
 
   ipcMain.handle('db:set-setting', (_event, key: string, value: string) => {
     db.run('INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)', [key, value]);
+    saveDb();
+    return { success: true };
+  });
+
+  // Session-scoped settings
+  ipcMain.handle('db:get-session-setting', (_event, sessionId: string, key: string) => {
+    const rows = db.exec('SELECT value FROM session_settings WHERE session_id = ? AND key = ?', [sessionId, key]);
+    if (!rows.length || !rows[0].values.length) return null;
+    return rows[0].values[0][0];
+  });
+
+  ipcMain.handle('db:set-session-setting', (_event, sessionId: string, key: string, value: string) => {
+    db.run('INSERT OR REPLACE INTO session_settings (session_id, key, value) VALUES (?, ?, ?)', [sessionId, key, value]);
     saveDb();
     return { success: true };
   });

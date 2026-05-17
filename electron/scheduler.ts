@@ -1,5 +1,6 @@
 import { BrowserWindow } from 'electron';
 import { getSetting } from './database';
+import { notifyAutomationComplete } from './notifications';
 
 interface Automation {
   id: string;
@@ -9,6 +10,9 @@ interface Automation {
   sources: string;
   enabled: number;
   lastRun: string | null;
+  actionType: string | null;
+  skillSlug: string | null;
+  prompt: string | null;
 }
 
 let schedulerInterval: NodeJS.Timeout | null = null;
@@ -56,13 +60,19 @@ function shouldRunNow(schedule: string, lastRun: string | null): boolean {
 }
 
 async function executeAutomation(automation: Automation, win: BrowserWindow | null) {
-  if (!win) return;
-  win.webContents.send('automation:triggered', {
-    id: automation.id,
-    name: automation.name,
-    description: automation.description,
-    sources: automation.sources,
-  });
+  if (win) {
+    win.webContents.send('automation:triggered', {
+      id: automation.id,
+      name: automation.name,
+      description: automation.description,
+      sources: automation.sources,
+      actionType: automation.actionType,
+      skillSlug: automation.skillSlug,
+      prompt: automation.prompt,
+    });
+  }
+
+  notifyAutomationComplete(automation.name);
 
   if (db) {
     db.run("UPDATE automations SET last_run = datetime('now') WHERE id = ?", [automation.id]);
@@ -71,7 +81,7 @@ async function executeAutomation(automation: Automation, win: BrowserWindow | nu
 
 function checkAutomations(win: BrowserWindow | null) {
   if (!db) return;
-  const rows = db.exec('SELECT id, name, description, schedule, sources, enabled, last_run FROM automations WHERE enabled = 1');
+  const rows = db.exec('SELECT id, name, description, schedule, sources, enabled, last_run, action_type, skill_slug, prompt FROM automations WHERE enabled = 1');
   if (!rows.length) return;
 
   for (const r of rows[0].values) {
@@ -83,6 +93,9 @@ function checkAutomations(win: BrowserWindow | null) {
       sources: r[4] as string,
       enabled: r[5] as number,
       lastRun: r[6] as string | null,
+      actionType: r[7] as string | null,
+      skillSlug: r[8] as string | null,
+      prompt: r[9] as string | null,
     };
 
     if (shouldRunNow(automation.schedule, automation.lastRun)) {

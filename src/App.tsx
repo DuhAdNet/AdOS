@@ -5,6 +5,7 @@ import Chat from './pages/Chat';
 import Settings from './pages/Settings';
 import Tools from './pages/Tools';
 import Automations from './pages/Automations';
+import Actions from './pages/Actions';
 import Marketplace from './pages/Marketplace';
 import Brain from './pages/Brain';
 import TelegramPage from './pages/Telegram';
@@ -41,6 +42,7 @@ export default function App() {
   const [browserOpen, setBrowserOpen] = useState(false);
   const [browserVisible, setBrowserVisible] = useState(false);
   const [browserUrl, setBrowserUrl] = useState('');
+  const [browserSessionId, setBrowserSessionId] = useState<string | null>(null);
   const [navCollapsed, setNavCollapsed] = useState(false);
 
   useEffect(() => {
@@ -62,7 +64,14 @@ export default function App() {
       setBrowserOpen(state.open);
       setBrowserVisible(state.visible);
       if (state.url) setBrowserUrl(state.url);
+      if (state.sessionId) setBrowserSessionId(state.sessionId);
     });
+    const onThemeChange = (e: Event) => {
+      const t = (e as CustomEvent).detail as 'dark' | 'light';
+      setTheme(t);
+    };
+    window.addEventListener('ados-theme-change', onThemeChange);
+    return () => window.removeEventListener('ados-theme-change', onThemeChange);
   }, []);
 
   const loadAppearance = async () => {
@@ -97,7 +106,11 @@ export default function App() {
     }
   };
 
-  const toggleTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark');
+  const toggleTheme = async () => {
+    const next = theme === 'dark' ? 'light' : 'dark';
+    setTheme(next);
+    await ados.db.setSetting('theme_mode', next);
+  };
 
   const shortcuts = useMemo(() => ({
     'new-session': () => handleNewSession(),
@@ -141,8 +154,8 @@ export default function App() {
     setSessions(sessions.map(s => s.id === id ? { ...s, title } : s));
   };
 
-  const handleBrowserShow = () => { setBrowserVisible(true); ados.browser.show(); };
-  const handleBrowserHide = () => { setBrowserVisible(false); ados.browser.hide(); };
+  const handleBrowserShow = () => { setBrowserVisible(true); ados.browser.show(browserSessionId || undefined); };
+  const handleBrowserHide = () => { setBrowserVisible(false); ados.browser.hide(browserSessionId || undefined); };
 
   if (needsSetup === null) {
     return <div className="flex h-screen items-center justify-center bg-surface-0"><span className="text-muted">Carregando...</span></div>;
@@ -172,30 +185,29 @@ export default function App() {
       <div className="flex flex-1 overflow-hidden">
         <NavRail active={page} onNavigate={setPage} collapsed={navCollapsed} onToggleCollapse={() => setNavCollapsed(!navCollapsed)} />
 
-        {page === 'sessions' && (
-          <>
-            <SessionPanel
-              sessions={sessions}
-              activeSession={activeSession}
-              onSelectSession={(id) => setActiveSession(id)}
-              onNewSession={handleNewSession}
-              onDeleteSession={handleDeleteSession}
-              onToggleFavorite={handleToggleFavorite}
-              onToggleArchived={handleToggleArchived}
-            />
-            <main className="flex-1 flex flex-col overflow-hidden">
-              {activeSession && (
-                <Chat
-                  sessionId={activeSession}
-                  onUpdateTitle={(title) => handleRenameSession(activeSession, title)}
-                />
-              )}
-            </main>
-          </>
-        )}
+        <div className={`flex flex-1 overflow-hidden ${page !== 'sessions' ? 'hidden' : ''}`}>
+          <SessionPanel
+            sessions={sessions}
+            activeSession={activeSession}
+            onSelectSession={(id) => setActiveSession(id)}
+            onNewSession={handleNewSession}
+            onDeleteSession={handleDeleteSession}
+            onToggleFavorite={handleToggleFavorite}
+            onToggleArchived={handleToggleArchived}
+          />
+          <main className="flex-1 flex flex-col overflow-hidden">
+            {activeSession && (
+              <Chat
+                sessionId={activeSession}
+                onUpdateTitle={(title) => handleRenameSession(activeSession, title)}
+              />
+            )}
+          </main>
+        </div>
 
         {page === 'tools' && <Tools />}
         {page === 'automations' && <Automations />}
+        {page === 'actions' && <Actions />}
         {page === 'marketplace' && <Marketplace />}
         {page === 'brain' && <Brain />}
         {page === 'telegram' && <TelegramPage />}

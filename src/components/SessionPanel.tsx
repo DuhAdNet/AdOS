@@ -102,7 +102,15 @@ export default function SessionPanel({ sessions, activeSession, onSelectSession,
 
       <div className="flex-1 overflow-y-auto px-2 py-1">
         {filtered.length === 0 && (
-          <p className="text-xs text-muted px-3 py-4 text-center">Nenhuma sessão encontrada.</p>
+          <div className="flex flex-col items-center justify-center px-4 py-10 text-center animate-fade-in">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-muted mb-3 opacity-50">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            </svg>
+            <p className="text-xs text-muted mb-3">Nenhuma sessão encontrada.</p>
+            <button onClick={onNewSession} className="text-[11px] font-medium text-brand-500 hover:text-brand-400 transition-colors">
+              + Criar nova sessão
+            </button>
+          </div>
         )}
         {(() => {
           const groups: Record<string, Session[]> = {};
@@ -122,7 +130,7 @@ export default function SessionPanel({ sessions, activeSession, onSelectSession,
                   key={session.id}
                   onClick={() => onSelectSession(session.id)}
                   onContextMenu={(e) => handleContextMenu(e, session.id)}
-                  className={`w-full text-left px-3 py-2.5 rounded-xl text-sm mb-0.5 transition-all flex items-center gap-2.5 group ${
+                  className={`w-full text-left px-3 py-2.5 rounded-xl text-sm mb-0.5 transition-all animate-fade-in flex items-center gap-2.5 group ${
                     activeSession === session.id
                       ? 'bg-brand-600/10 text-brand-600 dark:text-brand-400 font-medium'
                       : 'text-secondary hover:bg-surface-2'

@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JVOS — Plano Comercial & Roadmap</title>
+<style>
+:root {
+  --bg: #0a0a0f;
+  --surface: #12121a;
+  --surface-2: #1a1a26;
+  --border: #2a2a3a;
+  --text: #e8e8f0;
+  --text-muted: #8888aa;
+  --accent: #6366f1;
+  --accent-light: #818cf8;
+  --green: #22c55e;
+  --yellow: #eab308;
+  --red: #ef4444;
+  --orange: #f97316;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  padding: 0;
+}
+.container { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+header {
+  text-align: center;
+  padding: 80px 24px 60px;
+  background: linear-gradient(180deg, #0f0f1a 0%, var(--bg) 100%);
+  border-bottom: 1px solid var(--border);
+}
+header h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--accent-light), #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 12px;
+}
+header p { color: var(--text-muted); font-size: 1.2rem; max-width: 600px; margin: 0 auto; }
+h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 60px 0 24px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--accent);
+  display: inline-block;
+}
+h3 { font-size: 1.2rem; font-weight: 600; margin: 32px 0 16px; color: var(--accent-light); }
+p, li { color: var(--text); margin-bottom: 8px; }
+ul { padding-left: 24px; }
+li { margin-bottom: 6px; }
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 16px;
+}
+.card-title { font-weight: 600; font-size: 1.1rem; margin-bottom: 8px; }
+.card-desc { color: var(--text-muted); font-size: 0.9rem; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 24px 0; }
+.grid-4 { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.plan-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px 24px;
+  text-align: center;
+  transition: transform 0.2s, border-color 0.2s;
+}
+.plan-card:hover { transform: translateY(-4px); border-color: var(--accent); }
+.plan-card.featured { border-color: var(--accent); background: linear-gradient(180deg, #1a1a30, var(--surface)); }
+.plan-card .price { font-size: 2.2rem; font-weight: 800; margin: 16px 0 8px; }
+.plan-card .price span { font-size: 0.9rem; font-weight: 400; color: var(--text-muted); }
+.plan-card .plan-name { font-size: 1.3rem; font-weight: 700; }
+.plan-card ul { text-align: left; margin-top: 20px; list-style: none; padding: 0; }
+.plan-card li { padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
+.plan-card li:last-child { border: none; }
+.plan-card li::before { content: '✓ '; color: var(--green); font-weight: 700; }
+table { width: 100%; border-collapse: collapse; margin: 16px 0 32px; font-size: 0.85rem; }
+th, td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border); }
+th { background: var(--surface-2); color: var(--accent-light); font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; }
+tr:hover td { background: var(--surface); }
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.badge-red { background: rgba(239,68,68,0.15); color: var(--red); }
+.badge-yellow { background: rgba(234,179,8,0.15); color: var(--yellow); }
+.badge-green { background: rgba(34,197,94,0.15); color: var(--green); }
+.arch-diagram {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 32px;
+  margin: 24px 0;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.8rem;
+  overflow-x: auto;
+  white-space: pre;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+.metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin: 24px 0; }
+.metric {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+}
+.metric .value { font-size: 1.8rem; font-weight: 800; color: var(--accent-light); }
+.metric .label { font-size: 0.75rem; color: var(--text-muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+.timeline { position: relative; padding-left: 32px; margin: 24px 0; }
+.timeline::before { content: ''; position: absolute; left: 12px; top: 0; bottom: 0; width: 2px; background: var(--border); }
+.timeline-item { position: relative; margin-bottom: 24px; }
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -24px;
+  top: 6px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--bg);
+}
+.timeline-item .phase { font-weight: 700; color: var(--accent-light); font-size: 0.85rem; }
+.timeline-item .desc { color: var(--text-muted); font-size: 0.85rem; margin-top: 4px; }
+.sprint-month { margin: 32px 0; }
+.sprint-month h4 { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 12px; padding: 8px 16px; background: var(--surface-2); border-radius: 8px; border-left: 3px solid var(--accent); }
+.comparison-table tr td:first-child { font-weight: 600; white-space: nowrap; }
+.section-divider { border: none; border-top: 1px solid var(--border); margin: 60px 0; }
+.kpi-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.tag { display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; background: var(--surface-2); color: var(--text-muted); border: 1px solid var(--border); }
+footer {
+  text-align: center;
+  padding: 40px;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  border-top: 1px solid var(--border);
+  margin-top: 60px;
+}
+@media (max-width: 768px) {
+  header h1 { font-size: 2rem; }
+  .container { padding: 24px 16px; }
+  .grid { grid-template-columns: 1fr; }
+  table { font-size: 0.75rem; }
+  th, td { padding: 8px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>JVOS</h1>
+  <p>Seu Departamento de IA por uma assinatura mensal. Managed AI Desktop para empresários e equipes.</p>
+</header>
+
+<div class="container">
+
+<!-- MODELO DE NEGÓCIO -->
+<h2>Modelo de Negocio</h2>
+<p style="font-size:1.05rem; margin-bottom:24px;">O usuario baixa o JVOS (desktop app gratis), mas toda a infraestrutura de IA fica conosco. Modelo inspirado no n8n Cloud &mdash; self-hosted gratis, managed pago.</p>
+
+<div class="grid">
+  <div class="card">
+    <div class="card-title">Nos gerenciamos</div>
+    <div class="card-desc">Tokens de API (OpenAI, Anthropic, Google), servidores MCP, roteamento multi-agente, atualizacoes automaticas</div>
+  </div>
+  <div class="card">
+    <div class="card-title">O usuario configura</div>
+    <div class="card-desc">Contexto da empresa, preferencias, skills, automacoes, integracoes. Zero fricao tecnica.</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Resultado</div>
+    <div class="card-desc">Paga assinatura fixa mensal e usa. Sem API keys, sem billing em 4 providers, sem entender tokens.</div>
+  </div>
+</div>
+
+<!-- ARQUITETURA -->
+<h2>Arquitetura Cloud</h2>
+<div class="arch-diagram">
++------------------------------------------------------+
+|              JVOS Desktop (cliente)                    |
+|  - UI completa (React + Electron)                     |
+|  - SQLite local (sessoes, mensagens, config)          |
+|  - MCP client + Browser automation                    |
++-------------------------+----------------------------+
+                          | HTTPS (API Gateway)
++-------------------------+----------------------------+
+|              JVOS Cloud (VPS backend)                  |
+|                                                       |
+|  +-----------+  +-----------+  +-----------+          |
+|  |Token Vault|  |LLM Router |  | MCP Proxy |          |
+|  |(encrypted)|  |(multi-tier)|  | (hosted)  |          |
+|  +-----------+  +-----------+  +-----------+          |
+|                                                       |
+|  +-----------+  +-----------+  +-----------+          |
+|  |Usage Meter|  |Sync Engine|  |Marketplace |          |
+|  | (Asaas)   |  |(E2E enc.) |  |(skills hub)|          |
+|  +-----------+  +-----------+  +-----------+          |
+|                                                       |
+|  +-----------+  +-----------+                         |
+|  |Admin Panel|  |   N8N     |                         |
+|  |  (React)  |  |(automacao)|                         |
+|  +-----------+  +-----------+                         |
++------------------------------------------------------+</div>
+
+<!-- PLANOS -->
+<h2>Planos de Assinatura</h2>
+<div class="grid grid-4">
+  <div class="plan-card">
+    <div class="plan-name">Free</div>
+    <div class="price">R$ 0<span>/mes</span></div>
+    <ul>
+      <li>App desktop completo</li>
+      <li>Traz suas proprias API keys</li>
+      <li>MCP servers locais</li>
+      <li>Sem sync, sem marketplace premium</li>
+    </ul>
+  </div>
+  <div class="plan-card">
+    <div class="plan-name">Starter</div>
+    <div class="price">R$ 97<span>/mes</span></div>
+    <ul>
+      <li>1.000 mensagens/mes</li>
+      <li>Tokens gerenciados (sem API key)</li>
+      <li>Sync entre 2 dispositivos</li>
+      <li>5 skills do marketplace premium</li>
+      <li>Suporte comunidade</li>
+    </ul>
+  </div>
+  <div class="plan-card featured">
+    <div class="plan-name">Pro</div>
+    <div class="price">R$ 297<span>/mes</span></div>
+    <ul>
+      <li>5.000 mensagens/mes</li>
+      <li>Todos os modelos (GPT-5.5, Claude Opus, Gemini)</li>
+      <li>MCP servers hosted (5)</li>
+      <li>Sync ilimitado + backup</li>
+      <li>Marketplace premium completo</li>
+      <li>Telegram/WhatsApp gateway</li>
+      <li>Suporte prioritario</li>
+    </ul>
+  </div>
+  <div class="plan-card">
+    <div class="plan-name">Enterprise</div>
+    <div class="price">R$ 997<span>/mes</span></div>
+    <ul>
+      <li>Mensagens ilimitadas (fair use)</li>
+      <li>Modelos dedicados</li>
+      <li>MCP servers custom (ilimitados)</li>
+      <li>SSO + multi-workspace</li>
+      <li>Auditoria e compliance</li>
+      <li>SLA 99.9%</li>
+      <li>Onboarding dedicado</li>
+    </ul>
+  </div>
+</div>
+
+<!-- UNIT ECONOMICS -->
+<h2>Unit Economics</h2>
+<div class="metric-grid">
+  <div class="metric"><div class="value">R$ 0,02</div><div class="label">Custo medio/msg</div></div>
+  <div class="metric"><div class="value">79%</div><div class="label">Margem Starter</div></div>
+  <div class="metric"><div class="value">49%</div><div class="label">Margem Pro</div></div>
+  <div class="metric"><div class="value">~100</div><div class="label">Break-even (assinantes Pro)</div></div>
+</div>
+
+<h3>Modelo de Custo por Tier</h3>
+<table>
+  <thead><tr><th>Tier</th><th>% Mensagens</th><th>Modelo Primario</th><th>Fallback</th><th>Custo/msg</th></tr></thead>
+  <tbody>
+    <tr><td>Fast</td><td>80%</td><td>DeepSeek V3</td><td>GPT-4o-mini</td><td>~R$ 0,01</td></tr>
+    <tr><td>Balanced</td><td>15%</td><td>Gemini 2.5 Flash</td><td>Qwen 72B</td><td>~R$ 0,04</td></tr>
+    <tr><td>Power</td><td>5%</td><td>Claude Sonnet 4.6</td><td>GPT-4o</td><td>~R$ 0,15</td></tr>
+  </tbody>
+</table>
+
+<!-- COMPONENTES BACKEND -->
+<h2>Componentes Tecnicos</h2>
+<div class="grid">
+  <div class="card">
+    <div class="card-title">1. Token Vault</div>
+    <div class="card-desc">API keys dos providers com encryption AES-256. Rotacao automatica. Rate limiting por plano. O cliente nunca ve/toca os tokens.</div>
+  </div>
+  <div class="card">
+    <div class="card-title">2. LLM Router</div>
+    <div class="card-desc">Recebe requests, roteia para provider/modelo correto. Fallback automatico. Cache de respostas. Metering por usuario.</div>
+  </div>
+  <div class="card">
+    <div class="card-title">3. MCP Proxy</div>
+    <div class="card-desc">Hospeda MCP servers para usuarios. Isolamento por container. Desktop conecta em servers remotos sem configurar infra.</div>
+  </div>
+  <div class="card">
+    <div class="card-title">4. Sync Engine</div>
+    <div class="card-desc">Sincroniza sessoes entre dispositivos. E2E encryption (chave derivada da senha). Backup diario 30 dias.</div>
+  </div>
+  <div class="card">
+    <div class="card-title">5. Marketplace Hub</div>
+    <div class="card-desc">Skills e workflows da comunidade. Revenue share 70/30. Review antes de publicar. Versionamento.</div>
+  </div>
+  <div class="card">
+    <div class="card-title">6. Usage Metering (Asaas)</div>
+    <div class="card-desc">Conta mensagens, tokens, ferramentas. Dashboard de uso. Alertas em 80%. Cobranca via Asaas (PIX + boleto + NF-e).</div>
+  </div>
+</div>
+
+<!-- N8N -->
+<h2>Papel do N8N</h2>
+<div class="grid">
+  <div class="card">
+    <div class="card-title">Onboarding Automatico</div>
+    <div class="card-desc">Webhook Asaas &rarr; N8N cria workspace &rarr; provisiona tokens &rarr; envia email de boas-vindas</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Gestao de Churn</div>
+    <div class="card-desc">Inadimplencia &rarr; N8N suspende acesso &rarr; envia lembrete &rarr; cancela apos X dias</div>
+  </div>
+  <div class="card">
+    <div class="card-title">MCP Proxy Workflows</div>
+    <div class="card-desc">N8N hospeda workflows que servem como MCP servers para usuarios (ERP, CRM, databases)</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Alertas & Reports</div>
+    <div class="card-desc">Monitora uso, gera reports de billing, alerta admin sobre anomalias</div>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<h2>Admin Panel (VPS Remota)</h2>
+<p style="margin-bottom:16px;">Painel web hospedado na VPS para gestao completa da plataforma.</p>
+<table>
+  <thead><tr><th>Modulo</th><th>Funcionalidade</th></tr></thead>
+  <tbody>
+    <tr><td>Usuarios</td><td>Criar, suspender, gerenciar workspaces, ver historico de uso</td></tr>
+    <tr><td>Planos & Billing</td><td>Assinaturas ativas, inadimplencia, upgrade/downgrade, NF-e via Asaas</td></tr>
+    <tr><td>Tokens</td><td>Consumo em tempo real, custo por usuario, alertas de limite</td></tr>
+    <tr><td>LLM Router</td><td>Status dos providers, fallback config, latencia, errors</td></tr>
+    <tr><td>MCP Servers</td><td>Servidores hospedados, health check, logs de execucao</td></tr>
+    <tr><td>Marketplace</td><td>Skills pendentes de review, publicados, denuncias, revenue share</td></tr>
+    <tr><td>Metricas</td><td>MRR, churn, LTV, CAC, uso por plano, growth</td></tr>
+    <tr><td>N8N Workflows</td><td>Status das automacoes, logs, triggers ativos</td></tr>
+  </tbody>
+</table>
+
+<hr class="section-divider">
+
+<!-- COMPARATIVO -->
+<h2>Comparativo vs Concorrencia</h2>
+<table class="comparison-table">
+  <thead><tr><th>Concorrente</th><th>Fraqueza</th><th>JVOS Resolve</th></tr></thead>
+  <tbody>
+    <tr><td>ChatGPT</td><td>Generico, sem integracao real</td><td>Tool calling + MCP + browser automation</td></tr>
+    <tr><td>n8n</td><td>Tecnico demais para empresario</td><td>Interface de chat, zero-code</td></tr>
+    <tr><td>Zapier</td><td>Caro, sem IA nativa</td><td>IA como core, automacao como extensao</td></tr>
+    <tr><td>Cursor/Windsurf</td><td>So para devs</td><td>Para qualquer cargo, zero-code</td></tr>
+    <tr><td>Notion AI</td><td>Preso no Notion</td><td>Conecta qualquer fonte</td></tr>
+    <tr><td>Jasper</td><td>So copywriting</td><td>Full-stack: dados, automacao, execucao</td></tr>
+  </tbody>
+</table>
+
+<!-- CARGOS-ALVO -->
+<h2>Cargos-Alvo & Features</h2>
+
+<h3>Priorizacao por TAM</h3>
+<table>
+  <thead><tr><th>Prioridade</th><th>Cargo</th><th>TAM Brasil</th><th>Ticket</th><th>Sprint</th></tr></thead>
+  <tbody>
+    <tr><td><span class="badge badge-red">ALTA</span></td><td>Media Buyer / Gestor de Trafego</td><td>50k+</td><td>R$297/mes</td><td>10</td></tr>
+    <tr><td><span class="badge badge-red">ALTA</span></td><td>Social Media Manager</td><td>200k+</td><td>R$97/mes</td><td>7-8</td></tr>
+    <tr><td><span class="badge badge-red">ALTA</span></td><td>CEO / Empresario</td><td>500k+</td><td>R$297-997/mes</td><td>16</td></tr>
+    <tr><td><span class="badge badge-yellow">MEDIA</span></td><td>Analista Financeiro</td><td>100k+</td><td>R$97/mes</td><td>3-4</td></tr>
+    <tr><td><span class="badge badge-yellow">MEDIA</span></td><td>Analista de Dados / BI</td><td>80k+</td><td>R$297/mes</td><td>13-14</td></tr>
+    <tr><td><span class="badge badge-yellow">MEDIA</span></td><td>Trader / Gestor de Acoes</td><td>30k+</td><td>R$297/mes</td><td>19-20</td></tr>
+    <tr><td><span class="badge badge-green">BAIXA</span></td><td>Enterprise (CxO suite)</td><td>10k+</td><td>R$997/mes</td><td>25-27</td></tr>
+  </tbody>
+</table>
+
+<h3>Financeiro</h3>
+<table>
+  <thead><tr><th>Cargo</th><th>Dor</th><th>Feature JVOS</th></tr></thead>
+  <tbody>
+    <tr><td>Analista Financeiro</td><td>Consolidar DRE, fluxo de caixa manual</td><td>Dashboard financeiro automatico + alertas</td></tr>
+    <tr><td>Controller</td><td>Reconciliacao bancaria lenta</td><td>Importar OFX/CSV + classificacao automatica</td></tr>
+    <tr><td>CFO</td><td>Relatorios demoram dias</td><td>Report C-level gerado por IA em 30s</td></tr>
+    <tr><td>Tesoureiro</td><td>Controle de caixa em planilha</td><td>Projecao de caixa com cenarios</td></tr>
+  </tbody>
+</table>
+
+<h3>Marketing & Redes Sociais</h3>
+<table>
+  <thead><tr><th>Cargo</th><th>Dor</th><th>Feature JVOS</th></tr></thead>
+  <tbody>
+    <tr><td>Social Media Manager</td><td>Postar manualmente em 5 canais</td><td>Agendamento multi-plataforma</td></tr>
+    <tr><td>Community Manager</td><td>Responder DMs/comentarios</td><td>Bot de engajamento com tom da marca</td></tr>
+    <tr><td>Gestor de Trafego</td><td>Otimizacao manual de campanhas</td><td>Alerta de campanhas ruins + sugestao de acao</td></tr>
+    <tr><td>Growth Hacker</td><td>Testar hipoteses leva dias</td><td>A/B test automatico de copies e criativos</td></tr>
+    <tr><td>Designer</td><td>Briefings vagos, retrabalho</td><td>Geracao de criativos via prompt (GPT Image)</td></tr>
+  </tbody>
+</table>
+
+<h3>Dados & BI</h3>
+<table>
+  <thead><tr><th>Cargo</th><th>Dor</th><th>Feature JVOS</th></tr></thead>
+  <tbody>
+    <tr><td>Analista de Dados</td><td>SQL manual, tempo em queries</td><td>NL-to-SQL + visualizacao automatica</td></tr>
+    <tr><td>BI Analyst</td><td>Dashboards demoram para criar</td><td>Dashboard builder por linguagem natural</td></tr>
+    <tr><td>Data Engineer</td><td>ETL manual</td><td>Pipelines de dados via MCP + automacao</td></tr>
+  </tbody>
+</table>
+
+<h3>C-Level</h3>
+<table>
+  <thead><tr><th>Cargo</th><th>Dor</th><th>Feature JVOS</th></tr></thead>
+  <tbody>
+    <tr><td>CEO</td><td>Informacao fragmentada</td><td>Briefing diario automatico + decision support</td></tr>
+    <tr><td>COO</td><td>Processos ineficientes</td><td>Process mining + alertas operacionais</td></tr>
+    <tr><td>CFO</td><td>Relatorios financeiros lentos</td><td>Financial copilot + projecoes</td></tr>
+    <tr><td>CTO</td><td>Debito tecnico invisivel</td><td>Codebase health + sprint planning AI</td></tr>
+    <tr><td>CMO</td><td>ROI de marketing obscuro</td><td>Attribution dashboard + recomendacoes</td></tr>
+  </tbody>
+</table>
+
+<h3>Mercado Financeiro, Juridico & RH</h3>
+<table>
+  <thead><tr><th>Cargo</th><th>Dor</th><th>Feature JVOS</th></tr></thead>
+  <tbody>
+    <tr><td>Trader</td><td>Muita informacao, pouco tempo</td><td>News digest + sentiment analysis real-time</td></tr>
+    <tr><td>Gestor de Acoes</td><td>Portfolio em planilha</td><td>Portfolio tracker + alertas de threshold</td></tr>
+    <tr><td>Advogado</td><td>Revisao de contratos demorada</td><td>Contract review + highlight de clausulas de risco</td></tr>
+    <tr><td>Recrutador</td><td>Triagem de CVs manual</td><td>CV scoring + fit analysis automatico</td></tr>
+  </tbody>
+</table>
+
+<hr class="section-divider">
+
+<!-- ROADMAP -->
+<h2>Roadmap de 5 Meses (30 Sprints)</h2>
+<p style="margin-bottom:24px;">Cada sprint = 5 dias = 1 feature completa e funcional.</p>
+
+<div class="sprint-month">
+  <h4>Mes 1: Fundacao + Financeiro + Atendimento (Sprints 1-6)</h4>
+  <table>
+    <thead><tr><th>Sprint</th><th>Feature</th><th>Cargo-alvo</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td><strong>Backend API Gateway</strong> &mdash; Auth, token vault, LLM router</td><td>Infraestrutura</td></tr>
+      <tr><td>2</td><td><strong>Billing + Onboarding</strong> &mdash; Asaas, planos, flow de signup</td><td>Infraestrutura</td></tr>
+      <tr><td>3</td><td><strong>Financial Dashboard Builder</strong> &mdash; CSV/OFX, classificacao, DRE</td><td>Financeiro</td></tr>
+      <tr><td>4</td><td><strong>Cash Flow Projector</strong> &mdash; cenarios otimista/pessimista/base</td><td>CFO, Tesoureiro</td></tr>
+      <tr><td>5</td><td><strong>SAC Bot Builder</strong> &mdash; bot com base de conhecimento multi-canal</td><td>Atendimento</td></tr>
+      <tr><td>6</td><td><strong>Customer Sentiment Dashboard</strong> &mdash; NPS tracker, voz do cliente</td><td>Head CX</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="sprint-month">
+  <h4>Mes 2: Marketing + Redes Sociais (Sprints 7-12)</h4>
+  <table>
+    <thead><tr><th>Sprint</th><th>Feature</th><th>Cargo-alvo</th></tr></thead>
+    <tbody>
+      <tr><td>7</td><td><strong>Instagram Scheduler</strong> &mdash; posts, preview de feed, hashtags</td><td>Social Media</td></tr>
+      <tr><td>8</td><td><strong>Facebook Page Manager</strong> &mdash; paginas, comentarios, metricas</td><td>Community Manager</td></tr>
+      <tr><td>9</td><td><strong>Creative Generator</strong> &mdash; batch de criativos com variacoes</td><td>Designer</td></tr>
+      <tr><td>10</td><td><strong>Campaign Health Monitor</strong> &mdash; alertas ROAS, pause automatico</td><td>Media Buyer</td></tr>
+      <tr><td>11</td><td><strong>Copy Generator + A/B</strong> &mdash; copies, variacoes, report winner</td><td>Growth</td></tr>
+      <tr><td>12</td><td><strong>Multi-Platform Publisher</strong> &mdash; IG + FB + LinkedIn + X</td><td>Social Media</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="sprint-month">
+  <h4>Mes 3: Dados + BI + C-Level (Sprints 13-18)</h4>
+  <table>
+    <thead><tr><th>Sprint</th><th>Feature</th><th>Cargo-alvo</th></tr></thead>
+    <tbody>
+      <tr><td>13</td><td><strong>NL-to-SQL Engine</strong> &mdash; pergunte em portugues, receba dados</td><td>Analista de Dados</td></tr>
+      <tr><td>14</td><td><strong>Dashboard Builder NL</strong> &mdash; dashboards por linguagem natural</td><td>BI Analyst</td></tr>
+      <tr><td>15</td><td><strong>Universal Data Connector</strong> &mdash; MCP para Sheets, Notion, DBs</td><td>Data Engineer</td></tr>
+      <tr><td>16</td><td><strong>CEO Daily Briefing</strong> &mdash; resumo automatico do dia anterior</td><td>CEO</td></tr>
+      <tr><td>17</td><td><strong>COO Operations Radar</strong> &mdash; gargalos, alertas SLA, heatmap</td><td>COO</td></tr>
+      <tr><td>18</td><td><strong>CFO Financial Copilot</strong> &mdash; projecoes, scenario planning</td><td>CFO</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="sprint-month">
+  <h4>Mes 4: Mercado Financeiro + Juridico + RH (Sprints 19-24)</h4>
+  <table>
+    <thead><tr><th>Sprint</th><th>Feature</th><th>Cargo-alvo</th></tr></thead>
+    <tbody>
+      <tr><td>19</td><td><strong>Market News Digest</strong> &mdash; curadoria + sentiment por ativo</td><td>Trader</td></tr>
+      <tr><td>20</td><td><strong>Portfolio Tracker</strong> &mdash; carteira, tracking, alertas</td><td>Gestor de Acoes</td></tr>
+      <tr><td>21</td><td><strong>Balance Sheet Extractor</strong> &mdash; PDF &rarr; dados estruturados</td><td>Fundamentalista</td></tr>
+      <tr><td>22</td><td><strong>Contract Reviewer</strong> &mdash; highlights de risco, resumo</td><td>Advogado</td></tr>
+      <tr><td>23</td><td><strong>CV Scorer + Fit</strong> &mdash; ranking com justificativa</td><td>Recrutador</td></tr>
+      <tr><td>24</td><td><strong>People Analytics</strong> &mdash; turnover prediction, retencao</td><td>HRBP</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="sprint-month">
+  <h4>Mes 5: Enterprise + Scale (Sprints 25-30)</h4>
+  <table>
+    <thead><tr><th>Sprint</th><th>Feature</th><th>Cargo-alvo</th></tr></thead>
+    <tbody>
+      <tr><td>25</td><td><strong>WhatsApp Business Gateway</strong> &mdash; mensagens, templates, automacoes</td><td>Atendimento</td></tr>
+      <tr><td>26</td><td><strong>Multi-Workspace + SSO</strong> &mdash; enterprise, team management</td><td>Enterprise</td></tr>
+      <tr><td>27</td><td><strong>Audit Trail + Compliance</strong> &mdash; log de acoes, export</td><td>Compliance</td></tr>
+      <tr><td>28</td><td><strong>CTO Tech Radar</strong> &mdash; health check repos, debt score</td><td>CTO</td></tr>
+      <tr><td>29</td><td><strong>CMO Attribution Dashboard</strong> &mdash; multi-touch, budget optimizer</td><td>CMO</td></tr>
+      <tr><td>30</td><td><strong>Marketplace v2 + Revenue Share</strong> &mdash; ecosystem flywheel</td><td>Todos</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- KPIs -->
+<h2>KPIs de Sucesso</h2>
+<table>
+  <thead><tr><th>Mes</th><th>Meta</th><th>Metrica</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>Backend live + 10 beta testers</td><td>API respondendo, 2 features financeiras</td></tr>
+    <tr><td>2</td><td>50 beta testers + marketing features</td><td>Instagram scheduler funcional, 3 empresas piloto</td></tr>
+    <tr><td>3</td><td>100 usuarios + plano pago</td><td>20 pagantes, NL-to-SQL funcional</td></tr>
+    <tr><td>4</td><td>200 usuarios + expansao de nicho</td><td>Mercado financeiro + juridico ativos</td></tr>
+    <tr><td>5</td><td>500 usuarios + marketplace vivo</td><td>10 skills publicadas, MRR R$15k+</td></tr>
+  </tbody>
+</table>
+
+<!-- STACK -->
+<h2>Stack de Implementacao</h2>
+<div class="grid">
+  <div class="card">
+    <div class="card-title">Backend (ados-cloud/)</div>
+    <div class="card-desc">
+      Node.js 22 + Fastify<br>
+      Postgres (Neon) + Redis (Upstash)<br>
+      Prisma ORM<br>
+      Docker + Railway
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">Auth & Billing</div>
+    <div class="card-desc">
+      Clerk (auth + SSO)<br>
+      Asaas (PIX + boleto + NF-e)<br>
+      Stripe (internacional, marketplace)<br>
+      Webhooks &rarr; N8N
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">Infra & Seguranca</div>
+    <div class="card-desc">
+      AWS KMS (encryption)<br>
+      Cloudflare (CDN + WAF)<br>
+      Sentry (errors)<br>
+      Grafana Cloud (monitoring)
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">Automacao</div>
+    <div class="card-desc">
+      N8N (onboarding, churn, alerts)<br>
+      MCP Proxy (containers isolados)<br>
+      CI/CD: GitHub Actions<br>
+      Auto-update: electron-updater
+    </div>
+  </div>
+</div>
+
+<!-- GO TO MARKET -->
+<h2>Go-to-Market</h2>
+<div class="grid">
+  <div class="card">
+    <div class="card-title">Posicionamento</div>
+    <div class="card-desc">"Seu departamento de IA por R$97/mes — sem precisar de developer"</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Funil</div>
+    <div class="card-desc">Free tier (BYOK) &rarr; awareness &rarr; Cloud converte power users &rarr; Marketplace retencao</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Canais</div>
+    <div class="card-desc">Product Hunt, LinkedIn (IA operacional), comunidades de automacao, YouTube tutorials</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Flywheel</div>
+    <div class="card-desc">Mais skills &rarr; mais valor &rarr; mais usuarios &rarr; mais criadores &rarr; marketplace vivo</div>
+  </div>
+</div>
+
+<!-- VANTAGENS -->
+<h2>Vantagens Competitivas</h2>
+<div class="grid">
+  <div class="card">
+    <div class="card-title">Desktop-first</div>
+    <div class="card-desc">Dados locais, privacidade, funciona offline com key propria</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Multi-provider sem fricao</div>
+    <div class="card-desc">Usuario nao precisa entender providers/modelos/tokens</div>
+  </div>
+  <div class="card">
+    <div class="card-title">MCP Native</div>
+    <div class="card-desc">Marketplace de tools via protocolo aberto, extensivel infinitamente</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Browser Automation</div>
+    <div class="card-desc">Agente navega e executa tarefas web pelo usuario</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Custo Previsivel</div>
+    <div class="card-desc">Flat mensal vs pay-per-token — mais simples de vender e prever</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Ecossistema</div>
+    <div class="card-desc">Marketplace com revenue share 70/30 cria flywheel de crescimento</div>
+  </div>
+</div>
+
+</div>
+
+<footer>
+  JVOS &mdash; Plano Comercial & Roadmap &bull; Maio 2026 &bull; Documento interno
+</footer>
+
+</body>
+</html>

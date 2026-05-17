@@ -1,10 +1,10 @@
-# AdOS — Plano de Comercialização
+# JVOS — Plano de Comercialização
 
 ## Modelo de Negócio: "Managed AI Desktop" (estilo n8n Cloud)
 
 ### Conceito
 
-O usuário baixa o AdOS (desktop app grátis), mas toda a infraestrutura de IA fica conosco:
+O usuário baixa o JVOS (desktop app grátis), mas toda a infraestrutura de IA fica conosco:
 - **Nós gerenciamos:** tokens de API (OpenAI, Anthropic, Google), servidores MCP, roteamento multi-agente, atualizações
 - **O usuário configura:** contexto da empresa, preferências, skills, automações, integrações
 
@@ -16,7 +16,7 @@ O usuário nunca precisa obter API keys, configurar billing em 4 providers, ou e
 
 ```
 ┌──────────────────────────────────────────────────────┐
-│              AdOS Desktop (cliente)                    │
+│              JVOS Desktop (cliente)                    │
 │  - UI completa (React)                                │
 │  - SQLite local (sessões, mensagens, config)          │
 │  - MCP client                                         │
@@ -24,7 +24,7 @@ O usuário nunca precisa obter API keys, configurar billing em 4 providers, ou e
 └──────────────────┬───────────────────────────────────┘
                    │ HTTPS (API Gateway)
 ┌──────────────────┴───────────────────────────────────┐
-│              AdOS Cloud (nosso backend)                │
+│              JVOS Cloud (nosso backend)                │
 │                                                       │
 │  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  │
 │  │ Token Vault │  │ LLM Router  │  │  MCP Proxy   │  │
@@ -42,11 +42,11 @@ O usuário nunca precisa obter API keys, configurar billing em 4 providers, ou e
 
 ## Comparativo com n8n
 
-| Aspecto | n8n | AdOS |
+| Aspecto | n8n | JVOS |
 |---------|-----|------|
 | Tipo | Workflow automation | AI agent desktop |
 | Self-hosted | Sim (open-source) | Sim (app local, traz sua key) |
-| Cloud | n8n Cloud (managed) | AdOS Cloud (managed tokens) |
+| Cloud | n8n Cloud (managed) | JVOS Cloud (managed tokens) |
 | Diferencial cloud | Hosting + SSL + updates | Tokens + routing + MCP + sync |
 | Monetização | Executions/mês | Mensagens/mês ou flat |
 | Lock-in | Baixo (exporta workflows) | Baixo (dados locais no SQLite) |
@@ -152,7 +152,7 @@ O usuário nunca precisa obter API keys, configurar billing em 4 providers, ou e
 - [ ] LLM Router (recebe request, roteia, responde)
 - [ ] Auth: login por email + workspace creation
 - [ ] Metering básico (conta mensagens)
-- [ ] Desktop: toggle "usar AdOS Cloud" vs "minha key"
+- [ ] Desktop: toggle "usar JVOS Cloud" vs "minha key"
 
 ### Fase 2 — Billing & Sync (3 semanas)
 - [ ] Integração Stripe (assinaturas recorrentes)

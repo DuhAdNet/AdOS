@@ -1,8 +1,8 @@
-# AdOS — AI Desktop Operating System
+# JVOS — AI Desktop Operating System
 
 ## Visão Geral
 
-AdOS é um sistema operacional de IA para desktop, construído em Electron. Funciona como um agente de IA local com browser automation, multi-provider, MCP protocol e integrações nativas (Telegram, marketplace de skills).
+JVOS é um sistema operacional de IA para desktop, construído em Electron. Funciona como um agente de IA local com browser automation, multi-provider, MCP protocol e integrações nativas (Telegram, marketplace de skills).
 
 **Stack:** Electron 33 + React 19 + TypeScript + Vite + Tailwind CSS + sql.js (SQLite local)
 
@@ -175,4 +175,4 @@ npm run build
 npm run package
 ```
 
-Gera instalador NSIS (.exe) para Windows. AppId: `com.adnetmonetize.ados`
+Gera instalador NSIS (.exe) para Windows. AppId: `com.juviall.jvos`

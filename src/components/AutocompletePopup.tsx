@@ -30,6 +30,7 @@ export default function AutocompletePopup({ query, trigger, items, onSelect, onC
   }, [query]);
 
   useEffect(() => {
+    if (filtered.length === 0) return;
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === 'ArrowDown') {
         e.preventDefault();

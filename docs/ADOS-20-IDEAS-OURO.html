@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>JVOS - 20 Ideias de Ouro</title>
+<style>
+  @page { size: A4; margin: 2cm; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; line-height: 1.7; color: #1a1a2e; max-width: 860px; margin: 0 auto; padding: 40px 50px; font-size: 14px; }
+  h1 { color: #6c5ce7; border-bottom: 3px solid #6c5ce7; padding-bottom: 12px; font-size: 2.2em; margin-top: 0; }
+  h2 { color: #2d3436; margin-top: 2.5em; font-size: 1.5em; border-bottom: 1px solid #dfe6e9; padding-bottom: 6px; }
+  h3 { color: #6c5ce7; margin-top: 2em; font-size: 1.2em; }
+  table { border-collapse: collapse; width: 100%; margin: 1em 0; font-size: 0.88em; }
+  th { background: #6c5ce7; color: white; padding: 10px 14px; text-align: left; font-weight: 600; }
+  td { padding: 8px 14px; border-bottom: 1px solid #eee; }
+  tr:nth-child(even) td { background: #fafafe; }
+  code { background: #f1f0ff; padding: 2px 6px; border-radius: 4px; font-size: 0.88em; color: #6c5ce7; }
+  pre { background: #2d3436; color: #dfe6e9; padding: 18px 20px; border-radius: 10px; overflow-x: auto; font-size: 0.85em; line-height: 1.5; }
+  pre code { background: none; color: inherit; padding: 0; }
+  blockquote { border-left: 4px solid #6c5ce7; margin: 1.5em 0; padding: 14px 24px; background: #f8f7ff; font-size: 1.05em; border-radius: 0 8px 8px 0; }
+  strong { color: #2d3436; }
+  hr { border: none; border-top: 2px solid #eee; margin: 2.5em 0; }
+  ul { padding-left: 1.5em; }
+  li { margin: 6px 0; }
+  p { margin: 0.8em 0; }
+  @media print { body { padding: 0; } }
+</style>
+</head>
+<body>
+<h1>JVOS — 20 Ideias de Ouro</h1>
+<h2>Inteligência Invisível para Tudo que Você Já Usa</h2>
+
+<hr>
+
+<h2>A Tese Central</h2>
+
+<p>Empresários e times passam o dia alternando entre 15+ ferramentas. A informação está espalhada, as decisões morrem em grupos de WhatsApp, os follow-ups são esquecidos, e as tarefas repetitivas consomem horas que deveriam ir para estratégia.</p>
+
+<p><strong>O JVOS não substitui nenhuma ferramenta. Ele OUVE todas, ENTENDE o contexto, e AGE automaticamente.</strong></p>
+
+<p>O usuário não precisa aprender nada novo. Continua usando WhatsApp, Google Sheets, Discord, Gmail, Calendar. O JVOS é a camada inteligente por cima de tudo.</p>
+
+<hr>
+
+<h2>As 20 Ideias</h2>
+
+<hr>
+
+<h3>1. WhatsApp Listener (Evolution API)</h3>
+<p><strong>O que o empresário sente:</strong> "Perco decisões importantes em 200 mensagens/dia"</p>
+
+<p>A IA ouve todas as conversas do WhatsApp Business via Evolution API (read-only, zero risco). Extrai automaticamente:</p>
+<ul>
+<li>Pedidos de clientes → cria lead/tarefa</li>
+<li>Reclamações → alerta urgente no JVOS</li>
+<li>Combinados ("entrego quinta") → lembrete automático</li>
+<li>Decisões em grupo → vira memória/ata</li>
+<li>Prazos mencionados → agenda no Calendar</li>
+</ul>
+
+<p><strong>Resultado:</strong> O empresário abre o JVOS de manhã e tem: "Ontem no grupo Fornecedores, João confirmou entrega dia 22. No grupo Vendas, 3 clientes pediram orçamento. Quer que eu crie as tarefas?"</p>
+
+<p><strong>Custo de tokens:</strong> Mínimo. Classificação com modelo nano, extração 1x por batch.</p>
+
+<hr>
+
+<h3>2. Google Sheets como Banco de Dados Vivo</h3>
+<p><strong>O que o empresário sente:</strong> "Minha empresa roda em planilha mas ninguém atualiza"</p>
+
+<p>O JVOS monitora planilhas-chave (vendas, estoque, financeiro, metas) e:</p>
+<ul>
+<li>Detecta anomalias ("Vendas caíram 40% essa semana vs. média")</li>
+<li>Alerta prazos ("Coluna 'Vencimento' tem 5 itens vencendo amanhã")</li>
+<li>Preenche automaticamente dados de outras fontes</li>
+<li>Gera gráficos e resumos sob demanda</li>
+<li>Valida dados ("Linha 47 tem valor negativo no campo Receita — erro?")</li>
+</ul>
+
+<p><strong>Resultado:</strong> A planilha vira um painel inteligente. O empresário pergunta "como tão as vendas?" e recebe resposta com dados reais, sem abrir a planilha.</p>
+
+<hr>
+
+<h3>3. Discord Intelligence (Comunidades e Times)</h3>
+<p><strong>O que o empresário sente:</strong> "Tenho uma comunidade/time no Discord e perco contexto"</p>
+
+<p>Listener read-only nos canais do Discord (bot com permissão de leitura):</p>
+<ul>
+<li>Resume discussões longas em 3 bullets</li>
+<li>Identifica perguntas sem resposta (FAQ automático)</li>
+<li>Detecta sentimento da comunidade (clima geral)</li>
+<li>Alerta menções ao dono/marca</li>
+<li>Extrai ideias e sugestões dos membros</li>
+<li>Identifica membros mais ativos (potenciais moderadores/embaixadores)</li>
+</ul>
+
+<p><strong>Resultado:</strong> "Sua comunidade Discord teve 340 mensagens ontem. 3 assuntos dominantes: [X, Y, Z]. 2 perguntas sem resposta. Sentimento geral: positivo. Membro @joao está super ativo — potencial moderador."</p>
+
+<hr>
+
+<h3>4. Google Calendar como Motor de Contexto</h3>
+<p><strong>O que o empresário sente:</strong> "Chego na reunião sem lembrar do que falamos na última"</p>
+
+<p>O JVOS lê o Calendar e automaticamente:</p>
+<ul>
+<li>30min antes de cada reunião: gera briefing (quem é a pessoa, último contato, pendências, contexto)</li>
+<li>Detecta conflitos de agenda e sugere resolução</li>
+<li>Após reunião: pergunta "como foi?" e registra decisões</li>
+<li>Identifica padrões ("Você tem 12h de reunião/semana — 40% são recorrentes sem pauta definida")</li>
+<li>Sugere blocos de foco ("Terça e quinta de manhã estão livres — proteger para deep work?")</li>
+</ul>
+
+<p><strong>Resultado:</strong> Nunca mais entrar em reunião sem contexto. Nunca mais sair sem registrar o que foi decidido.</p>
+
+<hr>
+
+<h3>5. Email como Fonte de Inteligência (Gmail/Outlook)</h3>
+<p><strong>O que o empresário sente:</strong> "Tenho 2.000 emails não lidos e não sei o que é urgente"</p>
+
+<p>Vai além de triagem. O JVOS:</p>
+<ul>
+<li>Classifica em: Precisa de resposta / Informativo / Pode deletar / Financeiro</li>
+<li>Extrai compromissos mencionados em emails → sugere adicionar ao calendar</li>
+<li>Detecta tom (cliente irritado, fornecedor cobrando, oportunidade de venda)</li>
+<li>Agrupa threads por assunto/projeto</li>
+<li>Gera rascunho de resposta no tom do empresário</li>
+<li>Digest diário: "5 emails precisam de resposta hoje. 1 é urgente (cliente reclamando há 3 dias)."</li>
+</ul>
+
+<p><strong>Resultado:</strong> Inbox zero inteligente. Sem regras manuais, sem filtros. A IA entende o que importa.</p>
+
+<hr>
+
+<h3>6. Repetições Detectadas → Automação Sugerida</h3>
+<p><strong>O que o empresário sente:</strong> "Faço a mesma coisa 5x por semana e nem percebo"</p>
+
+<p>O JVOS observa padrões de uso ao longo do tempo:</p>
+<ul>
+<li>"Você abre a mesma planilha toda segunda às 9h → quer que eu traga os dados automaticamente?"</li>
+<li>"Você sempre manda o mesmo tipo de email após reunião → quer um template automático?"</li>
+<li>"Todo dia 5 você exporta relatório financeiro → quer agendar?"</li>
+<li>"Você copia dados do sistema X para planilha Y 3x/semana → quer que eu sincronize?"</li>
+</ul>
+
+<p><strong>Resultado:</strong> A plataforma aprende a rotina e sugere automações. O empresário só confirma. Quanto mais usa, mais inteligente fica.</p>
+
+<hr>
+
+<h3>7. Notion/Trello/Asana Sync Inteligente</h3>
+<p><strong>O que o empresário sente:</strong> "O time usa Notion/Trello mas eu não tenho tempo de olhar"</p>
+
+<p>Listener nos boards/databases de gestão:</p>
+<ul>
+<li>Resume progresso do time ("7 de 12 tarefas da sprint concluídas, 2 atrasadas")</li>
+<li>Alerta tarefas travadas há X dias</li>
+<li>Detecta gargalos ("Designer tem 8 tarefas, dev tem 2 — desbalanceado")</li>
+<li>Gera report de produtividade por pessoa/squad</li>
+<li>Sugere redistribuição de tarefas</li>
+</ul>
+
+<p><strong>Resultado:</strong> O empresário pergunta "como tá o time?" e recebe visão consolidada sem abrir Notion/Trello.</p>
+
+<hr>
+
+<h3>8. Financeiro Automático (Notas Fiscais + Extrato)</h3>
+<p><strong>O que o empresário sente:</strong> "Controle financeiro é um pesadelo manual"</p>
+
+<p>O JVOS processa documentos financeiros:</p>
+<ul>
+<li>Lê notas fiscais (PDF/imagem) → extrai valor, fornecedor, categoria, vencimento</li>
+<li>Reconcilia com extrato bancário (OFX/CSV)</li>
+<li>Categoriza despesas automaticamente</li>
+<li>Alerta: "R$15.000 em despesas não categorizadas este mês"</li>
+<li>Projeção de fluxo de caixa ("Com os vencimentos dos próximos 15 dias, saldo projetado: R$X")</li>
+<li>DRE simplificado mensal automático</li>
+</ul>
+
+<p><strong>Resultado:</strong> Contabilidade básica no piloto automático. O contador recebe tudo organizado.</p>
+
+<hr>
+
+<h3>9. CRM Invisível (Contatos + Histórico)</h3>
+<p><strong>O que o empresário sente:</strong> "Não lembro quando foi meu último contato com o cliente X"</p>
+
+<p>O JVOS cruza dados de WhatsApp + Email + Calendar + Reuniões para construir:</p>
+<ul>
+<li>Perfil de cada contato (quem é, empresa, último contato, tom da relação)</li>
+<li>Timeline de interações por pessoa</li>
+<li>Alerta de relacionamento esfriando ("Faz 30 dias sem falar com João da Empresa Y")</li>
+<li>Score de engajamento (quem responde rápido, quem some)</li>
+<li>Sugestão de follow-up com contexto</li>
+</ul>
+
+<p><strong>Resultado:</strong> CRM que se preenche sozinho. Zero input manual. Baseado em interações reais.</p>
+
+<hr>
+
+<h3>10. Voz como Interface (Áudio → Ação)</h3>
+<p><strong>O que o empresário sente:</strong> "Tenho ideias no carro/banho e esqueço"</p>
+
+<p>O JVOS aceita áudio como input principal:</p>
+<ul>
+<li>Grava memo de voz → transcreve → classifica → executa</li>
+<li>"Lembrar de ligar pro fornecedor amanhã" → cria tarefa</li>
+<li>"Ideias para campanha de natal: ..." → salva em memória com tag</li>
+<li>"Resumo da reunião que acabou: ..." → gera ata formatada</li>
+<li>"Email pro João: ..." → gera rascunho pronto pra enviar</li>
+<li>Transcrição de reuniões inteiras → action items extraídos</li>
+</ul>
+
+<p><strong>Resultado:</strong> O empresário pensa em voz alta e o JVOS materializa. Mãos livres, zero fricção.</p>
+
+<hr>
+
+<h3>11. Monitoramento de Sites/Sistemas (Uptime + Performance)</h3>
+<p><strong>O que o empresário sente:</strong> "Só descubro que o site caiu quando cliente reclama"</p>
+
+<p>O JVOS monitora endpoints configurados:</p>
+<ul>
+<li>Ping a cada 5min (sem token, puro HTTP)</li>
+<li>Alerta instantâneo se cair (push notification / WhatsApp / email)</li>
+<li>Monitora tempo de resposta (performance degradando?)</li>
+<li>Screenshot diário para detectar mudanças visuais</li>
+<li>Monitora SSL (certificado vencendo em X dias)</li>
+<li>Status page automática para clientes</li>
+</ul>
+
+<p><strong>Resultado:</strong> Saber antes do cliente que algo está errado. Resolver antes de virar crise.</p>
+
+<hr>
+
+<h3>12. Inteligência de Preços e Concorrentes</h3>
+<p><strong>O que o empresário sente:</strong> "Não sei se meu preço tá competitivo"</p>
+
+<p>O JVOS monitora concorrentes periodicamente:</p>
+<ul>
+<li>Scraping de preços em sites/marketplaces</li>
+<li>Alerta quando concorrente muda preço</li>
+<li>Comparativo automático (sua oferta vs. mercado)</li>
+<li>Detecta lançamentos/promoções de concorrentes</li>
+<li>Resumo semanal: "Concorrente X baixou 15% no produto Y. Seu preço está 20% acima da média."</li>
+</ul>
+
+<p><strong>Resultado:</strong> Inteligência competitiva que grandes empresas pagam R$50K/mês em consultoria — entregue automaticamente.</p>
+
+<hr>
+
+<h3>13. Onboarding de Colaborador Automático</h3>
+<p><strong>O que o empresário sente:</strong> "Todo novo funcionário precisa de 2 semanas pra entender a empresa"</p>
+
+<p>Quando um novo membro entra:</p>
+<ul>
+<li>Gera checklist personalizado (acessos, documentos, treinamentos)</li>
+<li>Cria base de conhecimento da empresa acessível via chat</li>
+<li>Responde perguntas do novo funcionário ("como funciona X aqui?") baseado em documentos internos</li>
+<li>Envia lembretes progressivos (dia 1, 3, 7, 14, 30)</li>
+<li>Coleta feedback do onboarding automaticamente</li>
+</ul>
+
+<p><strong>Resultado:</strong> Onboarding de 2 semanas comprimido em 3 dias. Menos pergunta repetitiva pro gestor.</p>
+
+<hr>
+
+<h3>14. Relatório de Reunião Automático para Quem Faltou</h3>
+<p><strong>O que o empresário sente:</strong> "Reunião com 8 pessoas mas 3 faltaram e ninguém resume"</p>
+
+<p>Após cada reunião registrada:</p>
+<ul>
+<li>IA gera ata com: decisões, action items, responsáveis, prazos</li>
+<li>Envia automaticamente para quem estava convidado mas não participou</li>
+<li>Formato configurável (bullet points, formal, casual)</li>
+<li>Inclui "contexto necessário" para quem não estava lá entender</li>
+<li>Cria tarefas automaticamente para os responsáveis (se integração ativa)</li>
+</ul>
+
+<p><strong>Resultado:</strong> Ninguém mais fica por fora. Reunião gera resultado documentado, não só conversa.</p>
+
+<hr>
+
+<h3>15. Pipeline de Vendas Inteligente</h3>
+<p><strong>O que o empresário sente:</strong> "Leads entram e morrem no funil porque ninguém acompanha"</p>
+
+<p>O JVOS monitora o pipeline de vendas:</p>
+<ul>
+<li>Detecta leads parados há X dias → alerta vendedor</li>
+<li>Calcula probabilidade de fechamento por estágio</li>
+<li>Sugere próxima ação ("Lead está há 5 dias em 'proposta enviada' — ligar?")</li>
+<li>Previsão de receita baseada em pipeline atual</li>
+<li>Identifica padrões: "Leads do canal X fecham 3x mais que do canal Y"</li>
+<li>Weekly automático: "3 deals prestes a fechar (R$45K). 5 leads esfriando."</li>
+</ul>
+
+<p><strong>Resultado:</strong> Pipeline que se gerencia sozinho. Nenhum lead esquecido. Previsibilidade de receita.</p>
+
+<hr>
+
+<h3>16. Controle de Assinaturas e SaaS</h3>
+<p><strong>O que o empresário sente:</strong> "Pago 30 ferramentas e nem sei quanto gasto no total"</p>
+
+<p>O JVOS identifica assinaturas via:</p>
+<ul>
+<li>Emails de cobrança recorrente</li>
+<li>Extrato bancário/cartão</li>
+<li>Cria inventário: ferramenta, preço, frequência, quem usa, renovação</li>
+<li>Alerta antes de renovação ("Hotjar renova em 5 dias — R$890/ano. Último uso foi há 60 dias. Cancelar?")</li>
+<li>ROI por ferramenta: "Mailchimp: R$200/mês, 12% de abertura. Vale?"</li>
+<li>Total mensal consolidado + tendência</li>
+</ul>
+
+<p><strong>Resultado:</strong> Visibilidade total sobre para onde o dinheiro vai. Cortar ferramentas inúteis sem esforço.</p>
+
+<hr>
+
+<h3>17. Knowledge Base Viva da Empresa</h3>
+<p><strong>O que o empresário sente:</strong> "A informação está na cabeça das pessoas, não num sistema"</p>
+
+<p>O JVOS constrói uma base de conhecimento continuamente:</p>
+<ul>
+<li>Absorve documentos (processos, manuais, contratos)</li>
+<li>Ouve conversas (WhatsApp, Slack, Discord) e extrai conhecimento</li>
+<li>Qualquer pessoa da empresa pergunta: "Como funciona nosso processo de devolução?" → resposta instantânea</li>
+<li>Detecta informação desatualizada ("Este processo menciona 'sistema antigo' — atualizar?")</li>
+<li>Versiona: sabe o que mudou e quando</li>
+</ul>
+
+<p><strong>Resultado:</strong> Memória institucional que não depende de nenhuma pessoa. Novo funcionário se auto-serve.</p>
+
+<hr>
+
+<h3>18. Agenda Inteligente com Priorização</h3>
+<p><strong>O que o empresário sente:</strong> "Tenho 50 coisas pra fazer e não sei por onde começar"</p>
+
+<p>O JVOS cruza: Calendar + Tarefas + Deadlines + Importância e gera:</p>
+<ul>
+<li>"Suas 3 prioridades de hoje" (baseado em impacto + urgência + dependências)</li>
+<li>Sugestão de time-blocking ("Bloco de 2h de manhã para [tarefa estratégica]")</li>
+<li>Alerta de sobrecarga ("Você tem 14h de compromisso amanhã — impossível. Reagendar X e Y?")</li>
+<li>Retrospectiva semanal: "Você planejou 20 tarefas, completou 12. Padrão: tarefas após 16h raramente são concluídas."</li>
+<li>Sugere delegação: "Tarefa X pode ser feita por [pessoa] — quer delegar?"</li>
+</ul>
+
+<p><strong>Resultado:</strong> De "lista infinita de tarefas" para "3 coisas certas no momento certo."</p>
+
+<hr>
+
+<h3>19. Social Media Listener (Instagram/LinkedIn/X)</h3>
+<p><strong>O que o empresário sente:</strong> "Não sei o que falam da minha marca online"</p>
+
+<p>O JVOS monitora menções e interações:</p>
+<ul>
+<li>Menções à marca, produto, ou pessoa</li>
+<li>Comentários em posts (sentimento positivo/negativo)</li>
+<li>DMs não respondidas (alerta)</li>
+<li>Performance de posts (quais performam, por quê)</li>
+<li>Trending topics no nicho</li>
+<li>Sugestão de resposta para comentários importantes</li>
+</ul>
+
+<p><strong>Resultado:</strong> Presença digital monitorada 24/7. Crises detectadas antes de escalar. Oportunidades capturadas.</p>
+
+<hr>
+
+<h3>20. Contratos e Documentos com Alerta de Vencimento</h3>
+<p><strong>O que o empresário sente:</strong> "Descubro que contrato venceu quando o fornecedor cobra multa"</p>
+
+<p>O JVOS processa contratos (PDF) e extrai:</p>
+<ul>
+<li>Partes envolvidas</li>
+<li>Valor e condições</li>
+<li>Data de início, vigência, vencimento</li>
+<li>Cláusulas de renovação automática</li>
+<li>Multas por cancelamento</li>
+<li>Obrigações (o que cada parte precisa entregar)</li>
+</ul>
+
+<p>Cria timeline de alertas:</p>
+<ul>
+<li>"Contrato com Empresa X vence em 30 dias. Renovação automática se não cancelar até dia 15."</li>
+<li>"Cláusula 5.2 obriga entrega de relatório mensal — último enviado há 45 dias."</li>
+</ul>
+
+<p><strong>Resultado:</strong> Zero multa por esquecimento. Zero renovação indesejada. Gestão contratual no piloto automático.</p>
+
+<hr>
+
+<h2>Resumo Executivo: O Stack Completo</h2>
+
+<pre><code>
+┌─────────────────────────────────────────────────────────┐
+│                    JVOS — Camadas                         │
+├─────────────────────────────────────────────────────────┤
+│                                                          │
+│  OUVIR           ENTENDER          AGIR                  │
+│  ─────           ────────          ────                  │
+│  WhatsApp        Classificar       Criar tarefa          │
+│  Email           Extrair           Agendar               │
+│  Discord         Relacionar        Alertar               │
+│  Calendar        Priorizar         Enviar email          │
+│  Sheets          Resumir           Atualizar planilha    │
+│  Notion/Trello   Detectar padrão   Gerar relatório      │
+│  Redes sociais   Prever            Notificar             │
+│  Documentos      Recomendar        Sincronizar           │
+│  Sistemas/APIs   Aprender          Delegar               │
+│                                                          │
+├─────────────────────────────────────────────────────────┤
+│  Motor: Actions Engine (inspirado n8n + Make)            │
+│  Cérebro: Multi-Agent LLM (router inteligente)          │
+│  Memória: Contexto persistente + Knowledge Base          │
+│  Interface: Chat + Voz + Visual Builder                  │
+└─────────────────────────────────────────────────────────┘
+</code></pre>
+
+<hr>
+
+<h2>O Pitch em 1 Frase</h2>
+
+<blockquote><strong>"O JVOS é o funcionário que ouve tudo, esquece nada, e faz o trabalho chato por você — usando as ferramentas que você já usa."</strong></blockquote>
+
+<hr>
+
+<h2>Priorização para MVP</h2>
+
+<table><thead><tr>
+<th>Prioridade</th>
+<th>Ideia</th>
+<th>Razão</th>
+</tr></thead><tbody>
+<tr>
+<td>P0</td>
+<td>WhatsApp Listener</td>
+<td>Dor #1 de PME brasileira</td>
+</tr>
+<tr>
+<td>P0</td>
+<td>Google Sheets Vivo</td>
+<td>Todo empresário tem planilha</td>
+</tr>
+<tr>
+<td>P0</td>
+<td>Calendar Inteligente</td>
+<td>Reunião é rotina diária</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>Email Intelligence</td>
+<td>Volume alto, ROI claro</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>Repetições → Automação</td>
+<td>Diferencial único do JVOS</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>Voz como Interface</td>
+<td>Reduz fricção drasticamente</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>Financeiro Automático</td>
+<td>Dor universal, alto valor percebido</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>Notion/Trello Sync</td>
+<td>Depende do público usar PM tool</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>CRM Invisível</td>
+<td>Combina dados de P0/P1</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>Discord Intelligence</td>
+<td>Público com comunidade</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>Knowledge Base</td>
+<td>Alto valor mas demora pra popular</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>Monitoramento Sites</td>
+<td>Nicho mais técnico</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>Preços/Concorrentes</td>
+<td>Depende de scraping funcional</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>Pipeline Vendas</td>
+<td>Precisa de CRM base</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>Controle SaaS</td>
+<td>Nice-to-have</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>Onboarding</td>
+<td>Empresas com contratação</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>Relatório Reunião</td>
+<td>Precisa de transcrição</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>Agenda Inteligente</td>
+<td>Combina Calendar + Tasks</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>Social Listener</td>
+<td>Complexo, APIs instáveis</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>Contratos</td>
+<td>Precisa de OCR robusto</td>
+</tr>
+</tbody></table>
+
+<hr>
+
+<h2>Modelo de Monetização por Feature</h2>
+
+<table><thead><tr>
+<th>Feature</th>
+<th>Free</th>
+<th>Pro (R$197)</th>
+<th>Business (R$497)</th>
+</tr></thead><tbody>
+<tr>
+<td>WhatsApp Listener</td>
+<td>1 número, 50 msgs/dia</td>
+<td>Ilimitado</td>
+<td>Multi-número</td>
+</tr>
+<tr>
+<td>Sheets Monitor</td>
+<td>1 planilha</td>
+<td>10 planilhas</td>
+<td>Ilimitado</td>
+</tr>
+<tr>
+<td>Calendar Intel</td>
+<td>Briefing básico</td>
+<td>Completo + sugestões</td>
+<td>Multi-calendário</td>
+</tr>
+<tr>
+<td>Email</td>
+<td>Triagem só</td>
+<td>Completo + rascunhos</td>
+<td>Multi-conta</td>
+</tr>
+<tr>
+<td>Automações</td>
+<td>3 ativas</td>
+<td>20 ativas</td>
+<td>Ilimitado</td>
+</tr>
+<tr>
+<td>Voz</td>
+<td>5 memos/dia</td>
+<td>Ilimitado</td>
+<td>+ Transcrição reunião</td>
+</tr>
+<tr>
+<td>Financeiro</td>
+<td>Categorização</td>
+<td>Fluxo de caixa</td>
+<td>DRE + projeção</td>
+</tr>
+<tr>
+<td>Knowledge Base</td>
+<td>—</td>
+<td>Básico</td>
+<td>Completo + equipe</td>
+</tr>
+<tr>
+<td>Integrações</td>
+<td>2</td>
+<td>10</td>
+<td>Ilimitado</td>
+</tr>
+</tbody></table>
+
+<hr>
+
+<h2>Por que Alguém Escolhe JVOS em vez de ChatGPT + Zapier</h2>
+
+<table><thead><tr>
+<th>Cenário</th>
+<th>ChatGPT + Zapier</th>
+<th>JVOS</th>
+</tr></thead><tbody>
+<tr>
+<td>"Quero saber o que falaram no WhatsApp"</td>
+<td>Impossível</td>
+<td>1 click</td>
+</tr>
+<tr>
+<td>"Minha planilha tem erro"</td>
+<td>Copiar/colar no chat</td>
+<td>JVOS já sabe, já alertou</td>
+</tr>
+<tr>
+<td>"Prepara minha reunião"</td>
+<td>Prompt manual</td>
+<td>Automático 30min antes</td>
+</tr>
+<tr>
+<td>"Manda email pro cliente"</td>
+<td>ChatGPT escreve, você copia</td>
+<td>JVOS escreve e envia</td>
+</tr>
+<tr>
+<td>"O que meu time fez essa semana?"</td>
+<td>Abrir 5 ferramentas</td>
+<td>Pergunta no chat</td>
+</tr>
+<tr>
+<td>"Me lembra de cobrar o João"</td>
+<td>Google Keep manual</td>
+<td>JVOS já detectou o combinado no WhatsApp</td>
+</tr>
+<tr>
+<td>"Quero automatizar X"</td>
+<td>Montar Zap manualmente</td>
+<td>Diz o que quer, JVOS cria</td>
+</tr>
+<tr>
+<td>Preço</td>
+<td>$20 + $20 = $40/mês</td>
+<td>R$197/mês (tudo junto)</td>
+</tr>
+<tr>
+<td>Resultado</td>
+<td>Ferramentas separadas</td>
+<td>Sistema unificado inteligente</td>
+</tr>
+</tbody></table>
+
+<hr>
+
+<p>*Documento gerado em 17 de maio de 2026 — JVOS Strategy*</p>
+
+</body>
+</html>

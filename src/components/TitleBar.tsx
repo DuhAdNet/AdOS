@@ -11,15 +11,15 @@ export default function TitleBar({ theme, onToggleTheme }: TitleBarProps) {
     >
       <div className="flex items-center gap-2.5">
         <div className="w-6 h-6 rounded-md bg-surface-2 border border-default flex items-center justify-center">
-          <span className="text-[10px] font-semibold text-secondary">A</span>
+          <span className="text-[10px] font-semibold text-secondary">J</span>
         </div>
-        <span className="text-xs font-medium text-secondary tracking-wide">AdOS</span>
+        <span className="text-xs font-medium text-secondary tracking-wide">JVOS</span>
       </div>
 
       <div className="flex items-center gap-1" style={{ WebkitAppRegion: 'no-drag' } as React.CSSProperties}>
         <button
           onClick={onToggleTheme}
-          className="w-7 h-7 flex items-center justify-center rounded-lg hover:bg-surface-2 text-muted transition-colors"
+          className="w-7 h-7 flex items-center justify-center rounded-lg hover:bg-surface-2 text-muted transition-all duration-300 hover:rotate-45 active:rotate-180"
           title={theme === 'dark' ? 'Modo claro' : 'Modo escuro'}
         >
           {theme === 'dark' ? (

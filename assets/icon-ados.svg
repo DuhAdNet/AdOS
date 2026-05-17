@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" fill="none">
+  <!-- Left half: Silver brain outline (minimal curves) -->
+  <g clip-path="url(#left)">
+    <!-- Brain curves - left side (silver) -->
+    <path d="M128 60 C95 60 70 85 65 110 C60 135 65 155 75 170 C85 185 95 195 100 210" stroke="#C0C0C0" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <path d="M128 75 C105 78 88 95 85 115 C82 135 90 152 100 165" stroke="#C0C0C0" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.7"/>
+    <path d="M128 95 C112 98 100 110 98 125 C96 140 102 152 110 160" stroke="#C0C0C0" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="0.5"/>
+    <!-- "A" left leg (silver) -->
+    <line x1="128" y1="50" x2="78" y2="206" stroke="#C0C0C0" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- "A" crossbar left half -->
+    <line x1="95" y1="155" x2="128" y2="155" stroke="#C0C0C0" stroke-width="2" stroke-linecap="round"/>
+  </g>
+
+  <!-- Right half: Gold brain outline (minimal curves) -->
+  <g clip-path="url(#right)">
+    <!-- Brain curves - right side (gold) -->
+    <path d="M128 60 C161 60 186 85 191 110 C196 135 191 155 181 170 C171 185 161 195 156 210" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <path d="M128 75 C151 78 168 95 171 115 C174 135 166 152 156 165" stroke="#D4AF37" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.7"/>
+    <path d="M128 95 C144 98 156 110 158 125 C160 140 154 152 146 160" stroke="#D4AF37" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="0.5"/>
+    <!-- "A" right leg (gold) -->
+    <line x1="128" y1="50" x2="178" y2="206" stroke="#D4AF37" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- "A" crossbar right half -->
+    <line x1="128" y1="155" x2="161" y2="155" stroke="#D4AF37" stroke-width="2" stroke-linecap="round"/>
+  </g>
+
+  <!-- Center dividing line (the "A" apex cuts through) -->
+  <line x1="128" y1="45" x2="128" y2="215" stroke="#ffffff" stroke-width="0.5" opacity="0.15"/>
+
+  <!-- Clip paths to split left/right -->
+  <defs>
+    <clipPath id="left">
+      <rect x="0" y="0" width="128" height="256"/>
+    </clipPath>
+    <clipPath id="right">
+      <rect x="128" y="0" width="128" height="256"/>
+    </clipPath>
+  </defs>
+</svg>
