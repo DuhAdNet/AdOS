@@ -275,10 +275,16 @@ contextBridge.exposeInMainWorld('ados', {
     onPairingUpdated: (callback: () => void) => {
       ipcRenderer.on('telegram:pairing-updated', () => callback());
     },
+    onProcessMessage: (callback: (data: { sessionId: string; chatId: number; userText: string }) => void) => {
+      ipcRenderer.on('telegram:process-message', (_e, data) => callback(data));
+    },
+    replyFromSession: (chatId: number, reply: string, sessionId: string) =>
+      ipcRenderer.invoke('telegram:reply-from-session', chatId, reply, sessionId),
     removeListeners: () => {
       ipcRenderer.removeAllListeners('telegram:message');
       ipcRenderer.removeAllListeners('telegram:error');
       ipcRenderer.removeAllListeners('telegram:pairing-updated');
+      ipcRenderer.removeAllListeners('telegram:process-message');
     },
   },
   actions: {

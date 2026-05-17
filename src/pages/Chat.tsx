@@ -201,7 +201,13 @@ export default function Chat({ sessionId, onUpdateTitle }: ChatProps) {
     ados.db.getSessionSetting(sessionId, 'message_queue').then((q: string | null) => {
       if (q) { try { const parsed = JSON.parse(q); if (Array.isArray(parsed) && parsed.length > 0) { setMessageQueue(parsed); messageQueueRef.current = parsed; } } catch {} }
     });
-    return () => { ados.llm.removeStreamListeners(); listenersRegistered.current = false; };
+    // Reload messages when Telegram injects into this session
+    const onTelegramReload = (e: Event) => {
+      const detail = (e as CustomEvent).detail;
+      if (detail?.sessionId === sessionId) loadMessages();
+    };
+    window.addEventListener('telegram-session-update', onTelegramReload);
+    return () => { ados.llm.removeStreamListeners(); listenersRegistered.current = false; window.removeEventListener('telegram-session-update', onTelegramReload); };
   }, [sessionId]);
   useEffect(() => { loadAcItems(); loadModels(); loadRoutingState(); loadConnectedTools(); }, []);
 
@@ -857,6 +863,13 @@ export default function Chat({ sessionId, onUpdateTitle }: ChatProps) {
         if (hasToolCalls) {
           ados.db.setSessionSetting?.(sessionId, `steps_${assistantMsg.id}`, JSON.stringify(finalSteps)).catch(() => {});
         }
+        // Forward to Telegram if session is paired (bidirectional)
+        ados.db.getTelegramPairings?.().then((pairings: any[]) => {
+          const pairing = pairings?.find((p: any) => p.session_id === sessionId && p.direction !== 'tg-to-session');
+          if (pairing) {
+            ados.telegram.send(pairing.chat_id, content).catch(() => {});
+          }
+        }).catch(() => {});
       }
       const approxTokens = Math.ceil(accumulated.length / 4);
       setOutputTokens(prev => prev + approxTokens);

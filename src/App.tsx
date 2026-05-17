@@ -66,6 +66,39 @@ export default function App() {
       if (state.url) setBrowserUrl(state.url);
       if (state.sessionId) setBrowserSessionId(state.sessionId);
     });
+
+    // Telegram bridge: process messages from paired chats using the same LLM stream
+    ados.telegram.onProcessMessage(async (data: { sessionId: string; chatId: number; userText: string }) => {
+      try {
+        // Notify Chat component to reload (shows user message from Telegram)
+        window.dispatchEvent(new CustomEvent('telegram-session-update', { detail: { sessionId: data.sessionId } }));
+
+        // Get session history
+        const messages = await ados.db.getMessages(data.sessionId);
+        const history = messages.map((m: any) => ({ role: m.role, content: m.content }));
+
+        // Stream LLM response (same as typing in chat)
+        let reply = '';
+        ados.llm.onStreamChunk((chunk: string) => { reply += chunk; });
+        const endPromise = new Promise<void>((resolve) => {
+          ados.llm.onStreamEnd(() => resolve());
+        });
+
+        const model = await ados.db.getSetting('default_model') || 'gpt-4.1-mini';
+        await ados.llm.stream(history, model);
+        await endPromise;
+        ados.llm.removeStreamListeners();
+
+        if (reply) {
+          await ados.telegram.replyFromSession(data.chatId, reply, data.sessionId);
+          // Notify Chat component to reload (shows assistant reply)
+          window.dispatchEvent(new CustomEvent('telegram-session-update', { detail: { sessionId: data.sessionId } }));
+        }
+      } catch (err: any) {
+        console.error('Telegram process error:', err);
+      }
+    });
+
     const onThemeChange = (e: Event) => {
       const t = (e as CustomEvent).detail as 'dark' | 'light';
       setTheme(t);

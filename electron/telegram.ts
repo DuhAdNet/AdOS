@@ -1,8 +1,5 @@
 import { ipcMain, BrowserWindow } from 'electron';
 import { getSetting, setSetting, getDb } from './database';
-import OpenAI from 'openai';
-import { getStoredKey } from './providers';
-import { getOpenAIAccessToken } from './openai-oauth';
 
 const BASE_URL = 'https://api.telegram.org/bot';
 
@@ -256,183 +253,39 @@ async function handleAutoReply(chatId: number, userText: string) {
   const [sessionId, direction] = rows[0].values[0] as [string, string];
   if (direction === 'session-to-tg') return; // Only outbound, don't auto-reply
 
-  // Get conversation history from this session
-  const msgRows = db.exec(
-    'SELECT role, content FROM messages WHERE session_id = ? ORDER BY created_at DESC LIMIT 20',
-    [sessionId]
-  );
-  const history: Array<{ role: string; content: string }> = [];
-  if (msgRows.length && msgRows[0].values.length) {
-    for (const r of msgRows[0].values.reverse()) {
-      history.push({ role: r[0] as string, content: r[1] as string });
-    }
-  }
-
-  // Add current user message
-  history.push({ role: 'user', content: userText });
-
   // Save user message to session
   const userMsgId = `tg_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`;
   db.run('INSERT INTO messages (id, session_id, role, content) VALUES (?, ?, ?, ?)', [userMsgId, sessionId, 'user', userText]);
   db.run('UPDATE sessions SET updated_at = datetime("now") WHERE id = ?', [sessionId]);
 
-  // Get LLM response
-  try {
-    const reply = await generateReply(history);
-    if (reply) {
+  // Send to renderer — it will trigger the LLM stream in the session context and reply back
+  if (mainWin && !mainWin.isDestroyed()) {
+    mainWin.webContents.send('telegram:process-message', { sessionId, chatId, userText });
+  }
+}
+
+
+export function registerTelegramHandlers(win: BrowserWindow) {
+  mainWin = win;
+
+  // Handle reply from renderer after LLM stream completes
+  ipcMain.handle('telegram:reply-from-session', async (_event, chatId: number, reply: string, sessionId: string) => {
+    const db = getDb();
+    if (reply && db) {
       // Save assistant reply to session
       const replyId = `tg_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`;
       db.run('INSERT INTO messages (id, session_id, role, content) VALUES (?, ?, ?, ?)', [replyId, sessionId, 'assistant', reply]);
       db.run('UPDATE sessions SET updated_at = datetime("now") WHERE id = ?', [sessionId]);
 
-      // Send reply to Telegram (fallback to plain text if Markdown fails)
+      // Send reply to Telegram
       try {
-        await telegramApi('sendMessage', {
-          chat_id: chatId,
-          text: reply,
-          parse_mode: 'Markdown',
-        });
+        await telegramApi('sendMessage', { chat_id: chatId, text: reply, parse_mode: 'Markdown' });
       } catch {
-        await telegramApi('sendMessage', {
-          chat_id: chatId,
-          text: reply,
-        });
-      }
-
-      // Notify renderer
-      if (mainWin && !mainWin.isDestroyed()) {
-        mainWin.webContents.send('telegram:message', {
-          id: Date.now(),
-          chatId,
-          chatTitle: '',
-          chatType: 'private',
-          from: null,
-          text: reply,
-          date: Math.floor(Date.now() / 1000),
-        });
+        await telegramApi('sendMessage', { chat_id: chatId, text: reply });
       }
     }
-  } catch (err: any) {
-    // Send error to Telegram so user knows something failed
-    try {
-      await telegramApi('sendMessage', {
-        chat_id: chatId,
-        text: `⚠️ Erro ao processar: ${err.message}`,
-      });
-    } catch {}
-  }
-}
-
-async function generateReply(messages: Array<{ role: string; content: string }>): Promise<string> {
-  const defaultModel = getSetting('default_model') || 'gpt-4.1-mini';
-  const systemMsg = 'You are a helpful assistant responding via Telegram. Keep responses concise. Respond in the same language as the user.';
-
-  const cleanMessages = messages
-    .filter(m => m.role === 'user' || m.role === 'assistant')
-    .map(m => ({ role: m.role as 'user' | 'assistant', content: m.content }));
-
-  if (cleanMessages.length === 0) {
-    throw new Error('Nenhuma mensagem para processar');
-  }
-
-  const errors: string[] = [];
-
-  // 0. Try OAuth (same provider as JVOS chat sessions)
-  const oauthToken = getOpenAIAccessToken();
-  if (oauthToken) {
-    try {
-      const client = new OpenAI({
-        apiKey: oauthToken,
-        baseURL: 'https://chatgpt.com/backend-api/codex',
-        defaultHeaders: { 'x-codex-client-version': '0.1.0' },
-      });
-      const response = await client.chat.completions.create({
-        model: 'gpt-4.1-mini',
-        messages: [
-          { role: 'system', content: systemMsg },
-          ...cleanMessages,
-        ],
-      });
-      return response.choices[0]?.message?.content || '';
-    } catch (err: any) {
-      errors.push(`OAuth: ${err.status || ''} ${err.message || err}`);
-    }
-  }
-
-  // 1. Try OpenAI API key
-  const openaiKey = getStoredKey('openai');
-  if (openaiKey) {
-    try {
-      const client = new OpenAI({ apiKey: openaiKey });
-      let model = defaultModel;
-      if (model.startsWith('o3') || model.startsWith('o4') || !model.startsWith('gpt')) {
-        model = 'gpt-4.1-mini';
-      }
-      const response = await client.chat.completions.create({
-        model,
-        messages: [
-          { role: 'system', content: systemMsg },
-          ...cleanMessages,
-        ],
-      });
-      return response.choices[0]?.message?.content || '';
-    } catch (err: any) {
-      errors.push(`OpenAI: ${err.status || ''} ${err.message || err}`);
-    }
-  }
-
-  // 2. Try Anthropic
-  const anthropicKey = getStoredKey('anthropic');
-  if (anthropicKey) {
-    try {
-      const response = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'x-api-key': anthropicKey, 'anthropic-version': '2023-06-01' },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-6-20250514',
-          max_tokens: 2048,
-          system: systemMsg,
-          messages: cleanMessages,
-        }),
-      });
-      const data = await response.json();
-      if (data.error) throw new Error(data.error.message || `HTTP ${response.status}`);
-      const text = data.content?.[0]?.text;
-      if (text) return text;
-    } catch (err: any) {
-      errors.push(`Anthropic: ${err.message || err}`);
-    }
-  }
-
-  // 3. Try Google
-  const googleKey = getStoredKey('google');
-  if (googleKey) {
-    try {
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${googleKey}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          systemInstruction: { parts: [{ text: systemMsg }] },
-          contents: cleanMessages.map(m => ({ role: m.role === 'assistant' ? 'model' : 'user', parts: [{ text: m.content }] })),
-        }),
-      });
-      const data = await response.json();
-      if (data.error) throw new Error(data.error.message || `HTTP ${response.status}`);
-      const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
-      if (text) return text;
-    } catch (err: any) {
-      errors.push(`Google: ${err.message || err}`);
-    }
-  }
-
-  if (errors.length > 0) {
-    throw new Error(`Todas as APIs falharam:\n${errors.join('\n')}`);
-  }
-  throw new Error('Nenhuma API key configurada. Adicione uma chave em Configurações > Provedores (OpenAI, Anthropic ou Google).');
-}
-
-export function registerTelegramHandlers(win: BrowserWindow) {
-  mainWin = win;
+    return { success: true };
+  });
 
   // Auto-start polling on app boot if token exists
   try {

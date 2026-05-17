@@ -461,6 +461,70 @@ async function streamGoogle(
   if (win) win.webContents.send('llm:stream-end');
 }
 
+export async function generateReplyViaLLM(messages: Array<{ role: string; content: string }>, systemPrompt?: string): Promise<string> {
+  const selectedModel = (getSetting('default_model') as string) || 'gpt-4.1-mini';
+  const { providerId, baseUrl, api } = resolveProvider(selectedModel);
+
+  if (api === 'anthropic-messages') {
+    const apiKey = getStoredKey('anthropic');
+    if (!apiKey) throw new Error('Anthropic key não configurada');
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey, 'anthropic-version': '2023-06-01' },
+      body: JSON.stringify({ model: selectedModel, max_tokens: 2048, system: systemPrompt || '', messages }),
+    });
+    const data = await resp.json();
+    if (data.error) throw new Error(data.error.message);
+    return data.content?.[0]?.text || '';
+  }
+
+  if (api === 'google-generative') {
+    const apiKey = getStoredKey('google');
+    if (!apiKey) throw new Error('Google key não configurada');
+    const resp = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${selectedModel}:generateContent?key=${apiKey}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        systemInstruction: systemPrompt ? { parts: [{ text: systemPrompt }] } : undefined,
+        contents: messages.map(m => ({ role: m.role === 'assistant' ? 'model' : 'user', parts: [{ text: m.content }] })),
+      }),
+    });
+    const data = await resp.json();
+    if (data.error) throw new Error(data.error.message);
+    return data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+  }
+
+  const client = getClient(providerId, baseUrl);
+  if (!client) throw new Error('Nenhum provider configurado');
+
+  if (usingOAuth || isResponsesModel(selectedModel)) {
+    const input = messages.map(m => ({ role: m.role === 'assistant' ? 'assistant' : 'user', content: m.content }));
+    const effectiveModel = usingOAuth ? 'gpt-4.1-mini' : selectedModel;
+    const params: any = { model: effectiveModel, input, stream: true };
+    if (usingOAuth) {
+      params.store = false;
+    }
+    if (systemPrompt) params.instructions = systemPrompt;
+    const stream = await (client as any).responses.create(params);
+    let result = '';
+    for await (const event of stream) {
+      if (event.type === 'response.output_text.delta') {
+        result += event.delta || '';
+      }
+    }
+    return result;
+  } else {
+    const resp = await client.chat.completions.create({
+      model: selectedModel,
+      messages: [
+        ...(systemPrompt ? [{ role: 'system' as const, content: systemPrompt }] : []),
+        ...messages.map(m => ({ role: m.role as 'user' | 'assistant', content: m.content })),
+      ],
+    });
+    return resp.choices[0]?.message?.content || '';
+  }
+}
+
 export function registerLLMHandlers() {
   ipcMain.handle('llm:stop', () => {
     if (currentAbortController) {

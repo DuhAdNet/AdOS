@@ -50,9 +50,37 @@ Sessão de bugfixes e melhorias de estabilidade: **8 correções** de bugs repor
 
 ---
 
+## Telegram Bridge via Renderer (RESOLVIDO)
+
+### Problema
+O bot do Telegram não respondia — endpoint OAuth Codex (`chatgpt.com/backend-api/codex`) retorna 400 para chamadas feitas diretamente do processo Electron main.
+
+### Causa Raiz
+O OAuth token do Codex só funciona em chamadas feitas **dentro do contexto do renderer** (BrowserWindow). Chamadas do main process são rejeitadas com `400 status code (no body)`.
+
+### Solução: Renderer Bridge
+O Telegram delega a geração de resposta para o **renderer** — exatamente o mesmo caminho que o chat principal usa.
+
+**Fluxo:**
+1. Mensagem chega do Telegram → `telegram.ts` salva no banco (sessão pareada)
+2. `telegram.ts` envia `telegram:process-message` ao renderer via `webContents.send()`
+3. **App.tsx** escuta → pega histórico → chama `ados.llm.stream()` (mesmo stream do chat)
+4. Stream completa → renderer chama `ados.telegram.replyFromSession(chatId, reply, sessionId)`
+5. `telegram.ts` recebe → salva resposta → envia para Telegram
+
+### Arquivos Modificados
+- `electron/telegram.ts` — `handleAutoReply` emite para renderer
+- `electron/preload.ts` — expõe `onProcessMessage` e `replyFromSession`
+- `src/App.tsx` — listener global para `telegram:process-message`
+- `electron/llm.ts` — `generateReplyViaLLM` exportada, condição `usingOAuth || isResponsesModel()`
+
+---
+
 ## Pendente
 
-- [ ] Transcrição de voz: key Google está salva mas pode falhar com safeStorage — verificar log `[transcribe] keys available` após reiniciar app
+- [ ] Sincronização bidirecional: mensagens do TG não atualizam visualmente o chat em tempo real
+- [ ] Mensagens digitadas no chat não vão para o Telegram (caminho inverso)
+- [ ] Transcrição de voz: key Google pode falhar com safeStorage
 - [ ] Implementar versão Linux do JVOS
 - [ ] Fluxo MCP: direcionar usuário para link de credenciais ao criar source
 
